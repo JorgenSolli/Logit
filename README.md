@@ -52,7 +52,7 @@ The database will be a MySQL database.
 * name
 * email
 * password
-* Other Laravel data*
+* Laravel table data*
 
 ##### routes
 * id
@@ -65,18 +65,18 @@ The database will be a MySQL database.
 * goal_reps
 * goal_sets
 * goal_weight
-* Other Laravel data*
+* Laravel table data*
 
 ##### workouts
 * id
 * user_id
-* Other Laravel data*
+* Laravel table data*
 
 ##### workouts_junctions
 * workout_id
 * excercise_name
 * reps
 * set_nr
-* Other Laravel data*
+* Laravel table data*
 
-*Other Laravel data includes date
+*Includes the date
