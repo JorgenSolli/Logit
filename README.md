@@ -13,9 +13,13 @@ The menu will consist of several links to pages
 
 #### Dashboard
 A view of graps and diagrams.
+Including
+* Total weight lifted per session (graph)
+* Average sessions per week (Bar)
+* Musclegroups worked out (pie)
 
 #### My Routines
-This is the list of a set routines that each user will personally define
+This is the list of a set routines that each user will personally define.
 
 #### Start workout
 The user will be promted to select a routine. Each excersice will be shown (in order) and the user will be able to fill in the information after completing an excersice. Then proceed to the next.
@@ -32,6 +36,7 @@ The user will have access to statistics such as graphs and diagrams. The main pu
 #### Backend 
 * [PHP v5.7](https://secure.php.net/)
 * [Laravel v5.4](https://laravel.com/)
+* MySQL
 
 #### Frontend
 * [Twitter Bootstrap v4.0.0-alpha.6](https://v4-alpha.getbootstrap.com/)
@@ -40,4 +45,38 @@ The user will have access to statistics such as graphs and diagrams. The main pu
 * [ChartJs v2.0](http://www.chartjs.org/)
 
 ### The database
-Comming soon...
+The database will be a MySQL database.
+#### Tables
+##### users
+* id
+* name
+* email
+* password
+* Other Laravel data*
+
+##### routes
+* id
+* user_id
+* route_name
+
+##### routes_junctions
+* route_id
+* excercise_name
+* goal_reps
+* goal_sets
+* goal_weight
+* Other Laravel data*
+
+##### workouts
+* id
+* user_id
+* Other Laravel data*
+
+##### workouts_junctions
+* workout_id
+* excercise_name
+* reps
+* set_nr
+* Other Laravel data*
+
+*Other Laravel data includes date
