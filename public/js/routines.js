@@ -1,4 +1,16 @@
-$("#addMore").on('click', function() {
+$(".viewRoutine").on('click', function() {
+  var routineId = $(this).children('input').val();
+
+  $.ajax({
+    url: '/dashboard/my_routines/view/' + routineId,
+    method: 'GET',
+    success: function(data) {
+      $("#modalData").html(data['data']);
+    },
+  })
+});
+
+$(document).on('click', '#addMore', function() {
   var currentExerciseNr = parseInt($("#exerciseNr").val());
   var exerciseNr = currentExerciseNr + 1;
 

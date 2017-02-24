@@ -7,15 +7,16 @@
       <ul class="nav nav-sidebar">
         <li><a href="/dashboard"><span class="fa fa-tachometer fa-lg"></span>&nbsp;&nbsp;Dashboard</a></li>
         <li class="active"><a><span class="fa fa-tasks fa-lg"></span>&nbsp;&nbsp;My Routines</a></li>
-        <li><a href="#"><span class="fa fa-play fa-lg"></span>&nbsp;&nbsp;Start Workout</a></li>
-        <li><a href="#"><span class="fa fa-pencil fa-lg"></span>&nbsp;&nbsp;Edit Workouts</a></li>
+        <li><a href="/dashboard/start"><span class="fa fa-play fa-lg"></span>&nbsp;&nbsp;Start Workout</a></li>
+        <li><a href="/dashboard/workouts"><span class="fa fa-table fa-lg"></span>&nbsp;&nbsp;My Workouts</a></li>
       </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <h1 class="page-header">Add Routine</h1>
-      <form id="routines" method="POST" action="/dashboard/my_routines/add_routine">
+      <form id="routines" method="POST" action="/dashboard/my_routines">
         <input type="hidden" id="exerciseNr" value="0">
         {{ csrf_field() }}
+        {{ method_field('PUT') }}
         
         {{-- Routine Name --}}
         <div class="form-group">
@@ -68,7 +69,7 @@
         <button id="addMore" type="button" class="btn btn-info">Add another exercise!</button>
         <hr>
         <button type="submit" class="btn btn-success" href="my_routines/add_routine" role="button"><span class="fa fa-plus"></span> Add routine</button>
-        <a class="btn btn-danger" href="/dashboard" role="button"><span class="fa fa-ban"></span> Cancel</a>
+        <a class="btn btn-danger" href="/dashboard/my_routines" role="button"><span class="fa fa-ban"></span> Cancel</a>
       </form>
     </div>
   </div>
