@@ -17,4 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/dashboard', 'DashboardController@dashboard');
+
+// Routines
+Route::get('/dashboard/my_routines', 'RoutineController@routines');
+Route::get('/dashboard/my_routines/add_routine', 'RoutineController@addRoutine');
+Route::get('/dashboard/my_routines/{routine}', 'RoutineController@viewRoutine');
+
+Route::post('/dashboard/my_routines/add_routine', 'DashboardController@insertRoutine');
