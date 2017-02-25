@@ -13,11 +13,14 @@
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       	<div class="row">
-      		<div class="col-xs-4">
+      		<div class="col-xs-2">
       			<a href="/dashboard/start" class="btn-fullwidth btn btn-primary"><span class="fa fa-angle-left fa-lg"></span>&nbsp;&nbsp;Go back</a>
       		</div>
+          <div class="col-xs-2">
+            <a href="/clear" class="btn-fullwidth btn btn-danger"><span class="fa fa-times fa-lg"></span>&nbsp;&nbsp;Cancel Workout</a>
+          </div>
       		<div class="col-xs-8">
-      			<a href="/dashboard/workout/finish" class="btn-fullwidth btn btn-success"><span class="fa fa-trophy fa-lg"></span>&nbsp;&nbsp;Finish and save session</a>
+      			<a href="/dashboard/workout/finish" class="btn-fullwidth btn btn-success"><span class="fa fa-trophy fa-lg"></span>&nbsp;&nbsp;Finish session</a>
       		</div>
       	</div>
         <h2>Let's go! <small>Select an exercise</small></h2>

@@ -12,6 +12,10 @@ class ApiController extends Controller
 {
     public function getExercise ($exerciseId)
     {
+        $routineId = RoutineJunction::where('id', $exerciseId)
+            ->select('routine_id')
+            ->get();
+
     	$exercise = RoutineJunction::where('id', $exerciseId)
     		->where('user_id', Auth::id())
     		->firstOrFail();
@@ -21,15 +25,17 @@ class ApiController extends Controller
 		$returnHTML = view('workouts.exercise')
 			->with('exercise', $exercise)
 			->with('nrOfSets', $nrOfSets)
+            ->with('routineId', $routineId)
 			->render();
 		return response()->json(array('success' => true, 'data'=>$returnHTML));
     }
 
-    public function addExercise (Request $request)
+    public function addExercise ($routine_id, Request $request)
     {
     	session()->forget($request->exercise_name);
 
 		$workout = new Workout;
+        $exercise->routine_id = $routine_id;
 		$workout->user_id = Auth::id();
 		$workout->save();
 
@@ -37,6 +43,7 @@ class ApiController extends Controller
     		$exercise = new WorkoutJunction;
 
     		$exercise->workout_id 		= $workout->id;
+            $exercise->routine_id       = $routine_id;
     		$exercise->exercise_name 	= $request->exercise_name;
     		$exercise->reps 			= $value['reps'];
     		$exercise->set_nr 			= $value['set'];
@@ -44,5 +51,11 @@ class ApiController extends Controller
     		$exercise->save();
     	}
     	return back()->with('success', 'Exercise saved. Good job!');
+    }
+
+    public function flushSessions ()
+    {
+        session()->flush();
+        return back()->with('success', 'Workout successfully stopped');
     }
 }

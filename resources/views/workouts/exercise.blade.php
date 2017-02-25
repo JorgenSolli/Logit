@@ -1,7 +1,7 @@
 @unless (session($exercise->exercise_name))
 	<h1>You have already finished this exercise</h1>
 @else
-	<form action="/api/exercise" method="POST">
+	<form action="/api/exercise/{{ $routineId[0]['routine_id'] }}" method="POST">
 		{{ csrf_field() }}
 	  {{ method_field('PUT') }}
 		
@@ -25,11 +25,11 @@
 		@endfor
 
 		<div class="row">
-			<div class="col-xs-8">
-				<button style="width:100%" type="submit" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
-			</div>
 			<div class="col-xs-4">
 				<a style="width:100%" href="/dashboard/start" class="btn btn-danger">Cancel</a>
+			</div>
+			<div class="col-xs-8">
+				<button style="width:100%" type="submit" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
 			</div>
 		</div>
 	</form>

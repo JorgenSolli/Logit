@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@dashboard');
+Route::get('/clear', 'ApiController@flushSessions');
 
 /* Routines */
 Route::get('/dashboard/my_routines', 'RoutineController@routines');
@@ -40,4 +41,4 @@ Route::get('/dashboard/workout/finish', 'WorkoutController@finishWorkout');
 
 /* Exercises */
 Route::get('/api/exercise/{exerciseId}', 'ApiController@getExercise');
-Route::put('/api/exercise', 'ApiController@addExercise');
+Route::put('/api/exercise/{routineId}', 'ApiController@addExercise');
