@@ -22,60 +22,57 @@
     </script>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
+  <div id="app">
+    <div class="row">
+      <div class="col-xs-2 col-sm-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li class="hidden-xs nav-logo"><a><span class="fa fa-sticky-note-o fa-lg"></span>
+            <span class="hidden-xs">&nbsp;&nbsp;Loggit</a></span>
+          </li>
+          <li class="{{ (Request::is('dashboard') ? 'active' : '') }}"><a href="/dashboard"><span class="fa fa-tachometer fa-lg"></span>
+            <span class="hidden-xs">&nbsp;&nbsp;Dashboard</span></a>
+          </li>
+          <li class="{{ (Request::is('dashboard/my_routines') ? 'active' : '') }}"><a href="/dashboard/my_routines"><span class="fa fa-tasks fa-lg"></span>
+            <span class="hidden-xs">&nbsp;&nbsp;My Routines</a></span>
+          </li>
+          <li class="{{ (Request::is('dashboard/start') ? 'active' : '') }}"><a href="/dashboard/start"><span class="fa fa-play fa-lg"></span>
+            <span class="hidden-xs">&nbsp;&nbsp;Start Workout</span></a>
+          </li>
+          <li class="{{ (Request::is('dashboard/workouts') ? 'active' : '') }}"><a href="/dashboard/workouts"><span class="fa fa-table fa-lg"></span>
+            <span class="hidden-xs">&nbsp;&nbsp;My Workouts</span></a>
+          </li>
+          @if (Auth::guest())
+            <li>
+              <a href="{{ route('login') }}">Login</a>
+            </li>
+            <li>
+              <a href="{{ route('register') }}">Register</a>
+            </li>
+          @else
+            <li>
+              <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <span class="fa fa-sign-out fa-lg"></span><span class="hidden-xs">&nbsp;&nbsp;Logout</span>
+              </a>
+            </li>
+          @endif
+        </ul>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          {{ csrf_field() }}
+        </form>
+      </div>
+      <div id="app-data" class="col-xs-10 col-sm-10 col-sm-offset-2 main">
         @yield('content')
+      </div>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
-    @yield('script')
+  <!-- Scripts -->
+  <script src="/js/app.js"></script>
+  @yield('script')
 </body>
 </html>
+
+
+
+
+        

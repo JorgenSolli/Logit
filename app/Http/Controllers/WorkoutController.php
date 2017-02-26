@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\RoutineJunction;
+use App\WorkoutJunction;
 use App\Routine;
+use App\Workout;
 
 class WorkoutController extends Controller
 {
@@ -28,28 +30,61 @@ class WorkoutController extends Controller
     		->get();
 
         // If gymming is in progres, do not reset sessions
-        if (!session('gymming')) {
+        if (session('gymming') != $routine->id) {
             session()->flush();
             foreach ($exercises as $exercise) {
                 session()->put([
                       $exercise->exercise_name => $exercise->id
                 ]);
             }
+            session(['gymming' => $routine->id]);
         }
-        session(['gymming' => true]);
 
     	return view('workouts.startWorkout', [
-    		'exercises' => $exercises
+    		'exercises'  => $exercises,
+            'routine_id' => $routine->id
 		]);
     }
 
-    public function finishWorkout ()
+    public function finishWorkout ($routine_id)
     {
-        return back()->with('success', 'Session saved!');
+        $session = session('exercises');
+        session()->forget('exercises');
+        session()->forget('gymming');
+
+        $workout = new Workout;
+        $workout->routine_id = $routine_id;
+        $workout->user_id = Auth::id();
+        $workout->save();
+
+        foreach ($session as $session_exercise) {
+            $exercise_name = $session_exercise['exercise_name'];
+
+            foreach ($session_exercise['exercises'] as $exercise_specific) {
+                $exercise = new WorkoutJunction;
+
+                $exercise->workout_id       = $workout->id;
+                $exercise->routine_id       = $routine_id;
+                $exercise->exercise_name    = $exercise_name;
+                $exercise->reps             = $exercise_specific['reps'];
+                $exercise->set_nr           = $exercise_specific['set'];
+
+                $exercise->save();
+            }
+        }
+        return redirect('/dashboard/workouts')->with('success', 'Workout saved. Good job!');
     }
 
     public function viewWorkouts ()
     {
-    	
+    	$workouts = Workout::where('workouts.user_id', Auth::id())
+            ->join('routines', 'workouts.routine_id', '=', 'routines.id')
+            ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
+            ->orderBy('workouts.created_at', 'DESC')
+            ->get();
+
+        return view('workouts.myWorkouts', [
+            'workouts' => $workouts
+        ]);
     }
 }
