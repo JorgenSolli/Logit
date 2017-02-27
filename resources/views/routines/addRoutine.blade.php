@@ -55,7 +55,7 @@
     </div>
 
     <div id="formData"></div>
-    <button id="addMore" type="button" class="btn btn-info">Add another exercise!</button>
+    <button id="addMore" type="button" class="btn btn-primary">Add another!</button>
     <hr>
     <button type="submit" class="btn btn-success" href="my_routines/add_routine" role="button"><span class="fa fa-plus"></span> Add routine</button>
     <a class="btn btn-danger" href="/dashboard/my_routines" role="button"><span class="fa fa-ban"></span> Cancel</a>

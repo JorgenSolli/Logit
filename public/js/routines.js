@@ -14,7 +14,9 @@ $(document).on('click', '#addMore', function() {
   var currentExerciseNr = parseInt($("#exerciseNr").val());
   var exerciseNr = currentExerciseNr + 1;
 
-  var formData = '<hr>' +
+  var formData = '<div class="thisExercise">' +
+    '<hr>' +
+    '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' + 
     '<div class="form-group">' +
       '<label for="excersice_name">Excersice name</label>' +
       '<input type="text" class="form-control" id="excersice_name" name="exercises[' + exerciseNr + '][exercise_name]" placeholder="Excersice name">' +
@@ -44,8 +46,14 @@ $(document).on('click', '#addMore', function() {
         '<label for="goal_reps">Reps goal</label>' +
           '<input type="number" class="form-control" id="goal_reps" name="exercises[' + exerciseNr + '][goal_reps]" placeholder="How many repetitions per set">' +
       '</div>' +
-    '</div>';
-  console.log(currentExerciseNr);
+    '</div>' +
+  '</div>';
   $("#exerciseNr").val(exerciseNr);
 	$("#formData").append(formData);
+});
+
+$(document).on('click', '.deleteExercise', function() {
+  $(this).closest('.thisExercise').fadeOut(function() {
+    $(this).empty();
+  });
 });
