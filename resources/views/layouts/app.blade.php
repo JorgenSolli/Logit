@@ -29,26 +29,28 @@
           <li class="hidden-xs nav-logo"><a><span class="fa fa-sticky-note-o fa-lg"></span>
             <span class="hidden-xs">&nbsp;&nbsp;Loggit</a></span>
           </li>
-          <li class="{{ (Request::is('dashboard') ? 'active' : '') }}"><a href="/dashboard"><span class="fa fa-tachometer fa-lg"></span>
-            <span class="hidden-xs">&nbsp;&nbsp;Dashboard</span></a>
-          </li>
-          <li class="{{ (Request::is('dashboard/my_routines') ? 'active' : '') }}"><a href="/dashboard/my_routines"><span class="fa fa-tasks fa-lg"></span>
-            <span class="hidden-xs">&nbsp;&nbsp;My Routines</a></span>
-          </li>
-          <li class="{{ (Request::is('dashboard/start') ? 'active' : '') }}"><a href="/dashboard/start"><span class="fa fa-play fa-lg"></span>
-            <span class="hidden-xs">&nbsp;&nbsp;Start Workout</span></a>
-          </li>
-          <li class="{{ (Request::is('dashboard/workouts') ? 'active' : '') }}"><a href="/dashboard/workouts"><span class="fa fa-table fa-lg"></span>
-            <span class="hidden-xs">&nbsp;&nbsp;My Workouts</span></a>
-          </li>
           @if (Auth::guest())
-            <li>
-              <a href="{{ route('login') }}">Login</a>
+            <li class="{{ (Request::is('login') ? 'active' : '') }}">
+              <a href="{{ route('login') }}">
+                <span class="fa fa-sign-in fa-lg"></span>&nbsp;&nbsp;Login</a>
             </li>
-            <li>
-              <a href="{{ route('register') }}">Register</a>
+            <li class="{{ (Request::is('register') ? 'active' : '') }}">
+              <a href="{{ route('register') }}">
+                <span class="fa fa-user-plus fa-lg"></span>&nbsp;&nbsp;Register</a>
             </li>
           @else
+            <li class="{{ (Request::is('dashboard') ? 'active' : '') }}"><a href="/dashboard"><span class="fa fa-tachometer fa-lg"></span>
+              <span class="hidden-xs">&nbsp;&nbsp;Dashboard</span></a>
+            </li>
+            <li class="{{ (Request::is('dashboard/my_routines') ? 'active' : '') }}"><a href="/dashboard/my_routines"><span class="fa fa-tasks fa-lg"></span>
+              <span class="hidden-xs">&nbsp;&nbsp;My Routines</a></span>
+            </li>
+            <li class="{{ (Request::is('dashboard/start') ? 'active' : '') }}"><a href="/dashboard/start"><span class="fa fa-play fa-lg"></span>
+              <span class="hidden-xs">&nbsp;&nbsp;Start Workout</span></a>
+            </li>
+            <li class="{{ (Request::is('dashboard/workouts') ? 'active' : '') }}"><a href="/dashboard/workouts"><span class="fa fa-table fa-lg"></span>
+              <span class="hidden-xs">&nbsp;&nbsp;My Workouts</span></a>
+            </li>
             <li>
               <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <span class="fa fa-sign-out fa-lg"></span><span class="hidden-xs">&nbsp;&nbsp;Logout</span>
