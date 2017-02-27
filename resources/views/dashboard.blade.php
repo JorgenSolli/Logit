@@ -10,11 +10,11 @@
         <option value="months">Month</option>
       </select>
     </div>
-    <div class="col-md-1 col-sm-5">
+    <div class="col-md-2 col-sm-5">
       <select id="statistics-year" class="form-control">
       </select>
     </div>
-    <div class="col-md-1 col-sm-5" style="display: none">
+    <div class="col-md-2 col-sm-5" style="display: none">
       <select id="statistics-month" class="form-control">
       </select>
     </div>
