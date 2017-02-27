@@ -15,8 +15,7 @@ $(document).on('click', '#addMore', function() {
   var exerciseNr = currentExerciseNr + 1;
 
   var formData = '<div class="thisExercise">' +
-    '<hr>' +
-    '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' + 
+    '<hr>' + 
     '<div class="form-group">' +
       '<label for="excersice_name">Excersice name</label>' +
       '<input type="text" class="form-control" id="excersice_name" name="exercises[' + exerciseNr + '][exercise_name]" placeholder="Excersice name">' +
@@ -47,6 +46,7 @@ $(document).on('click', '#addMore', function() {
           '<input type="number" class="form-control" id="goal_reps" name="exercises[' + exerciseNr + '][goal_reps]" placeholder="How many repetitions per set">' +
       '</div>' +
     '</div>' +
+    '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
   '</div>';
   $("#exerciseNr").val(exerciseNr);
 	$("#formData").append(formData);
