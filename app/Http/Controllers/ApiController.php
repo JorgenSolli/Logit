@@ -45,6 +45,20 @@ class ApiController extends Controller
         return back()->with('success', 'Exercise saved. Good job!');
     }
 
+    public function getWorkout ($workoutId)
+    {
+
+        $workout = WorkoutJunction::where('workout_id', $workoutId)
+            ->where('user_id', Auth::id())
+            ->get();
+
+        $returnHTML = view('workouts.viewWorkout')
+            ->with('workout', $workout)
+            ->with('workoutId', $workoutId)
+            ->render();
+        return response()->json(array('success' => true, 'data'=>$returnHTML));
+    }
+
     public function flushSessions ()
     {
         session()->flush();

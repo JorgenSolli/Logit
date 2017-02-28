@@ -9,4 +9,16 @@ $(document).ready(function(){
 			},
 		})
 	});
+
+	$(".viewWorkout").on('click', function() {
+	  var routineId = $(this).children('input').val();
+
+	  $.ajax({
+	    url: '/api/get_workout/view/' + routineId,
+	    method: 'GET',
+	    success: function(data) {
+	      $("#modalData").html(data['data']);
+	    },
+	  })
+	});
 });

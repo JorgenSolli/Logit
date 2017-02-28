@@ -56,7 +56,6 @@ class WorkoutController extends Controller
         $workout->routine_id = $routine_id;
         $workout->user_id = Auth::id();
         $workout->save();
-
         foreach ($session as $session_exercise) {
             $exercise_name = $session_exercise['exercise_name'];
 
@@ -64,10 +63,12 @@ class WorkoutController extends Controller
                 $exercise = new WorkoutJunction;
 
                 $exercise->workout_id       = $workout->id;
+                $exercise->user_id          = Auth::id();
                 $exercise->routine_id       = $routine_id;
                 $exercise->exercise_name    = $exercise_name;
                 $exercise->reps             = $exercise_specific['reps'];
                 $exercise->set_nr           = $exercise_specific['set'];
+                $exercise->weight           = $exercise_specific['weight'];
 
                 $exercise->save();
             }
@@ -75,7 +76,7 @@ class WorkoutController extends Controller
         return redirect('/dashboard/workouts')->with('success', 'Workout saved. Good job!');
     }
 
-    public function viewWorkouts ()
+    public function viewWorkouts (Workout $workout)
     {
     	$workouts = Workout::where('workouts.user_id', Auth::id())
             ->join('routines', 'workouts.routine_id', '=', 'routines.id')
