@@ -1,4 +1,5 @@
 var graph = function(labels, data) {
+    
     var graph = document.getElementById("dashboardActivityGraph");
     var graphData = {
       labels : labels,
@@ -66,21 +67,20 @@ $(document).ready(function() {
             method: 'GET',
             url: '/api/getSessions/' + type + '/' + year + '/' + month,
             success: function(data) {
-                console.log(data);
+
                 if (type == 'year') {
                     for (i = 0; i < data['data'].length; i++) {
                         labels.push(data['data'][i]['month']);
                         graphData.push(data['data'][i]['total']);
                     }
                 }
-                else if (type = 'months') {
+                else if (type == 'months') {
                     for (i = 0; i < data['data'].length; i++) {
-                        labels.push(data['data'][i]['month']);
+                        labels.push(data['data'][i]['day']);
                         graphData.push(data['data'][i]['total']);
-                    }
+                        
+                    }   
                 }
-                console.log(labels);
-                console.log(graphData);
                 graph(labels, graphData);
             }
         })

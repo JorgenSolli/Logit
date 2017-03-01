@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\RoutineJunction;
 use App\Workout;
 use App\WorkoutJunction;
 use DB;
-
 class ApiController extends Controller
 {
     public function getExercise ($exerciseId)
@@ -16,48 +13,50 @@ class ApiController extends Controller
         $routineId = RoutineJunction::where('id', $exerciseId)
             ->select('routine_id')
             ->get();
-
-    	$exercise = RoutineJunction::where('id', $exerciseId)
-    		->where('user_id', Auth::id())
-    		->firstOrFail();
-
-		$nrOfSets = $exercise->goal_sets;
-
-		$returnHTML = view('workouts.exercise')
-			->with('exercise', $exercise)
-			->with('nrOfSets', $nrOfSets)
+        $exercise = RoutineJunction::where('id', $exerciseId)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+        $nrOfSets = $exercise->goal_sets;
+        $returnHTML = view('workouts.exercise')
+            ->with('exercise', $exercise)
+            ->with('nrOfSets', $nrOfSets)
             ->with('routineId', $routineId)
-			->render();
-		return response()->json(array('success' => true, 'data'=>$returnHTML));
+            ->render();
+        return response()->json(array('success' => true, 'data'=>$returnHTML));
     }
-
     public function addExercise ($routine_id, Request $request)
     {
-    	session()->forget($request->exercise_name);
-
+        session()->forget($request->exercise_name);
         session()->push('exercises', [
             'exercise_name' => $request->exercise_name, 
                 'exercises' => (
                     $request->exercise
                 ),
         ]);
-
         return back()->with('success', 'Exercise saved. Good job!');
     }
-
+    public function getWorkout ($workoutId)
+    {
+        $workout = WorkoutJunction::where('workout_id', $workoutId)
+            ->where('user_id', Auth::id())
+            ->get();
+        $returnHTML = view('workouts.viewWorkout')
+            ->with('workout', $workout)
+            ->with('workoutId', $workoutId)
+            ->render();
+        return response()->json(array('success' => true, 'data'=>$returnHTML));
+    }
     public function flushSessions ()
     {
         session()->flush();
         return redirect('/dashboard/start/')->with('success', 'Workout successfully stopped');
     }
-
     public function getGrapData ($type, $year, $month)
     {
         if ($type == "year") {
             $data = Workout::where('user_id', Auth::id())
                 ->where( DB::raw('YEAR(created_at)'), '=', date($year) )
                 ->get();
-
             $getMonth = [
                 'Jan' => 0, 
                 'Feb' => 1,
@@ -72,7 +71,6 @@ class ApiController extends Controller
                 'Nov' => 10,
                 'Dec' => 11
             ];
-
             $result = collect([
                 0  => ['month' => 'Jan', 'total' => 0], 
                 1  => ['month' => 'Feb', 'total' => 0],
@@ -87,7 +85,6 @@ class ApiController extends Controller
                 10 => ['month' => 'Nov', 'total' => 0],
                 11 => ['month' => 'Dec', 'total' => 0]
             ]);
-
             for ($i=0; $i < count($data); $i++) {
                 $month = $data[$i]->created_at->format('M');
                 $result->put($getMonth[$month], [
@@ -96,7 +93,6 @@ class ApiController extends Controller
                 ]);
             }
         } 
-
         elseif ($type == "months") {
             function is_leap_year($year) {
                 if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
@@ -104,7 +100,6 @@ class ApiController extends Controller
                 }
                 return 28;
             }
-
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
             $monthData = collect([
@@ -157,32 +152,26 @@ class ApiController extends Controller
                     'days' => 31
                 ] 
             ]);
-
             $result = collect([]);
-
             for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
-                $result->put($i, [
-                    'day' => $i,
-                    'total' => 0
-                ]);
+                $result->put($i - 1, ['day' => $i,'total' => 0]);
             }
-
             $data = Workout::where('user_id', Auth::id())
                 ->where(DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int']))
                 ->where(DB::raw('YEAR(created_at)'), '=', date($year))
                 ->orderBy('created_at', 'ASC')
                 ->get();
-
             foreach ($data as $value) {
                 $day = $value->created_at->format('d');
-                $result->put($day, ['total' => $result[$day]['total'] + 1]);
+                $result->put($day, [
+                    'day' => $day + 1,
+                    'total' => $result[$day]['total'] + 1]
+                );
             }
         }
-
         $rtn = ([
             'data' => $result
         ]);
-
         return $rtn;
     }
 }
