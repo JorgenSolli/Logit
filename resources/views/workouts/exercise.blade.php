@@ -20,9 +20,12 @@
 		    <label for="reps">Reps</label>
 		    <input type="number" class="form-control" name="exercise[{{ $i }}][reps]" placeholder="Your goal is {{ $exercise->goal_reps }}">
 		  </div>
-
 		  <hr>
 		@endfor
+		<div class="form-group">
+			<label for="note">Any notes?</label>
+			<textarea name="note" class="form-control" placeholder="Remind you of something next time you do this exercise..."></textarea>
+		</div>
 
 		<div class="row">
 			<div class="col-xs-4">

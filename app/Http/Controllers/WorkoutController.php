@@ -8,6 +8,7 @@ use App\RoutineJunction;
 use App\WorkoutJunction;
 use App\Routine;
 use App\Workout;
+use App\Note;
 
 class WorkoutController extends Controller
 {
@@ -49,21 +50,22 @@ class WorkoutController extends Controller
     public function finishWorkout ($routine_id)
     {
         $session = session('exercises');
-        session()->forget('exercises');
-        session()->forget('gymming');
+        // session()->forget('exercises');
+        // session()->forget('gymming');
+        
+        $user_id = Auth::id();
 
         $workout = new Workout;
         $workout->routine_id = $routine_id;
-        $workout->user_id = Auth::id();
+        $workout->user_id = $user_id;
         $workout->save();
+
         foreach ($session as $session_exercise) {
             $exercise_name = $session_exercise['exercise_name'];
-
             foreach ($session_exercise['exercises'] as $exercise_specific) {
                 $exercise = new WorkoutJunction;
-
                 $exercise->workout_id       = $workout->id;
-                $exercise->user_id          = Auth::id();
+                $exercise->user_id          = $user_id;
                 $exercise->routine_id       = $routine_id;
                 $exercise->exercise_name    = $exercise_name;
                 $exercise->reps             = $exercise_specific['reps'];
@@ -72,7 +74,15 @@ class WorkoutController extends Controller
 
                 $exercise->save();
             }
+
+            $note = new Note;
+            $note->user_id              = $user_id;
+            $note->workout_junction_id  = $exercise->id;
+            $note->note                 = $session_exercise['note'];
+            $note->save();
+
         }
+        
         return redirect('/dashboard/workouts')->with('success', 'Workout saved. Good job!');
     }
 

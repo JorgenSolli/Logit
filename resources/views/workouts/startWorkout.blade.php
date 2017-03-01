@@ -2,13 +2,13 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-xs-2">
+		<div class="col-md-3 col-sm-6">
 			<a href="/dashboard/start" class="btn-fullwidth btn btn-primary"><span class="fa fa-angle-left fa-lg"></span>&nbsp;&nbsp;Go back</a>
 		</div>
-    <div class="col-xs-2">
+    <div class="col-md-3 col-sm-6">
       <a href="/clear" class="btn-fullwidth btn btn-danger"><span class="fa fa-times fa-lg"></span>&nbsp;&nbsp;Cancel Workout</a>
     </div>
-		<div class="col-xs-8">
+		<div class="col-md-6 col-sm-12 m-t-xs">
 			<a href="/dashboard/workout/finish/{{ $routine_id }}" class="btn-fullwidth btn btn-success"><span class="fa fa-trophy fa-lg"></span>&nbsp;&nbsp;Finish and save session</a>
 		</div>
 	</div>

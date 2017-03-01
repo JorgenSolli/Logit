@@ -25,14 +25,25 @@ class ApiController extends Controller
 		return response()->json(array('success' => true, 'data'=>$returnHTML));
     }
     public function addExercise ($routine_id, Request $request)
-    {
+    {   
+
     	session()->forget($request->exercise_name);
+
         session()->push('exercises', [
             'exercise_name' => $request->exercise_name, 
-                'exercises' => (
-                    $request->exercise
-                ),
+            'note' => $request->note,
+            'exercises' => (
+                $request->exercise
+            ),
         ]);
+
+        // session()->push('exercises', [
+        //     'exercise_name' => $request->exercise_name, 
+        //         'exercises' => (
+        //             $request->exercise
+        //         ),
+        // ]);
+
         return back()->with('success', 'Exercise saved. Good job!');
     }
     public function getWorkout ($workoutId)
@@ -40,6 +51,7 @@ class ApiController extends Controller
         $workout = WorkoutJunction::where('workout_id', $workoutId)
             ->where('user_id', Auth::id())
             ->get();
+
         $returnHTML = view('workouts.viewWorkout')
             ->with('workout', $workout)
             ->with('workoutId', $workoutId)

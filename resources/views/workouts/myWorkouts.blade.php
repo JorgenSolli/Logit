@@ -9,7 +9,8 @@
       <tr>
         <th>Date</th>
         <th>Routine Name</th>
-        <th class="text-center">Action</th>
+        <th class="text-center">Delete</th>
+        <th class="text-center">Edit</th>
       </tr>
     </thead>
     <tbody>
@@ -18,10 +19,6 @@
           <th>{{ $workout->created_at }}</th>
           <td>{{ $workout->routine_name }}</td>
           <td class="text-center">
-            <a class="viewWorkout pointer" data-toggle="modal" data-target="#viewWorkoutModal">
-              <input type="hidden" value="{{ $workout->workout_id }}">
-              <span class="fa fa-pencil fa-lg"></span>
-            </a>
             &nbsp;&nbsp;&nbsp;
             <a onclick="event.preventDefault(); document.getElementById('delete-routine{{ $workout->workout_id }}').submit();">
               <span class="fa fa-trash-o fa-lg"></span>
@@ -30,6 +27,12 @@
               {{ csrf_field() }}
               {{ method_field('DELETE') }}
             </form>
+          </td>
+          <td class="text-center">
+            <a class="viewWorkout pointer" data-toggle="modal" data-target="#viewWorkoutModal">
+              <input type="hidden" value="{{ $workout->workout_id }}">
+              <span class="fa fa-pencil fa-lg"></span>
+            </a>
           </td>
         </tr>
       @endforeach
