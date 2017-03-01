@@ -24,7 +24,7 @@
 <body>
   <div id="app">
     <div class="row">
-      <div class="col-xs-2 col-sm-2 sidebar">
+      <div class="col-xs-0 col-sm-2 sidebar">
         <ul class="nav nav-sidebar">
           <li class="hidden-xs nav-logo"><a><span class="fa fa-sticky-note-o fa-lg"></span>
             <span class="hidden-xs">&nbsp;&nbsp;Loggit</a></span>
@@ -51,6 +51,9 @@
             <li class="{{ (Request::is('dashboard/workouts') ? 'active' : '') }}"><a href="/dashboard/workouts"><span class="fa fa-table fa-lg"></span>
               <span class="hidden-xs">&nbsp;&nbsp;My Workouts</span></a>
             </li>
+            <li class="disabled {{ (Request::is('dashboard/settings') ? 'active' : '') }}"><a href="/dashboard/settings"><span class="fa fa-cog fa-lg"></span>
+              <span class="hidden-xs">&nbsp;&nbsp;Settings</span></a>
+            </li>
             <li>
               <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <span class="fa fa-sign-out fa-lg"></span><span class="hidden-xs">&nbsp;&nbsp;Logout</span>
@@ -62,7 +65,7 @@
           {{ csrf_field() }}
         </form>
       </div>
-      <div id="app-data" class="col-xs-10 col-sm-10 col-sm-offset-2 main">
+      <div id="app-data" class="col-xs-12 col-sm-10 col-sm-offset-2 main">
         @yield('content')
       </div>
     </div>

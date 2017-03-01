@@ -2,14 +2,21 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\RoutineJunction;
-use App\Workout;
-use App\WorkoutJunction;
 use DB;
+use App\Note;
+use App\Workout;
+use App\RoutineJunction;
+use App\WorkoutJunction;
+
 class ApiController extends Controller
 {
     public function getExercise ($exerciseId)
     {
+
+        $note = Note::where('routine_junction_id', $exerciseId)
+            ->orderBy('created_at', 'DESC')
+            ->first();
+            
         $routineId = RoutineJunction::where('id', $exerciseId)
             ->select('routine_id')
             ->get();
@@ -21,6 +28,7 @@ class ApiController extends Controller
 			->with('exercise', $exercise)
 			->with('nrOfSets', $nrOfSets)
             ->with('routineId', $routineId)
+            ->with('note', $note)
 			->render();
 		return response()->json(array('success' => true, 'data'=>$returnHTML));
     }
@@ -32,17 +40,11 @@ class ApiController extends Controller
         session()->push('exercises', [
             'exercise_name' => $request->exercise_name, 
             'note' => $request->note,
+            'routine_junction_id' => $request->routine_junction_id,
             'exercises' => (
                 $request->exercise
             ),
         ]);
-
-        // session()->push('exercises', [
-        //     'exercise_name' => $request->exercise_name, 
-        //         'exercises' => (
-        //             $request->exercise
-        //         ),
-        // ]);
 
         return back()->with('success', 'Exercise saved. Good job!');
     }

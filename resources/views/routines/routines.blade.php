@@ -10,9 +10,10 @@
       <tr>
         <th>Routine Name</th>
         <th>Last used</th>
-        <th>Times used</th> 
-        <th>Created at</th>
-        <th class="text-center">Action</th>
+        <th class="hidden-sm hidden-xs">Times used</th> 
+        <th class="hidden-sm hidden-xs">Created at</th>
+        <th class="text-center">Delete</th>
+        <th class="text-center">Update</th>
       </tr>
     </thead>
     <tbody>
@@ -20,14 +21,15 @@
         <tr>
           <th>{{ $value->routine_name }}</th> 
           <td>N/A</td>
-          <td>N/A</td>
-          <td>{{ $value->created_at }}</td>
+          <td class="hidden-sm hidden-xs">N/A</td>
+          <td class="hidden-sm hidden-xs">{{ $value->created_at }}</td>
           <td class="text-center">
             <a class="viewRoutine pointer" data-toggle="modal" data-target="#viewRoutineModal">
               <input type="hidden" value="{{ $value->id }}">
               <span class="fa fa-pencil fa-lg"></span>
             </a>
-            &nbsp;&nbsp;&nbsp;
+          </td>
+          <td class="text-center">
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('delete-routine{{ $value->id }}').submit();">
               <span class="fa fa-trash-o fa-lg"></span>
             </a>

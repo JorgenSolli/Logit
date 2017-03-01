@@ -4,10 +4,18 @@
 	<form action="/api/exercise/{{ $routineId[0]['routine_id'] }}" method="POST">
 		{{ csrf_field() }}
 	  {{ method_field('PUT') }}
-		
-		<h1>{{ $exercise->exercise_name }}</h1>
 		<input type="hidden" name="exercise_name" value="{{ $exercise->exercise_name }}">
-		
+		<input type="hidden" name="routine_junction_id" value="{{ $exercise->id }}">
+		<h1>{{ $exercise->exercise_name }}</h1>
+
+		@if ($note && $note->note)
+			<div class="alert alert-success alert-dismissible" role="alert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <strong>Last time you did this exercise you left a note!<br><hr style="margin-top: 5px; margin-bottom: 5px"></strong> {{ $note->note }}
+			</div>
+		@endif
+
+
 		@for ($i = 1; $i <= $nrOfSets; $i++)
 			<h3>Set nr {{ $i }}</h3>
 			<input type="hidden" name="exercise[{{ $i }}][set]" value="{{ $i }}">

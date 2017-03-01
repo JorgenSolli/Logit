@@ -31,9 +31,18 @@
     bottom: 10px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+  .m-t-15-sm {
+    margin-top: 15px;
+  } 
+}
+
+@media (max-width: 767px) {
   .m-t-15-xs {
     margin-top: 15px;
+  }
+  .m-b-15-xs {
+    margin-bottom: 15px;
   } 
 }
 
@@ -115,9 +124,15 @@
   .nav-sidebar {
     margin-left: 0;
     text-align: center;
+    margin-bottom: 0;
+    background: #eeeeee;
+
+    li {
+      width: calc(100%/6);
+      display: inline-block;
+    }
 
     li a {
-      height: 45px;
       line-height: 42px;
       font-size: 1.5em;
       padding: 0;

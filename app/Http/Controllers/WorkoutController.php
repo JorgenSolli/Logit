@@ -50,9 +50,9 @@ class WorkoutController extends Controller
     public function finishWorkout ($routine_id)
     {
         $session = session('exercises');
-        // session()->forget('exercises');
-        // session()->forget('gymming');
-        
+        session()->forget('exercises');
+        session()->forget('gymming');
+
         $user_id = Auth::id();
 
         $workout = new Workout;
@@ -78,9 +78,9 @@ class WorkoutController extends Controller
             $note = new Note;
             $note->user_id              = $user_id;
             $note->workout_junction_id  = $exercise->id;
+            $note->routine_junction_id  = $session_exercise['routine_junction_id'];
             $note->note                 = $session_exercise['note'];
             $note->save();
-
         }
         
         return redirect('/dashboard/workouts')->with('success', 'Workout saved. Good job!');
