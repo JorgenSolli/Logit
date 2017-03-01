@@ -15,6 +15,7 @@ class CreateWorkoutJunctionsTable extends Migration
     {
         Schema::create('workout_junctions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('routine_id');
             $table->integer('workout_id');
             $table->string('exercise_name');
             $table->integer('reps');

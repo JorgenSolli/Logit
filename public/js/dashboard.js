@@ -66,15 +66,21 @@ $(document).ready(function() {
             method: 'GET',
             url: '/api/getSessions/' + type + '/' + year + '/' + month,
             success: function(data) {
-
-                for (i = 0; i < data['data'].length; i++) {
-                    labels.push(data['data'][i]['month']);
-                    graphData.push(data['data'][i]['total']);
+                console.log(data);
+                if (type == 'year') {
+                    for (i = 0; i < data['data'].length; i++) {
+                        labels.push(data['data'][i]['month']);
+                        graphData.push(data['data'][i]['total']);
+                    }
                 }
-
-                // console.log(data);
-                // console.log(graphData);
-                // console.log(labels);
+                else if (type = 'months') {
+                    for (i = 0; i < data['data'].length; i++) {
+                        labels.push(data['data'][i]['month']);
+                        graphData.push(data['data'][i]['total']);
+                    }
+                }
+                console.log(labels);
+                console.log(graphData);
                 graph(labels, graphData);
             }
         })

@@ -161,7 +161,10 @@ class ApiController extends Controller
             $result = collect([]);
 
             for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
-                $result->put($i, ['total' => 0]);
+                $result->put($i, [
+                    'day' => $i,
+                    'total' => 0
+                ]);
             }
 
             $data = Workout::where('user_id', Auth::id())
