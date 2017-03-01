@@ -43,8 +43,10 @@ Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts');
 Route::get('/dashboard/start', 'WorkoutController@selectWorkout');
 Route::get('/dashboard/start/{routine}', 'WorkoutController@startWorkout');
 Route::get('/dashboard/workout/finish/{routine_id}', 'WorkoutController@finishWorkout');
+// Read
 
-/* Exercises */
+/* APIs */
 Route::get('/api/exercise/{exerciseId}', 'ApiController@getExercise');
 Route::put('/api/exercise/{routineId}', 'ApiController@addExercise');
 Route::get('/api/getSessions/{type}/{year}/{month}', 'ApiController@getGrapData');
+Route::get('/api/get_workout/view/{workoutId}', 'ApiController@getWorkout');
