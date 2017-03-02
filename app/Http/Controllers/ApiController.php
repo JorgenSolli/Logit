@@ -59,7 +59,7 @@ class ApiController extends Controller
                 $request->exercise
             ),
         ]);
-        
+
         return back()->with('success', 'Exercise saved. Good job!');
     }
     public function getWorkout ($workoutId)
@@ -180,7 +180,9 @@ class ApiController extends Controller
                     'days' => 31
                 ] 
             ]);
+
             $result = collect([]);
+
             for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
                 $result->put($i - 1, ['day' => $i,'total' => 0]);
             }
@@ -189,12 +191,18 @@ class ApiController extends Controller
                 ->where(DB::raw('YEAR(created_at)'), '=', date($year))
                 ->orderBy('created_at', 'ASC')
                 ->get();
+
             foreach ($data as $value) {
                 $day = $value->created_at->format('d');
+                
+                // Removes a zero in front of the int.
+                if ($day > 0 && $day < 10) {
+                    $day = ltrim($day, 0);
+                }
                 $result->put($day, [
                     'day' => $day + 1,
-                    'total' => $result[$day]['total'] + 1]
-                );
+                    'total' => $result[$day]['total'] + 1
+                ]);
             }
         }
         $rtn = ([
