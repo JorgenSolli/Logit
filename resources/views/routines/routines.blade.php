@@ -24,19 +24,19 @@
           <td class="hidden-sm hidden-xs">N/A</td>
           <td class="hidden-sm hidden-xs">{{ $value->created_at }}</td>
           <td class="text-center">
+            <a class="pointer" onclick="event.preventDefault(); document.getElementById('delete-routine{{ $value->id }}').submit();">
+              <span class="fa fa-trash-o fa-lg"></span>
+            </a>
+            <form action="/dashboard/my_routines/{{ $value->id }}" method="POST" style="display: none;">
+              {{ csrf_field() }}
+              {{ method_field('DELETE') }}
+            </form>
+          </td>
+          <td class="text-center">
             <a class="viewRoutine pointer" data-toggle="modal" data-target="#viewRoutineModal">
               <input type="hidden" value="{{ $value->id }}">
               <span class="fa fa-pencil fa-lg"></span>
             </a>
-          </td>
-          <td class="text-center">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('delete-routine{{ $value->id }}').submit();">
-              <span class="fa fa-trash-o fa-lg"></span>
-            </a>
-            <form id="delete-routine{{ $value->id }}" action="/dashboard/my_routines/{{ $value->id }}" method="POST" style="display: none;">
-              {{ csrf_field() }}
-              {{ method_field('DELETE') }}
-            </form>
           </td>
         </tr>
       @endforeach

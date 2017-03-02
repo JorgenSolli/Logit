@@ -128,7 +128,7 @@
     background: #eeeeee;
 
     li {
-      width: calc(100%/6);
+      width: calc(100%/7);
       display: inline-block;
     }
 
@@ -139,8 +139,6 @@
     }
   }  
 }
-
-
 
 /*
  * Main content
@@ -177,4 +175,42 @@
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+}
+
+/*
+ * Helper classes
+ */
+@media (max-width: 991px) {
+  .clear-sm {
+    clear: both;
+  }
+}
+
+.m-t-15 {
+  margin-top: 15px;
+} 
+
+/*
+ * STICKYYYY
+ */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f8fa;
+  box-shadow: 0px 21px 15px 15px #737373;
+
+  .container {
+    margin-top: 23px;
+  }
 }

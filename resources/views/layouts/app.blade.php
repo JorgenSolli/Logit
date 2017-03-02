@@ -70,7 +70,11 @@
       </div>
     </div>
   </div>
-
+  <footer class="footer">
+    <div class="container">
+      <p class="text-muted">Loggit v1.0.0-beta made by <a href="https://jorgensolli.no/?lang=en">Jørgen Solli</a> · <a href="https://github.com/JorgenSolli/Loggit"><span class="fa fa-github fa-lg"></span></p>
+    </div>
+  </footer>
   <!-- Scripts -->
   <script src="/js/app.js"></script>
   @yield('script')

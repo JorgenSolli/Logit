@@ -79,7 +79,8 @@ class WorkoutController extends Controller
             $note->user_id              = $user_id;
             $note->workout_junction_id  = $exercise->id;
             $note->routine_junction_id  = $session_exercise['routine_junction_id'];
-            $note->note                 = $session_exercise['note'];
+            $note->note                 = $session_exercise['note']['text'];
+            $note->label                = $session_exercise['note']['labelType'];
             $note->save();
         }
         

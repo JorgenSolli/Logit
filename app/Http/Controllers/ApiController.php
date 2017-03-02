@@ -12,7 +12,6 @@ class ApiController extends Controller
 {
     public function getExercise ($exerciseId)
     {
-
         $note = Note::where('routine_junction_id', $exerciseId)
             ->orderBy('created_at', 'DESC')
             ->first();
@@ -20,12 +19,24 @@ class ApiController extends Controller
         $routineId = RoutineJunction::where('id', $exerciseId)
             ->select('routine_id')
             ->get();
+
     	$exercise = RoutineJunction::where('id', $exerciseId)
     		->where('user_id', Auth::id())
     		->firstOrFail();
+
 		$nrOfSets = $exercise->goal_sets;
+            
+        $previousExercise = WorkoutJunction::where('routine_id', $exercise->routine_id)
+            ->where('exercise_name', $exercise->exercise_name)
+            ->where('user_id', Auth::id())
+            ->select('weight', 'reps')
+            ->limit($nrOfSets)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
 		$returnHTML = view('workouts.exercise')
 			->with('exercise', $exercise)
+            ->with('prevExercise', $previousExercise)
 			->with('nrOfSets', $nrOfSets)
             ->with('routineId', $routineId)
             ->with('note', $note)
@@ -39,13 +50,16 @@ class ApiController extends Controller
 
         session()->push('exercises', [
             'exercise_name' => $request->exercise_name, 
-            'note' => $request->note,
+            'note' => ([
+                'text' => $request->note,
+                'labelType' => $request->labelType
+            ]),
             'routine_junction_id' => $request->routine_junction_id,
             'exercises' => (
                 $request->exercise
             ),
         ]);
-
+        
         return back()->with('success', 'Exercise saved. Good job!');
     }
     public function getWorkout ($workoutId)

@@ -9,30 +9,37 @@
 		<h1>{{ $exercise->exercise_name }}</h1>
 
 		@if ($note && $note->note)
-			<div class="alert alert-success alert-dismissible" role="alert">
+			<div class="alert {{ $note->label }} alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong>Last time you did this exercise you left a note!<br><hr style="margin-top: 5px; margin-bottom: 5px"></strong> {{ $note->note }}
 			</div>
 		@endif
-
 
 		@for ($i = 1; $i <= $nrOfSets; $i++)
 			<h3>Set nr {{ $i }}</h3>
 			<input type="hidden" name="exercise[{{ $i }}][set]" value="{{ $i }}">
 			<div class="form-group">
 		    <label for="weight">Weight</label>
-		    <input type="number" class="form-control" name="exercise[{{ $i }}][weight]" placeholder="Your goal is {{ $exercise->goal_weight }}">
+		    <input type="number" class="form-control" name="exercise[{{ $i }}][weight]" placeholder="Your goal is {{ $exercise->goal_weight }}. 
+		    @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
 		  </div>
 
 		  <div class="form-group">
 		    <label for="reps">Reps</label>
-		    <input type="number" class="form-control" name="exercise[{{ $i }}][reps]" placeholder="Your goal is {{ $exercise->goal_reps }}">
+		    <input type="number" class="form-control" name="exercise[{{ $i }}][reps]" placeholder="Your goal is {{ $exercise->goal_reps }}.
+		    @unless(empty($prevExercise[$i - 1])) Last time you did '{{ $prevExercise[$i - 1]['reps'] }} @endunless">
 		  </div>
 		  <hr>
 		@endfor
 		<div class="form-group">
-			<label for="note">Any notes?</label>
+			<label for="note">Something worth noting? You can also label the note below (if you like)</label>
 			<textarea name="note" class="form-control" placeholder="Remind you of something next time you do this exercise..."></textarea>
+			<label class="radio-inline">
+			  <input type="radio" name="labelType" value="alert-success"> Success
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="labelType" value="alert-warning"> Warning
+			</label>
 		</div>
 
 		<div class="row">

@@ -19,11 +19,10 @@
           <th>{{ $workout->created_at }}</th>
           <td>{{ $workout->routine_name }}</td>
           <td class="text-center">
-            &nbsp;&nbsp;&nbsp;
-            <a onclick="event.preventDefault(); document.getElementById('delete-routine{{ $workout->workout_id }}').submit();">
+            <a class="pointer" onclick="event.preventDefault(); document.getElementById('delete-routine{{ $workout->workout_id }}').submit();">
               <span class="fa fa-trash-o fa-lg"></span>
             </a>
-            <form id="delete-routine{{ $workout->workout_id }}" action="/dashboard/my_workouts/{{ $workout->workout_id }}" method="POST" style="display: none;">
+            <form action="/dashboard/my_workouts/{{ $workout->workout_id }}" method="POST" style="display: none;">
               {{ csrf_field() }}
               {{ method_field('DELETE') }}
             </form>
