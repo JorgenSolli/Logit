@@ -39,7 +39,7 @@ The user will have access to statistics such as graphs and diagrams. The main pu
 * MySQL
 
 #### Frontend
-* [Twitter Bootstrap v4.0.0-alpha.6](https://v4-alpha.getbootstrap.com/)
+* [Twitter Bootstrap v3.3.7](https://getbootstrap.com/)
 * [JavaScript](https://www.javascript.com/)
 * [jQuery v3.1.1](https://jquery.com/)
 * [ChartJs v2.0](http://www.chartjs.org/)
