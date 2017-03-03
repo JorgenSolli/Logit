@@ -15,8 +15,17 @@ class CreateRoutineJunctionsTable extends Migration
     {
         Schema::create('routine_junctions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('routine_id');
+            
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->integer('routine_id')->unsigned();
+            $table->foreign('routine_id')
+                ->references('id')->on('routines')
+                ->onDelete('cascade');
+
             $table->string('exercise_name');
             $table->string('muscle_group');
             $table->integer('goal_reps');

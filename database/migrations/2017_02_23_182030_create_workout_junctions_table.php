@@ -15,8 +15,22 @@ class CreateWorkoutJunctionsTable extends Migration
     {
         Schema::create('workout_junctions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('routine_id');
-            $table->integer('workout_id');
+
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->integer('routine_id')->unsigned();
+            $table->foreign('routine_id')
+                ->references('id')->on('routines')
+                ->onDelete('cascade');
+
+            $table->integer('workout_id')->unsigned();
+            $table->foreign('workout_id')
+                ->references('id')->on('workouts')
+                ->onDelete('cascade');
+
             $table->string('exercise_name');
             $table->integer('reps');
             $table->integer('set_nr');

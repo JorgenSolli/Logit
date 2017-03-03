@@ -3,6 +3,9 @@ $(document).ready(function(){
 		var exerciseId = $(this).attr('id');
 		$.ajax({
 			url: '/api/exercise/' + exerciseId,
+			headers: {
+	        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        },
 			method: 'GET',
 			success: function(data) {
 				$("#data").html(data['data'])

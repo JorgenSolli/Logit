@@ -94,7 +94,7 @@ class WorkoutController extends Controller
             ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
             ->orderBy('workouts.created_at', 'DESC')
             ->get();
-
+            
         return view('workouts.myWorkouts', [
             'workouts' => $workouts
         ]);
