@@ -15,6 +15,9 @@ $(document).ready(function(){
 
 	  $.ajax({
 	    url: '/api/get_workout/view/' + routineId,
+	    headers: {
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
 	    method: 'GET',
 	    success: function(data) {
 	      $("#modalData").html(data['data']);

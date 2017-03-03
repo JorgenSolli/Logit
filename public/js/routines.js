@@ -13,6 +13,9 @@ $(".viewRoutine").on('click', function() {
 
   $.ajax({
     url: '/dashboard/my_routines/view/' + routineId,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
     method: 'GET',
     success: function(data) {
       $("#modalData").html(data['data']);
