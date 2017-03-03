@@ -65,15 +65,15 @@
 
 		<div class="col-sm-3 fadeIn">
 			<div class="panel">
-				<h4><span class="fa fa-wrench"></span> Easy workout walkthrough</h4>
-				<p>Designed for the least amount of interaction without missing important data.</p>
+				<h4><span class="fa fa-heartbeat"></span> Easy workout walkthrough</h4>
+				<p>Focus on keeping your heartbeat up instead of spending your time entering data on your phone.</p>
 			</div>
 		</div>
 
 		<div class="col-sm-3 fadeIn">
 			<div class="panel">
 				<h4><span class="fa fa-magic"></span> Tracks your body fat</h4>
-				<p>No of course it doesn't you idiot. But I really wanted four panels in this row. Liiks nice yeah?</p>
+				<p>No of course it doesn't you idiot. But I really wanted four panels in this row. Looks nice yeah?</p>
 			</div>
 		</div>
 	</section>
