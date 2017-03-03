@@ -65,6 +65,9 @@ $(document).ready(function() {
 
         $.ajax({
             method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             url: '/api/getSessions/' + type + '/' + year + '/' + month,
             success: function(data) {
 

@@ -32,11 +32,11 @@
           @if (Auth::guest())
             <li class="{{ (Request::is('login') ? 'active' : '') }}">
               <a href="{{ route('login') }}">
-                <span class="fa fa-sign-in fa-lg"></span>&nbsp;&nbsp;Login</a>
+                <span class="fa fa-sign-in fa-lg"></span>&nbsp;&nbsp;<span class="hidden-xs">Login</span></a>
             </li>
             <li class="{{ (Request::is('register') ? 'active' : '') }}">
               <a href="{{ route('register') }}">
-                <span class="fa fa-user-plus fa-lg"></span>&nbsp;&nbsp;Register</a>
+                <span class="fa fa-user-plus fa-lg"></span><span class="hidden-xs">&nbsp;&nbsp;Register</span></a>
             </li>
           @else
             <li class="{{ (Request::is('dashboard') ? 'active' : '') }}"><a href="/dashboard"><span class="fa fa-tachometer fa-lg"></span>

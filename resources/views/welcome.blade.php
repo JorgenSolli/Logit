@@ -89,15 +89,6 @@
 					speed: 250,
 					easing: 'swing'
 				});
-
-				// $(this).find('.viewPhone_shadow').stop().animate({
-				// 	bottom: '8px',
-				// 	right: '278px',
-				// 	width: '333px'
-				// },{
-				// 	speed: 250,
-				// 	easing: 'swing'
-				// })
 			});
 
 			$(".phone").on('mouseleave', function() {
@@ -107,15 +98,6 @@
 					speed: 250,
 					easing: 'swing'
 				});
-
-				// $(this).find('.viewPhone_shadow').stop().animate({
-				// 	bottom: '0px',
-				// 	right: '257px',
-				// 	width: '360px'
-				// },{
-				// 	speed: 250,
-				// 	easing: 'swing'
-				// })
 			});
 		});
 	</script>
