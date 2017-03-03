@@ -13,7 +13,7 @@
 				@if (Auth::guest())
 					Why dont you give it a try? <a href="/register">Register right now and get going!</a> I'm a simple man. No need for email verification or information like age or sex. You'll be signed in and ready to go in literally seconds.
 				@else
-					Why dont you give it a try? <a class="pointer">Register rig...</a> Hey you're already signed in! Why the fuck are you still lurking on the front page? Get going, dude. <a href="/dashboard/my_routines/add_routine">Set up a workout session</a> or <a href="/dashboard/start">start a workout</a> and hit the gym. Goddammit, {{ Auth::user()->name }}!
+					Why dont you give it a try? <a class="pointer">Register rig...</a> Hey you're already signed in! Why the fuck are you still lurking on the front page? Get going, dude. <a href="/dashboard/my_routines/add_routine">Set up a workout routine</a> or <a href="/dashboard/start">start a workout</a> and hit the gym. Goddammit, {{ Auth::user()->name }}!
 				@endif
 			</p>
 		</div>
