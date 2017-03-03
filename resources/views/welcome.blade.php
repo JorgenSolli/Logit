@@ -19,8 +19,8 @@
 		</div>
 		<div class="col-sm-5">
 			<div class="phone slideInLeft">
-				<img class="viewPhone" src="/img/phone.png">
-				<img class="viewPhone_shadow" src="/img/phone_shadow.png">
+				<img class="viewPhone" src="/img/entire_phone.png">
+				<!-- <img class="viewPhone_shadow" src="/img/phone_shadow.png"> -->
 			</div>
 		</div>
 	</section>
@@ -84,20 +84,20 @@
 		$(document).ready(function(){
 			$(".phone").on('mouseover', function() {
 				$(this).find('.viewPhone').stop().animate({
-					bottom: '12px'
+					bottom: '4px'
 				},{
 					speed: 250,
 					easing: 'swing'
 				});
 
-				$(this).find('.viewPhone_shadow').stop().animate({
-					bottom: '8px',
-					right: '278px',
-					width: '333px'
-				},{
-					speed: 250,
-					easing: 'swing'
-				})
+				// $(this).find('.viewPhone_shadow').stop().animate({
+				// 	bottom: '8px',
+				// 	right: '278px',
+				// 	width: '333px'
+				// },{
+				// 	speed: 250,
+				// 	easing: 'swing'
+				// })
 			});
 
 			$(".phone").on('mouseleave', function() {
@@ -108,14 +108,14 @@
 					easing: 'swing'
 				});
 
-				$(this).find('.viewPhone_shadow').stop().animate({
-					bottom: '0px',
-					right: '257px',
-					width: '360px'
-				},{
-					speed: 250,
-					easing: 'swing'
-				})
+				// $(this).find('.viewPhone_shadow').stop().animate({
+				// 	bottom: '0px',
+				// 	right: '257px',
+				// 	width: '360px'
+				// },{
+				// 	speed: 250,
+				// 	easing: 'swing'
+				// })
 			});
 		});
 	</script>
