@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Loggit') }}</title>
-
+    
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -76,7 +76,9 @@
     </div>
   </footer>
   <!-- Scripts -->
-  <script src="/js/app.js"></script>
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/jquery-ui.min.js"></script>
+  <script src="/js/jquery.ui.touch-punch.min.js"></script>
   @yield('script')
 </body>
 </html>

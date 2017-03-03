@@ -1,3 +1,13 @@
+$(function() {
+  $("#sortable")
+    .sortable({
+      handle: '.handle',
+      cursor: 'move',
+      cancel: ''
+    })
+    .disableSelection();
+});
+
 $(".viewRoutine").on('click', function() {
   var routineId = $(this).children('input').val();
 
@@ -16,6 +26,9 @@ $(document).on('click', '#addMore', function() {
 
   var formData = '<div class="thisExercise">' +
     '<hr>' + 
+    '<div class="sort-icon handle">Drag me to sort' +
+      '<span class="fa fa-arrows-v"></span>' +
+    '</div>' +
     '<div class="form-group">' +
       '<label for="excersice_name">Excersice name</label>' +
       '<input type="text" class="form-control" id="excersice_name" name="exercises[' + exerciseNr + '][exercise_name]" placeholder="Excersice name">' +
@@ -49,7 +62,7 @@ $(document).on('click', '#addMore', function() {
     '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
   '</div>';
   $("#exerciseNr").val(exerciseNr);
-	$("#formData").append(formData);
+	$("#sortable").append(formData);
 });
 
 $(document).on('click', '.deleteExercise', function() {

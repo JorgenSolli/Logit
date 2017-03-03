@@ -214,3 +214,16 @@ body {
     margin-top: 23px;
   }
 }
+
+.sort-icon {
+  cursor: move;
+  float: right;
+  position: relative;
+  bottom: 5px;
+  clear: both;
+
+  span {
+    margin-left: 10px;
+    font-size: 1.2em;
+  }
+}
