@@ -26,7 +26,7 @@
     <div class="row">
       <div class="col-xs-0 col-sm-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="hidden-xs nav-logo"><a><span class="fa fa-sticky-note-o fa-lg"></span>
+          <li class="hidden-xs nav-logo"><a href="/"><span class="fa fa-pencil fa-lg"></span>
             <span class="hidden-xs">&nbsp;&nbsp;Loggit</a></span>
           </li>
           @if (Auth::guest())
@@ -72,7 +72,7 @@
   </div>
   <footer class="footer">
     <div class="container">
-      <p class="text-muted">Loggit v1.0.0-beta made by <a href="https://jorgensolli.no/?lang=en">Jørgen Solli</a> · <a href="https://github.com/JorgenSolli/Loggit"><span class="fa fa-github fa-lg"></span></p>
+      <p class="text-muted">Loggit v1.0.0-beta.2 made by <a href="https://jorgensolli.no/?lang=en">Jørgen Solli</a> · <a href="https://github.com/JorgenSolli/Loggit"><span class="fa fa-github fa-lg"></span></p>
     </div>
   </footer>
   <!-- Scripts -->

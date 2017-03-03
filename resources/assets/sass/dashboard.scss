@@ -50,16 +50,13 @@
 .nav-logo {
   a {
     color: white;
-    
+
     &:hover {
-     background: #e85272 !important;
+      background: #2d2d2d !important;
     }
   }
-  background: #ff6384;
 
-  &:hover {
-    background: #e85272 !important;
-  }
+  background: #333;
 }
 
 /*
@@ -112,7 +109,6 @@
     left: 0;
     z-index: 1000;
     display: block;
-    padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #f5f5f5;
@@ -188,7 +184,13 @@
 
 .m-t-15 {
   margin-top: 15px;
-} 
+}
+.m-t-0 {
+  margin-top: 0;
+}
+.m-b-0 {
+  margin-bottom: 0;
+}
 
 /*
  * STICKYYYY
@@ -225,5 +227,147 @@ body {
   span {
     margin-left: 10px;
     font-size: 1.2em;
+  }
+}
+
+/* Welcome */
+.viewPhone {
+  position: relative;
+  width: 360px;
+  max-width: 100%;
+  object-fit: contain;
+}
+.viewPhone_shadow {
+  position: absolute;
+  bottom: 0;
+  right: 257px;
+  width: 360px;
+  object-fit: contain;
+  z-index: -1;
+}
+
+.panel {
+  transition: .2s;
+  
+  &:hover {
+    transition: .3s;
+    border: 1px solid rgba(10, 10, 10, 0.33);
+    box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.app-logo-header {
+  position: relative;
+  animation-name: h1AnimateIn;
+  animation-duration: 1s;
+  animation-delay: .2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+@keyframes h1AnimateIn {
+  from {
+    opacity: 0;
+    bottom: 45px;
+  }
+
+  to {
+    opacity: 1;
+    bottom: 0;
+  }
+}
+
+.app-logo-subtitle {
+  animation-name: subtitleAnimateIn;
+  animation-duration: 1s;
+  animation-delay: .7s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+@keyframes subtitleAnimateIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+.slideInLeft {
+  animation-name: SlideInLeft;
+  animation-duration: .7s;
+  animation-delay: .8s;
+  animation-fill-mode: forwards;
+  position: relative;
+  opacity: 0;
+}
+@keyframes SlideInLeft {
+  from {
+    left: 50px;
+    opacity: 0;
+  }
+
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+.slideInRight {
+  animation-name: slideInRight;
+  animation-duration: .7s;
+  animation-delay: .8s;
+  animation-fill-mode: forwards;
+  position: relative;
+  opacity: 0;
+}
+@keyframes slideInRight {
+  from {
+    right: 50px;
+    opacity: 0;
+  }
+
+  to {
+    right: 0;
+    opacity: 1;
+  }
+}
+
+.slideInBottom {
+  animation-name: slideInBottom;
+  animation-duration: .7s;
+  animation-delay: .8s;
+  animation-fill-mode: forwards;
+  position: relative;
+  opacity: 0;
+}
+@keyframes slideInBottom {
+  from {
+    top: 50px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: .7s;
+  animation-delay: 0.7s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to{
+    opacity: 1;
   }
 }

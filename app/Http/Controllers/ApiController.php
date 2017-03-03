@@ -10,13 +10,27 @@ use App\WorkoutJunction;
 
 class ApiController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getExercise ($exerciseId)
     {
+        $userId = Auth::id();
+
         $note = Note::where('routine_junction_id', $exerciseId)
+            ->where('user_id', $userId)
             ->orderBy('created_at', 'DESC')
             ->first();
             
         $routineId = RoutineJunction::where('id', $exerciseId)
+            ->where('user_id', $userId)
             ->select('routine_id')
             ->get();
 
@@ -41,8 +55,10 @@ class ApiController extends Controller
             ->with('routineId', $routineId)
             ->with('note', $note)
 			->render();
+
 		return response()->json(array('success' => true, 'data'=>$returnHTML));
     }
+    
     public function addExercise ($routine_id, Request $request)
     {   
 
@@ -62,6 +78,7 @@ class ApiController extends Controller
 
         return back()->with('success', 'Exercise saved. Good job!');
     }
+
     public function getWorkout ($workoutId)
     {
         $workout = WorkoutJunction::where('workout_id', $workoutId)
@@ -74,11 +91,13 @@ class ApiController extends Controller
             ->render();
         return response()->json(array('success' => true, 'data'=>$returnHTML));
     }
+    
     public function flushSessions ()
     {
         session()->flush();
         return redirect('/dashboard/start/')->with('success', 'Workout successfully stopped');
     }
+
     public function getGrapData ($type, $year, $month)
     {
         if ($type == "year") {
