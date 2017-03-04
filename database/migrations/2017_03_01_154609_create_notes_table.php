@@ -26,7 +26,7 @@ class CreateNotesTable extends Migration
                 ->references('id')->on('routine_junctions')
                 ->onDelete('cascade');
                 
-            $table->text('note')->nullable();
+            $table->string('note')->nullable();
             $table->mediumText('label')->default('alert-info');
             $table->timestamps();
         });
