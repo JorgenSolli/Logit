@@ -15,5 +15,6 @@ class Note extends Model
         'user_id',
         'workout_junction_id',
         'note',
+        'label',
     ];
 }

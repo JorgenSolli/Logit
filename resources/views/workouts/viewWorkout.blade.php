@@ -28,11 +28,11 @@
 	    	<input class="form-control" type="text" name="weight" value="{{ $workout[$i]['weight'] }}">
 	    </td>
 	    <td class="text-center">
-	    	<a href="/api/delete/workout_set/{{ $workout[$i]['id'] }}"><span class="fa fa-trash fa-lg"></span>
+	    	<a href="/api/delete/workout_set/{{ $workout[$i]['id'] }}"><span class="fa fa-trash fa-lg danger-color"></span>
 	    	</a>
     	</td>
 	    <td class="text-center">
-	    	<a href="/api/update/workout_set/{{ $workout[$i]['id'] }}" class="pointer"><span class="fa fa-floppy-o fa-lg"></span></a>
+	    	<a href="/api/update/workout_set/{{ $workout[$i]['id'] }}" class="pointer"><span class="fa fa-floppy-o fa-lg success-color"></span></a>
     	</td>
   	</tr>
 

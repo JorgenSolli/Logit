@@ -32,7 +32,7 @@ Route::get('/dashboard/my_routines/view/{routine}', 'RoutineController@viewRouti
 // Update
 Route::post('/dashboard/my_routines/edit/{routine}', 'RoutineController@updateRoutine');
 // Delete
-Route::delete('/dashboard/my_routines/{routine}', 'RoutineController@deleteRoutine');
+Route::get('/dashboard/my_routines/delete/{routine}', 'RoutineController@deleteRoutine');
 
 /* Workouts */
 Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts');

@@ -12,7 +12,7 @@ $(".viewRoutine").on('click', function() {
   var routineId = $(this).children('input').val();
 
   $.ajax({
-    url: '/dashboard/my_routines/view/' + routineId,
+    url: '/dashboard/my_routines/' + routineId,
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
@@ -23,6 +23,31 @@ $(".viewRoutine").on('click', function() {
   })
 });
 
+/* Functions for deleting a routing */
+$(".deleteRoutine").on('click', function() {
+  var routineId = $(this).attr('id');
+  $(".okDelete").attr('id', routineId);
+});
+
+$(".okDelete").on('click', function() {
+  var routineId = $(this).attr('id');
+  deleteRoutine(routineId);
+});
+
+var deleteRoutine = function(routineId) {
+  $.ajax({
+    url: '/dashboard/my_routines/delete/' + routineId,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    method: 'GET',
+    success: function(data) {
+      $("#routine-" + routineId).fadeOut();
+    },
+  });
+}
+
+/* Functions for removing/adding exerciserows */
 $(document).on('click', '#addMore', function() {
   var currentExerciseNr = parseInt($("#exerciseNr").val());
   var exerciseNr = currentExerciseNr + 1;

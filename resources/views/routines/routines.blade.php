@@ -13,29 +13,25 @@
         <th class="hidden-sm hidden-xs">Times used</th> 
         <th class="hidden-sm hidden-xs">Created at</th>
         <th class="text-center">Delete</th>
-        <th class="text-center">Update</th>
+        <th class="text-center">View/Edit</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($routines as $value)
-        <tr>
+        <tr id="routine-{{ $value->id }}">
           <th>{{ $value->routine_name }}</th> 
           <td>N/A</td>
           <td class="hidden-sm hidden-xs">N/A</td>
           <td class="hidden-sm hidden-xs">{{ $value->created_at }}</td>
           <td class="text-center">
-            <a class="pointer" onclick="event.preventDefault(); document.getElementById('delete-routine{{ $value->id }}').submit();">
-              <span class="fa fa-trash-o fa-lg"></span>
+            <a class="pointer deleteRoutine" id="{{ $value->id }}" data-toggle="modal" data-target="#OkDeleteModal">
+              <span class="fa fa-trash-o fa-lg danger-color"></span>
             </a>
-            <form action="/dashboard/my_routines/{{ $value->id }}" method="POST" style="display: none;">
-              {{ csrf_field() }}
-              {{ method_field('DELETE') }}
-            </form>
           </td>
           <td class="text-center">
             <a class="viewRoutine pointer" data-toggle="modal" data-target="#viewRoutineModal">
               <input type="hidden" value="{{ $value->id }}">
-              <span class="fa fa-pencil fa-lg"></span>
+              <span class="fa fa-pencil fa-lg success-color"></span>
             </a>
           </td>
         </tr>
@@ -47,9 +43,32 @@
   
   <div id="viewRoutineModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-      <!-- Modal content-->
       <div id="modalData" class="modal-content">
       </div>
+    </div>
+  </div>
+
+  <div id="OkDeleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Are you sure you wish to delete this routine?
+            <br><small><b>All connected exercises will be deleted!</b></small>
+          </h4>
+        </div>
+        <div class="modal-body">
+          <div class="row text-center">
+            <div class="col-sm-6">
+              <button id="" class="okDelete btn btn-danger btn-large is-fullwidth" data-dismiss="modal">DELETE</button>
+            </div>
+            <div class="col-sm-6">
+              <button class="btn btn-success btn-large is-fullwidth" data-dismiss="modal">CANCEL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 @endsection

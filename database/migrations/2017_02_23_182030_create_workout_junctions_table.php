@@ -32,8 +32,9 @@ class CreateWorkoutJunctionsTable extends Migration
                 ->onDelete('cascade');
 
             $table->string('exercise_name');
-            $table->integer('reps');
             $table->integer('set_nr');
+            $table->integer('reps');
+            $table->integer('weight');
             $table->timestamps();
         });
     }

@@ -43,7 +43,6 @@ class ApiController extends Controller
         $previousExercise = WorkoutJunction::where('routine_id', $exercise->routine_id)
             ->where('exercise_name', $exercise->exercise_name)
             ->where('user_id', Auth::id())
-            ->select('weight', 'reps')
             ->limit($nrOfSets)
             ->orderBy('created_at', 'DESC')
             ->get();
@@ -94,7 +93,8 @@ class ApiController extends Controller
     
     public function flushSessions ()
     {
-        session()->flush();
+        session()->forget('exercises');
+        session()->forget('gymming');
         return redirect('/dashboard/start/')->with('success', 'Workout successfully stopped');
     }
 

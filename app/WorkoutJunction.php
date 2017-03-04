@@ -17,5 +17,6 @@ class WorkoutJunction extends Model
         'exercise_name',
         'set_nr',
         'reps',
+        'weight',
     ];
 }

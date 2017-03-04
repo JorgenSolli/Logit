@@ -32,7 +32,9 @@ class WorkoutController extends Controller
 
         // If gymming is in progres, do not reset sessions
         if (session('gymming') != $routine->id) {
-            session()->flush();
+            session()->forget('exercises');
+            session()->forget('gymming');
+
             foreach ($exercises as $exercise) {
                 session()->put([
                       $exercise->exercise_name => $exercise->id
@@ -77,7 +79,6 @@ class WorkoutController extends Controller
 
             $note = new Note;
             $note->user_id              = $user_id;
-            $note->workout_junction_id  = $exercise->id;
             $note->routine_junction_id  = $session_exercise['routine_junction_id'];
             $note->note                 = $session_exercise['note']['text'];
             $note->label                = $session_exercise['note']['labelType'];

@@ -10,7 +10,7 @@
         <th>Date</th>
         <th>Routine Name</th>
         <th class="text-center">Delete</th>
-        <th class="text-center">Edit</th>
+        <th class="text-center">View/Edit</th>
       </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
           <td>{{ $workout->routine_name }}</td>
           <td class="text-center">
             <a class="pointer" onclick="event.preventDefault(); document.getElementById('delete-routine{{ $workout->workout_id }}').submit();">
-              <span class="fa fa-trash-o fa-lg"></span>
+              <span class="fa fa-trash-o fa-lg danger-color"></span>
             </a>
             <form action="/dashboard/my_workouts/{{ $workout->workout_id }}" method="POST" style="display: none;">
               {{ csrf_field() }}
@@ -30,7 +30,7 @@
           <td class="text-center">
             <a class="viewWorkout pointer" data-toggle="modal" data-target="#viewWorkoutModal">
               <input type="hidden" value="{{ $workout->workout_id }}">
-              <span class="fa fa-pencil fa-lg"></span>
+              <span class="fa fa-pencil fa-lg success-color"></span>
             </a>
           </td>
         </tr>

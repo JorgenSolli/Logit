@@ -137,6 +137,17 @@
 }
 
 /*
+ * Icon Styles
+ */
+
+.danger-color {
+  color: #bf5329;
+}
+.success-color {
+  color: #2ab27b;
+}
+
+/*
  * Main content
  */
 
@@ -176,6 +187,10 @@
 /*
  * Helper classes
  */
+ .is-fullwidth {
+  width: 100%;
+ }
+ 
 @media (max-width: 991px) {
   .clear-sm {
     clear: both;

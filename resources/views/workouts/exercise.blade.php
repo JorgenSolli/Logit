@@ -35,6 +35,9 @@
 			<label for="note">Something worth noting? You can also label the note below (if you like)</label>
 			<textarea name="note" class="form-control" placeholder="Remind you of something next time you do this exercise..."></textarea>
 			<label class="radio-inline">
+			  <input type="radio" name="labelType" value="alert-info"> Info
+			</label>
+			<label class="radio-inline">
 			  <input type="radio" name="labelType" value="alert-success"> Success
 			</label>
 			<label class="radio-inline">
