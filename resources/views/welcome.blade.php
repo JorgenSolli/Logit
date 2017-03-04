@@ -30,13 +30,13 @@
 		<div class="col-sm-4 slideInRight">
 			<div class="panel">
 				<h3><span class="fa fa-pencil"></span> Easy setup</h3>
-				<p class="lead">Add youre sessions and youre ready to go.</p>
+				<p class="lead">Add your routine(s) and youre ready to go.</p>
 			</div>
 		</div>
 		<div class="col-sm-4 slideInBottom">
 			<div class="panel">
 				<h3><span class="fa fa-area-chart"></span> Useful statistics</h3>
-				<p class="lead">Add youre sessions and youre ready to go.</p>
+				<p class="lead">Track your progress with usefull graphs and charts.</p>
 			</div>
 		</div>
 		<div class="col-sm-4 slideInLeft">
