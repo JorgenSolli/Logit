@@ -12,7 +12,7 @@ $(".viewRoutine").on('click', function() {
   var routineId = $(this).children('input').val();
 
   $.ajax({
-    url: '/dashboard/my_routines/' + routineId,
+    url: '/dashboard/my_routines/view/' + routineId,
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
