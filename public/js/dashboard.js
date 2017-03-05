@@ -51,7 +51,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#statistics-set").on('click', function() {
+    $("#statistics-type, statistics-year, #statistics-month").on('change', function() {
         getGraphData();
     });
 

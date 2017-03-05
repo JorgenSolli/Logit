@@ -3,23 +3,20 @@
 @section('content')
   <h1 class="page-header">Welcome {{ $brukerinfo->name }}</h1>
   <div class="row">
-    <h4>Show statistics for</h4>
-    <div class="col-md-2">
+    <h4 class="p-l-md">Show statistics for</h4>
+    <div class="col-md-2 sm-6 col-xs-6">
       <select id="statistics-type" class="form-control">
         <option value="year">Year</option>
         <option value="months">Month</option>
       </select>
     </div>
-    <div class="col-md-2 col-sm-5">
+    <div class="col-md-2 col-sm-6 col-xs-6">
       <select id="statistics-year" class="form-control">
       </select>
     </div>
-    <div class="col-md-2 col-sm-5" style="display: none">
+    <div class="col-md-2 col-sm-12 col-xs-12" style="display: none">
       <select id="statistics-month" class="form-control">
       </select>
-    </div>
-    <div class="col-md-1 col-sm-2">
-      <button id="statistics-set" class="btn btn-primary">GO!</button>
     </div>
   </div>
     
