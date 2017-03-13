@@ -44,7 +44,7 @@
 			  <input type="radio" name="labelType" value="alert-warning"> Warning
 			</label>
 		</div>
-
+		<hr>
 		<div class="row">
 			<div class="col-xs-4">
 				<a style="width:100%" href="/dashboard/start" class="btn btn-danger">Cancel</a>
