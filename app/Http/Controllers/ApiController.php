@@ -201,10 +201,12 @@ class ApiController extends Controller
             ]);
 
             $result = collect([]);
+            $result->put(0, ['day' => 0,'total' => 0]);
 
             for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
-                $result->put($i - 1, ['day' => $i,'total' => 0]);
+                $result->put($i, ['day' => $i,'total' => 0]);
             }
+
             $data = Workout::where('user_id', Auth::id())
                 ->where(DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int']))
                 ->where(DB::raw('YEAR(created_at)'), '=', date($year))
@@ -219,7 +221,7 @@ class ApiController extends Controller
                     $day = ltrim($day, 0);
                 }
                 $result->put($day, [
-                    'day' => $day + 1,
+                    'day' => $day,
                     'total' => $result[$day]['total'] + 1
                 ]);
             }

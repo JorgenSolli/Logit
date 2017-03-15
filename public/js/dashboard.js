@@ -42,6 +42,9 @@ $(document).ready(function() {
                     '<option value="Oct">October</option>' + 
                     '<option value="Nov">November</option>' + 
                     '<option value="Dec">December</option>');
+    var month = moment().format('MMM');
+    $("#statistics-month").val(month).attr('selected');
+
     $("#statistics-type").on('change', function() {
         var type = $(this).val();
         if (type == "months") {
