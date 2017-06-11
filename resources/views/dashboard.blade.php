@@ -7,14 +7,14 @@
     <div class="col-md-2 sm-6 col-xs-6">
       <select id="statistics-type" class="form-control">
         <option value="year">Year</option>
-        <option value="months">Month</option>
+        <option value="months" selected>Month</option>
       </select>
     </div>
     <div class="col-md-2 col-sm-6 col-xs-6">
       <select id="statistics-year" class="form-control">
       </select>
     </div>
-    <div class="col-md-2 col-sm-12 col-xs-12" style="display: none">
+    <div class="col-md-2 col-sm-12 col-xs-12">
       <select id="statistics-month" class="form-control">
       </select>
     </div>
@@ -45,6 +45,7 @@
   </div>
 @endsection
 @section('script')
+  <script src="/js/moment.js"></script>
   <script src="/js/Chart.bundle.min.js"></script>
   <script src="/js/dashboard.js"></script>
   <script>
