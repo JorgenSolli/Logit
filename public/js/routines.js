@@ -67,7 +67,7 @@ $(document).on('click', '#addMore', function() {
     '<div class="form-group">' +
       '<label for="excersice_name">Excersice name</label>' +
       '<label class="control-label hidden"> | This field is required</label>' +
-      '<input type="text" class="required form-control" id="excersice_name" name="exercises[' + exerciseNr + '][exercise_name]" placeholder="Excersice name">' +
+      '<input type="text" class="required form-control exercise_name" id="excersice_name" name="exercises[' + exerciseNr + '][exercise_name]" placeholder="Excersice name">' +
     '</div>' +
     '<div class="form-group">' +
       '<label for="muscle_group">Muscle group</label>' +
@@ -121,7 +121,7 @@ $(document).on('click', '.deleteExercise', function() {
 
 $(document).on('click', '#addRoutine', function() {
   var ok = true
-  $(".required").each(function(index) {
+  $(".required").each(function() {
     if ($(this).val() == "" || $(this).val() == null) {
       $(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden")
       ok = false
@@ -129,6 +129,32 @@ $(document).on('click', '#addRoutine', function() {
       $(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden")
     }
   })
+
+  var names = [];
+  var dupes = [];
+  var namesOk = false;
+  $(".exercise_name").each(function() {
+    names.push($(this).val())
+  })
+  names.sort()
+  for (var i = 0; i < names.length - 1; i++) {
+    if (names[i + 1] == names[i]) {
+      dupes.push(names[i]);
+      namesOk = true;
+      ok = false;
+    }
+  }
+
+  if (namesOk) {
+    $("#alert-field").html('<div class="alert alert-danger">' +
+        '<strong>Whops!</strong> Some of your exercises shares the same name (' + dupes[0] + '). This might cause issues. Append something to your duplicate exercisenames and try again.' +
+      '</div>')
+  } else {
+    $("#alert-field").empty();
+  }
+
+
+
   return ok
 })
 
@@ -160,3 +186,4 @@ $(document).on('click', '#changeStatus', function() {
     }
   })
 })
+

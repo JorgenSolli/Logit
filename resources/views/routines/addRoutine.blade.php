@@ -24,7 +24,7 @@
         <div class="form-group">
           <label for="exercise_name">Excersice name</label>
           <label class="control-label hidden"> | This field is required</label>
-          <input type="text" class="required form-control" id="exercise_name" name="exercises[0][exercise_name]" placeholder="Excersice name">
+          <input type="text" class="required form-control exercise_name" id="exercise_name" name="exercises[0][exercise_name]" placeholder="Excersice name">
         </div>
 
         {{-- Muscle Group --}}
@@ -74,6 +74,10 @@
       </div>
     </div>
     <button id="addMore" type="button" class="btn btn-primary">Add another!</button>
+
+    <div id="alert-field" class="m-t-15">
+    </div>
+
     <hr>
     <button type="submit" id="addRoutine" class="btn btn-success" href="my_routines/add_routine" role="button"><span class="fa fa-plus"></span> Add routine</button>
     <a class="btn btn-danger" href="/dashboard/my_routines" role="button"><span class="fa fa-ban"></span> Cancel</a>

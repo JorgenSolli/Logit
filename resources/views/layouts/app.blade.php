@@ -72,7 +72,7 @@
   </div>
   <footer class="footer">
     <div class="container text-center">
-      <p class="text-muted">Loggit v1.0.0-beta.2 made by <a href="https://jorgensolli.no/?lang=en">Jørgen Solli</a> · <a href="https://github.com/JorgenSolli/Loggit"><span class="fa fa-github fa-lg"></span></p>
+      <p class="text-muted">Loggit v0.8.3-beta made by <a href="https://jorgensolli.no/?lang=en">Jørgen Solli</a> · <a href="https://github.com/JorgenSolli/Loggit"><span class="fa fa-github fa-lg"></span></p>
     </div>
   </footer>
   <!-- Scripts -->
