@@ -27,4 +27,19 @@ $(document).ready(function(){
 	    },
 	  })
 	});
+
+	$(document).on('click', '#saveWorkout', function() {
+		var ok = true
+		$(".required").each(function(index) {
+			if ($(this).val() == "") {
+				$(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden")
+				ok = false
+			} else {
+				$(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden")
+			}
+		})
+
+		return ok
+	})
+
 });

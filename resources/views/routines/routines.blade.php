@@ -17,20 +17,26 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($routines as $value)
-        <tr id="routine-{{ $value->id }}">
-          <th>{{ $value->routine_name }}</th> 
+      @foreach ($routines as $routine)
+        <tr id="routine-{{ $routine->id }}">
+          <th>
+            @if ($routine->active == 0)
+              <span class="fa fa-lock"></span> {{ $routine->routine_name }} (Inactive)
+            @else
+              {{ $routine->routine_name }}
+            @endif
+          </th> 
           <td>N/A</td>
           <td class="hidden-sm hidden-xs">N/A</td>
-          <td class="hidden-sm hidden-xs">{{ $value->created_at }}</td>
+          <td class="hidden-sm hidden-xs">{{ $routine->created_at }}</td>
           <td class="text-center">
-            <a class="pointer deleteRoutine" id="{{ $value->id }}" data-toggle="modal" data-target="#OkDeleteModal">
+            <a class="pointer deleteRoutine" id="{{ $routine->id }}" data-toggle="modal" data-target="#OkDeleteModal">
               <span class="fa fa-trash-o fa-lg danger-color"></span>
             </a>
           </td>
           <td class="text-center">
             <a class="viewRoutine pointer" data-toggle="modal" data-target="#viewRoutineModal">
-              <input type="hidden" value="{{ $value->id }}">
+              <input type="hidden" value="{{ $routine->id }}">
               <span class="fa fa-pencil fa-lg success-color"></span>
             </a>
           </td>

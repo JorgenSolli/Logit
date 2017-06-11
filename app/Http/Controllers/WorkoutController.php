@@ -18,10 +18,13 @@ class WorkoutController extends Controller
     	 	->get();
 	 	$junctions = RoutineJunction::where('user_id', Auth::id())
 	 		->get();
+        $nrInactive = Routine::where('active', 0)
+            ->count();
 
     	return view('workouts.selectWorkout', [
-    		'routines'  => $routines,
-    		'junctions' => $junctions
+    		'routines'   => $routines,
+    		'junctions'  => $junctions,
+            'nrInactive' => $nrInactive,
 		]);
     }
 

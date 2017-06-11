@@ -117,4 +117,24 @@ class RoutineController extends Controller
 		}
 		return back()->with('danger', 'Something went wrong. Please try again!');
 	}
+
+    public function changeStatus (Request $request, Routine $routine)
+    {
+        if ($routine->user_id == Auth::id()) {
+            // Status 0 = Going from inactive to active
+            if ($request->status == 0) {
+                $routine->active = 1;
+                $routine->save();
+                return response()->json(array('success' => true, 'status' => 'Now active'));
+            } 
+
+            // Status 1 = Going from active to inactive
+            else {
+                $routine->active = 0;
+                $routine->save();
+                return response()->json(array('success' => true, 'status' => 'Now inactive'));
+            }
+        }
+        return response()->json(array('success' => false));
+    }
 }

@@ -31,6 +31,8 @@ Route::put('/dashboard/my_routines', 'RoutineController@insertRoutine');
 Route::get('/dashboard/my_routines/view/{routine}', 'RoutineController@viewRoutine');
 // Update
 Route::post('/dashboard/my_routines/edit/{routine}', 'RoutineController@updateRoutine');
+// Status
+Route::post('/dashboard/my_routines/edit/status/{routine}', 'RoutineController@changeStatus');
 // Delete
 Route::get('/dashboard/my_routines/delete/{routine}', 'RoutineController@deleteRoutine');
 
