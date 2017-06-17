@@ -174,3 +174,30 @@
     opacity: 1;
   }
 }
+
+.panel-specials .panel {
+      border: 1px solid rgba(10, 10, 10, 0);
+}
+.panel-specials .panel:hover {
+      border: 1px solid rgba(10, 10, 10, 0.33);
+}
+
+@media (min-width: 600px) {
+  .viewPhone {
+    margin-left: 100px !important;
+    margin-bottom: 20px !important;
+    left: calc(50% + -180px);
+  }
+}
+
+.home-bg-full {
+  background: url(../img/home-bg-full.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.full-page-fixed {
+  min-height: 100vh;
+}

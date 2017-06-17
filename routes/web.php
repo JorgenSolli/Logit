@@ -12,22 +12,7 @@
 */
 
 Route::get('/', function () {
-	if (Auth::check()) {
-		$brukerinfo = Auth::user();
-		$topNav = [
-            0 => [
-                'url'  => '/',
-                'name' => 'Welcome'
-            ]
-        ];
-
-        return view('welcome', [
-        	'topNav'	 => $topNav,
-            'brukerinfo' => $brukerinfo
-		]);
-	} else {
-		return view('auth.login');
-	}
+    return view('welcome');
 });
 
 Auth::routes();
