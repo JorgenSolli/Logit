@@ -12,7 +12,15 @@
 */
 
 Route::get('/', function () {
-	return view('welcome');
+	if (Auth::check()) {
+		$brukerinfo = Auth::user();
+
+        return view('welcome', [
+            'brukerinfo' => $brukerinfo
+		]);
+	} else {
+		return view('auth.login');
+	}
 });
 
 Auth::routes();
