@@ -26,9 +26,16 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $brukerinfo = Auth::user();
-
+        $topNav = [
+            0 => [
+                'url'  => '/',
+                'name' => 'Dashboard'
+            ]
+        ];
+        
         return view('dashboard', [
-            'brukerinfo'    => $brukerinfo
+            'topNav'     => $topNav,
+            'brukerinfo' => $brukerinfo
         ]);
     }
 

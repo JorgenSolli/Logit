@@ -23,7 +23,7 @@
           <tbody>
             @foreach ($workouts as $workout)
               <tr>
-                <th>{{ $workout->created_at }}</th>
+                <td>{{ $workout->created_at }}</td>
                 <td>{{ $workout->routine_name }}</td>
                 <td class="text-center">
                   <a class="pointer" onclick="event.preventDefault(); document.getElementById('delete-routine{{ $workout->workout_id }}').submit();">

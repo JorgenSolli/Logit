@@ -17,7 +17,7 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src="/img/avatar.png" />
+                        <img alt="avatar" src="/img/avatar.png" />
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -27,10 +27,7 @@
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
                                 <li>
-                                    <a href="#">My Profile</a>
-                                </li>
-                                <li>
-                                    <a href="#">Edit Profile</a>
+                                    <a href="/user">My Profile</a>
                                 </li>
                                 <li>
                                     <a href="#">Settings</a>
@@ -84,7 +81,17 @@
         <div class="main-panel">
             @include('layouts.topnav')
             <div class="content">
-                <div class="container-fluid">
+                <div id="pageload">
+                  <div class="showbox">
+                    <div class="loader">
+                      <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                      </svg>
+                    </div>
+                    <p class="loader-text">Loading your precious data...</p>
+                  </div>
+                </div>
+                <div class="container-fluid" style="display: none">
                     @yield('content')
                 </div>
             </div>
@@ -93,6 +100,13 @@
     </div>
   @include('layouts.scripts')
   @yield('script')
+
+  <script>
+    $(document).ready(function() {
+      $("#pageload").fadeOut();
+      $("#app .container-fluid").fadeIn();
+    })
+  </script>
 </body>
 </html>
 

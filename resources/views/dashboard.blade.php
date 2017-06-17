@@ -30,7 +30,9 @@
         <div id="workoutActivityChart" class="ct-chart"></div>
     </div>
 
-  
+    <h6 class="text-center">More lovely charts will come eventually...</h6>
+
+  {{--  
   <div class="row">
     <div class="col-sm-4">
       <h3 class="text-center">Number of workouts</h3>
@@ -47,6 +49,7 @@
       <canvas id="dashboardActivityBar2" width="400" height="300"></canvas>
     </div>
   </div>
+  --}}
 @endsection
 
 @section('script')

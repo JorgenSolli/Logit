@@ -23,7 +23,15 @@ class WorkoutController extends Controller
 
         $brukerinfo = Auth::user();
 
+        $topNav = [
+            0 => [
+                'url'  => '/dashboard/start',
+                'name' => 'Start Workout'
+            ]
+        ];
+
         return view('workouts.selectWorkout', [
+            'topNav'     => $topNav,
             'routines'   => $routines,
             'junctions'  => $junctions,
             'nrInactive' => $nrInactive,
@@ -37,6 +45,17 @@ class WorkoutController extends Controller
     		->get();
 
         $brukerinfo = Auth::user();
+
+        $topNav = [
+            0 => [
+                'url'  => '/dashboard/start',
+                'name' => 'Start Workout'
+            ],
+            1 => [
+                'url'  => '/dashboard/start/' . $routine->id,
+                'name' => $routine->routine_name
+            ]
+        ];
 
         // If gymming is in progres, do not reset sessions
         if (session('gymming') != $routine->id) {
@@ -52,10 +71,35 @@ class WorkoutController extends Controller
         }
 
         return view('workouts.startWorkout', [
+            'topNav'     => $topNav,
             'exercises'  => $exercises,
             'routine_id' => $routine->id,
             'brukerinfo' => $brukerinfo
-		]);
+        ]);
+    }
+
+    public function viewWorkouts (Workout $workout)
+    {
+        $brukerinfo = Auth::user();
+            
+        $workouts = Workout::where('workouts.user_id', Auth::id())
+            ->join('routines', 'workouts.routine_id', '=', 'routines.id')
+            ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
+            ->orderBy('workouts.created_at', 'DESC')
+            ->get();
+            
+        $topNav = [
+            0 => [
+                'url'  => '/dashboard/workouts',
+                'name' => 'My Workouts'
+            ]
+        ];
+
+        return view('workouts.myWorkouts', [
+            'topNav'     => $topNav,
+            'workouts'   => $workouts,
+            'brukerinfo' => $brukerinfo
+        ]);
     }
 
     public function finishWorkout ($routine_id)
@@ -97,19 +141,4 @@ class WorkoutController extends Controller
         return redirect('/dashboard/workouts')->with('success', 'Workout saved. Good job!');
     }
 
-    public function viewWorkouts (Workout $workout)
-    {
-        $brukerinfo = Auth::user();
-            
-        $workouts = Workout::where('workouts.user_id', Auth::id())
-            ->join('routines', 'workouts.routine_id', '=', 'routines.id')
-            ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
-            ->orderBy('workouts.created_at', 'DESC')
-            ->get();
-            
-        return view('workouts.myWorkouts', [
-            'workouts'   => $workouts,
-            'brukerinfo' => $brukerinfo
-        ]);
-    }
 }

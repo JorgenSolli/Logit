@@ -14,8 +14,15 @@
 Route::get('/', function () {
 	if (Auth::check()) {
 		$brukerinfo = Auth::user();
+		$topNav = [
+            0 => [
+                'url'  => '/',
+                'name' => 'Welcome'
+            ]
+        ];
 
         return view('welcome', [
+        	'topNav'	 => $topNav,
             'brukerinfo' => $brukerinfo
 		]);
 	} else {
@@ -27,6 +34,11 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@dashboard');
 Route::get('/clear', 'ApiController@flushSessions');
+
+/* User */
+Route::get('/user', 'UserController@myProfile');
+Route::post('/user/edit', 'UserController@editProfile');
+Route::get('/user/settings', 'UserController@settings');
 
 /* Routines */
 Route::get('/dashboard/my_routines', 'RoutineController@routines');

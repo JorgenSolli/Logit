@@ -26,10 +26,18 @@ class RoutineController extends Controller
         $routines = Routine::where('user_id', Auth::id())
             ->orderBy('routines.routine_name', 'asc')
             ->get();
+        
+        $topNav = [
+            'Dashboard' => [
+                'url'  => '/dashboard/my_routines',
+                'name' => 'My Routines'
+            ]
+        ];
 
         return view('routines.routines', [
-            'brukerinfo'      => $brukerinfo,
-            'routines'        => $routines
+            'topNav'     => $topNav,
+            'brukerinfo' => $brukerinfo,
+            'routines'   => $routines
         ]);
     }
 
