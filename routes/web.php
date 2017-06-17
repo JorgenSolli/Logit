@@ -12,7 +12,6 @@
 */
 
 Route::get('/', function () {
-
 	return view('welcome');
 });
 
@@ -35,6 +34,9 @@ Route::post('/dashboard/my_routines/edit/{routine}', 'RoutineController@updateRo
 Route::post('/dashboard/my_routines/edit/status/{routine}', 'RoutineController@changeStatus');
 // Delete
 Route::get('/dashboard/my_routines/delete/{routine}', 'RoutineController@deleteRoutine');
+
+/* Settings */
+Route::get('/dashboard/settings', 'SettingsController@viewSettings');
 
 /* Workouts */
 Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts');

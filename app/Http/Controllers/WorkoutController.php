@@ -21,10 +21,13 @@ class WorkoutController extends Controller
         $nrInactive = Routine::where('active', 0)
             ->count();
 
-    	return view('workouts.selectWorkout', [
-    		'routines'   => $routines,
-    		'junctions'  => $junctions,
+        $brukerinfo = Auth::user();
+
+        return view('workouts.selectWorkout', [
+            'routines'   => $routines,
+            'junctions'  => $junctions,
             'nrInactive' => $nrInactive,
+            'brukerinfo' => $brukerinfo
 		]);
     }
 
@@ -32,6 +35,8 @@ class WorkoutController extends Controller
     {
     	$exercises = RoutineJunction::where('routine_id', $routine->id)
     		->get();
+
+        $brukerinfo = Auth::user();
 
         // If gymming is in progres, do not reset sessions
         if (session('gymming') != $routine->id) {
@@ -46,9 +51,10 @@ class WorkoutController extends Controller
             session(['gymming' => $routine->id]);
         }
 
-    	return view('workouts.startWorkout', [
-    		'exercises'  => $exercises,
-            'routine_id' => $routine->id
+        return view('workouts.startWorkout', [
+            'exercises'  => $exercises,
+            'routine_id' => $routine->id,
+            'brukerinfo' => $brukerinfo
 		]);
     }
 
@@ -93,14 +99,17 @@ class WorkoutController extends Controller
 
     public function viewWorkouts (Workout $workout)
     {
-    	$workouts = Workout::where('workouts.user_id', Auth::id())
+        $brukerinfo = Auth::user();
+            
+        $workouts = Workout::where('workouts.user_id', Auth::id())
             ->join('routines', 'workouts.routine_id', '=', 'routines.id')
             ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
             ->orderBy('workouts.created_at', 'DESC')
             ->get();
             
         return view('workouts.myWorkouts', [
-            'workouts' => $workouts
+            'workouts'   => $workouts,
+            'brukerinfo' => $brukerinfo
         ]);
     }
 }

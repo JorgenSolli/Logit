@@ -1,23 +1,30 @@
-var graph = function(labels, data) {
-    
-    var graph = document.getElementById("dashboardActivityGraph");
-    var graphData = {
-      labels : labels,
-      datasets: [{
-        label: 'Sessions completed',
-        data: data,
-        backgroundColor: "rgba(66,139,201,0.6)"
-      }]
+var initCharts = function(labels, series, max) {
+    /*  **************** Coloured Rounded Line Chart - Line Chart ******************** */
+    dataWorkoutActivityChart = {
+      labels: labels,
+      series: series
     };
 
-    var myLineChart = new Chart(graph, {
-      type: 'line',
-      data: graphData,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
+    optionsWorkoutActivityChart = {
+      lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 0
+      }),
+      axisY: {
+          showGrid: true,
+          offset: 40
       },
-    });
+      axisX: {
+          showGrid: false,
+      },
+      low: 0,
+      high: max,
+      showPoint: true,
+      height: '300px'
+    };
+
+    var workoutActivityChart = new Chartist.Line('#workoutActivityChart', dataWorkoutActivityChart, optionsWorkoutActivityChart);
+
+    md.startAnimationForLineChart(workoutActivityChart);
 }
 
 $(document).ready(function() {
@@ -25,25 +32,25 @@ $(document).ready(function() {
     var yearDiv = $("#statistics-year");
     var monthDiv = $("#statistics-month");
     var thisYear = new Date().getFullYear();
+    var monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var currMonth = moment().format('MMM');
 
     for (var i = thisYear; i >= APP_CREATED_AT; i--) {
-        yearDiv.append('<option value="' + i + '">' + i + '</option>');
+        if (i == thisYear) {
+          yearDiv.append('<option value="' + i + '" selected>' + i + '</option>');
+        } else {
+          yearDiv.append('<option value="' + i + '">' + i + '</option>');
+        }
     }
 
-    monthDiv.append('<option value="Jan">January</option>' + 
-                    '<option value="Feb">February</option>' + 
-                    '<option value="Mar">March</option>' + 
-                    '<option value="Apr">April</option>' + 
-                    '<option value="May">May</option>' + 
-                    '<option value="Jun">June</option>' + 
-                    '<option value="Jul">July</option>' + 
-                    '<option value="Aug">August</option>' + 
-                    '<option value="Sep">September</option>' + 
-                    '<option value="Oct">October</option>' + 
-                    '<option value="Nov">November</option>' + 
-                    '<option value="Dec">December</option>');
-    var month = moment().format('MMM');
-    $("#statistics-month").val(month).attr('selected');
+    for (var i = 0; i < monthsShort.length; i++) {
+      if (currMonth == monthsShort[i]) {
+        monthDiv.append('<option value="' + monthsShort[i] + '" selected>' + monthsLong[i] + '</option>')
+      } else {
+        monthDiv.append('<option value="' + monthsShort[i] + '">' + monthsLong[i] + '</option>')
+      }
+    }
 
     $("#statistics-type").on('change', function() {
         var type = $(this).val();
@@ -63,9 +70,6 @@ $(document).ready(function() {
         var year  = $("#statistics-year").val();
         var month = $("#statistics-month").val();
 
-        var labels = [];
-        var graphData = [];
-
         $.ajax({
             method: 'GET',
             headers: {
@@ -73,25 +77,14 @@ $(document).ready(function() {
             },
             url: '/api/getSessions/' + type + '/' + year + '/' + month,
             success: function(data) {
-
-                if (type == 'year') {
-                    for (i = 0; i < data['data'].length; i++) {
-                        labels.push(data['data'][i]['month']);
-                        graphData.push(data['data'][i]['total']);
-                    }
-                }
-                else if (type == 'months') {
-                    for (i = 0; i < data['data'].length; i++) {
-                        labels.push(data['data'][i]['day']);
-                        graphData.push(data['data'][i]['total']);
-                        
-                    }   
-                }
-                graph(labels, graphData);
+                initCharts(data.labels, data.series, data.max);
             }
         })
     }
 
+    // Waits for information to be appended before invoking the selectpicker
+    $('.selectpickerAjax').selectpicker({});
+    
     // Loads the graph
     getGraphData();
 });

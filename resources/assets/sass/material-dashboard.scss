@@ -1,0 +1,87 @@
+/*! =========================================================
+ *
+ Material Dashboard PRO - V1.1.0
+*
+* =========================================================
+*
+* Copyright 2016 Creative Tim (http://www.creative-tim.com/product/material-dashboard-pro)
+ *
+ *                       _oo0oo_
+ *                      o8888888o
+ *                      88" . "88
+ *                      (| -_- |)
+ *                      0\  =  /0
+ *                    ___/`---'\___
+ *                  .' \|     |// '.
+ *                 / \|||  :  |||// \
+ *                / _||||| -:- |||||- \
+ *               |   | \\  -  /// |   |
+ *               | \_|  ''\---/''  |_/ |
+ *               \  .-\__  '-'  ___/-. /
+ *             ___'. .'  /--.--\  `. .'___
+ *          ."" '<  `.___\_<|>_/___.' >' "".
+ *         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+ *         \  \ `_.   \_ __\ /__ _/   .-` /  /
+ *     =====`-.____`.___ \_____/___.-`___.-'=====
+ *                       `=---='
+ *
+ *     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *               Buddha Bless:  "No Bugs"
+ *
+ * ========================================================= */
+
+
+
+
+//variables and mixins
+@import "resources/assets/sass/material-dashboard/variables";
+@import "resources/assets/sass/material-dashboard/mixins";
+@import "resources/assets/sass/material-dashboard/shadows";
+
+//plugin css
+@import "resources/assets/sass/material-dashboard/plugins/plugin-nouislider";
+@import "resources/assets/sass/material-dashboard/plugins/animate";
+@import "resources/assets/sass/material-dashboard/plugins/sweetalert2";
+@import "resources/assets/sass/material-dashboard/plugins/datatables.net";
+@import "resources/assets/sass/material-dashboard/plugins/jquery.jvectormap";
+@import "resources/assets/sass/material-dashboard/plugins/plugin-datetime-picker";
+@import "resources/assets/sass/material-dashboard/plugins/fullcalendar";
+@import "resources/assets/sass/material-dashboard/plugins/wizard-card";
+@import "resources/assets/sass/material-dashboard/plugins/chartist";
+@import "resources/assets/sass/material-dashboard/plugins/select-bootstrap";
+@import "resources/assets/sass/material-dashboard/plugins/perfect-scrollbar";
+
+
+// Core CSS
+@import "resources/assets/sass/material-dashboard/typography";
+@import "resources/assets/sass/material-dashboard/sidebar-and-main-panel";
+@import "resources/assets/sass/material-dashboard/buttons";
+@import "resources/assets/sass/material-dashboard/misc";
+@import "resources/assets/sass/material-dashboard/inputs";
+@import "resources/assets/sass/material-dashboard/fileupload";
+@import "resources/assets/sass/material-dashboard/alerts";
+@import "resources/assets/sass/material-dashboard/tables";
+@import "resources/assets/sass/material-dashboard/forms";
+@import "resources/assets/sass/material-dashboard/checkboxes";
+@import "resources/assets/sass/material-dashboard/radios";
+@import "resources/assets/sass/material-dashboard/progress";
+@import "resources/assets/sass/material-dashboard/togglebutton";
+@import "resources/assets/sass/material-dashboard/pages";
+@import "resources/assets/sass/material-dashboard/tags";
+@import "resources/assets/sass/material-dashboard/timeline";
+@import "resources/assets/sass/material-dashboard/ripples";
+@import "resources/assets/sass/material-dashboard/panels";
+@import "resources/assets/sass/material-dashboard/pagination";
+@import "resources/assets/sass/material-dashboard/labels";
+@import "resources/assets/sass/material-dashboard/pills";
+@import "resources/assets/sass/material-dashboard/dialogs";
+@import "resources/assets/sass/material-dashboard/navbars";
+@import "resources/assets/sass/material-dashboard/popups";
+@import "resources/assets/sass/material-dashboard/footers";
+
+// Fancy Stuff
+@import "resources/assets/sass/material-dashboard/dropdown";
+@import "resources/assets/sass/material-dashboard/cards";
+@import "resources/assets/sass/material-dashboard/tabs";
+@import "resources/assets/sass/material-dashboard/responsive";

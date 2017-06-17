@@ -35,7 +35,11 @@ class RoutineController extends Controller
 
     public function addRoutine ()
     {
-        return view('routines.addRoutine');
+        $brukerinfo = Auth::user();
+        
+        return view('routines.addRoutine', [
+            'brukerinfo'      => $brukerinfo,
+        ]);
     }
 
     public function insertRoutine (Request $request)
