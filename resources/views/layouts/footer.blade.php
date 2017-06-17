@@ -18,7 +18,7 @@
             <script>
                 document.write(new Date().getFullYear())
             </script>
-            <a href="http://www.jorgensolli.com">Jørgen Solli</a>
+            <a href="https://www.jorgensolli.no?lang=en">Jørgen Solli</a>
         </p>
     </div>
 </footer>
