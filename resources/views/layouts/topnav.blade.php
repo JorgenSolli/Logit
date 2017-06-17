@@ -32,7 +32,7 @@
                     --}}
                 </li>
                 <li>
-                    <a href="/user"">
+                    <a href="/user">
                         <i class="material-icons">person</i>
                         <p class="hidden-lg hidden-md">Profile</p>
                     </a>

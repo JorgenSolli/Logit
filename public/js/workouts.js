@@ -9,9 +9,19 @@ $(document).ready(function(){
 			method: 'GET',
 			success: function(data) {
 				$("#data").html(data['data'])
+				$("#exercises").slideUp();
 			},
 		})
-	});
+	})
+
+	$(document).on('click', '#cancelExercise', function() {
+		$("#data").empty();
+		
+		$(".ps-container").scrollTop(0);
+		$(".ps-container").perfectScrollbar('update');
+		
+		$("#exercises").slideDown();
+	})
 
 	$(".viewWorkout").on('click', function() {
 	  var routineId = $(this).children('input').val();
@@ -26,7 +36,7 @@ $(document).ready(function(){
 	      $("#modalData").html(data['data']);
 	    },
 	  })
-	});
+	})
 
 	$(document).on('click', '#saveWorkout', function() {
 		var ok = true
@@ -42,20 +52,44 @@ $(document).ready(function(){
 		return ok
 	})
 
-  $('#datatables').DataTable({
-      "pagingType": "full_numbers",
-      "lengthMenu": [
-          [10, 25, 50, -1],
-          [10, 25, 50, "All"]
-      ],
-      responsive: true,
-      language: {
-          search: "_INPUT_",
-          searchPlaceholder: "Search records",
-      }
+	$(document).on('click', '#clearSession', function(e) {
+		e.preventDefault();
 
-  });
+		swal({
+			title: 'Are you sure?',
+			text: "All data connected to this session will be lost.",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, cancel it!',
+			cancelButtonText: 'No, cancel!',
+			confirmButtonClass: 'btn btn-success',
+			cancelButtonClass: 'btn btn-danger',
+			buttonsStyling: false
+		}).then(function () {
 
-  var table = $('#datatables').DataTable();
+			window.location.href = "/clear";
+
+		}, function (dismiss) {
+			if (dismiss === 'cancel') {
+				return false;
+			}
+		})
+	})
+
+	$('#datatables').DataTable({
+	  "pagingType": "full_numbers",
+	  "lengthMenu": [
+	      [10, 25, 50, -1],
+	      [10, 25, 50, "All"]
+	  ],
+	  responsive: true,
+	  language: {
+	      search: "_INPUT_",
+	      searchPlaceholder: "Search records",
+	  }
+	})
+	var table = $('#datatables').DataTable();
 
 });

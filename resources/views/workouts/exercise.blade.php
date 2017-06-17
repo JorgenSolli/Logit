@@ -59,7 +59,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-xs-4">
-						<a style="width:100%" href="/dashboard/start" class="btn btn-danger">Cancel</a>
+						<a id="cancelExercise" style="width:100%" class="btn btn-danger">Cancel</a>
 					</div>
 					<div class="col-xs-8">
 						<button style="width:100%" type="submit" id="saveWorkout" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
