@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('timezone');
+    }
+    
     public function myProfile ()
     {
 		$brukerinfo = Auth::user();
@@ -28,19 +34,22 @@ class UserController extends Controller
     	$data = $request->all();
     	$user = Auth::user();
 
-    	/*$user->yob = $data['yob'];
-    	$user->country = $data['country'];
-    	$user->gender = $data['gender'];
-    	$user->email = $data['email'];
-    	$user->name = $data['name'];
-    	$user->goal = $data['goal'];*/
-
     	$user->update($data);
-    	return back()->with('success', 'Profile updated.');
+    	return back()->with('script_success', 'Profile updated.');
     }
 
     public function settings ()
     {
-    	
+        $brukerinfo = Auth::user();
+        $topNav = [
+            0 => [
+                'url'  => '/user/settings',
+                'name' => 'Settings'
+            ]
+        ];
+    	return view('user.settings', [
+            'topNav' => $topNav,
+            'brukerinfo' => $brukerinfo
+        ]);
     }
 }

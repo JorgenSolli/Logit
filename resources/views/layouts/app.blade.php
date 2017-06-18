@@ -30,7 +30,7 @@
                                     <a href="/user">My Profile</a>
                                 </li>
                                 <li>
-                                    <a href="#">Settings</a>
+                                    <a href="/user/settings">Settings</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -99,6 +99,7 @@
         </div>
     </div>
   @include('layouts.scripts')
+  @include('layouts.scriptNotifications')
   @yield('script')
 
   <script>
@@ -109,8 +110,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-        

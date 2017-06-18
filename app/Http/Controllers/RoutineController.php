@@ -9,8 +9,7 @@ use App\RoutineJunction;
 
 class RoutineController extends Controller
 {
-
-	/**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -18,6 +17,7 @@ class RoutineController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('timezone');
     }
 
     public function routines ()

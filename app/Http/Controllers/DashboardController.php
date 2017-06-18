@@ -8,6 +8,7 @@ use App\User;
 
 class DashboardController extends Controller
 {
+    
     /**
      * Create a new controller instance.
      *
@@ -16,6 +17,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('timezone');
     }
 
     /**

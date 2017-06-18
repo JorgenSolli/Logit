@@ -10,6 +10,7 @@ use App\WorkoutJunction;
 
 class ApiController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -18,6 +19,7 @@ class ApiController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('timezone');
     }
 
     public function getExercise ($exerciseId)

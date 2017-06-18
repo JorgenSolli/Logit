@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('goal');
             $table->string('gender');
             $table->string('country');
+            $table->string('timezone');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

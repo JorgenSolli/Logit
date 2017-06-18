@@ -21,6 +21,7 @@ class User extends Authenticatable
         'yob', 
         'goal', 
         'country',
+        'timezone',
     ];
 
     /**

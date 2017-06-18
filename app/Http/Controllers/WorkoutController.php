@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\RoutineJunction;
@@ -9,16 +10,26 @@ use App\WorkoutJunction;
 use App\Routine;
 use App\Workout;
 use App\Note;
+use App\User;
 
 class WorkoutController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('timezone');
+    }
+
     public function selectWorkout ()
     {
     	$routines = Routine::where('user_id', Auth::id())
     	 	->get();
 	 	$junctions = RoutineJunction::where('user_id', Auth::id())
 	 		->get();
-        $nrInactive = Routine::where('active', 0)
+        $nrInactive = Routine::where([
+                ['user_id', '=', Auth::id()],
+                ['active', '=', 0],
+            ])
             ->count();
 
         $brukerinfo = Auth::user();
@@ -61,6 +72,9 @@ class WorkoutController extends Controller
         if (session('gymming') != $routine->id) {
             session()->forget('exercises');
             session()->forget('gymming');
+            session()->forget('started_gymming');
+            // Proper SQL date
+            $dateTime = Carbon::now();
 
             foreach ($exercises as $exercise) {
                 session()->put([
@@ -68,6 +82,7 @@ class WorkoutController extends Controller
                 ]);
             }
             session(['gymming' => $routine->id]);
+            session(['started_gymming' => $dateTime]);
         }
 
         return view('workouts.startWorkout', [
@@ -81,7 +96,7 @@ class WorkoutController extends Controller
     public function viewWorkouts (Workout $workout)
     {
         $brukerinfo = Auth::user();
-            
+
         $workouts = Workout::where('workouts.user_id', Auth::id())
             ->join('routines', 'workouts.routine_id', '=', 'routines.id')
             ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
@@ -102,17 +117,29 @@ class WorkoutController extends Controller
         ]);
     }
 
+    public function deleteWorkout (Workout $workout)
+    {
+        
+    }
+
     public function finishWorkout ($routine_id)
     {
         $session = session('exercises');
+        
+        $session_started = session('started_gymming');
+        $currTime = Carbon::now();
+        $duration = $currTime->diffInMinutes($session_started);
+
         session()->forget('exercises');
         session()->forget('gymming');
+        session()->forget('started_gymming');
 
         $user_id = Auth::id();
 
         $workout = new Workout;
         $workout->routine_id = $routine_id;
         $workout->user_id = $user_id;
+        $workout->duration_minutes = $duration;
         $workout->save();
 
         foreach ($session as $session_exercise) {

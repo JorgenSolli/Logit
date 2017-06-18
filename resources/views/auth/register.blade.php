@@ -31,7 +31,7 @@
         </nav>
 
         <div class="wrapper wrapper-full-page">
-            <div class="full-page register-page" filter-color="black" data-image="/img/bg-full.jpg">
+            <div class="full-page full-page-fixed register-page bg-full">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">

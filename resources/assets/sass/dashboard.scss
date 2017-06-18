@@ -198,6 +198,31 @@
   background-size: cover;
 }
 
+.bg-full {
+  background: url(../img/bg-full.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .full-page-fixed {
   min-height: 100vh;
+}
+
+@media (min-width: 992px) {
+  .card-hover {
+    background: rgba(255, 255, 255, 0.95);
+    transition: .2s;
+  }
+  .card-hover .icon i {
+    border-color: #a5a5a5;
+  }
+  .card-hover:hover {
+      background: rgba(255, 255, 255, 1);
+      position: relative;
+      margin: 20px auto;
+      border-color: #E5E5E5;
+      transition: .2s;
+  }
 }
