@@ -11,7 +11,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="">Loggit</a>
+                    <a class="navbar-brand" href="/">Loggit</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -45,31 +45,20 @@
                                                     <i class="material-icons">timeline</i>
                                                 </div>
                                                 <div class="description">
-                                                    <h4 class="info-title">Marketing</h4>
+                                                    <h4 class="info-title">Stay in shape with Loggit</h4>
                                                     <p class="description">
-                                                        We've created the marketing campaign of the website. It was a very interesting collaboration.
+                                                        Continue or start logging your workouts digitally! Be able to see progress and trends in your activities. 
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="info info-horizontal">
                                                 <div class="icon icon-primary">
-                                                    <i class="material-icons">code</i>
+                                                    <i class="material-icons">favorite_border</i>
                                                 </div>
                                                 <div class="description">
-                                                    <h4 class="info-title">Fully Coded in HTML5</h4>
+                                                    <h4 class="info-title">Free for everyone</h4>
                                                     <p class="description">
-                                                        We've developed the website with HTML5 and CSS3. The client has access to the code using GitHub.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="info info-horizontal">
-                                                <div class="icon icon-info">
-                                                    <i class="material-icons">group</i>
-                                                </div>
-                                                <div class="description">
-                                                    <h4 class="info-title">Built Audience</h4>
-                                                    <p class="description">
-                                                        There is also a Fully Customizable CMS Admin Dashboard for this product.
+                                                        Loggit is available for everyone. Free of charge of course!
                                                     </p>
                                                 </div>
                                             </div>
