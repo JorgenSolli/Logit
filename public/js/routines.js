@@ -18,7 +18,8 @@ $(".viewRoutine").on('click', function() {
     },
     method: 'GET',
     success: function(data) {
-      $("#modalData").html(data['data']);
+      $("#routines").hide();
+      $("#viewRoutine").html(data['data']).show();
       $("#sortable")
       .sortable({
         handle: '.handle',
@@ -28,6 +29,14 @@ $(".viewRoutine").on('click', function() {
       .disableSelection();
     },
   })
+});
+
+$(document).on('click', '.routine-back', function() {
+  $("#viewRoutine").empty().hide();
+  $("#routines").show();
+
+  $(".ps-container").scrollTop(0);
+  $(".ps-container").perfectScrollbar('update');
 });
 
 /* Functions for deleting a routing */

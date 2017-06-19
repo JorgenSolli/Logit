@@ -28,7 +28,7 @@ class RoutineController extends Controller
             ->get();
         
         $topNav = [
-            'Dashboard' => [
+            0 => [
                 'url'  => '/dashboard/my_routines',
                 'name' => 'My Routines'
             ]
@@ -43,10 +43,21 @@ class RoutineController extends Controller
 
     public function addRoutine ()
     {
+        $topNav = [
+            0 => [
+                'url'  => '/dashboard/my_routines',
+                'name' => 'My Routines'
+            ],
+            1 => [
+                'url'  => '/dashboard/my_routines/add_routine',
+                'name' => 'Add Routine'
+            ]
+        ];
         $brukerinfo = Auth::user();
         
         return view('routines.addRoutine', [
-            'brukerinfo'      => $brukerinfo,
+            'topNav'     => $topNav,
+            'brukerinfo' => $brukerinfo,
         ]);
     }
 
