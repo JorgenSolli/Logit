@@ -35,7 +35,10 @@ class TimeZone
         if($this->user)
         {
             $timeZone = $this->user->timezone;
-            date_default_timezone_set($timeZone);
+            if ($timeZone != "") {
+                date_default_timezone_set($timeZone);
+                return $next($request);
+            }
 
             return $next($request);
         } 
