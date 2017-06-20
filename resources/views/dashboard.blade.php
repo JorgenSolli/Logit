@@ -32,13 +32,23 @@
 
     <h6 class="text-center">More lovely charts will come eventually...</h6>
 
-  {{--  
   <div class="row">
     <div class="col-sm-4">
-      <h3 class="text-center">Number of workouts</h3>
-      <canvas id="dashboardActivityBar" width="400" height="300"></canvas>
+      <div class="card">
+        <div class="card-header card-header-icon" data-background-color="blue">
+            <i class="material-icons">timer</i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">Average workout time</h4>
+            <div class="data-text text-center">
+              <h1 class="m-b-0">00:54</h1>
+              <h1 class="m-t-0"><small>hour/minute</small></h1>
+            </div>
+        </div>
+      </div>
     </div>
 
+  {{--  
     <div class="col-sm-4">
       <h3 class="text-center">Muscle groups trained</h3>
       <canvas id="dashboardActivityPie" width="400" height="300"></canvas>
@@ -48,8 +58,8 @@
       <h3 class="text-center">Weight progress</h3>
       <canvas id="dashboardActivityBar2" width="400" height="300"></canvas>
     </div>
-  </div>
   --}}
+  </div>
 @endsection
 
 @section('script')
