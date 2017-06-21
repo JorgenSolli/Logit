@@ -125,47 +125,52 @@ class WorkoutController extends Controller
     public function finishWorkout ($routine_id)
     {
         $session = session('exercises');
+
+        if ($session != null || $session) {
+
         
-        $session_started = session('started_gymming');
-        $currTime = Carbon::now();
-        $duration = $currTime->diffInMinutes($session_started);
+            $session_started = session('started_gymming');
+            $currTime = Carbon::now();
+            $duration = $currTime->diffInMinutes($session_started);
 
-        session()->forget('exercises');
-        session()->forget('gymming');
-        session()->forget('started_gymming');
+            session()->forget('exercises');
+            session()->forget('gymming');
+            session()->forget('started_gymming');
 
-        $user_id = Auth::id();
+            $user_id = Auth::id();
 
-        $workout = new Workout;
-        $workout->routine_id = $routine_id;
-        $workout->user_id = $user_id;
-        $workout->duration_minutes = $duration;
-        $workout->save();
+            $workout = new Workout;
+            $workout->routine_id = $routine_id;
+            $workout->user_id = $user_id;
+            $workout->duration_minutes = $duration;
+            $workout->save();
+            foreach ($session as $session_exercise) {
+                $exercise_name = $session_exercise['exercise_name'];
+                foreach ($session_exercise['exercises'] as $exercise_specific) {
+                    $exercise = new WorkoutJunction;
+                    $exercise->workout_id       = $workout->id;
+                    $exercise->user_id          = $user_id;
+                    $exercise->routine_id       = $routine_id;
+                    $exercise->exercise_name    = $exercise_name;
+                    $exercise->reps             = $exercise_specific['reps'];
+                    $exercise->set_nr           = $exercise_specific['set'];
+                    $exercise->weight           = $exercise_specific['weight'];
 
-        foreach ($session as $session_exercise) {
-            $exercise_name = $session_exercise['exercise_name'];
-            foreach ($session_exercise['exercises'] as $exercise_specific) {
-                $exercise = new WorkoutJunction;
-                $exercise->workout_id       = $workout->id;
-                $exercise->user_id          = $user_id;
-                $exercise->routine_id       = $routine_id;
-                $exercise->exercise_name    = $exercise_name;
-                $exercise->reps             = $exercise_specific['reps'];
-                $exercise->set_nr           = $exercise_specific['set'];
-                $exercise->weight           = $exercise_specific['weight'];
+                    $exercise->save();
+                }
 
-                $exercise->save();
+                $note = new Note;
+                $note->user_id              = $user_id;
+                $note->routine_junction_id  = $session_exercise['routine_junction_id'];
+                $note->note                 = $session_exercise['note']['text'];
+                $note->label                = $session_exercise['note']['labelType'];
+                $note->save();
             }
-
-            $note = new Note;
-            $note->user_id              = $user_id;
-            $note->routine_junction_id  = $session_exercise['routine_junction_id'];
-            $note->note                 = $session_exercise['note']['text'];
-            $note->label                = $session_exercise['note']['labelType'];
-            $note->save();
+            
+            return redirect('/dashboard/workouts')->with('success', 'Workout saved. Good job!');
         }
-        
-        return redirect('/dashboard/workouts')->with('success', 'Workout saved. Good job!');
+
+        return redirect('/dashboard/workouts')->with('danger', 'Something went wrong! Please try again.');
     }
 
 }
