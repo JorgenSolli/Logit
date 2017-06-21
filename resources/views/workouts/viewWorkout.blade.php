@@ -16,16 +16,16 @@
 		      	<div class="card-content">
 			        <h4>{{ $workout[$i]['exercise_name'] }}</h4>
 			     	<div class="row">
-				     	<div class="col-sm-1">
+				     	<div class="col-sm-1 col-xs-3">
 				     		<b>Set nr</b>
 				     	</div>
-				     	<div class="col-sm-5">
+				     	<div class="col-sm-5 col-xs-3">
 				     		<b>Reps</b>
 				     	</div>
-				     	<div class="col-sm-5">
+				     	<div class="col-sm-5 col-xs-3">
 				     		<b>Weight</b>
 				     	</div>
-				     	<div class="col-sm-1">
+				     	<div class="col-sm-1 col-xs-3">
 				     		<span class="pull-right">
 				     			<b>Save</b>
 				     		</span>
@@ -34,23 +34,23 @@
 	  	@endif
 		<div class="row">
 			<input type="hidden" name="workout_junction_id" value="{{ $workout[$i]['id'] }}">
-	     	<div class="col-sm-1 lh-48 set_nr">
+	     	<div class="col-sm-1 col-xs-3 lh-48 set_nr">
 	     		{{ $workout[$i]['set_nr'] }}
      		</div>
 
-	     	<div class="col-sm-5">
+	     	<div class="col-sm-5 col-xs-3">
 	     		<div class="form-group m-t-0">
 	     			<input class="form-control reps" type="number" name="reps" value="{{ $workout[$i]['reps'] }}">
 	     		</div>
 	     	</div>
 	     	
-	     	<div class="col-sm-5">
+	     	<div class="col-sm-5 col-xs-3">
 	     		<div class="form-group m-t-0">
 	     			<input class="form-control weight" type="number" step="any" name="weight" value="{{ $workout[$i]['weight'] }}">
      			</div>
 	     	</div>
 
-	     	<div class="col-sm-1">
+	     	<div class="col-sm-1 col-xs-3">
      			<a class="pull-right pointer updateWorkoutRow"><i class="material-icons material-icons-lg">save</i></a>
 	     	</div>
 		</div>
