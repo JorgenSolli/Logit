@@ -80,6 +80,19 @@ $(document).ready(function() {
                 initCharts(data.labels, data.series, data.max);
             }
         })
+
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/api/getAvgGymTime/' + type + '/' + year + '/' + month,
+            success: function(data) {
+              console.log(data.avg_min);
+                $("#avg_hr").text(data.avg_hr)
+                $("#avg_min").text(data.avg_min)
+            }
+        })
     }
 
     // Waits for information to be appended before invoking the selectpicker

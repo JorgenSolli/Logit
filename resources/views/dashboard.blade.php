@@ -39,11 +39,19 @@
             <i class="material-icons">timer</i>
         </div>
         <div class="card-content">
-            <h4 class="card-title">Average workout time</h4>
-            <div class="data-text text-center">
-              <h1 class="m-b-0">00:54</h1>
-              <h1 class="m-t-0"><small>hour/minute</small></h1>
-            </div>
+          <div class="clearfix">
+            <h4 class="card-title pull-left">Average workout time</h4>
+            <i class="material-icons pull-right cursor" rel="tooltip" data-placement="bottom" title="Workouts that lasted less then 10 minutes does not count.">help_outline</i>
+          </div>
+          <div class="data-text text-center">
+            <h1 id="avg_hour" class="m-b-0">
+              <span id="avg_hr"></span>:<span id="avg_min"></span>
+            </h1>
+            
+            <h1 class="m-t-0">
+              <small>hour/minute</small>
+            </h1>
+          </div>
         </div>
       </div>
     </div>

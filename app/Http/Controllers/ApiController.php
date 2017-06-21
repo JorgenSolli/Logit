@@ -268,5 +268,98 @@ class ApiController extends Controller
         return $result;
     }
 
+    public function getAvgGymTime ($type, $year, $month)
+    {   
+
+
+        if ($type == "year") {
+            // ...
+        } 
+        elseif ($type == "months") {
+            function is_leap_year($year) {
+                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
+                    return 29;
+                }
+                return 28;
+            }
+            $selectedMonth = ucfirst($month);
+            $isLeapYear = false;
+            $monthData = collect([
+                'Jan' => [
+                    'int' => 1,
+                    'days' => 31
+                ], 
+                'Feb' => [
+                    'int' => 2,
+                    'days' => is_leap_year($year)
+                ],
+                'Mar' => [
+                    'int' => 3,
+                    'days' => 31
+                ],
+                'Apr' => [
+                    'int' => 4,
+                    'days' => 30
+                ],
+                'May' => [
+                    'int' => 5,
+                    'days' => 31
+                ],
+                'Jun' => [
+                    'int' => 6,
+                    'days' => 30
+                ],
+                'Jul' => [
+                    'int' => 7,
+                    'days' => 31
+                ],
+                'Aug' => [
+                    'int' => 8,
+                    'days' => 31
+                ],
+                'Sep' => [
+                    'int' => 9,
+                    'days' => 30
+                ],
+                'Oct' => [
+                    'int' => 1,
+                    'days' => 31
+                ],
+                'Nov' => [
+                    'int' => 1,
+                    'days' => 30
+                ],
+                'Dec' => [
+                    'int' => 1,
+                    'days' => 31
+                ] 
+            ]);
+
+            $data = Workout::where('user_id', Auth::id())
+                ->where(DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int']))
+                ->where(DB::raw('YEAR(created_at)'), '=', date($year))
+                ->where('duration_minutes', '>', 10)
+                ->avg('duration_minutes');
+
+            $hours = floor($data / 60);
+            if ($hours < 10) {
+                $hours = sprintf("%02d", $hours);
+            }
+
+            $minutes = ($data % 60);
+            if ($minutes < 10) {
+                $minutes = sprintf("%02d", $minutes);
+            }
+
+        }
+
+        return response()->json(
+            array(
+                'avg_hr' => $hours,
+                'avg_min' => $minutes
+                )
+            );
+    }
+
 
 }
