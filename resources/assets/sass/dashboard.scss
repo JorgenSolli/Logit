@@ -23,6 +23,10 @@
   width: 100%;
 }
 
+.pointer {
+  cursor: pointer !important;
+}
+
 .modal.modal-large .modal-dialog {
   width: 90%;
 }
@@ -242,4 +246,9 @@
 
 .material-icons-lg {
   font-size: 3.4rem !important;
+}
+
+/* Scrollfix */
+.ct-chart svg{
+    position: relative;
 }

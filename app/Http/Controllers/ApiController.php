@@ -103,6 +103,23 @@ class ApiController extends Controller
             return response()->json(array('success' => true));
         }
     }
+
+    public function updateWorkout (Request $request, Workout $workout)
+    {
+        if ($workout->user_id == Auth::id()) {
+
+            WorkoutJunction::where([
+                    ['user_id', '=', Auth::id()],
+                    ['id', '=', $request->junction_id]
+                ])
+                ->update([
+                    'weight' => $request->weight,
+                    'reps' => $request->reps
+                ]);
+
+            return response()->json(array('success' => true));
+        }
+    }
     
     public function flushSessions ()
     {

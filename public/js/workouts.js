@@ -1,18 +1,18 @@
 $(document).ready(function(){
 	var deleteWorkout = function(id) {
 		$.ajax({
-		    url: '/api/delete_workout/' + id,
-		    headers: {
-        		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        	},
-		    method: 'GET',
-		    success: function(data) {
-		    	console.log(data);
-	      		if (data.success) {
-	      			$("#workout-" + id).fadeOut();
-      				$("tr.child").fadeOut();
-	      		}
-		    },
+			url: '/api/delete_workout/' + id,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			method: 'GET',
+			success: function(data) {
+				console.log(data);
+				if (data.success) {
+					$("#workout-" + id).fadeOut();
+					$("tr.child").fadeOut();
+				}
+			},
 	  	})
 	}
 
@@ -76,8 +76,58 @@ $(document).ready(function(){
 			)
 			deleteWorkout(workoutId);
 		})
+	})
 
-		
+	$(document).on('click', '.updateWorkoutRow', function() {
+		// var setNr = parent.find('.set_nr').html().trim();
+		var workoutId = $('#workout_id').val();
+		var parent = $(this).parent().parent();
+		var reps = parent.find('.reps').val();
+		var weight = parent.find('.weight').val();
+		var junction_id = parent.find('input[name="workout_junction_id"]').val();
+
+		$.ajax({
+			url: '/api/update_workout/' + workoutId,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			method: 'GET',
+			data: {
+				junction_id: junction_id,
+				weight: weight,
+				reps: reps,
+			},
+			success: function(data) {
+				if (data.success) {
+					$.notify({
+        				icon: "add_alert",
+				        message: "The exercise was successfully updated."
+
+				    },{
+				        type: 'success',
+				        timer: 2000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				}
+				else {
+					$.notify({
+        				icon: "add_alert",
+				        message: "Something went wrong. Try again or contact support."
+
+				    },{
+				        type: 'danger',
+				        timer: 3000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				}
+			},
+		})
 	})
 
 	$(document).on('click', '.workout-back', function() {

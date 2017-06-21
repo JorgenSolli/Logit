@@ -56,3 +56,4 @@ Route::put('/api/exercise/{routineId}', 'ApiController@addExercise');
 Route::get('/api/getSessions/{type}/{year}/{month}', 'ApiController@getGrapData');
 Route::get('/api/get_workout/view/{workoutId}', 'ApiController@getWorkout');
 Route::get('/api/delete_workout/{workout}', 'ApiController@deleteWorkout');
+Route::get('/api/update_workout/{workout}', 'ApiController@updateWorkout');

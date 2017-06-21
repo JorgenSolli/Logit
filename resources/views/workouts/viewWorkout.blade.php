@@ -8,6 +8,7 @@
 			</div>
 	    </div>
 	</div>
+	<input id="workout_id" type="hidden" value="{{ $workoutId }}">
 
 	@for ($i = 0; $i < count($workout); $i++)
 	    @if ($i == 0 || $workout[$i]['exercise_name'] != $workout[$i - 1]['exercise_name'])
@@ -15,43 +16,42 @@
 		      	<div class="card-content">
 			        <h4>{{ $workout[$i]['exercise_name'] }}</h4>
 			     	<div class="row">
-				     	<div class="col-sm-3">
+				     	<div class="col-sm-1">
 				     		<b>Set nr</b>
 				     	</div>
-				     	<div class="col-sm-3">
+				     	<div class="col-sm-5">
 				     		<b>Reps</b>
 				     	</div>
-				     	<div class="col-sm-3">
+				     	<div class="col-sm-5">
 				     		<b>Weight</b>
 				     	</div>
-				     	<div class="col-sm-3">
+				     	<div class="col-sm-1">
 				     		<span class="pull-right">
-				     			Save
+				     			<b>Save</b>
 				     		</span>
 			     		</div>
 	    			</div>
 	  	@endif
 		<div class="row">
-	     	<div class="col-sm-3 lh-48">
+			<input type="hidden" name="workout_junction_id" value="{{ $workout[$i]['id'] }}">
+	     	<div class="col-sm-1 lh-48 set_nr">
 	     		{{ $workout[$i]['set_nr'] }}
      		</div>
 
-	     	<div class="col-sm-3">
+	     	<div class="col-sm-5">
 	     		<div class="form-group m-t-0">
-	     			<input class="form-control" type="number" name="reps" value="{{ $workout[$i]['reps'] }}">
+	     			<input class="form-control reps" type="number" name="reps" value="{{ $workout[$i]['reps'] }}">
 	     		</div>
 	     	</div>
 	     	
-	     	<div class="col-sm-3">
+	     	<div class="col-sm-5">
 	     		<div class="form-group m-t-0">
-	     			<input class="form-control" type="number" step="any" name="weight" value="{{ $workout[$i]['weight'] }}">
+	     			<input class="form-control weight" type="number" step="any" name="weight" value="{{ $workout[$i]['weight'] }}">
      			</div>
 	     	</div>
 
-	     	<div class="col-sm-3">
-	     		<span class="pull-right">
-	     			<a href="/api/update/workout_set/{{ $workout[$i]['id'] }}" class="pointer"><i class="material-icons material-icons-lg">save</i></a>
-	     		</span>
+	     	<div class="col-sm-1">
+     			<a class="pull-right pointer updateWorkoutRow"><i class="material-icons material-icons-lg">save</i></a>
 	     	</div>
 		</div>
 
