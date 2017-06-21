@@ -262,7 +262,6 @@ class ApiController extends Controller
                 $result['series'][0][(int)$day] = $result['series'][0][(int)$day] + 1;
             }
 
-            dd($result);
             $result['max'] = max($result['series'][0]) + 1;
         }
 
