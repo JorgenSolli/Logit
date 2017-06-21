@@ -239,10 +239,10 @@ class ApiController extends Controller
             );
 
             for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
-                // $result->put($i, ['day' => $i,'total' => 0]);
-                array_push($result['labels'], $i);
+                array_push($result['labels'], $i -1);
                 array_push($result['series'][0], 0);
             }
+
 
             $data = Workout::where('user_id', Auth::id())
                 ->where(DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int']))
@@ -258,29 +258,13 @@ class ApiController extends Controller
                     $day = ltrim($day, 0);
                 }
 
-                $prev = $result['series'][0][(int)$day];
+                // $prev = $result['series'][0][(int)$day];
                 $result['series'][0][(int)$day] = $result['series'][0][(int)$day] + 1;
             }
 
+            dd($result);
             $result['max'] = max($result['series'][0]) + 1;
-
-            /*foreach ($data as $value) {
-                $day = $value->created_at->format('d');
-                
-                // Removes a zero in front of the int.
-                if ($day > 0 && $day < 10) {
-                    $day = ltrim($day, 0);
-                }
-                $result->put($day, [
-                    'day' => $day,
-                    'total' => $result[$day]['total'] + 1
-                ]);
-            }*/
         }
-        
-        /*$rtn = ([
-            'data' => $result
-        ]);*/
 
         return $result;
     }

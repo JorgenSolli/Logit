@@ -34,14 +34,33 @@ $(document).ready(function(){
 	$(document).on('click', '#finishWorkout', function(e) {
 		e.preventDefault();
 
+		var atLeastOne = false;
 		var incompleteItems = false
 		var numIncomplete = 0;
 		var href = $(this).attr('href')
-
+		/* Checks if some exercies aren't completed or if at least one is completed */
 		$(".list-group-item").each(function(index) {
 			if ($(this).attr('data-status') == 'incomplete') {
 				incompleteItems = true
 				numIncomplete++
+			} else {
+				atLeastOne = true
+			}
+
+			// If not a single exercies is completed
+			if (!atLeastOne) {
+				swal({
+					title: 'Whops!',
+					text: 'You need to complete at least ONE exercies before finishing',
+					type: 'error',
+					showCancelButton: false,
+					confirmButtonColor: '#3085d6',
+					confirmButtonText: "Understood!",
+					confirmButtonClass: 'btn btn-primary',
+					buttonsStyling: false
+				})
+
+				return;
 			}
 
 			if (incompleteItems) {
@@ -58,7 +77,7 @@ $(document).ready(function(){
 					cancelButtonClass: 'btn btn-success',
 					buttonsStyling: false
 				}).then(function () {
-					window.location.href = href;
+					return window.location.href = href;
 				}, function (dismiss) {
 					if (dismiss === 'cancel') {
 						swal(
@@ -69,7 +88,10 @@ $(document).ready(function(){
 					}
 				})
 			}
-			console.log(incompleteItems);
+
+			if (atLeastOne && !incompleteItems) {
+				return window.location.href = href;
+			}
 		})
 	})
 
