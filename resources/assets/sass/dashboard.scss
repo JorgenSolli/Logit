@@ -15,6 +15,10 @@
   margin-bottom: 10px !important;
 }
 
+.lh-48 {
+  line-height: 48px !important;
+}
+
 .btn-fullwidth {
   width: 100%;
 }
@@ -234,4 +238,8 @@
       border-color: #E5E5E5;
       transition: .2s;
   }
+}
+
+.material-icons-lg {
+  font-size: 3.4rem !important;
 }

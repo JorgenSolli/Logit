@@ -92,6 +92,17 @@ class ApiController extends Controller
             ->render();
         return response()->json(array('success' => true, 'data'=>$returnHTML));
     }
+
+    public function deleteWorkout (Workout $workout)
+    {
+        if ($workout->user_id == Auth::id()) {
+            WorkoutJunction::where('workout_id', $workout->id)
+                ->delete();
+            $workout->delete();
+
+            return response()->json(array('success' => true));
+        }
+    }
     
     public function flushSessions ()
     {
@@ -256,4 +267,6 @@ class ApiController extends Controller
 
         return $result;
     }
+
+
 }

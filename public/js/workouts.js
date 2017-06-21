@@ -1,4 +1,21 @@
 $(document).ready(function(){
+	var deleteWorkout = function(id) {
+		$.ajax({
+		    url: '/api/delete_workout/' + id,
+		    headers: {
+        		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        	},
+		    method: 'GET',
+		    success: function(data) {
+		    	console.log(data);
+	      		if (data.success) {
+	      			$("#workout-" + id).fadeOut();
+      				$("tr.child").fadeOut();
+	      		}
+		    },
+	  	})
+	}
+
 	$("#exercises a").on('click', function() {
 		var exerciseId = $(this).attr('id');
 		$.ajax({
@@ -23,20 +40,53 @@ $(document).ready(function(){
 		$("#exercises").slideDown();
 	})
 
-	$(".viewWorkout").on('click', function() {
-	  var routineId = $(this).children('input').val();
+	$(document).on('click', '.viewWorkout', function() {
+	  var workoutId = $(this).children('input').val();
 
 	  $.ajax({
-	    url: '/api/get_workout/view/' + routineId,
+	    url: '/api/get_workout/view/' + workoutId,
 	    headers: {
         	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
 	    method: 'GET',
 	    success: function(data) {
-	      $("#modalData").html(data['data']);
+      		$("#workouts").hide();
+	  		$("#viewWorkout").html(data['data']).show();
 	    },
 	  })
 	})
+
+	$(document).on('click', '.deleteWorkout', function() {
+		var workoutId = $(this).attr('id');
+		var name = $("#workout-" + workoutId).find(".name").html().trim();
+
+		swal({
+			title: 'Are you sure?',
+			text: name + " will be gone forever!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then(function () {
+			swal(
+				'Deleted!',
+				'The workout has been deleted.',
+				'success'
+			)
+			deleteWorkout(workoutId);
+		})
+
+		
+	})
+
+	$(document).on('click', '.workout-back', function() {
+		$("#viewWorkout").empty().hide();
+		$("#workouts").show();
+
+		$(".ps-container").scrollTop(0);
+		$(".ps-container").perfectScrollbar('update');
+	});
 
 	$(document).on('click', '#saveWorkout', function() {
 		var ok = true
@@ -91,5 +141,4 @@ $(document).ready(function(){
 	  }
 	})
 	var table = $('#datatables').DataTable();
-
 });

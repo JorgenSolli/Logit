@@ -2,8 +2,11 @@
 
 @section('content')
   @include('notifications')
+  <div id="viewWorkout" class="card-content">
 
-  <div class="card">
+  </div>
+
+  <div id="workouts" class="card">
     <div class="card-header card-header-icon" data-background-color="green">
       <i class="material-icons">view_list</i>
     </div>
@@ -22,20 +25,16 @@
           </thead>
           <tbody>
             @foreach ($workouts as $workout)
-              <tr>
+              <tr id="workout-{{ $workout->workout_id }}">
                 <td>{{ $workout->created_at }}</td>
-                <td>{{ $workout->routine_name }}</td>
+                <td class="name">{{ $workout->routine_name }}</td>
                 <td class="text-center">
-                  <a class="pointer" onclick="event.preventDefault(); document.getElementById('delete-routine{{ $workout->workout_id }}').submit();">
+                  <a id="{{ $workout->workout_id }}" class="pointer deleteWorkout">
                     <span class="fa fa-trash-o fa-lg danger-color"></span>
                   </a>
-                  <form action="/dashboard/my_workouts/{{ $workout->workout_id }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                  </form>
                 </td>
                 <td class="text-center">
-                  <a class="viewWorkout pointer" data-toggle="modal" data-target="#viewWorkoutModal">
+                  <a class="viewWorkout pointer">
                     <input type="hidden" value="{{ $workout->workout_id }}">
                     <span class="fa fa-pencil fa-lg success-color"></span>
                   </a>
@@ -48,13 +47,6 @@
     </div>
   </div>
 
-  <div id="viewWorkoutModal" class="modal modal-large fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div id="modalData" class="modal-content">
-      </div>
-    </div>
-  </div>
 @endsection
 
 @section('script')

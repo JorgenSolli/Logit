@@ -8,7 +8,7 @@ $(function() {
     .disableSelection();
 });
 
-$(".viewRoutine").on('click', function() {
+$(document).on('click', '.viewRoutine', function() {
   var routineId = $(this).children('input').val();
 
   $.ajax({
@@ -40,9 +40,9 @@ $(document).on('click', '.routine-back', function() {
 });
 
 /* Functions for deleting a routing */
-$(".deleteRoutine").on('click', function() {
+$(document).on('click', '.deleteRoutine', function() {
   var routineId = $(this).attr('id');
-  var name = $(this).parent().parent().find('.routine-name').html().trim();
+  var name = $("#routine-" + routineId).find('.routine-name').html().trim();
 
   swal({
     title: 'Are you sure?',
@@ -71,6 +71,7 @@ var deleteRoutine = function(routineId) {
     method: 'GET',
     success: function(data) {
       $("#routine-" + routineId).fadeOut();
+      $("tr.child").fadeOut();
     },
   });
 }
