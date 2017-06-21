@@ -31,6 +31,48 @@ $(document).ready(function(){
 		})
 	})
 
+	$(document).on('click', '#finishWorkout', function(e) {
+		e.preventDefault();
+
+		var incompleteItems = false
+		var numIncomplete = 0;
+		var href = $(this).attr('href')
+
+		$(".list-group-item").each(function(index) {
+			if ($(this).attr('data-status') == 'incomplete') {
+				incompleteItems = true
+				numIncomplete++
+			}
+
+			if (incompleteItems) {
+				swal({
+					title: "Sure you want to finish?",
+					text: "You haven't completed all exercises!",
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: "Yes, I'm done!",
+					cancelButtonText: "No, I'll finish!",
+					confirmButtonClass: 'btn btn-danger',
+					cancelButtonClass: 'btn btn-success',
+					buttonsStyling: false
+				}).then(function () {
+					window.location.href = href;
+				}, function (dismiss) {
+					if (dismiss === 'cancel') {
+						swal(
+							'Awesome!',
+							"Let's finish this!",
+							'success'
+						)
+					}
+				})
+			}
+			console.log(incompleteItems);
+		})
+	})
+
 	$(document).on('click', '#cancelExercise', function() {
 		$("#data").empty();
 		
@@ -168,9 +210,7 @@ $(document).ready(function(){
 			cancelButtonClass: 'btn btn-danger',
 			buttonsStyling: false
 		}).then(function () {
-
 			window.location.href = "/clear";
-
 		}, function (dismiss) {
 			if (dismiss === 'cancel') {
 				return false;

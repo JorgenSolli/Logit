@@ -21,7 +21,7 @@
           </a>
         </div>
     		<div class="col-md-6 col-sm-12 m-t-15-sm clear-sm">
-    			<a href="/dashboard/workout/finish/{{ $routine_id }}" class="btn-fullwidth btn btn-lg btn-success">
+    			<a id="finishWorkout" href="/dashboard/workout/finish/{{ $routine_id }}" class="btn-fullwidth btn btn-lg btn-success">
             <span class="btn-label">
               <i class="fa fa-trophy fa-lg"></i>
             </span>
@@ -35,14 +35,17 @@
   <div id="exercises">
     <h2>Let's go! <small>Select an exercise</small></h2>
     @foreach($exercises as $exercise)
-    	<a id="{{ $exercise->id }}" class="pointer list-group-item">
-    		@if (session($exercise->exercise_name))
-        	<span class="fa fa-clock-o"></span>&nbsp;
-      	@else
-      		<span class="fa fa-check"></span>&nbsp;
-        @endif
-        {{ $exercise->exercise_name }}
-      </a>
+      @if (session($exercise->exercise_name))
+        <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="incomplete">
+          <span class="fa fa-clock-o"></span>&nbsp;
+          {{ $exercise->exercise_name }}
+        </a>
+      @else
+        <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="completed">
+          <span class="fa fa-check"></span>&nbsp;
+          {{ $exercise->exercise_name }}
+        </a>
+      @endif
     @endforeach
   </div>
   <div id="data"></div>
