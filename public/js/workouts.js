@@ -47,52 +47,54 @@ $(document).ready(function(){
 				atLeastOne = true
 			}
 
-			// If not a single exercies is completed
-			if (!atLeastOne) {
-				swal({
-					title: 'Whops!',
-					text: 'You need to complete at least ONE exercies before finishing',
-					type: 'error',
-					showCancelButton: false,
-					confirmButtonColor: '#3085d6',
-					confirmButtonText: "Understood!",
-					confirmButtonClass: 'btn btn-primary',
-					buttonsStyling: false
-				})
-
-				return;
-			}
-
-			if (incompleteItems) {
-				swal({
-					title: "Sure you want to finish?",
-					text: "You haven't completed all exercises!",
-					type: 'warning',
-					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					confirmButtonText: "Yes, I'm done!",
-					cancelButtonText: "No, I'll finish!",
-					confirmButtonClass: 'btn btn-danger',
-					cancelButtonClass: 'btn btn-success',
-					buttonsStyling: false
-				}).then(function () {
-					return window.location.href = href;
-				}, function (dismiss) {
-					if (dismiss === 'cancel') {
-						swal(
-							'Awesome!',
-							"Let's finish this!",
-							'success'
-						)
-					}
-				})
-			}
-
-			if (atLeastOne && !incompleteItems) {
-				return window.location.href = href;
-			}
 		})
+
+		// If not a single exercies is completed
+		if (!atLeastOne) {
+			swal({
+				title: 'Whops!',
+				text: 'You need to complete at least ONE exercies before finishing',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonColor: '#3085d6',
+				confirmButtonText: "Understood!",
+				confirmButtonClass: 'btn btn-primary',
+				buttonsStyling: false
+			})
+
+			return;
+		}
+
+		if (incompleteItems) {
+			swal({
+				title: "Sure you want to finish?",
+				text: "You haven't completed all exercises!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: "Yes, I'm done!",
+				cancelButtonText: "No, I'll finish!",
+				confirmButtonClass: 'btn btn-danger',
+				cancelButtonClass: 'btn btn-success',
+				buttonsStyling: false
+			}).then(function () {
+				return window.location.href = href;
+			}, function (dismiss) {
+				if (dismiss === 'cancel') {
+					swal(
+						'Awesome!',
+						"Let's finish this!",
+						'success'
+					)
+					return;
+				}
+			})
+		}
+
+		if (atLeastOne && !incompleteItems) {
+			return window.location.href = href;
+		}
 	})
 
 	$(document).on('click', '#cancelExercise', function() {
