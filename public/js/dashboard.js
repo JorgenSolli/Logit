@@ -1,30 +1,45 @@
+/*  **************** Workout Activity - Line Chart ******************** */
 var initCharts = function(labels, series, max) {
-    /*  **************** Coloured Rounded Line Chart - Line Chart ******************** */
-    dataWorkoutActivityChart = {
-      labels: labels,
-      series: series
-    };
+  dataWorkoutActivityChart = {
+    labels: labels,
+    series: series
+  };
 
-    optionsWorkoutActivityChart = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-          tension: 0
-      }),
-      axisY: {
-          showGrid: true,
-          offset: 40
-      },
-      axisX: {
-          showGrid: false,
-      },
-      low: 0,
-      high: max,
-      showPoint: true,
-      height: '300px'
-    };
+  optionsWorkoutActivityChart = {
+    lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+    }),
+    axisY: {
+        showGrid: true,
+        offset: 40
+    },
+    axisX: {
+        showGrid: false,
+    },
+    low: 0,
+    high: max,
+    showPoint: true,
+    height: '300px'
+  };
 
-    var workoutActivityChart = new Chartist.Line('#workoutActivityChart', dataWorkoutActivityChart, optionsWorkoutActivityChart);
+  var workoutActivityChart = new Chartist.Line('#workoutActivityChart', dataWorkoutActivityChart, optionsWorkoutActivityChart);
 
-    md.startAnimationForLineChart(workoutActivityChart);
+  md.startAnimationForLineChart(workoutActivityChart); 
+}
+
+/*  **************** Musclegroups Worked Out - Pie Chart ******************** */
+var musclegroupsPiechart = function(labels, series) {
+
+  var dataPreferences = {
+    labels: labels,
+    series: series
+  };
+
+  var optionsPreferences = {
+    height: '300px',
+  };
+
+  Chartist.Pie('#musclegroupsPiechart', dataPreferences, optionsPreferences);
 }
 
 $(document).ready(function() {
@@ -70,6 +85,7 @@ $(document).ready(function() {
         var year  = $("#statistics-year").val();
         var month = $("#statistics-month").val();
 
+        /* Data for session chart */
         $.ajax({
             method: 'GET',
             headers: {
@@ -81,6 +97,19 @@ $(document).ready(function() {
             }
         })
 
+        /* Data for musclegroup chart */
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/api/getMusclegroups/' + type + '/' + year + '/' + month,
+            success: function(data) {
+              musclegroupsPiechart(data.labels, data.series);
+            }
+        })
+
+        /* Data for workout-time data */
         $.ajax({
             method: 'GET',
             headers: {
@@ -88,7 +117,6 @@ $(document).ready(function() {
             },
             url: '/api/getAvgGymTime/' + type + '/' + year + '/' + month,
             success: function(data) {
-              console.log(data.avg_min);
                 $("#avg_hr").text(data.avg_hr)
                 $("#avg_min").text(data.avg_min)
             }

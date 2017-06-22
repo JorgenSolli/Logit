@@ -47,11 +47,30 @@
             <h1 id="avg_hour" class="m-b-0">
               <span id="avg_hr"></span>:<span id="avg_min"></span>
             </h1>
-            
             <h1 class="m-t-0">
               <small>hour/minute</small>
             </h1>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-header card-header-icon" data-background-color="blue">
+            <i class="material-icons">accessibility</i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">Musclegroups worked out</h4>
+        </div>
+
+        <div id="musclegroupsPiechart" class="ct-chart"></div>
+        
+        <div class="card-footer">
+          <h6>Legend</h6>
+          <i class="fa fa-circle text-info"></i> Apple
+          <i class="fa fa-circle text-warning"></i> Samsung
+          <i class="fa fa-circle text-danger"></i> Windows Phone
         </div>
       </div>
     </div>

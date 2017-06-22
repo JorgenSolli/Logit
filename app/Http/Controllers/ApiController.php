@@ -374,6 +374,27 @@ class ApiController extends Controller
             'chest' => 0
         ];
 
+        $result = array(
+            'labels' => [
+                'back',
+                'biceps',
+                'triceps',
+                'abs',
+                'shoulders',
+                'legs',
+                'chest',
+            ],
+            'series' => [
+                0,  // back
+                0,  // biceps
+                0,  // triceps
+                0,  // abs
+                0,  // shoulders
+                0,  // legs
+                0   // chest
+            ],
+        );
+
         if ($type == "year") {
             // ...
         } 
@@ -446,6 +467,8 @@ class ApiController extends Controller
                 ->join('routine_junctions', 'workout_junctions.exercise_name', '=', 'routine_junctions.exercise_name')
                 ->get();
 
+            $total = $data->count();
+            
             foreach ($data as $mg) {
                 /*
                  * Iterates throught results and pushes each musclegroup to the array
@@ -454,11 +477,17 @@ class ApiController extends Controller
                 $musclegroups[$mg->muscle_group] = $musclegroups[$mg->muscle_group] + 1;
             }
 
+            /* Iterates throught the total resunts and gets the actual percentage based on $total */
+            foreach ($musclegroups as $key => $val) {
+                $index = array_search($key,array_keys($musclegroups));
+                $percent = $val / $total * 100;
+
+                $result['series'][$index] = $percent;
+            }
+
         }
 
-        return response()->json(
-                array($musclegroups)
-            );
+        return $result;
     }
 
 
