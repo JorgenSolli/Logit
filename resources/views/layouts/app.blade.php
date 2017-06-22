@@ -6,12 +6,12 @@
         <div class="sidebar" data-active-color="green" data-background-color="black" data-image="/img/sidebar-1.jpg">
             <div class="logo">
                 <a href="/" class="simple-text">
-                    Loggit
+                    Logit
                 </a>
             </div>
             <div class="logo logo-mini">
                 <a href="/" class="simple-text">
-                  Loggit
+                  Logit
                 </a>
             </div>
             <div class="sidebar-wrapper">

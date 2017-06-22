@@ -12,7 +12,7 @@
 	                <span class="icon-bar"></span>
 	                <span class="icon-bar"></span>
 	            </button>
-	            <a class="navbar-brand" href="/">Loggit</a>
+	            <a class="navbar-brand" href="/">Logit</a>
 	        </div>
 	        <div class="collapse navbar-collapse">
 	            <ul class="nav navbar-nav navbar-right">
@@ -30,7 +30,7 @@
 	            	@else
 		                <li>
 		                    <a href="/dashboard">
-		                        <i class="material-icons">home</i> Launch Loggit
+		                        <i class="material-icons">home</i> Launch Logit
 		                    </a>
 		                </li>
 		                <li>
@@ -52,7 +52,7 @@
 				<div class="container">
 				    <div class="row">
 				        <div class="col-md-6 col-md-offset-3 text-center">
-				            <h2 class="title">Welcome to Loggit!</h2>
+				            <h2 class="title">Welcome to Logit!</h2>
 				            <h5 class="description">The simple solution to logging your workouts.</h5>
 				        </div>
 				    </div>
@@ -94,7 +94,7 @@
 				                    </div>
 				                    <h3 class="card-title">Technology!</h3>
 				                    <p class="card-description">
-				                        Why bother with pen and paper when you got Loggit? 
+				                        Why bother with pen and paper when you got Logit? 
 				                    </p>
 				                </div>
 				            </div>

@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Loggit') }}</title>
+    <title>{{ config('app.name', 'Logit') }}</title>
     
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">

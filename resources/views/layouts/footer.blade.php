@@ -3,13 +3,13 @@
         <nav class="pull-left">
             <ul>
                 <li>
-                    <a href="/">Loggit v0.8.3-beta</a>
+                    <a href="/">Logit v0.9.1-beta</a>
                 </li>
                 <li>
                     <a href="https://jorgensolli.no/?lang=en">By Jørgen Solli</a>
                 </li>
                 <li>
-                    <a href="https://github.com/JorgenSolli/Loggit"><span class="fa fa-github fa-lg"></span> Find me on Github</a>
+                    <a href="https://github.com/JorgenSolli/Logit"><span class="fa fa-github fa-lg"></span> Find me on Github</a>
                 </li>
             </ul>
         </nav>
