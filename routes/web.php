@@ -53,8 +53,11 @@ Route::get('/dashboard/workout/finish/{routine_id}', 'WorkoutController@finishWo
 /* APIs */
 Route::get('/api/exercise/{exerciseId}', 'ApiController@getExercise');
 Route::put('/api/exercise/{routineId}', 'ApiController@addExercise');
-Route::get('/api/getSessions/{type}/{year}/{month}', 'ApiController@getGrapData');
-Route::get('/api/getAvgGymTime/{type}/{year}/{month}', 'ApiController@getAvgGymTime');
 Route::get('/api/get_workout/view/{workoutId}', 'ApiController@getWorkout');
 Route::get('/api/delete_workout/{workout}', 'ApiController@deleteWorkout');
 Route::get('/api/update_workout/{workout}', 'ApiController@updateWorkout');
+
+/* Statistics */
+Route::get('/api/getSessions/{type}/{year}/{month}', 'ApiController@getGrapData');
+Route::get('/api/getAvgGymTime/{type}/{year}/{month}', 'ApiController@getAvgGymTime');
+Route::get('/api/getMusclegroups/{type}/{year}/{month}', 'ApiController@getMusclegroups');

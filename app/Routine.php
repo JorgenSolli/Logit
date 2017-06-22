@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Logit;
 
 use Illuminate\Database\Eloquent\Model;
 

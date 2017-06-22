@@ -27,7 +27,10 @@ class CreateNotesTable extends Migration
                 ->onDelete('cascade');
                 
             $table->text('note')->nullable();
-            $table->string('label')->default('alert-info');
+            
+            $table->string('label')
+                ->default('alert-info')
+                ->nullable();
             $table->timestamps();
         });
     }

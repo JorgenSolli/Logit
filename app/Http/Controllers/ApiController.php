@@ -1,12 +1,12 @@
 <?php
-namespace App\Http\Controllers;
+namespace Logit\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB;
-use App\Note;
-use App\Workout;
-use App\RoutineJunction;
-use App\WorkoutJunction;
+use Logit\Note;
+use Logit\Workout;
+use Logit\RoutineJunction;
+use Logit\WorkoutJunction;
 
 class ApiController extends Controller
 {
@@ -358,6 +358,106 @@ class ApiController extends Controller
                 'avg_hr' => $hours,
                 'avg_min' => $minutes
                 )
+            );
+    }
+
+    public function getMusclegroups ($type, $year, $month)
+    {
+
+        $musclegroups = [
+            'back' => 0, 
+            'biceps' => 0, 
+            'triceps' => 0, 
+            'abs' => 0, 
+            'shoulders' => 0, 
+            'legs' => 0, 
+            'chest' => 0
+        ];
+
+        if ($type == "year") {
+            // ...
+        } 
+        elseif ($type == "months") {
+            function is_leap_year($year) {
+                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
+                    return 29;
+                }
+                return 28;
+            }
+            $selectedMonth = ucfirst($month);
+            $isLeapYear = false;
+            $monthData = collect([
+                'Jan' => [
+                    'int' => 1,
+                    'days' => 31
+                ], 
+                'Feb' => [
+                    'int' => 2,
+                    'days' => is_leap_year($year)
+                ],
+                'Mar' => [
+                    'int' => 3,
+                    'days' => 31
+                ],
+                'Apr' => [
+                    'int' => 4,
+                    'days' => 30
+                ],
+                'May' => [
+                    'int' => 5,
+                    'days' => 31
+                ],
+                'Jun' => [
+                    'int' => 6,
+                    'days' => 30
+                ],
+                'Jul' => [
+                    'int' => 7,
+                    'days' => 31
+                ],
+                'Aug' => [
+                    'int' => 8,
+                    'days' => 31
+                ],
+                'Sep' => [
+                    'int' => 9,
+                    'days' => 30
+                ],
+                'Oct' => [
+                    'int' => 1,
+                    'days' => 31
+                ],
+                'Nov' => [
+                    'int' => 1,
+                    'days' => 30
+                ],
+                'Dec' => [
+                    'int' => 1,
+                    'days' => 31
+                ] 
+            ]);
+
+            $data = WorkoutJunction::where([
+                    ['workout_junctions.user_id', Auth::id()],
+                    [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                    ['workout_junctions.set_nr', '=', 1], // Only count the first set of the exercise!
+                ])
+                ->join('routine_junctions', 'workout_junctions.exercise_name', '=', 'routine_junctions.exercise_name')
+                ->get();
+
+            foreach ($data as $mg) {
+                /*
+                 * Iterates throught results and pushes each musclegroup to the array
+                 * Takes previous data and appends 1
+                 */
+                $musclegroups[$mg->muscle_group] = $musclegroups[$mg->muscle_group] + 1;
+            }
+
+        }
+
+        return response()->json(
+                array($musclegroups)
             );
     }
 

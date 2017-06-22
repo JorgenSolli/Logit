@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Logit\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\User;
+use Logit\User;
 
 class DashboardController extends Controller
 {

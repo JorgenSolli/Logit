@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Logit\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Routine;
-use App\RoutineJunction;
+use Logit\Routine;
+use Logit\RoutineJunction;
 
 class RoutineController extends Controller
 {

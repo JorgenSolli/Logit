@@ -171,11 +171,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Logit\Providers\AppServiceProvider::class,
+        Logit\Providers\AuthServiceProvider::class,
+        // Logit\Providers\BroadcastServiceProvider::class,
+        Logit\Providers\EventServiceProvider::class,
+        Logit\Providers\RouteServiceProvider::class,
 
         /*
          * 3rd Party Providers

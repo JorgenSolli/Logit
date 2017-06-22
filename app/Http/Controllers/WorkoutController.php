@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Logit\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\RoutineJunction;
-use App\WorkoutJunction;
-use App\Routine;
-use App\Workout;
-use App\Note;
-use App\User;
+use Logit\RoutineJunction;
+use Logit\WorkoutJunction;
+use Logit\Routine;
+use Logit\Workout;
+use Logit\Note;
+use Logit\User;
 
 class WorkoutController extends Controller
 {
