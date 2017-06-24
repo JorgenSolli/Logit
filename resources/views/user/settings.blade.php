@@ -52,7 +52,8 @@
 							    			<input name="recap" type="checkbox">
 										@endif
 									@else
-										<input name="recap" type="checkbox">
+										{{-- Becayse the std value is 1 --}}
+										<input name="recap" type="checkbox" checked="">
 									@endif
 									Show recap after workout
 								</label>
