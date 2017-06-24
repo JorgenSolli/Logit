@@ -25,8 +25,8 @@
                         </div>
                         <div class="form-group label-floating">
                             <select id="country" class="selectpicker" name="unit" data-style="btn btn-primary" title="Prefered Unit">
+                                <option disabled selected> Prefered units</option>
 	                            @if ($settings && $settings->unit)
-	                                <option disabled selected> Prefered units</option>
 	                                @if ($settings->unit == 'Imperial')
 	                                	<option value="Imperial" selected> Imperial (pounds)</option>
                             			<option value="Metric"> Metric (kilograms)</option>
@@ -34,6 +34,9 @@
 		                            	<option value="Metric" selected> Metric (kilograms)</option>
 		                            	<option value="Imperial"> Imperial (pounds)</option>
 	                            	@endif
+	                           	@else
+	                           		<option value="Imperial" selected> Imperial (pounds)</option>
+                        			<option value="Metric"> Metric (kilograms)</option>
 	                            @endif
 	                        </select>
                         </div>
@@ -48,6 +51,8 @@
 										@else
 							    			<input name="recap" type="checkbox">
 										@endif
+									@else
+										<input name="recap" type="checkbox">
 									@endif
 									Show recap after workout
 								</label>
@@ -62,6 +67,8 @@
 										@else
 							    			<input name="share_workouts" type="checkbox">
 										@endif
+									@else
+										<input name="share_workouts" type="checkbox">
 									@endif
 									Let friends see your workout activity
 								</label>
@@ -78,6 +85,8 @@
 										@else
 							    			<input name="accept_friends" type="checkbox">
 										@endif
+									@else
+										<input name="accept_friends" type="checkbox">
 									@endif
 									Let others send you friend requests
 								</label>

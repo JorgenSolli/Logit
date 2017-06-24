@@ -42,15 +42,12 @@ class SettingsController extends Controller
         $settings = Settings::where('user_id', Auth::id())
             ->first();
 
-        // If there is an instance of the user already in our settingstable
-        if ($settings) {
-            $settings->user_id = Auth::id();
-        }
-        // Else, create a new instance
-        else {
+        // If there is not an instance of the user already in our settingstable
+        if (!$settings) {
             $settings = new Settings;
         }
 
+        $settings->user_id = Auth::id();
         $settings->unit = $data['unit'];
         $settings->timezone = $data['timezone'];
 

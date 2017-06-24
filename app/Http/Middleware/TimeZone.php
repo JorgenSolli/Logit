@@ -24,7 +24,14 @@ class TimeZone
         $this->user = $auth->user();
         
         $id = $this->user->id;
-        $this->timezone = Settings::where('user_id', $id)->first()->timezone;
+
+        $settings = Settings::where('user_id', $id)->first();
+        
+        if ($settings) {
+            $this->timezone = $settings->timezone;
+        } else {
+            $this->timezone = 'UTC';
+        }
     }
 
     /**
@@ -36,10 +43,11 @@ class TimeZone
      */
     public function handle($request, Closure $next)
     {
-        if($this->user)
-        {
+        if($this->user) {
+
             $timezone = $this->timezone;
-            if ($timezone != "") {
+
+            if ($timezone) {
                 date_default_timezone_set($timezone);
                 return $next($request);
             }
