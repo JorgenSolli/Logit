@@ -1,5 +1,5 @@
 {
-    "name": "Loggit",
+    "name": "Logit",
     "icons": [
         {
             "src": "/img/favicon/android-chrome-192x192.png",
@@ -12,7 +12,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#dff0fe",
-    "background_color": "#dff0fe",
+    "theme_color": "#eeeeee",
+    "background_color": "#eeeeee",
     "display": "standalone"
 }

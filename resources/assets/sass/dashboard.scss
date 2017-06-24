@@ -256,3 +256,97 @@
 .ct-chart svg{
     position: relative;
 }
+
+/* Pie Chart Colors */
+
+.ct-series-a {
+    .ct-slice-pie, .ct-area {
+      fill: #2c9526;
+    }
+    .ct-slice-donut {
+      stroke: #2c9526;  
+    } 
+}
+
+.ct-series-b {
+    .ct-slice-pie, .ct-area {
+      fill: #00562e;
+    }
+    .ct-slice-donut {
+      stroke: #00562e;  
+    } 
+}
+
+.ct-series-c {
+    .ct-slice-pie, .ct-area {
+      fill: #007ccf;
+    }
+    .ct-slice-donut {
+      stroke: #007ccf;  
+    } 
+}
+
+.ct-series-d {
+    .ct-slice-pie, .ct-area {
+      fill: #1e3a64;
+    }
+    .ct-slice-donut {
+      stroke: #1e3a64;  
+    } 
+}
+
+.ct-series-e {
+    .ct-slice-pie, .ct-area {
+      fill: #8737ca;
+    }
+    .ct-slice-donut {
+      stroke: #8737ca;  
+    } 
+}
+
+.ct-series-f {
+    .ct-slice-pie, .ct-area {
+      fill: #cb257f;
+    }
+    .ct-slice-donut {
+      stroke: #cb257f;  
+    } 
+}
+
+.ct-series-g {
+    .ct-slice-pie, .ct-area {
+      fill: #e83400;
+    }
+    .ct-slice-donut {
+      stroke: #e83400;  
+    } 
+}
+
+/* Legend colors */
+.ct-legend-a {
+  color: #2c9526;
+}
+
+.ct-legend-b {
+  color: #00562e;
+}
+
+.ct-legend-c {
+  color: #007ccf;
+}
+
+.ct-legend-d {
+  color: #1e3a64;
+}
+
+.ct-legend-e {
+  color: #8737ca;
+}
+
+.ct-legend-f {
+  color: #cb257f;
+}
+
+.ct-legend-g {
+  color: #e83400;
+}

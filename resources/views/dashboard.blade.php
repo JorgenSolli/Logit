@@ -1,39 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <h4 class="p-l-md">Show statistics for</h4>
-        <div class="col-md-2 sm-6 col-xs-6">
-            <select id="statistics-type" class="selectpicker" data-style="btn btn-primary" title="Single Select" data-size="7">
-              <option disabled> Choose period</option>
-              <option value="year">Year</option>
-              <option value="months" selected>Month</option>
-            </select>
-        </div>
-        <div class="col-md-2 col-sm-6 col-xs-6">
-            <select id="statistics-year" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7">
-            </select>
-        </div>
-        <div class="col-md-2 col-sm-12 col-xs-12">
-            <select id="statistics-month" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7">
-            </select>
-        </div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header card-header-icon" data-background-color="blue">
-            <i class="material-icons">timeline</i>
-        </div>
-        <div class="card-content">
-            <h4 class="card-title">Workout Activity</h4>
-        </div>
-        <div id="workoutActivityChart" class="ct-chart"></div>
-    </div>
-
-    <h6 class="text-center">More lovely charts will come eventually...</h6>
+  <div class="row">
+      <h4 class="p-l-md">Show statistics for</h4>
+      <div class="col-md-2 sm-6 col-xs-6">
+          <select id="statistics-type" class="selectpicker" data-style="btn btn-primary" title="Single Select" data-size="7">
+            <option disabled> Choose period</option>
+            <option value="year">Year</option>
+            <option value="months" selected>Month</option>
+          </select>
+      </div>
+      <div class="col-md-2 col-sm-6 col-xs-6">
+          <select id="statistics-year" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7">
+          </select>
+      </div>
+      <div class="col-md-2 col-sm-12 col-xs-12">
+          <select id="statistics-month" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7">
+          </select>
+      </div>
+  </div>
+  
+  <div class="card">
+      <div class="card-header card-header-icon" data-background-color="blue">
+          <i class="material-icons">timeline</i>
+      </div>
+      <div class="card-content">
+          <h4 class="card-title">Workout Activity</h4>
+      </div>
+      <div id="workoutActivityChart" class="ct-chart"></div>
+  </div>
 
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4 col-md-3">
       <div class="card">
         <div class="card-header card-header-icon" data-background-color="blue">
             <i class="material-icons">timer</i>
@@ -41,7 +39,6 @@
         <div class="card-content">
           <div class="clearfix">
             <h4 class="card-title pull-left">Average workout time</h4>
-            <i class="material-icons pull-right cursor" rel="tooltip" data-placement="bottom" title="Workouts that lasted less then 10 minutes does not count.">help_outline</i>
           </div>
           <div class="data-text text-center">
             <h1 id="avg_hour" class="m-b-0">
@@ -52,13 +49,16 @@
             </h1>
           </div>
         </div>
+        <div class="card-footer">
+          <p>Workouts that lasted less then 10 minutes does not affect your average time.</p>
+        </div>
       </div>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-4 col-md-4">
       <div class="card">
         <div class="card-header card-header-icon" data-background-color="blue">
-            <i class="material-icons">accessibility</i>
+            <i class="material-icons">donut_large</i>
         </div>
         <div class="card-content">
           <h4 class="card-title">Musclegroups worked out</h4>
@@ -68,24 +68,31 @@
         
         <div class="card-footer">
           <h6>Legend</h6>
-          <i class="fa fa-circle text-info"></i> Apple
-          <i class="fa fa-circle text-warning"></i> Samsung
-          <i class="fa fa-circle text-danger"></i> Windows Phone
+          <i class="fa fa-circle ct-legend-a"></i> Back <span id="0-percent"></span>
+          <i class="fa fa-circle ct-legend-b"></i> Biceps <span id="1-percent"></span>
+          <i class="fa fa-circle ct-legend-c"></i> Triceps <span id="2-percent"></span>
+          <i class="fa fa-circle ct-legend-d"></i> Abs <span id="3-percent"></span>
+          <i class="fa fa-circle ct-legend-e"></i> Shoulders <span id="4-percent"></span>
+          <i class="fa fa-circle ct-legend-f"></i> Legs <span id="5-percent"></span>
+          <i class="fa fa-circle ct-legend-g"></i> Chest <span id="6-percent"></span>
         </div>
       </div>
     </div>
 
-  {{--  
-    <div class="col-sm-4">
-      <h3 class="text-center">Muscle groups trained</h3>
-      <canvas id="dashboardActivityPie" width="400" height="300"></canvas>
+    <div class="col-sm-4 col-md-5">
+      <div class="card">
+        <div class="card-header card-header-icon" data-background-color="blue">
+            <i class="material-icons">message</i>
+        </div>
+        <div class="card-content">
+          <h6 class="text-center">More lovely charts will come eventually...
+          <br><small>Weight lifted /day maybe?</small></h6>
+        </div>
+      
+      </div>
+      
     </div>
 
-    <div class="col-sm-4">
-      <h3 class="text-center">Weight progress</h3>
-      <canvas id="dashboardActivityBar2" width="400" height="300"></canvas>
-    </div>
-  --}}
   </div>
 @endsection
 

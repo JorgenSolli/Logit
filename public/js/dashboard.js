@@ -19,7 +19,7 @@ var initCharts = function(labels, series, max) {
     low: 0,
     high: max,
     showPoint: true,
-    height: '300px'
+    height: '200px'
   };
 
   var workoutActivityChart = new Chartist.Line('#workoutActivityChart', dataWorkoutActivityChart, optionsWorkoutActivityChart);
@@ -36,7 +36,11 @@ var musclegroupsPiechart = function(labels, series) {
   };
 
   var optionsPreferences = {
-    height: '300px',
+    height: '250px',
+    chartPadding: 20,
+    labelOffset: 60,
+    labelDirection: 'explode',
+    donut: true
   };
 
   Chartist.Pie('#musclegroupsPiechart', dataPreferences, optionsPreferences);
@@ -106,6 +110,14 @@ $(document).ready(function() {
             url: '/api/getMusclegroups/' + type + '/' + year + '/' + month,
             success: function(data) {
               musclegroupsPiechart(data.labels, data.series);
+
+              for (var i = 0; i < data.labels.length; i++) {
+                $("#" + i + "-percent").text("(" + data.series[i] + "%)")
+              }
+
+              /*$.each(data, function(key, val) {
+                console.log(key, val);
+              })*/
             }
         })
 
