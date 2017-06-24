@@ -31,7 +31,6 @@
         </nav>
         <div class="wrapper wrapper-full-page">
             <div class="full-page full-page-fixed login-page bg-full">
-                <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
                 <div class="content">
                     <div class="container">
                         <div class="row">
@@ -73,6 +72,7 @@
                                         </div>
                                         <div class="footer text-center">
                                             <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg">Let's go</button>
+                                            <a href="/password/reset" class="btn btn-sm btn-simple btn-primary m-t-0 m-b-0">Forgot your password?</a>
                                         </div>
                                     </div>
                                 </form>
