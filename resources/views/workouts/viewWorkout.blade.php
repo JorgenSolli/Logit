@@ -4,6 +4,7 @@
 	    <div class="card-content clearfix">
 			<h4 class="modal-title pull-left">View/Edit your workout</h4>
 			<div class="pull-right">
+				<a href="workout/recap/{{ $workoutId }}" type="button" class="btn btn-primary">View Recap</a>
 				<button type="button" class="btn btn-danger workout-back">Back</button>
 			</div>
 	    </div>
@@ -65,7 +66,8 @@
 
 	<div class="card">
 	    <div class="card-content clearfix">
-		  <button type="button" class="btn btn-danger workout-back pull-right">Back</button>
+    		<a href="workout/recap/{{ $workoutId }}" type="button" class="btn btn-primary">View Recap</a>
+	  		<button type="button" class="btn btn-danger workout-back pull-right">Back</button>
 		</div>
 	</div>
 </div>

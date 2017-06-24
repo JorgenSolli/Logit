@@ -44,11 +44,15 @@ Route::get('/dashboard/my_routines/delete/{routine}', 'RoutineController@deleteR
 /* Settings */
 Route::get('/dashboard/settings', 'SettingsController@viewSettings');
 
+/* Measurements */
+Route::get('/dashboard/measurements', 'MeasurementsController@measurements');
+
 /* Workouts */
 Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts');
 Route::get('/dashboard/start', 'WorkoutController@selectWorkout');
 Route::get('/dashboard/start/{routine}', 'WorkoutController@startWorkout');
 Route::get('/dashboard/workout/finish/{routine_id}', 'WorkoutController@finishWorkout');
+Route::get('/dashboard/workout/recap/{workout}', 'WorkoutController@recap');
 // Read
 
 /* APIs */

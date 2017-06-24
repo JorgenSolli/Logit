@@ -12,17 +12,17 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group label-floating">
-                            <select id="country" class="selectpicker" name="timezone" data-style="btn btn-primary" title="Your Timezone">
+                            <select id="country" class="form-control" name="timezone" data-style="btn btn-primary" title="Your Timezone">
 	                            @if ($settings && $settings->timezone)
 	                                <option disabled selected> Your timezone</option>
 	                                <option value="{{ $settings->timezone }}" selected> {{ $settings->timezone }}</option>
+	                                @include('user.timezoneOptions')
 	                            @else
 	                                <option disabled selected> Your timezone</option>
+	                                @include('user.timezoneOptions')
 	                            @endif
 	                        </select>
                         </div>
-                    </div>
-                    <div class="col-md-4">
                         <div class="form-group label-floating">
                             <select id="country" class="selectpicker" name="unit" data-style="btn btn-primary" title="Prefered Unit">
 	                            @if ($settings && $settings->unit)
@@ -67,6 +67,8 @@
 								</label>
 							</div>
                         </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group label-floating">
                             <div class="togglebutton">
 								<label>

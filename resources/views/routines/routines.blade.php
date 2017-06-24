@@ -41,17 +41,15 @@
               @foreach ($routines as $routine)
                 <tr id="routine-{{ $routine['id'] }}">
                   <td class="routine-name">
-                    @if ($routine['active'] == 0)
-                      <span class="fa fa-lock"></span> {{ $routine['routine_name'] }} (Inactive)
-                    @else
-                      {{ $routine['routine_name'] }}
-                    @endif
+                    {{ $routine['routine_name'] }}
                   </td>
-                  <td>@if ($routine['active'] == 0)
+                  <td>
+                    @if ($routine['active'] == 0)
                       <span class="fa fa-lock"></span> Inactive
                     @else
                       <span class="fa fa-unlock"></span> Active
-                    @endif</td>
+                    @endif
+                  </td>
                   <td>{{ $routine['last_used'] }}</td>
                   <td>{{ $routine['times_used'] }}</td>
                   <td>{{ $routine['created_at'] }}</td>

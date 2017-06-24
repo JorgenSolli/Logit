@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Logit\RoutineJunction;
 use Logit\WorkoutJunction;
+use Logit\Settings;
 use Logit\Routine;
 use Logit\Workout;
 use Logit\Note;
@@ -128,7 +129,8 @@ class WorkoutController extends Controller
 
         if ($session != null || $session) {
 
-        
+            $settings = Settings::where('user_id', Auth::id())->first();
+
             $session_started = session('started_gymming');
             $currTime = Carbon::now();
             $duration = $currTime->diffInMinutes($session_started);
@@ -167,10 +169,70 @@ class WorkoutController extends Controller
                 $note->save();
             }
             
+            if ($settings->recap == 1) {
+                return redirect('/dashboard/workout/recap/' . $workout->id)->with('success', 'Workout saved. Good job! Here is your recap');
+            }
             return redirect('/dashboard/workouts')->with('success', 'Workout saved. Good job!');
         }
 
         return redirect('/dashboard/workouts')->with('danger', 'Something went wrong! Please try again.');
+    }
+
+    public function recap (Workout $workout)
+    {
+        $brukerinfo = Auth::user();
+        $workoutName = Routine::where('id', $workout->routine_id)
+            ->first();
+
+        $minutes = $workout->duration_minutes;
+
+        $totalSets = WorkoutJunction::where('workout_id', $workout->id)
+            ->get()
+            ->count();
+
+        $totalExercises = WorkoutJunction::where([
+                ['workout_id', '=', $workout->id],
+                ['set_nr' , '=', 1]
+            ])
+            ->get()
+            ->count();
+
+        $avgRestTime = $minutes / $totalSets;
+
+        $hours = floor($minutes / 60);
+        if ($hours < 10) {
+            $hours = sprintf("%02d", $hours);
+        }
+
+        $minutes = ($minutes % 60);
+        if ($minutes < 10) {
+            $minutes = sprintf("%02d", $minutes);
+        }
+
+        $topNav = [
+            0 => [
+                'url'  => '/dashboard/workouts',
+                'name' => 'My Workouts'
+            ],
+            1 => [
+                'url'  => '/dashboard/workouts/',
+                'name' => $workoutName->routine_name
+            ],
+            2 => [
+                'url'  => '/dashboard/workouts/recap/' . $workout->id,
+                'name' => 'Recap'
+            ]
+        ];
+
+        return view('workouts.recap', [
+            'brukerinfo'     => $brukerinfo,
+            'topNav'         => $topNav,
+            'workout'        => $workout,
+            'hours'          => $hours,
+            'minutes'        => $minutes,
+            'avgRestTime'    => $avgRestTime,
+            'totalExercises' => $totalExercises
+        ]);
     }
 
 }

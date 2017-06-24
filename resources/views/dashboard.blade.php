@@ -2,22 +2,27 @@
 
 @section('content')
   <div class="row">
+    <div class="col-xs-12">
       <h4 class="p-l-md">Show statistics for</h4>
-      <div class="col-md-2 sm-6 col-xs-6">
-          <select id="statistics-type" class="selectpicker" data-style="btn btn-primary" title="Single Select" data-size="7">
-            <option disabled> Choose period</option>
-            <option value="year">Year</option>
-            <option value="months" selected>Month</option>
-          </select>
-      </div>
-      <div class="col-md-2 col-sm-6 col-xs-6">
-          <select id="statistics-year" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7">
-          </select>
-      </div>
-      <div class="col-md-2 col-sm-12 col-xs-12">
-          <select id="statistics-month" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7">
-          </select>
-      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-2 sm-6 col-xs-6">
+        <select id="statistics-type" class="selectpicker" data-style="btn btn-primary" title="Single Select" data-size="7">
+          <option disabled> Choose period</option>
+          <option value="year">Year</option>
+          <option value="months" selected>Month</option>
+        </select>
+    </div>
+    <div class="col-md-2 col-sm-6 col-xs-6">
+        <select id="statistics-year" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7">
+        </select>
+    </div>
+    <div class="col-md-2 col-sm-12 col-xs-12">
+        <select id="statistics-month" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7">
+        </select>
+    </div>
   </div>
   
   <div class="card">
@@ -45,7 +50,7 @@
               <span id="avg_hr"></span>:<span id="avg_min"></span>
             </h1>
             <h1 class="m-t-0">
-              <small>hour/minute</small>
+              <small>Hour/Minute</small>
             </h1>
           </div>
         </div>
