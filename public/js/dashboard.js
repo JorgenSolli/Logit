@@ -112,12 +112,9 @@ $(document).ready(function() {
               musclegroupsPiechart(data.labels, data.series);
 
               for (var i = 0; i < data.labels.length; i++) {
-                $("#" + i + "-percent").text("(" + data.series[i] + "%)")
+                var percent = Math.trunc(data.series[i]);
+                $("#" + i + "-percent").text("(" + percent + "%)")
               }
-
-              /*$.each(data, function(key, val) {
-                console.log(key, val);
-              })*/
             }
         })
 
