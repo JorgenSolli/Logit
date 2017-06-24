@@ -48,7 +48,6 @@ class RoutineController extends Controller
             $routines[$key] = collect(['times_used' => $times_used])->merge($routines[$key]);
         }
 
-
         $topNav = [
             0 => [
                 'url'  => '/dashboard/my_routines',

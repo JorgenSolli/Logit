@@ -4,6 +4,7 @@ namespace Logit\Http\Middleware;
 
 use Illuminate\Contracts\Auth\Guard;
 use Closure;
+use Logit\Settings;
 
 class TimeZone
 {
@@ -18,9 +19,12 @@ class TimeZone
      * creates an instance of the middleware
      * @param Guard $auth
      */
-    public function __construct(Guard $auth)
+    public function __construct(Guard $auth, Settings $settings)
     {
         $this->user = $auth->user();
+        
+        $id = $this->user->id;
+        $this->timezone = Settings::where('user_id', $id)->first()->timezone;
     }
 
     /**
@@ -34,9 +38,9 @@ class TimeZone
     {
         if($this->user)
         {
-            $timeZone = $this->user->timezone;
-            if ($timeZone != "") {
-                date_default_timezone_set($timeZone);
+            $timezone = $this->timezone;
+            if ($timezone != "") {
+                date_default_timezone_set($timezone);
                 return $next($request);
             }
 

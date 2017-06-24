@@ -37,19 +37,4 @@ class UserController extends Controller
     	$user->update($data);
     	return back()->with('script_success', 'Profile updated.');
     }
-
-    public function settings ()
-    {
-        $brukerinfo = Auth::user();
-        $topNav = [
-            0 => [
-                'url'  => '/user/settings',
-                'name' => 'Settings'
-            ]
-        ];
-    	return view('user.settings', [
-            'topNav' => $topNav,
-            'brukerinfo' => $brukerinfo
-        ]);
-    }
 }

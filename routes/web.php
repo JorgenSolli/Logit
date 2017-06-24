@@ -20,10 +20,11 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@dashboard');
 Route::get('/clear', 'ApiController@flushSessions');
 
-/* User */
+/* User/Settings */
 Route::get('/user', 'UserController@myProfile');
 Route::post('/user/edit', 'UserController@editProfile');
-Route::get('/user/settings', 'UserController@settings');
+Route::get('/user/settings', 'SettingsController@settings');
+Route::post('/user/settings/edit', 'SettingsController@editSettings');
 
 /* Routines */
 Route::get('/dashboard/my_routines', 'RoutineController@routines');
