@@ -4,6 +4,7 @@ namespace Logit\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Logit\Workout;
 use Logit\Routine;
 use Logit\RoutineJunction;
 
@@ -26,7 +27,28 @@ class RoutineController extends Controller
         $routines = Routine::where('user_id', Auth::id())
             ->orderBy('routines.routine_name', 'asc')
             ->get();
-        
+
+        foreach ($routines as $key => $val) {
+            //dd($routines[$key]);
+            $last_used = Workout::where([
+                ['user_id', Auth::id()],
+                ['routine_id', $routines[$key]['id']],
+            ])
+            ->orderBy('created_at', 'desc')
+            ->limit(1)
+            ->first();
+
+            $times_used = Workout::where([
+                ['user_id', Auth::id()],
+                ['routine_id', $routines[$key]['id']],
+            ])
+            ->count();
+
+            $routines[$key] = collect(['last_used'  => $last_used->created_at])->merge($routines[$key]);
+            $routines[$key] = collect(['times_used' => $times_used])->merge($routines[$key]);
+        }
+
+
         $topNav = [
             0 => [
                 'url'  => '/dashboard/my_routines',

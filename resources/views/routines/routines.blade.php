@@ -18,6 +18,7 @@
             <thead>
               <tr>
                 <th>Routine Name</th>
+                <th>Status</th>
                 <th>Last used</th>
                 <th>Times used</th> 
                 <th>Created at</th>
@@ -28,6 +29,7 @@
             <tfoot>
               <tr>
                 <th>Routine Name</th>
+                <th>Status</th>
                 <th>Last used</th>
                 <th>Times used</th> 
                 <th>Created at</th>
@@ -37,25 +39,30 @@
             </tfoot>
             <tbody>
               @foreach ($routines as $routine)
-                <tr id="routine-{{ $routine->id }}">
+                <tr id="routine-{{ $routine['id'] }}">
                   <td class="routine-name">
-                    @if ($routine->active == 0)
-                      <span class="fa fa-lock"></span> {{ $routine->routine_name }} (Inactive)
+                    @if ($routine['active'] == 0)
+                      <span class="fa fa-lock"></span> {{ $routine['routine_name'] }} (Inactive)
                     @else
-                      {{ $routine->routine_name }}
+                      {{ $routine['routine_name'] }}
                     @endif
-                  </td> 
-                  <td>N/A</td>
-                  <td>N/A</td>
-                  <td>{{ $routine->created_at }}</td>
+                  </td>
+                  <td>@if ($routine['active'] == 0)
+                      <span class="fa fa-lock"></span> Inactive
+                    @else
+                      <span class="fa fa-unlock"></span> Active
+                    @endif</td>
+                  <td>{{ $routine['last_used'] }}</td>
+                  <td>{{ $routine['times_used'] }}</td>
+                  <td>{{ $routine['created_at'] }}</td>
                   <td class="text-center">
-                    <a class="pointer deleteRoutine" id="{{ $routine->id }}">
+                    <a class="pointer deleteRoutine" id="{{ $routine['id'] }}">
                       <span class="fa fa-trash-o fa-lg danger-color"></span>
                     </a>
                   </td>
                   <td class="text-center">
                     <a class="viewRoutine pointer" data-toggle="modal" data-target="#viewRoutineModal">
-                      <input type="hidden" value="{{ $routine->id }}">
+                      <input type="hidden" value="{{ $routine['id'] }}">
                       <span class="fa fa-pencil fa-lg success-color"></span>
                     </a>
                   </td>
