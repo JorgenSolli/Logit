@@ -131,9 +131,5 @@
     </div>
 @endsection
 @section('script')
-	<script>
-	$(document).ready(function() {
-
-	})
-	</script>
+    <script src="/js/myProfile.js"></script>
 @endsection

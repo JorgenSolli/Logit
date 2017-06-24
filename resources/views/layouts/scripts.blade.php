@@ -36,3 +36,5 @@
 <script src="/js/jquery.tagsinput.js"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="/js/material-dashboard.js"></script>
+<!-- Logit app functions -->
+<script src="/js/logitFuncs.js"></script>

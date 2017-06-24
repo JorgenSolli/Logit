@@ -86,7 +86,7 @@
         @include('layouts.scripts')
         <script type="text/javascript">
             $().ready(function() {
-                demo.checkFullPageBackgroundImage();
+                logit.checkFullPageBackgroundImage();
 
                 setTimeout(function() {
                     // after 1000 ms we add the class animated to the login/register card
