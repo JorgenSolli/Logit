@@ -29,7 +29,6 @@ class RoutineController extends Controller
             ->get();
 
         foreach ($routines as $key => $val) {
-            //dd($routines[$key]);
             $last_used = Workout::where([
                 ['user_id', Auth::id()],
                 ['routine_id', $routines[$key]['id']],
@@ -44,8 +43,17 @@ class RoutineController extends Controller
             ])
             ->count();
 
-            $routines[$key] = collect(['last_used'  => $last_used->created_at])->merge($routines[$key]);
-            $routines[$key] = collect(['times_used' => $times_used])->merge($routines[$key]);
+            if ($last_used) {
+                $routines[$key] = collect(['last_used'  => $last_used->created_at])->merge($routines[$key]);
+            } else {
+                $routines[$key] = collect(['last_used'  => 'N/A'])->merge($routines[$key]);
+            }
+
+            if ($times_used) {
+                $routines[$key] = collect(['times_used' => $times_used])->merge($routines[$key]);
+            } else {
+                $routines[$key] = collect(['times_used' => 0])->merge($routines[$key]);
+            }
         }
 
         $topNav = [
