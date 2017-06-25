@@ -109,12 +109,23 @@ $(document).ready(function() {
             },
             url: '/api/getMusclegroups/' + type + '/' + year + '/' + month,
             success: function(data) {
-              musclegroupsPiechart(data.labels, data.series);
+                var hasValue = false
+                for (var i = 0; i < data.series.length; i++) {
+                    if (data.series[i] > 0) {
+                        hasValue = true
+                    }
+                }
 
-              for (var i = 0; i < data.labels.length; i++) {
-                var percent = Math.trunc(data.series[i]);
-                $("#" + i + "-percent").text("(" + percent + "%)")
-              }
+                if (hasValue) {
+                    musclegroupsPiechart(data.labels, data.series);
+                } else {
+                    $("#musclegroupsPiechart").html('<div class="m-l-20 m-b-10">You will get access to this chart when you finish at least one routine</div>')
+                }
+
+                for (var i = 0; i < data.labels.length; i++) {
+                    var percent = Math.trunc(data.series[i]);
+                    $("#" + i + "-percent").text("(" + percent + "%)")
+                }
             }
         })
 

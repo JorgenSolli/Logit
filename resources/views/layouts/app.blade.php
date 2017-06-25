@@ -75,6 +75,12 @@
                             <p>Measurements</p>
                         </a>
                     </li>
+                    <li class="{{ (Request::is('dashboard/friends') ? 'active' : '') }}">
+                        <a href="/dashboard/friends">
+                            <i class="material-icons">people</i>
+                            <p>Friends</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

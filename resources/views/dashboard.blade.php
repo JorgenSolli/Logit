@@ -104,7 +104,29 @@
 @section('script')
   <script src="/js/moment.js"></script>
   <script src="/js/dashboard.js"></script>
-  <script>
-    
-  </script>
+
+  @if ($firstTime)
+    <script>
+      swal(
+        'Welcome to Logit!',
+        "    ",
+        'info'
+      )
+
+      swal({
+        title: 'Welcome to Logit!',
+        type: 'info',
+        html:
+          'Since this is the first time loggin in, I suggest you head over to ' +
+          '<a href="/user">My profile</a> and <a href="/user/settings">Settings</a> page to get you started ' +
+          '(Click on your name on the left side).<br><br> ' +
+          "Once that's done you can head over to <a href='/dashboard/my_routines'>My Routines</a>!",
+        showCloseButton: true,
+        showCancelButton: false,
+        confirmButtonText:
+          '<i class="fa fa-thumbs-up"></i> Great. Thank you!'
+      })
+    </script>
+
+  @endif
 @endsection

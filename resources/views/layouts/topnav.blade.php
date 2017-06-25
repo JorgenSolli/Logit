@@ -23,17 +23,15 @@
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="material-icons">notifications</i>
-                        <span class="notification">0</span>
+                        <span id="user-notifications-amount" class="notification">0</span>
                         <p class="hidden-lg hidden-md">
                             Notifications
                             <b class="caret"></b>
                         </p>
                     </a>
-                    {{-- 
-                    <ul class="dropdown-menu">
-                        
+                    <ul id="user-notifications" class="dropdown-menu">
+                        <li><a>No new notifications</a></li>
                     </ul>
-                    --}}
                 </li>
                 <li>
                     <a href="/user">

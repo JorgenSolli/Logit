@@ -26,6 +26,13 @@ Route::post('/user/edit', 'UserController@editProfile');
 Route::get('/user/settings', 'SettingsController@settings');
 Route::post('/user/settings/edit', 'SettingsController@editSettings');
 
+/* Friends */
+Route::get('dashboard/friends', 'FriendsController@viewFriends');
+Route::get('dashboard/friends/findFriends', 'FriendsController@findFriends');
+
+// Change this to POST after testing
+Route::get('dashboard/friends/sendRequest', 'FriendsController@sendRequest');
+
 /* Routines */
 Route::get('/dashboard/my_routines', 'RoutineController@routines');
 Route::get('/dashboard/my_routines/add_routine', 'RoutineController@addRoutine');
@@ -61,6 +68,8 @@ Route::put('/api/exercise/{routineId}', 'ApiController@addExercise');
 Route::get('/api/get_workout/view/{workoutId}', 'ApiController@getWorkout');
 Route::get('/api/delete_workout/{workout}', 'ApiController@deleteWorkout');
 Route::get('/api/update_workout/{workout}', 'ApiController@updateWorkout');
+Route::post('/api/notifications/check', 'ApiController@checkNotifications');
+Route::post('/api/notifications/clear/', 'ApiController@clearNotification');
 
 /* Statistics */
 Route::get('/api/getSessions/{type}/{year}/{month}', 'ApiController@getGrapData');

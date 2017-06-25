@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use DB;
 use Logit\Note;
 use Logit\Workout;
+use Logit\Notification;
 use Logit\RoutineJunction;
 use Logit\WorkoutJunction;
 
@@ -479,10 +480,12 @@ class ApiController extends Controller
 
             /* Iterates throught the total resunts and gets the actual percentage based on $total */
             foreach ($musclegroups as $key => $val) {
-                $index = array_search($key,array_keys($musclegroups));
-                $percent = $val / $total * 100;
+                if ($val > 0) {
+                    $index = array_search($key,array_keys($musclegroups));
+                    $percent = $val / $total * 100;
 
-                $result['series'][$index] = $percent;
+                    $result['series'][$index] = $percent;
+                }
             }
 
         }
@@ -490,5 +493,33 @@ class ApiController extends Controller
         return $result;
     }
 
+    public function checkNotifications ()
+    {
+        $notifications = Notification::where([
+                ['user_id', Auth::id()],
+                ['read', 0]
+            ])
+            ->select('id', 'user_id', 'content', 'url', 'icon', 'created_at')
+            ->get();
+        return response()->json(array('notifications' => $notifications));   
+    }
+
+    public function clearNotification (Request $request)
+    {
+
+        $notification = Notification::where([
+                ['user_id', Auth::id()],
+                ['id', $request->id]
+            ])
+            ->first();
+        
+        // If the notification belongs to this user
+        if ($notification) {
+            $notification->read = 1;
+            $notification->save();
+        }
+
+        return;
+    }
 
 }

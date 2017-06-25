@@ -72,5 +72,55 @@ logit = {
             }
          });
     },
-
 }
+
+
+$(document).ready(function() {
+
+    // Gets notifications
+    $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        url: '/api/notifications/check',
+        success: function(data) {
+            if (data.notifications.length) {
+                /* We have some data to append, so clear this first */
+                $("#user-notifications").empty();
+                $("#user-notifications-amount").text(data.notifications.length)
+            }
+
+            for (var i = 0; i < data.notifications.length; i++) {
+                var nf = data.notifications[i]
+                
+                $("#user-notifications").append(
+                    '<li>' +
+                        '<a id="' + nf.id + '" href="' + nf.url + '">' + nf.content + '</a>' +
+                    '</li>'
+                )
+                
+            }
+        }
+    })
+
+    $(document).on('click', '#user-notifications li a', function(e) {
+        e.preventDefault();
+        var id = $(this).attr('id')
+        var href = $(this).attr('href')
+
+        $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: '/api/notifications/clear/',
+            data: {
+                id: id
+            },
+            success: function() {
+                window.location.href = href;
+            }
+        })
+    })
+})
