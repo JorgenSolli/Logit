@@ -77,7 +77,7 @@ class ApiController extends Controller
             ),
         ]);
 
-        return back()->with('success', 'Exercise saved. Good job!');
+        return back()->with('script_success', 'Exercise saved. Good job!');
     }
 
     public function getWorkout ($workoutId)
@@ -125,7 +125,7 @@ class ApiController extends Controller
     {
         session()->forget('exercises');
         session()->forget('gymming');
-        return redirect('/dashboard/start/')->with('success', 'Workout successfully stopped');
+        return redirect('/dashboard/start/')->with('script_success', 'Workout successfully stopped');
     }
 
     public function getGrapData ($type, $year, $month)
