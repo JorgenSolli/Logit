@@ -46,7 +46,7 @@ $(document).on('click', '.deleteRoutine', function() {
 
   swal({
     title: 'Are you sure?',
-    text: name + " will be gone forever!",
+    text: name + " will be gone forever and all connected workouts will be lost. Please consider marking the routine as inactive instead!",
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
