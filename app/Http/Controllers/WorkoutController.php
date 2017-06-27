@@ -24,6 +24,7 @@ class WorkoutController extends Controller
     public function selectWorkout ()
     {
     	$routines = Routine::where('user_id', Auth::id())
+            ->orderBy('routine_name', 'ASC')
     	 	->get();
 	 	$junctions = RoutineJunction::where('user_id', Auth::id())
 	 		->get();

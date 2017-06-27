@@ -2,20 +2,19 @@
 
 @section('content')
   <h2>Glad you decided to hit the gym today!<br><small>Please select a routine</small></h2>
-  <div id="routines" class="list-group">
-    @foreach($routines as $routine)
-      @if ($routine->active == 1)
-        <a href="start/{{ $routine->id }}" class="list-group-item">
-          {{ $routine->routine_name }}
-          @if (session('gymming') == $routine->id)
-            &nbsp;&nbsp;·&nbsp;&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
-          @endif
-        </a>
-      @endif
-    @endforeach
-    
-    <br>
-    
+  <div id="routines">
+    <div class="list-group m-b-15">
+      @foreach($routines as $routine)
+        @if ($routine->active == 1)
+          <a href="start/{{ $routine->id }}" class="list-group-item">
+            {{ $routine->routine_name }}
+            @if (session('gymming') == $routine->id)
+              &nbsp;&nbsp;·&nbsp;&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
+            @endif
+          </a>
+        @endif
+      @endforeach
+    </div>
     @if ($nrInactive > 0)
       <div class="alert alert-info alert-with-icon">
         <i class="material-icons" data-notify="icon" >info_outline</i>
