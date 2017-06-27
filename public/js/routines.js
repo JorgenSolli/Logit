@@ -126,6 +126,16 @@ $(document).on('click', '#addMore', function() {
               '</div>' +
             '</div>' +
           '</div>' +
+          '<div class="row">' +
+            '<div class="col-md-4">' +
+              '<div class="checkbox">' +
+                '<label>' +
+                  '<input type="checkbox" name="exercises[' + exerciseNr + '][is_warmup]">' +
+                 ' Warmup set' +
+                '</label>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
         '</div>' +
       '</div>' +
     '</div>' +
