@@ -72,8 +72,11 @@
     </div>
   </div> <!-- /row -->
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-6">
       <a href="/dashboard/workouts" class="btn btn-primary btn-fullwidth">Back to your Workouts</a>
+    </div>
+    <div class="col-xs-6">
+      <a href="/dashboard" class="btn btn-primary btn-fullwidth">To Dashboard</a>
     </div>
   </div>
 

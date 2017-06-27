@@ -31,10 +31,10 @@
 
   <div id="sortable">
     @foreach($junctions as $junction)
-      <div class="card m-b-10">
-        <div class="card-content">
+      <div class="thisExercise">
+        <div class="card m-b-10">
+          <div class="card-content">
           {{-- Excersice Name --}}
-          <div class="thisExercise">
             <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-sm fa-trash"></span></a>
             <div class="sort-icon handle">
               Drag me to sort
@@ -85,9 +85,20 @@
                 </div>
               </div>
             </div>
-            @unless ($loop->last)
-              <hr>
-            @endunless
+            <div class="row">
+              <div class="col-md-4">
+                <div class="checkbox">
+                  <label>
+                    @if ($junction->is_warmup == 1)
+                      <input type="checkbox" name="exercises[{{ $i }}][is_warmup]" checked="">
+                    @else
+                      <input type="checkbox" name="exercises[{{ $i }}][is_warmup]">
+                    @endif
+                    Warmup set
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

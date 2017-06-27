@@ -27,15 +27,15 @@
 					    <label for="weight">Weight</label>
 
 					    <label class="hidden control-label" for="weight"> | Hey don't give up! Finish all sets. You can do it!</label>
-					    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]" placeholder="Your goal is {{ $exercise->goal_weight }}. 
-					    @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
+					    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]" 
+					    	placeholder="Your goal is {{ $exercise->goal_weight }}. @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
 			  		</div>
 
 				  	<div class="form-group">
 						<label for="reps">Reps</label>
 						<label class="control-label hidden" for="weight"> | Hey don't give up! At least do ONE rep!</label>
-					    <input type="number" class="required form-control" name="exercise[{{ $i }}][reps]" placeholder="Your goal is {{ $exercise->goal_reps }}.
-					    @unless(empty($prevExercise[$i - 1])) Last time you did '{{ $prevExercise[$i - 1]['reps'] }} @endunless">
+					    <input type="number" class="required form-control" name="exercise[{{ $i }}][reps]" 
+					    	placeholder="Your goal is {{ $exercise->goal_reps }}. @unless(empty($prevExercise[$i - 1])) Last time you did {{ $prevExercise[$i - 1]['reps'] }} @endunless">
 				  	</div>
 			  	</div>
 		  	</div>

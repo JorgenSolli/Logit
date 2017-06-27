@@ -41,7 +41,7 @@ $(document).ready(function() {
 			                        '<td>' + users.users[i].name + '</td>' +
 			                        '<td>' + users.users[i].email +'</td>' +
 			                        '<td id="' + users.users[i].id + '">' +
-			                        	'<i class="addfriend pointer material-icons">add_box</i>' +
+			                        	'<a class="addfriend pointer btn btn-sm btn-success">send request</a>' +
 		                        	'</td>' +
 	                      		'</tr>';
 					}
@@ -64,7 +64,26 @@ $(document).ready(function() {
 				id: id
 			},
 			success: function(data){
-				console.log(data);
+				if (data.error) {
+					$.notify({
+        				icon: "add_alert",
+				        message: data.error
+
+				    },{
+				        type: 'danger',
+				        timer: 4000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				} else {
+					swal(
+						'Done!',
+						data.success,
+						'success'
+					)
+				}
 			}
 		})
 

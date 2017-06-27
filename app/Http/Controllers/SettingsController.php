@@ -69,6 +69,18 @@ class SettingsController extends Controller
             $settings->accept_friends = 1;
         }
 
+        if (!array_key_exists('strict_previous_exercise', $data)) {
+            $settings->strict_previous_exercise = 0;
+        } else {
+            $settings->strict_previous_exercise = 1;
+        }
+
+        if (!array_key_exists('count_warmup_in_stats', $data)) {
+            $settings->count_warmup_in_stats = 0;
+        } else {
+            $settings->count_warmup_in_stats = 1;
+        }
+
         if ($settings->save()) {
             return back()->with('script_success', 'Settings updated.');
         }

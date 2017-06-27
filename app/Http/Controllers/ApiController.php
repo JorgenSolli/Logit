@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use DB;
 use Logit\Note;
 use Logit\Workout;
+use Logit\Settings;
 use Logit\Notification;
 use Logit\RoutineJunction;
 use Logit\WorkoutJunction;
@@ -26,6 +27,7 @@ class ApiController extends Controller
     public function getExercise ($exerciseId)
     {
         $userId = Auth::id();
+        $settings = Settings::where('user_id', Auth::id())->first();
 
         $note = Note::where('routine_junction_id', $exerciseId)
             ->where('user_id', $userId)
@@ -42,13 +44,22 @@ class ApiController extends Controller
     		->firstOrFail();
 
 		$nrOfSets = $exercise->goal_sets;
-            
-        $previousExercise = WorkoutJunction::where('routine_id', $exercise->routine_id)
-            ->where('exercise_name', $exercise->exercise_name)
-            ->where('user_id', Auth::id())
-            ->limit($nrOfSets)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+
+        if ($settings->strict_previous_exercise == 1) {
+
+            $previousExercise = WorkoutJunction::where('routine_id', $exercise->routine_id)
+                ->where('exercise_name', $exercise->exercise_name)
+                ->where('user_id', Auth::id())
+                ->limit($nrOfSets)
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        } else {
+            $previousExercise = WorkoutJunction::where('exercise_name', $exercise->exercise_name)
+                ->where('user_id', Auth::id())
+                ->limit($nrOfSets)
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        }
 
 		$returnHTML = view('workouts.exercise')
 			->with('exercise', $exercise)
@@ -272,7 +283,6 @@ class ApiController extends Controller
     public function getAvgGymTime ($type, $year, $month)
     {   
 
-
         if ($type == "year") {
             // ...
         } 
@@ -364,6 +374,7 @@ class ApiController extends Controller
 
     public function getMusclegroups ($type, $year, $month)
     {
+        $settings = Settings::where('user_id', Auth::id())->first();
 
         $musclegroups = [
             'back' => 0, 
@@ -459,17 +470,34 @@ class ApiController extends Controller
                 ] 
             ]);
 
-            $data = WorkoutJunction::where([
-                    ['workout_junctions.user_id', Auth::id()],
-                    [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
-                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
-                    ['workout_junctions.set_nr', '=', 1], // Only count the first set of the exercise!
-                ])
-                ->join('routine_junctions', 'workout_junctions.exercise_name', '=', 'routine_junctions.exercise_name')
-                ->get();
+            if ($settings->count_warmup_in_stats == 1) {
+
+                $data = WorkoutJunction::where([
+                        ['workout_junctions.user_id', Auth::id()],
+                        [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                        [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                        ['workout_junctions.set_nr', '=', 1], // Only count the first set of the exercise!
+                    ])
+                    ->leftJoin('routine_junctions', 'workout_junctions.exercise_name', '=', 'routine_junctions.exercise_name')
+                    ->select('workout_junctions.id', 'workout_junctions.routine_id', 'workout_junctions.workout_id', 'muscle_group')
+                    ->get();
+
+            }
+            else {
+                $data = WorkoutJunction::where([
+                        ['workout_junctions.user_id', Auth::id()],
+                        [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                        [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                        ['workout_junctions.set_nr', '=', 1], // Only count the first set of the exercise!
+                        ['routine_junctions.is_warmup', '=', 0] // user does not want to count warmup sets.
+                    ])
+                    ->leftJoin('routine_junctions', 'workout_junctions.exercise_name', '=', 'routine_junctions.exercise_name')
+                    ->select('workout_junctions.id', 'workout_junctions.routine_id', 'workout_junctions.workout_id', 'muscle_group')
+                    ->get();
+            }
+            $data = $data->unique();
 
             $total = $data->count();
-            
             foreach ($data as $mg) {
                 /*
                  * Iterates throught results and pushes each musclegroup to the array

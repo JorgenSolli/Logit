@@ -14,6 +14,7 @@ class WorkoutJunction extends Model
     protected $fillable = [
         'routine_id', 
         'workout_id', 
+        'is_warmup',
         'exercise_name',
         'set_nr',
         'reps',

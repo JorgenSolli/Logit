@@ -18,5 +18,7 @@ class Settings extends Model
         'recap',
         'share_workouts',
         'accept_friends',
+        'strict_previous_exercise',
+        'count_warmup_in_stats',
     ];
 }

@@ -1,22 +1,98 @@
 @extends('layouts.app')
-
 @section('content')
   <div class="row">
     <div class="col-md-7">
       <div class="card">
-          <div class="card-header card-header-icon" data-background-color="rose">
-              <i class="material-icons">favorite</i>
+        <div class="card-header card-header-tabs" data-background-color="rose">
+          <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+              <ul class="nav nav-tabs" data-tabs="tabs">
+                <li class="active">
+                  <a href="#your-friends" data-toggle="tab" aria-expanded="true">
+                    <i class="material-icons">favorite</i> Your Friends ({{ $friends->count() }})
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                <li class="">
+                  <a href="#pending" data-toggle="tab" aria-expanded="false">
+                    <i class="material-icons">loyalty</i> Pending ({{ $pending->count() }})
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="card-content">
-              <h4 class="card-title">Friends</h4>
+        </div>
+        <div class="card-content table-responsive">
+          <div class="tab-content">
+            <div class="tab-pane active" id="your-friends">
               @if ($friends->count() > 0)
-                @foreach ($friends as $friend)
-
-                @endforeach
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Salary</th>
+                      <th>Country</th>
+                      <th>City</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($friends as $friend)
+                      <tr>
+                          <td>{{ $friend->name }}</td>
+                          <td>{{ $friend->email }}</td>
+                          <td>
+                            <a id="{{ $friend->id }}" class="acceptRequest">
+                              <i class="material-icons">done</i>
+                            </a>
+                          </td>
+                          <td>Niger</td>
+                          <td>Oud-Turnhout</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
               @else
-                <h6>You currently dont have any friends :(</h6>
+                <h6>You currently don't have any friends :(</h6>
               @endif
+            </div>
+            <div class="tab-pane" id="pending">
+              @if ($pending->count() > 0)
+                <h4 class="card-title">You have {{ $pending->count() }} pending friend requests</h4>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Sent</th>
+                      <th clasS="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($pending as $person)
+                      <tr>
+                        <td>{{ $person->name }}</td>
+                        <td>{{ $person->email }}</td>
+                        <td>{{ $person->created_at }}</td>
+                        <td class="text-center">
+                          <a id="{{ $person->id }}" class="pointer declineRequest">
+                            <i class="material-icons">close</i>
+                          </a>
+                          <a id="{{ $person->id }}" class="pointer acceptRequest m-l-20">
+                            <i class="material-icons">done</i>
+                          </a>
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              @else
+                <h6>You have no pending requests</h6>
+              @endif
+            </div>
           </div>
+        </div>
       </div>
     </div>
 

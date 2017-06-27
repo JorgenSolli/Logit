@@ -143,14 +143,14 @@ class RoutineController extends Controller
 	{
 		if ($routine->user_id == Auth::id()) {
 			// Deletes old recolds and inserts new ones
-			$routine->delete();
-			RoutineJunction::where('routine_id', $request->id)
+			
+            RoutineJunction::where('routine_id', $request->routineId)
 				->delete();
 
-			$routine = new Routine;
+			// $routine = new Routine;
 	        $routine->user_id = Auth::id();
 	        $routine->routine_name = $request->routine_name;
-	        $routine->save();
+	        $routine->update();
 
 	        foreach ($request->exercises as $value) {
 	            $junction = new RoutineJunction;
@@ -162,6 +162,12 @@ class RoutineController extends Controller
 	            $junction->goal_weight   = $value['goal_weight'];
 	            $junction->goal_sets     = $value['goal_sets'];
 	            $junction->goal_reps     = $value['goal_reps'];
+
+                if (!array_key_exists('is_warmup', $value)) {
+                    $junction->is_warmup = 0;
+                } else {
+                    $junction->is_warmup = 1;
+                }
 
 	            $junction->save();
 	        }

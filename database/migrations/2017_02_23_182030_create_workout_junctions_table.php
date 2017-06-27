@@ -31,6 +31,7 @@ class CreateWorkoutJunctionsTable extends Migration
                 ->references('id')->on('workouts')
                 ->onDelete('cascade');
 
+            $table->boolean('is_warmup')->defeault(0);
             $table->string('exercise_name');
             $table->integer('set_nr');
             $table->integer('reps');
