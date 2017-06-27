@@ -18,6 +18,9 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Logit\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
+        // Custom Middleware classes
+        \Logit\Http\Middleware\HttpsProtocol::class,
     ];
 
     /**

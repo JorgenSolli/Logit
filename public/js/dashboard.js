@@ -38,7 +38,7 @@ var musclegroupsPiechart = function(labels, series) {
   var optionsPreferences = {
     height: '250px',
     chartPadding: 20,
-    labelOffset: 60,
+    labelOffset: 40,
     labelDirection: 'explode',
     donut: true
   };
