@@ -138,7 +138,6 @@ class RoutineController extends Controller
             }
 
         }
-        dd("Hey stop!");
 
         return redirect('/dashboard/my_routines');
     }
