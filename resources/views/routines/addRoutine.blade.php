@@ -9,6 +9,7 @@
       <div class="card-content">
         <h4 class="card-title">New Routine</h4>
         <input type="hidden" id="exerciseNr" value="0">
+        <input type="hidden" id="supersetNr" value="0">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         
@@ -93,7 +94,8 @@
     
     <div class="card m-t-10 m-b-10">
       <div class="card-content">
-        <button id="addMore" type="button" class="btn btn-primary">Add another!</button>
+        <button id="addMore" type="button" class="btn btn-primary">Add another exercise</button>
+        <button id="addSuperset" type="button" class="btn btn-primary">Add superset group</button>
         <div class="pull-right">
           <button type="submit" id="addRoutine" class="btn btn-success" href="my_routines/add_routine" role="button"><span class="fa fa-plus"></span> Add routine</button>
           <a class="btn btn-danger" href="/dashboard/my_routines" role="button"><span class="fa fa-ban"></span> Cancel</a>

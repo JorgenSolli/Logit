@@ -26,8 +26,10 @@ class CreateRoutineJunctionsTable extends Migration
                 ->references('id')->on('routines')
                 ->onDelete('cascade');
 
+            $table->string('type');
             $table->boolean('is_warmup')->defeault(0);
             $table->string('exercise_name');
+            $table->string('superset_name')->nullable();
             $table->string('muscle_group');
             $table->integer('goal_reps');
             $table->integer('goal_sets');

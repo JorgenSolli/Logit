@@ -98,19 +98,47 @@ class RoutineController extends Controller
         $routine->routine_name = $request->routine_name;
         $routine->save();
 
-        foreach ($request->exercises as $value) {
+        $exercises = $request->exercises;
+        $supersets = $request->supersets;
+
+        foreach ($exercises as $exercise) {
             $junction = new RoutineJunction;
 
+            $junction->type          = 'regular';
             $junction->routine_id    = $routine->id;
             $junction->user_id 		 = Auth::id();
-            $junction->exercise_name = $value['exercise_name'];
-            $junction->muscle_group  = $value['muscle_group'];
-            $junction->goal_weight   = $value['goal_weight'];
-            $junction->goal_sets     = $value['goal_sets'];
-            $junction->goal_reps     = $value['goal_reps'];
+            $junction->exercise_name = $exercise['exercise_name'];
+            $junction->muscle_group  = $exercise['muscle_group'];
+            $junction->goal_weight   = $exercise['goal_weight'];
+            $junction->goal_sets     = $exercise['goal_sets'];
+            $junction->goal_reps     = $exercise['goal_reps'];
 
             $junction->save();
         }
+
+        foreach ($supersets as $superset) {
+            // Grabs the name because that's acceable here.
+            $superset_name = $superset['superset_name'];
+            
+            // Removes first datapoint in array, as this is the superset name. We already got that in out memory.
+            foreach(array_slice($superset,1) as $exercise) {
+                $junction = new RoutineJunction;
+                
+                $junction->type          = 'superset';
+                $junction->routine_id    = $routine->id;
+                $junction->user_id       = Auth::id();
+                $junction->superset_name = $superset_name;
+                $junction->exercise_name = $exercise['exercise_name'];
+                $junction->muscle_group  = $exercise['muscle_group'];
+                $junction->goal_weight   = $exercise['goal_weight'];
+                $junction->goal_sets     = $exercise['goal_sets'];
+                $junction->goal_reps     = $exercise['goal_reps'];
+                
+                $junction->save();
+            }
+
+        }
+        dd("Hey stop!");
 
         return redirect('/dashboard/my_routines');
     }

@@ -1,11 +1,27 @@
 $(function() {
   $("#sortable")
     .sortable({
+      containment: "document",
+      items: "> div",
+      handle: ".move",
+      tolerance: "pointer",
       handle: '.handle',
       cursor: 'move',
-      cancel: ''
-    })
-    .disableSelection();
+      cancel: '',
+      opacity: 0.8,
+      revert: 300,
+      delay: 150,
+      start: function(e, ui) {
+        ui.placeholder.height(ui.helper.outerHeight());
+      }
+  })
+  .disableSelection();
+
+  $(".sortable-content-children").sortable({
+        items: "> div",
+        tolerance: "pointer",
+        containment: "parent"
+    });
 });
 
 $(document).on('click', '.viewRoutine', function() {
@@ -142,6 +158,110 @@ $(document).on('click', '#addMore', function() {
   '</div>';
   $("#exerciseNr").val(exerciseNr);
 	$("#sortable").append(formData);
+  $('.selectpicker').selectpicker({});
+});
+
+$(document).on('click', '#addSuperset', function() {
+  var currentSupersetNr = parseInt($("#supersetNr").val());
+  var supersetNr = currentSupersetNr + 1;
+
+  var formData = 
+     '<div class="thisExercise">' +
+        '<div class="card m-t-10 m-b-10" style="background: rgba(255, 255, 255, 0.8)">' +
+          '<div class="card-content">' +
+            '<div class="sortable-content">' +
+              '<div class="sort-icon handle">' +
+               ' Drag me to sort' +
+                '<span class="fa fa-arrows-v"></span>' +
+                '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
+              '</div>' +
+              '<div class="form-group label-floating">' +
+                '<label class="control-label" for="exercise_name">Superset Name</label>' +
+                '<input type="text" class="required form-control exercise_name" id="exercise_name" name="supersets[' + supersetNr + '][superset_name]">' +
+              '</div>' +
+            '</div>' +
+            '<div class="sortable-content-children">' +
+            '</div>' +
+            '<input type="hidden" class="thisSupersetNr" value="' + supersetNr + '">' +
+            '<button id="addMore-superset" type="button" class="btn btn-primary">Add another exercise</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    
+  $("#supersetNr").val(supersetNr);
+  $("#sortable").append(formData);
+  $('.selectpicker').selectpicker({});
+});
+
+$(document).on('click', '#addMore-superset', function() {
+  var currentsupersetNr = parseInt($(this).parent().find('.thisSupersetNr').val());
+  var supersetNr = currentsupersetNr;
+
+  var currentExerciseNr = parseInt($("#exerciseNr").val());
+  var exerciseNr = currentExerciseNr + 1;
+
+  var formData = '<div class="thisExercise">' +
+    '<div class="card m-t-10 m-b-10">' +
+      '<div class="card-content">' +
+        '<div class="sortable-content">' +
+          '<div class="sort-icon handle">' +
+              'Drag me to sort ' +
+            '<span class="fa fa-arrows-v"></span>' +
+            '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
+          '</div>' +
+          '<div class="form-group label-floating">' +
+            '<label class="control-label" for="exercise_name">Excersice name</label>' +
+            '<input type="text" class="required form-control exercise_name" id="exercise_name" name="supersets[' + supersetNr + '][' + exerciseNr + '][exercise_name]">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<select id="muscle_group" name="supersets[' + supersetNr + '][' + exerciseNr + '][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Choose a muscle group" data-size="8">' +
+              '<option selected disabled>Select a muscle group</option>' +
+              '<option value="back">Back</option>' +
+              '<option value="biceps">Biceps</option>' +
+              '<option value="triceps">Triceps</option>' +
+              '<option value="abs">Abs</option>' +
+              '<option value="shoulders">Shoulders</option>' +
+              '<option value="legs">Legs</option>' +
+              '<option value="chest">Chest</option>' +
+            '</select>' +
+          '</div>' +
+          '<div class="row">' +
+            '<div class="col-md-4">' +
+              '<div class="form-group label-floating">' +
+                '<label class="control-label" for="goal_weight">Weight goal</label>' +
+                '<input type="number" step="any" class="required form-control" id="goal_weight" name="supersets[' + supersetNr + '][' + exerciseNr + '][goal_weight]">' +
+              '</div>' +
+            '</div>' +
+            '<div class="col-md-4">' +
+              '<div class="form-group label-floating">' +
+                '<label class="control-label" for="goal_sets">Sets goal</label>' +
+                '<input type="number" class="required form-control" id="goal_sets" name="supersets[' + supersetNr + '][' + exerciseNr + '][goal_sets]">' +
+              '</div>' +
+            '</div>' +
+            '<div class="col-md-4">' +
+              '<div class="form-group label-floating">' +
+                '<label class="control-label" for="goal_reps">Reps goal</label>' +
+                '<input type="number" class="required form-control" id="goal_reps" name="supersets[' + supersetNr + '][' + exerciseNr + '][goal_reps]">' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="row">' +
+            '<div class="col-md-4">' +
+              '<div class="checkbox">' +
+                '<label>' +
+                  '<input type="checkbox" name="supersets[' + supersetNr + '][' + exerciseNr + '][is_warmup]">' +
+                 ' Warmup set' +
+                '</label>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+  $("#supersetNr").val(supersetNr);
+  $("#exerciseNr").val(exerciseNr);
+  $(this).parent().find(".sortable-content-children").append(formData);
   $('.selectpicker').selectpicker({});
 });
 
