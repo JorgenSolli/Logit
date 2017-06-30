@@ -92,6 +92,7 @@ class RoutineController extends Controller
 
     public function insertRoutine (Request $request)
     {   
+        //dd($request->all());
 
         $routine = new Routine;
         $routine->user_id = Auth::id();
@@ -106,7 +107,8 @@ class RoutineController extends Controller
 
             $junction->type          = 'regular';
             $junction->routine_id    = $routine->id;
-            $junction->user_id 		 = Auth::id();
+            $junction->user_id       = Auth::id();
+            $junction->order_nr      = $exercise['order_nr'];
             $junction->exercise_name = $exercise['exercise_name'];
             $junction->muscle_group  = $exercise['muscle_group'];
             $junction->goal_weight   = $exercise['goal_weight'];
@@ -119,15 +121,16 @@ class RoutineController extends Controller
         foreach ($supersets as $superset) {
             // Grabs the name because that's acceable here.
             $superset_name = $superset['superset_name'];
+            $order_nr      = $superset['order_nr'];
             
-            // Removes first datapoint in array, as this is the superset name. We already got that in out memory.
-            foreach(array_slice($superset,1) as $exercise) {
+            // Removes first two datapoints in array, as this is the superset name and order. We already have this in out memory.
+            foreach(array_slice($superset,2) as $exercise) {
                 $junction = new RoutineJunction;
-                
                 $junction->type          = 'superset';
                 $junction->routine_id    = $routine->id;
                 $junction->user_id       = Auth::id();
                 $junction->superset_name = $superset_name;
+                $junction->order_nr      = $order_nr;
                 $junction->exercise_name = $exercise['exercise_name'];
                 $junction->muscle_group  = $exercise['muscle_group'];
                 $junction->goal_weight   = $exercise['goal_weight'];

@@ -1,28 +1,33 @@
 $(function() {
-  $("#sortable")
-    .sortable({
+  $("#sortable").sortable({
       containment: "document",
       items: "> div",
-      handle: ".move",
+      handle: ".handle",
       tolerance: "pointer",
-      handle: '.handle',
-      cursor: 'move',
-      cancel: '',
+      cursor: "move",
       opacity: 0.8,
       revert: 300,
       delay: 150,
+      placeholder: "movable-placeholder",
       start: function(e, ui) {
-        ui.placeholder.height(ui.helper.outerHeight());
+          ui.placeholder.height(ui.helper.outerHeight());
       }
-  })
-  .disableSelection();
+  });
 
   $(".sortable-content-children").sortable({
-        items: "> div",
-        tolerance: "pointer",
-        containment: "parent"
-    });
+      items: "> div",
+      tolerance: "pointer",
+      containment: "parent"
+  });
 });
+
+var initDrag = function () {
+  $(".sortable-content-children").sortable({
+      items: "> div",
+      tolerance: "pointer",
+      containment: "parent"
+  });
+}
 
 $(document).on('click', '.viewRoutine', function() {
   var routineId = $(this).children('input').val();
@@ -98,6 +103,7 @@ $(document).on('click', '#addMore', function() {
   var exerciseNr = currentExerciseNr + 1;
 
   var formData = '<div class="thisExercise">' +
+    '<input class="exerciseOrder" type="hidden" name="exercises[' + exerciseNr + '][order_nr]" value="">' +
     '<div class="card m-t-10 m-b-10">' +
       '<div class="card-content">' +
         '<div class="sortable-content">' +
@@ -167,11 +173,12 @@ $(document).on('click', '#addSuperset', function() {
 
   var formData = 
      '<div class="thisExercise">' +
+        '<input class="exerciseOrder" type="hidden" name="supersets[' + supersetNr + '][order_nr]" value="">' +
         '<div class="card m-t-10 m-b-10" style="background: rgba(255, 255, 255, 0.8)">' +
           '<div class="card-content">' +
             '<div class="sortable-content">' +
               '<div class="sort-icon handle">' +
-               ' Drag me to sort' +
+               ' Drag me to sort ' +
                 '<span class="fa fa-arrows-v"></span>' +
                 '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
               '</div>' +
@@ -186,7 +193,7 @@ $(document).on('click', '#addSuperset', function() {
             '<button id="addMore-superset" type="button" class="btn btn-primary">Add another exercise</button>' +
           '</div>' +
         '</div>' +
-      '</div>' +
+      '</div>';
     
   $("#supersetNr").val(supersetNr);
   $("#sortable").append(formData);
@@ -204,7 +211,7 @@ $(document).on('click', '#addMore-superset', function() {
     '<div class="card m-t-10 m-b-10">' +
       '<div class="card-content">' +
         '<div class="sortable-content">' +
-          '<div class="sort-icon handle">' +
+          '<div class="sort-icon handle-child">' +
               'Drag me to sort ' +
             '<span class="fa fa-arrows-v"></span>' +
             '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
@@ -263,6 +270,7 @@ $(document).on('click', '#addMore-superset', function() {
   $("#exerciseNr").val(exerciseNr);
   $(this).parent().find(".sortable-content-children").append(formData);
   $('.selectpicker').selectpicker({});
+  initDrag();
 });
 
 $(document).on('click', '.deleteExercise', function() {
@@ -304,6 +312,11 @@ $(document).on('click', '#addRoutine', function() {
   } else {
     $("#alert-field").empty();
   }
+
+  // Gives each element proper ording
+  $(".exerciseOrder").each(function(key) {
+    $(this).val(key);
+  })
 
   return ok
 })
