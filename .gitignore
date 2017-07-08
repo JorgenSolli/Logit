@@ -2,7 +2,6 @@
 /bower_components
 /public/storage
 /public/hot
-/public/js
 /storage/*.key
 /vendor
 /.idea

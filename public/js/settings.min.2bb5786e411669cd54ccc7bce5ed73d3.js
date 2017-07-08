@@ -1,0 +1,1 @@
+$(document).ready(function(){$.ajax({url:"https://restcountries.eu/rest/v2/all",method:"GET",success:function(e){for(var n=0;n<e.length;n++)$("#location").append('<option value="'+e[n].name+'">'+e[n].name+"</option>")}})});
