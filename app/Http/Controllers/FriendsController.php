@@ -154,7 +154,7 @@ class FriendsController extends Controller
     	$id = $request->id;
 		$name = User::where('id', $id)->select('name')->first();
 
-		$friends = Friends::where([
+		$friends = Friend::where([
 			['user_id', Auth::id()], 
 			['friends_with', $id],
 			['pending', 0]
@@ -166,12 +166,12 @@ class FriendsController extends Controller
 			$accepter = Auth::user();
 
 			// Updates the current pending request
-			$pendingRequest = Friends::where('user_id', $id)->first();
+			$pendingRequest = Friend::where('user_id', $id)->first();
 			$pendingRequest->pending = 0;
 			$pendingRequest->update();
 			
 			// Creates a new entry for the user that accepts the invite
-			$friendship = new Friends;
+			$friendship = new Friend;
 			$friendship->user_id = Auth::id();
 			$friendship->friends_with = $id;
 			$friendship->pending = 0;
