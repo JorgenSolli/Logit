@@ -127,6 +127,7 @@ $(document).ready(function() {
 					)
 
 					obj.removeClass('disabled respondRequest');
+					location.reload();
 				}
 			}
 		})

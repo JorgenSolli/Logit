@@ -19,7 +19,10 @@ class FriendsController extends Controller
     public function viewFriends ()
     {
 		$brukerinfo = Auth::user();
-		$friends = Friend::where(['friends_with', Auth::id())
+		$friends = Friend::where([
+				['friends_with', Auth::id()],
+				['pending', 0]
+			])
 			->join('users', 'friends.user_id', 'users.id')
 			->select('friends.id', 'friends.created_at', 'users.name', 'users.email')
 			->get();
