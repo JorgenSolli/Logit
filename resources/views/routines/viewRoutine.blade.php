@@ -229,6 +229,7 @@
     <div class="card-content clearfix">
 
       <button id="addMore" type="button" class="btn btn-primary">Add another exercise!</button>
+      <button id="addSuperset" type="button" class="btn btn-primary">Add superset group</button>
       <div class="pull-right">
         <input type="hidden" value="{{ $routine->active }}" name="status" id="status">
         <input type="hidden" value="{{ $routine->id }}" name="routineId" id="routineId"> 
