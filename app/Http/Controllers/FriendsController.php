@@ -99,11 +99,11 @@ class FriendsController extends Controller
     	// Checks if this person actually wants to recieve friendrequests
 		if ($settings->accept_friends === 1) {
 
-			$friends = Friends::where([['user_id', Auth::id()], ['friends_with', $id]])->first();
+			$friends = Friend::where([['user_id', Auth::id()], ['friends_with', $id]])->first();
 			// Checks if we're not already friends
 			if (!$friends) {
 
-				$pending = Friends::where([
+				$pending = Friend::where([
 					['user_id', $id],
 					['friends_with', Auth::id()],
 					['pending', 1]
@@ -112,7 +112,7 @@ class FriendsController extends Controller
 				if (!$pending) {
 					$requester = Auth::user();
 					
-					$newFriend = new Friends;
+					$newFriend = new Friend;
 					$newFriend->user_id = Auth::id();
 					$newFriend->friends_with = $id;
 					$newFriend->pending = 1;
@@ -205,13 +205,13 @@ class FriendsController extends Controller
     	$id = $request->id;
 		$name = User::where('id', $id)->select('name')->first();
 
-		$youAndHim = Friends::where([
+		$youAndHim = Friend::where([
 			['user_id', Auth::id()], 
 			['friends_with', $id],
 			['pending', 0]
 		])->first();
 
-		$himAndYou = Friends::where([
+		$himAndYou = Friend::where([
 			['user_id', $id], 
 			['friends_with', Auth::id()],
 			['pending', 0]
