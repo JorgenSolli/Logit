@@ -103,7 +103,6 @@
                 @include('layouts.footer')
             </div>
         </div>
-        @include('layouts.scripts')
         <script type="text/javascript">
             $().ready(function() {
                 logit.checkFullPageBackgroundImage();

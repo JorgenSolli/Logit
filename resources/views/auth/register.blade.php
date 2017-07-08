@@ -132,7 +132,6 @@
             </div>
         </div>
 
-        @include('layouts.scripts')
         <script type="text/javascript">
             $().ready(function() {
                 demo.checkFullPageBackgroundImage();

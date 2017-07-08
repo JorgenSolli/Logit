@@ -150,8 +150,6 @@
 		</div>
 	</div>
 
-	@include('layouts.scripts')
-
 	@section('script')
 	@endsection
 </body>
