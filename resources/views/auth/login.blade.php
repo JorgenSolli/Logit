@@ -88,7 +88,6 @@
         <script src="{{ mix('/js/material-dashboard.min.js') }}"></script>
         <script type="text/javascript">
             $().ready(function() {
-                logit.checkFullPageBackgroundImage();
 
                 setTimeout(function() {
                     // after 1000 ms we add the class animated to the login/register card
