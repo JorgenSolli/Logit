@@ -1,4 +1,4 @@
-$(function() {
+var initSort = function() {
   $("#sortable").sortable({
       containment: "document",
       items: "> div",
@@ -19,7 +19,7 @@ $(function() {
       tolerance: "pointer",
       containment: "parent"
   });
-});
+}
 
 var initDrag = function () {
   $(".sortable-content-children").sortable({
@@ -41,6 +41,7 @@ $(document).on('click', '.viewRoutine', function() {
     success: function(data) {
       $("#routines").hide();
       $("#viewRoutine").html(data['data']).show();
+      
       $("#sortable")
       .sortable({
         handle: '.handle',
@@ -48,6 +49,8 @@ $(document).on('click', '.viewRoutine', function() {
         cancel: ''
       })
       .disableSelection();
+      $('.selectpicker').selectpicker({});
+      initSort();
     },
   })
 });
@@ -174,7 +177,7 @@ $(document).on('click', '#addSuperset', function() {
   var formData = 
      '<div class="thisExercise">' +
         '<input class="exerciseOrder" type="hidden" name="supersets[' + supersetNr + '][order_nr]" value="">' +
-        '<div class="card m-t-10 m-b-10" style="background: rgba(255, 255, 255, 0.8)">' +
+        '<div class="card card-transparent m-t-10 m-b-10">' +
           '<div class="card-content">' +
             '<div class="sortable-content">' +
               '<div class="sort-icon handle">' +
@@ -198,6 +201,7 @@ $(document).on('click', '#addSuperset', function() {
   $("#supersetNr").val(supersetNr);
   $("#sortable").append(formData);
   $('.selectpicker').selectpicker({});
+  initSort();
 });
 
 $(document).on('click', '#addMore-superset', function() {
@@ -365,6 +369,6 @@ $(document).ready(function() {
 
   });
 
-
   var table = $('#datatables').DataTable();
+  initSort();
 })

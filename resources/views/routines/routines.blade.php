@@ -52,7 +52,8 @@
                   </td>
                   <td>{{ $routine['last_used'] }}</td>
                   <td>{{ $routine['times_used'] }}</td>
-                  <td>{{ $routine['created_at'] }}</td>
+                  <td>{{ Carbon\Carbon::parse($routine['created_at'])->format('d M Y H:i') }}</td>
+
                   <td class="text-center">
                     <a class="pointer deleteRoutine" id="{{ $routine['id'] }}">
                       <span class="fa fa-trash-o fa-lg danger-color"></span>

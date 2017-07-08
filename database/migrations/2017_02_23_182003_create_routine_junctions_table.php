@@ -26,7 +26,7 @@ class CreateRoutineJunctionsTable extends Migration
                 ->references('id')->on('routines')
                 ->onDelete('cascade');
 
-            $table->string('type');
+            $table->string('type')->default('regular');
             $table->integer('order_nr');
             $table->boolean('is_warmup')->default(0);
             $table->string('exercise_name');

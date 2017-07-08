@@ -34,18 +34,45 @@
   @include('notifications')
   <div id="exercises">
     <h2>Let's go! <small>Select an exercise</small></h2>
+    @php 
+      $printed_supersets = [];
+    @endphp
+
     @foreach($exercises as $exercise)
-      @if (session($exercise->exercise_name))
-        <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="incomplete">
-          <span class="fa fa-clock-o"></span>&nbsp;
-          {{ $exercise->exercise_name }}
-        </a>
-      @else
-        <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="completed">
-          <span class="fa fa-check"></span>&nbsp;
-          {{ $exercise->exercise_name }}
-        </a>
+      @if ($exercise->type == 'superset' && !in_array($exercise->superset_name, $printed_supersets))
+        
+        @if (session($exercise->superset_name))
+          <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="incomplete">
+            <span class="fa fa-clock-o"></span>&nbsp;
+            {{ $exercise->superset_name }}
+          </a>
+        @else
+          <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="completed">
+            <span class="fa fa-check"></span>&nbsp;
+            {{ $exercise->superset_name }}
+          </a>
+        @endif
+
+        @php
+          array_push($printed_supersets, $exercise->superset_name); 
+        @endphp
+
+      @elseif (!in_array($exercise->superset_name, $printed_supersets))
+        
+        @if (session($exercise->exercise_name))
+          <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="incomplete">
+            <span class="fa fa-clock-o"></span>&nbsp;
+            {{ $exercise->exercise_name }}
+          </a>
+        @else
+          <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="completed">
+            <span class="fa fa-check"></span>&nbsp;
+            {{ $exercise->exercise_name }}
+          </a>
+        
+        @endif
       @endif
+
     @endforeach
   </div>
   <div id="data"></div>

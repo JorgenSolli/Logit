@@ -88,18 +88,25 @@ $(document).ready(function() {
             if (data.notifications.length) {
                 /* We have some data to append, so clear this first */
                 $("#user-notifications").empty();
-                $("#user-notifications-amount").text(data.notifications.length)
+                $("#user-notifications-amount").html('<span class="notification">' + data.notifications.length + '</span>')
             }
 
             for (var i = 0; i < data.notifications.length; i++) {
                 var nf = data.notifications[i]
-                
-                $("#user-notifications").append(
-                    '<li>' +
-                        '<a id="' + nf.id + '" href="' + nf.url + '">' + nf.content + '</a>' +
-                    '</li>'
-                )
-                
+                if (nf.icon) {
+                    $("#user-notifications").append(
+                        '<li>' +
+                            '<a id="' + nf.id + '" href="' + nf.url + '"><i class="material-icons"> ' + nf.icon + '</i>' + nf.content + '</a>' +
+                        '</li>'
+                    )
+                }
+                else {
+                    $("#user-notifications").append(
+                        '<li>' +
+                            '<a id="' + nf.id + '" href="' + nf.url + '">' + nf.content + '</a>' +
+                        '</li>'
+                    )
+                }
             }
         }
     })
@@ -107,20 +114,23 @@ $(document).ready(function() {
     $(document).on('click', '#user-notifications li a', function(e) {
         e.preventDefault();
         var id = $(this).attr('id')
-        var href = $(this).attr('href')
 
-        $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method: 'POST',
-            url: '/api/notifications/clear/',
-            data: {
-                id: id
-            },
-            success: function() {
-                window.location.href = href;
-            }
-        })
+        /* making sure there is somethine to be clicked first... */
+        if (id) {
+            var href = $(this).attr('href')
+            $.ajax({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: 'POST',
+                url: '/api/notifications/clear/',
+                data: {
+                    id: id
+                },
+                success: function() {
+                    window.location.href = href;
+                }
+            })
+        }
     })
 })

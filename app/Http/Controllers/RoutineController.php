@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Logit\Workout;
 use Logit\Routine;
 use Logit\RoutineJunction;
+use Carbon;
 
 class RoutineController extends Controller
 {
@@ -44,7 +45,7 @@ class RoutineController extends Controller
             ->count();
 
             if ($last_used) {
-                $routines[$key] = collect(['last_used'  => $last_used->created_at])->merge($routines[$key]);
+                $routines[$key] = collect(['last_used'  => Carbon\Carbon::parse($last_used->created_at)->format('d M Y H:i')])->merge($routines[$key]);
             } else {
                 $routines[$key] = collect(['last_used'  => 'N/A'])->merge($routines[$key]);
             }
@@ -92,8 +93,6 @@ class RoutineController extends Controller
 
     public function insertRoutine (Request $request)
     {   
-        //dd($request->all());
-
         $routine = new Routine;
         $routine->user_id = Auth::id();
         $routine->routine_name = $request->routine_name;
@@ -102,44 +101,60 @@ class RoutineController extends Controller
         $exercises = $request->exercises;
         $supersets = $request->supersets;
 
-        foreach ($exercises as $exercise) {
-            $junction = new RoutineJunction;
-
-            $junction->type          = 'regular';
-            $junction->routine_id    = $routine->id;
-            $junction->user_id       = Auth::id();
-            $junction->order_nr      = $exercise['order_nr'];
-            $junction->exercise_name = $exercise['exercise_name'];
-            $junction->muscle_group  = $exercise['muscle_group'];
-            $junction->goal_weight   = $exercise['goal_weight'];
-            $junction->goal_sets     = $exercise['goal_sets'];
-            $junction->goal_reps     = $exercise['goal_reps'];
-
-            $junction->save();
-        }
-
-        foreach ($supersets as $superset) {
-            // Grabs the name because that's acceable here.
-            $superset_name = $superset['superset_name'];
-            $order_nr      = $superset['order_nr'];
-            
-            // Removes first two datapoints in array, as this is the superset name and order. We already have this in out memory.
-            foreach(array_slice($superset,2) as $exercise) {
+        if ($exercises) {
+            foreach ($exercises as $exercise) {
                 $junction = new RoutineJunction;
-                $junction->type          = 'superset';
+
+                $junction->type          = 'regular';
                 $junction->routine_id    = $routine->id;
                 $junction->user_id       = Auth::id();
-                $junction->superset_name = $superset_name;
-                $junction->order_nr      = $order_nr;
+                $junction->order_nr      = $exercise['order_nr'];
                 $junction->exercise_name = $exercise['exercise_name'];
                 $junction->muscle_group  = $exercise['muscle_group'];
                 $junction->goal_weight   = $exercise['goal_weight'];
                 $junction->goal_sets     = $exercise['goal_sets'];
                 $junction->goal_reps     = $exercise['goal_reps'];
-                
+
+                if (!array_key_exists('is_warmup', $exercise)) {
+                    $junction->is_warmup = 0;
+                } else {
+                    $junction->is_warmup = 1;
+                }
+
                 $junction->save();
             }
+        }
 
+        if ($supersets) {
+            foreach ($supersets as $superset) {
+                // Grabs the name because that's acceable here.
+                $superset_name = $superset['superset_name'];
+                $order_nr      = $superset['order_nr'];
+                
+                // Removes first two datapoints in array, as this is the superset name and order. We already have this in out memory.
+                foreach(array_slice($superset,2) as $exercise) {
+                    $junction = new RoutineJunction;
+                    $junction->type          = 'superset';
+                    $junction->routine_id    = $routine->id;
+                    $junction->user_id       = Auth::id();
+                    $junction->superset_name = $superset_name;
+                    $junction->order_nr      = $order_nr;
+                    $junction->exercise_name = $exercise['exercise_name'];
+                    $junction->muscle_group  = $exercise['muscle_group'];
+                    $junction->goal_weight   = $exercise['goal_weight'];
+                    $junction->goal_sets     = $exercise['goal_sets'];
+                    $junction->goal_reps     = $exercise['goal_reps'];
+
+                    if (!array_key_exists('is_warmup', $exercise)) {
+                        $junction->is_warmup = 0;
+                    } else {
+                        $junction->is_warmup = 1;
+                    }
+                    
+                    $junction->save();
+                }
+
+            }
         }
 
         return redirect('/dashboard/my_routines');
@@ -159,11 +174,19 @@ class RoutineController extends Controller
     public function viewRoutine (Routine $routine)
     {
     	if ($routine->user_id == Auth::id()) {
-			$junctions = RoutineJunction::where('routine_id', $routine->id)->get();
+			$junctions = RoutineJunction::where('routine_id', $routine->id)
+                ->orderBy('order_nr', 'ASC')
+                ->get();
+
+            $supersets = RoutineJunction::where([
+                ['routine_id', $routine->id],
+                ['type', 'superset']
+            ])->get();
 
 			$returnHTML = view('routines.viewRoutine')
 				->with('routine', $routine)
 				->with('junctions', $junctions)
+                ->with('supersets', $supersets)
 				->render();
 			return response()->json(array('success' => true, 'data'=>$returnHTML));
 		}
@@ -172,35 +195,71 @@ class RoutineController extends Controller
 	public function updateRoutine (Request $request, Routine $routine)
 	{
 		if ($routine->user_id == Auth::id()) {
-			// Deletes old recolds and inserts new ones
-			
-            RoutineJunction::where('routine_id', $request->routineId)
-				->delete();
+			// Deletes old junctions and inserts new ones
+            RoutineJunction::where('routine_id', $request->routineId)->delete();
 
-			// $routine = new Routine;
 	        $routine->user_id = Auth::id();
 	        $routine->routine_name = $request->routine_name;
 	        $routine->update();
 
-	        foreach ($request->exercises as $value) {
-	            $junction = new RoutineJunction;
+            $exercises = $request->exercises;
+            $supersets = $request->supersets;
 
-	            $junction->routine_id    = $routine->id;
-	            $junction->user_id 		 = Auth::id();
-	            $junction->exercise_name = $value['exercise_name'];
-	            $junction->muscle_group  = $value['muscle_group'];
-	            $junction->goal_weight   = $value['goal_weight'];
-	            $junction->goal_sets     = $value['goal_sets'];
-	            $junction->goal_reps     = $value['goal_reps'];
+            if ($exercises) {
+                foreach ($exercises as $exercise) {
+                    $junction = new RoutineJunction;
 
-                if (!array_key_exists('is_warmup', $value)) {
-                    $junction->is_warmup = 0;
-                } else {
-                    $junction->is_warmup = 1;
+                    $junction->type          = 'regular';
+                    $junction->routine_id    = $routine->id;
+                    $junction->user_id       = Auth::id();
+                    $junction->order_nr      = $exercise['order_nr'];
+                    $junction->exercise_name = $exercise['exercise_name'];
+                    $junction->muscle_group  = $exercise['muscle_group'];
+                    $junction->goal_weight   = $exercise['goal_weight'];
+                    $junction->goal_sets     = $exercise['goal_sets'];
+                    $junction->goal_reps     = $exercise['goal_reps'];
+
+                    if (!array_key_exists('is_warmup', $exercise)) {
+                        $junction->is_warmup = 0;
+                    } else {
+                        $junction->is_warmup = 1;
+                    }
+
+                    $junction->save();
                 }
+            }
 
-	            $junction->save();
-	        }
+            if ($supersets) {
+                foreach ($supersets as $superset) {
+                    // Grabs the name because that's acceable here.
+                    $superset_name = $superset['superset_name'];
+                    $order_nr      = $superset['order_nr'];
+                    
+                    // Removes first two datapoints in array, as this is the superset name and order. We already have this in out memory.
+                    foreach(array_slice($superset,2) as $exercise) {
+                        $junction = new RoutineJunction;
+                        $junction->type          = 'superset';
+                        $junction->routine_id    = $routine->id;
+                        $junction->user_id       = Auth::id();
+                        $junction->superset_name = $superset_name;
+                        $junction->order_nr      = $order_nr;
+                        $junction->exercise_name = $exercise['exercise_name'];
+                        $junction->muscle_group  = $exercise['muscle_group'];
+                        $junction->goal_weight   = $exercise['goal_weight'];
+                        $junction->goal_sets     = $exercise['goal_sets'];
+                        $junction->goal_reps     = $exercise['goal_reps'];
+
+                        if (!array_key_exists('is_warmup', $exercise)) {
+                            $junction->is_warmup = 0;
+                        } else {
+                            $junction->is_warmup = 1;
+                        }
+                        
+                        $junction->save();
+                    }
+                }
+            }
+
         	return back()->with('success', 'Routine updated!');
 		}
 		return back()->with('danger', 'Something went wrong. Please try again!');

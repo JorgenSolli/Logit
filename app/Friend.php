@@ -4,7 +4,7 @@ namespace Logit;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Friends extends Model
+class Friend extends Model
 {
     /**
      * The attributes that are mass assignable.

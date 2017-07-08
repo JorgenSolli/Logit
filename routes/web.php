@@ -17,8 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+/* Dashboard */
 Route::get('/dashboard', 'DashboardController@dashboard');
-Route::get('/clear', 'ApiController@flushSessions');
+Route::get('/api/getSessions/{type}/{year}/{month}', 'DashboardController@getGrapData');
+Route::get('/api/getAvgGymTime/{type}/{year}/{month}', 'DashboardController@getAvgGymTime');
+Route::get('/api/getMusclegroups/{type}/{year}/{month}', 'DashboardController@getMusclegroups');
 
 /* User/Settings */
 Route::get('/user', 'UserController@myProfile');
@@ -29,9 +32,9 @@ Route::post('/user/settings/edit', 'SettingsController@editSettings');
 /* Friends */
 Route::get('dashboard/friends', 'FriendsController@viewFriends');
 Route::get('dashboard/friends/findFriends', 'FriendsController@findFriends');
-
-// Change this to POST after testing
 Route::get('dashboard/friends/sendRequest', 'FriendsController@sendRequest');
+Route::get('dashboard/friends/respondRequest', 'FriendsController@respondRequest');
+Route::get('api/friends/removeFriend', 'FriendsController@removeFriend');
 
 /* Routines */
 Route::get('/dashboard/my_routines', 'RoutineController@routines');
@@ -56,22 +59,19 @@ Route::get('/dashboard/measurements', 'MeasurementsController@measurements');
 
 /* Workouts */
 Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts');
+Route::get('/api/get_workout/view/{workoutId}', 'WorkoutController@getWorkout');
+Route::get('/api/delete_workout/{workout}', 'WorkoutController@deleteWorkout');
+Route::get('/api/update_workout/{workout}', 'WorkoutController@updateWorkout');
 Route::get('/dashboard/start', 'WorkoutController@selectWorkout');
 Route::get('/dashboard/start/{routine}', 'WorkoutController@startWorkout');
 Route::get('/dashboard/workout/finish/{routine_id}', 'WorkoutController@finishWorkout');
 Route::get('/dashboard/workout/recap/{workout}', 'WorkoutController@recap');
-// Read
 
-/* APIs */
-Route::get('/api/exercise/{exerciseId}', 'ApiController@getExercise');
-Route::put('/api/exercise/{routineId}', 'ApiController@addExercise');
-Route::get('/api/get_workout/view/{workoutId}', 'ApiController@getWorkout');
-Route::get('/api/delete_workout/{workout}', 'ApiController@deleteWorkout');
-Route::get('/api/update_workout/{workout}', 'ApiController@updateWorkout');
+/* Exercises */
+Route::get('/api/exercise/{exerciseId}', 'ExerciseController@getExercise');
+Route::put('/api/exercise/{routineId}', 'ExerciseController@addExercise');
+
+/* API routes */
+Route::get('/clear', 'ApiController@flushSessions');
 Route::post('/api/notifications/check', 'ApiController@checkNotifications');
 Route::post('/api/notifications/clear/', 'ApiController@clearNotification');
-
-/* Statistics */
-Route::get('/api/getSessions/{type}/{year}/{month}', 'ApiController@getGrapData');
-Route::get('/api/getAvgGymTime/{type}/{year}/{month}', 'ApiController@getAvgGymTime');
-Route::get('/api/getMusclegroups/{type}/{year}/{month}', 'ApiController@getMusclegroups');

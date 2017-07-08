@@ -21,6 +21,11 @@ class WorkoutController extends Controller
         $this->middleware('timezone');
     }
 
+    /**
+     * Shows all current workouts that are active
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function selectWorkout ()
     {
     	$routines = Routine::where('user_id', Auth::id())
@@ -52,10 +57,91 @@ class WorkoutController extends Controller
 		]);
     }
 
+    /**
+     * Shows a spesific workout
+     *
+     * @param  Int $workoutId
+     * @return \Illuminate\Http\Response
+     */
+    public function getWorkout ($workoutId)
+    {
+        $workout = WorkoutJunction::where('workout_id', $workoutId)
+            ->where('user_id', Auth::id())
+            ->get();
+
+        $returnHTML = view('workouts.viewWorkout')
+            ->with('workout', $workout)
+            ->with('workoutId', $workoutId)
+            ->render();
+        return response()->json(array('success' => true, 'data'=>$returnHTML));
+    }
+
+    /**
+     * Deleted a spesific workout
+     *
+     * @param  Model Workout
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteWorkout (Workout $workout)
+    {
+        if ($workout->user_id == Auth::id()) {
+            WorkoutJunction::where('workout_id', $workout->id)
+                ->delete();
+            $workout->delete();
+
+            return response()->json(array('success' => true));
+        }
+    }
+
+    /**
+     * Updates a spesific workout
+     *
+     * @param  Request
+     * @param  Int $workoutId
+     * @return \Illuminate\Http\Response
+     */
+    public function updateWorkout (Request $request, Workout $workout)
+    {
+        if ($workout->user_id == Auth::id()) {
+
+            WorkoutJunction::where([
+                    ['user_id', '=', Auth::id()],
+                    ['id', '=', $request->junction_id]
+                ])
+                ->update([
+                    'weight' => $request->weight,
+                    'reps' => $request->reps
+                ]);
+
+            return response()->json(array('success' => true));
+        }
+    }
+
+    /**
+     * Gets all connected exercises to a routine
+     *
+     * @param  Model Routine
+     * @return \Illuminate\Http\Response
+     */
     public function startWorkout (Routine $routine)
     {
-    	$exercises = RoutineJunction::where('routine_id', $routine->id)
+        $allExercises = RoutineJunction::where('routine_id', $routine->id)
+            ->orderBy('order_nr', 'ASC')
+            ->get();
+
+    	$regular = RoutineJunction::where([
+                ['routine_id', $routine->id],
+                ['type', 'regular']
+            ])
+            ->orderBy('order_nr', 'ASC')
     		->get();
+
+        $supersets = RoutineJunction::where([
+                ['routine_id', $routine->id],
+                ['type', 'superset']
+            ])
+            ->orderBy('order_nr', 'ASC')
+            ->get();
 
         $brukerinfo = Auth::user();
 
@@ -75,12 +161,19 @@ class WorkoutController extends Controller
             session()->forget('exercises');
             session()->forget('gymming');
             session()->forget('started_gymming');
+            session()->forget('supersets');
             // Proper SQL date
             $dateTime = Carbon::now();
 
-            foreach ($exercises as $exercise) {
+            foreach ($regular as $exercise) {
                 session()->put([
                       $exercise->exercise_name => $exercise->id
+                ]);
+            }
+
+            foreach ($supersets as $superset) {
+                session()->put([
+                      $superset->superset_name => $exercise->id
                 ]);
             }
             session(['gymming' => $routine->id]);
@@ -89,13 +182,18 @@ class WorkoutController extends Controller
 
         return view('workouts.startWorkout', [
             'topNav'     => $topNav,
-            'exercises'  => $exercises,
+            'exercises'  => $allExercises,
             'routine_id' => $routine->id,
             'brukerinfo' => $brukerinfo
         ]);
     }
 
-    public function viewWorkouts (Workout $workout)
+    /**
+     * View all previously completed exercises
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewWorkouts ()
     {
         $brukerinfo = Auth::user();
 
@@ -119,16 +217,18 @@ class WorkoutController extends Controller
         ]);
     }
 
-    public function deleteWorkout (Workout $workout)
-    {
-        
-    }
-
+    /**
+     * Completes a workout. Transfers all data in session to DB
+     *
+     * @param  Int $routine_id
+     * @return \Illuminate\Http\Response
+     */
     public function finishWorkout ($routine_id)
     {
-        $session = session('exercises');
+        $exercises = session('exercises');
+        $supersets = session('supersets');
 
-        if ($session != null || $session) {
+        if ( ($exercises != null || $exercises) || ($supersets != null || $supersets) ) {
 
             $settings = Settings::where('user_id', Auth::id())->first();
 
@@ -137,6 +237,7 @@ class WorkoutController extends Controller
             $duration = $currTime->diffInMinutes($session_started);
 
             session()->forget('exercises');
+            session()->forget('supersets');
             session()->forget('gymming');
             session()->forget('started_gymming');
 
@@ -147,29 +248,61 @@ class WorkoutController extends Controller
             $workout->user_id = $user_id;
             $workout->duration_minutes = $duration;
             $workout->save();
-            foreach ($session as $session_exercise) {
-                $exercise_name = $session_exercise['exercise_name'];
-                foreach ($session_exercise['exercises'] as $exercise_specific) {
-                    $exercise = new WorkoutJunction;
-                    $exercise->workout_id       = $workout->id;
-                    $exercise->user_id          = $user_id;
-                    $exercise->routine_id       = $routine_id;
-                    $exercise->exercise_name    = $exercise_name;
-                    $exercise->reps             = $exercise_specific['reps'];
-                    $exercise->set_nr           = $exercise_specific['set'];
-                    $exercise->weight           = $exercise_specific['weight'];
 
-                    $exercise->save();
+            /* Regular exercies */
+            if ($exercises) {
+                foreach ($exercises as $session_exercise) {
+                    $exercise_name = $session_exercise['exercise_name'];
+                    foreach ($session_exercise['exercises'] as $exercise_specific) {
+                        $exercise = new WorkoutJunction;
+                        $exercise->workout_id       = $workout->id;
+                        $exercise->user_id          = $user_id;
+                        $exercise->routine_id       = $routine_id;
+                        $exercise->exercise_name    = $exercise_name;
+                        $exercise->is_warmup		= $exercise_specific['is_warmup'];
+                        $exercise->reps             = $exercise_specific['reps'];
+                        $exercise->set_nr           = $exercise_specific['set'];
+                        $exercise->weight           = $exercise_specific['weight'];
+
+                        $exercise->save();
+                    }
+
+                    $note = new Note;
+                    $note->user_id              = $user_id;
+                    $note->routine_junction_id  = $session_exercise['routine_junction_id'];
+                    $note->note                 = $session_exercise['note']['text'];
+                    $note->label                = $session_exercise['note']['labelType'];
+                    $note->save();
                 }
-
-                $note = new Note;
-                $note->user_id              = $user_id;
-                $note->routine_junction_id  = $session_exercise['routine_junction_id'];
-                $note->note                 = $session_exercise['note']['text'];
-                $note->label                = $session_exercise['note']['labelType'];
-                $note->save();
             }
-            
+
+            /* Supersets */
+            if ($supersets) {
+                foreach ($supersets as $session_exercise) {
+                    $superset_name  = $session_exercise['superset_name'];
+                    foreach ($session_exercise['exercises'] as $exercise_specific) {
+                        $exercise = new WorkoutJunction;
+                        $exercise->workout_id       = $workout->id;
+                        $exercise->user_id          = $user_id;
+                        $exercise->routine_id       = $routine_id;
+                        $exercise->exercise_name    = $exercise_specific['exercise_name'];
+                        $exercise->reps             = $exercise_specific['reps'];
+                        $exercise->set_nr           = $exercise_specific['set'];
+                        $exercise->weight           = $exercise_specific['weight'];
+
+                        $exercise->save();
+                    }
+
+                    $note = new Note;
+                    $note->user_id              = $user_id;
+                    $note->routine_junction_id  = $session_exercise['routine_junction_id'];
+                    $note->note                 = $session_exercise['note']['text'];
+                    $note->label                = $session_exercise['note']['labelType'];
+                    $note->save();
+                }
+            }
+
+
             if ($settings->recap == 1) {
                 return redirect('/dashboard/workout/recap/' . $workout->id)->with('success', 'Workout saved. Good job! Here is your recap');
             }
@@ -179,6 +312,12 @@ class WorkoutController extends Controller
         return redirect('/dashboard/workouts')->with('danger', 'Something went wrong! Please try again.');
     }
 
+    /**
+     * Shows data from a specific workout
+     *
+     * @param  Model Workout
+     * @return \Illuminate\Http\Response
+     */
     public function recap (Workout $workout)
     {
         $brukerinfo = Auth::user();
@@ -192,8 +331,9 @@ class WorkoutController extends Controller
             ->count();
 
         $totalExercises = WorkoutJunction::where([
-                ['workout_id', '=', $workout->id],
-                ['set_nr' , '=', 1]
+                ['workout_id', $workout->id],
+                ['set_nr', 1],
+                ['is_warmup', 0]
             ])
             ->get()
             ->count();
@@ -235,5 +375,4 @@ class WorkoutController extends Controller
             'totalExercises' => $totalExercises
         ]);
     }
-
 }

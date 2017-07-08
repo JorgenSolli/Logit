@@ -17,7 +17,13 @@ $(document).ready(function(){
 	}
 
 	$("#exercises a").on('click', function() {
-		var exerciseId = $(this).attr('id');
+		var obj = $(this);
+		var exerciseId = obj.attr('id');
+
+		var exercise = obj.html();
+		$(this).addClass('disabled');
+        $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> Getting exercise ...');
+
 		$.ajax({
 			url: '/api/exercise/' + exerciseId,
 			headers: {
@@ -27,6 +33,7 @@ $(document).ready(function(){
 			success: function(data) {
 				$("#data").html(data['data'])
 				$("#exercises").slideUp();
+				obj.html(exercise).removeClass('disabled');
 			},
 		})
 	})
@@ -93,6 +100,8 @@ $(document).ready(function(){
 		}
 
 		if (atLeastOne && !incompleteItems) {
+			$(this).addClass('disabled');
+            $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> finishing ...');
 			return window.location.href = href;
 		}
 	})
@@ -215,6 +224,10 @@ $(document).ready(function(){
 			}
 		})
 
+		if (ok) {
+			$(this).addClass('disabled');
+            $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> saving ...');
+		}
 		return ok
 	})
 
@@ -243,16 +256,19 @@ $(document).ready(function(){
 	})
 
 	$('#datatables').DataTable({
-	  "pagingType": "full_numbers",
-	  "lengthMenu": [
-	      [10, 25, 50, -1],
-	      [10, 25, 50, "All"]
-	  ],
-	  responsive: true,
-	  language: {
-	      search: "_INPUT_",
-	      searchPlaceholder: "Search records",
-	  }
+		"pagingType": "full_numbers",
+		"lengthMenu": [
+			[10, 25, 50, -1],
+			[10, 25, 50, "All"]
+		],
+		responsive: true,
+		order: [
+			[ 0, "desc" ]
+		],
+		language: {
+		search: "_INPUT_",
+		searchPlaceholder: "Search records",
+		}
 	})
 	var table = $('#datatables').DataTable();
 });

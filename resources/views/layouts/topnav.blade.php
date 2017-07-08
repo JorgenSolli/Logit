@@ -23,7 +23,8 @@
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="material-icons">notifications</i>
-                        <span id="user-notifications-amount" class="notification">0</span>
+                        <div id="user-notifications-amount">
+                        </div>
                         <p class="hidden-lg hidden-md">
                             Notifications
                             <b class="caret"></b>

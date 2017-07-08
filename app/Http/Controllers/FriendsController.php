@@ -3,7 +3,7 @@
 namespace Logit\Http\Controllers;
 
 use Logit\User;
-use Logit\Friends;
+use Logit\Friend;
 use Logit\Settings;
 use Logit\Notification;
 use Illuminate\Http\Request;
@@ -11,14 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class FriendsController extends Controller
 {
+	/**
+     * Grab all friends connected to Authed user
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function viewFriends ()
     {
 		$brukerinfo = Auth::user();
-		$friends = Friends::where('user_id', Auth::id())
+		$friends = Friend::where('user_id', Auth::id())
+			->join('users', 'friends.user_id', 'users.id')
+			->select('friends.id', 'friends.created_at', 'users.name', 'users.email')
 			->get();
 
 		// Finds people that are trying to be your friend
-		$pending = Friends::where([
+		$pending = Friend::where([
 			['friends_with', Auth::id()],
 			['pending', 1]
 		])
@@ -40,6 +47,12 @@ class FriendsController extends Controller
 		]);
     }
 
+    /**
+     * Grabs all people matching the request querrystring
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
     public function findFriends (Request $request)
     {
 
@@ -71,6 +84,12 @@ class FriendsController extends Controller
     	return response()->json(array('error' => 'Search string cannot be empty!'));
     }
 
+    /**
+     * Sends a friends request to specified user
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
     public function sendrequest (Request $request)
     {
     	$id = $request->id;
@@ -116,16 +135,100 @@ class FriendsController extends Controller
 				}
 			}
 			else {
-				return response()->json(array('error' => 'You are already friends with ' . $name->name . ', or an invite is pending.'));
+				return response()->json(array('error' => 'You are either already friends with ' . $name->name . ', or an invite is pending.'));
 			}
 		} 
 		else {
-			return response()->json(array('error' => 'User does not accept requests'));
+			return response()->json(array('error' => 'This user does not accept requests'));
 		}
     }
 
-    public function respondeRequest (Request $request)
+    /**
+     * Respond to a specific friendrequest
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
+    public function respondRequest (Request $request)
     {
-    	
+    	$id = $request->id;
+		$name = User::where('id', $id)->select('name')->first();
+
+		$friends = Friends::where([
+			['user_id', Auth::id()], 
+			['friends_with', $id],
+			['pending', 0]
+		])->first();
+
+		// Checks if we're not already friends
+		if (!$friends) {
+
+			$accepter = Auth::user();
+
+			// Updates the current pending request
+			$pendingRequest = Friends::where('user_id', $id)->first();
+			$pendingRequest->pending = 0;
+			$pendingRequest->update();
+			
+			// Creates a new entry for the user that accepts the invite
+			$friendship = new Friends;
+			$friendship->user_id = Auth::id();
+			$friendship->friends_with = $id;
+			$friendship->pending = 0;
+
+			$notify = new Notification;
+			$notify->user_id = $id;
+			$notify->content = ucfirst($accepter->name) . " has accepted you as a friend. How nice!";
+			$notify->icon = 'insert_emoticon';
+			$notify->url = '/dashboard/friends';
+
+			if ($friendship->save() && $notify->save()) {
+				return response()->json(array('success' => 'You are now friends with ' . ucfirst($name->name)));
+			}
+
+			return response()->json(array('error' => 'Something went wrong. Please try again or contact an admin.'));
+
+		}
+		else {
+			return response()->json(array('error' => 'You are already friends with ' . ucfirst($name->name)));
+		}
+    }
+
+    /**
+     * Removes a friend from your friendslist
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
+    public function removeFriend (Request $request)
+    {
+    	$id = $request->id;
+		$name = User::where('id', $id)->select('name')->first();
+
+		$youAndHim = Friends::where([
+			['user_id', Auth::id()], 
+			['friends_with', $id],
+			['pending', 0]
+		])->first();
+
+		$himAndYou = Friends::where([
+			['user_id', $id], 
+			['friends_with', Auth::id()],
+			['pending', 0]
+		])->first();
+
+		# Makes sure you are both friends with eachother.
+		if ($youAndHim && $himAndYou) {
+
+			if ($youAndHim->delete() && $himAndYou->delete()) {
+				return response()->json(array('success' => 'You are no longer friends with ' . ucfirst($name->name)));
+			}
+
+			return response()->json(array('error' => 'Something went wrong. Please try again or contact an admin.'));
+
+		}
+		else {
+			return response()->json(array('error' => "You can't remove " + ucfirst($name->name) + " because the person is not your friend."));
+		}
     }
 }
