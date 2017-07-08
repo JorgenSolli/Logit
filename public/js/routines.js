@@ -31,6 +31,17 @@ var initDrag = function () {
 
 $(document).on('click', '.viewRoutine', function() {
   var routineId = $(this).children('input').val();
+  $("#routines").hide();
+  $("#viewRoutine").html('<div id="pageload">' +
+      '<div class="showbox">' +
+        '<div class="loader">' +
+          '<svg class="circular" viewBox="25 25 50 50">' +
+            '<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>' +
+          '</svg>' +
+        '</div>' +
+        '<p class="loader-text">Getting routine...</p>' +
+      '</div>' +
+    '</div>').show();
 
   $.ajax({
     url: '/dashboard/my_routines/view/' + routineId,
@@ -39,7 +50,6 @@ $(document).on('click', '.viewRoutine', function() {
     },
     method: 'GET',
     success: function(data) {
-      $("#routines").hide();
       $("#viewRoutine").html(data['data']).show();
       
       $("#sortable")
@@ -52,6 +62,10 @@ $(document).on('click', '.viewRoutine', function() {
       $('.selectpicker').selectpicker({});
       initSort();
     },
+    error: function() {
+      $("#viewRoutine").hide();
+      $("#routines").show();
+    }
   })
 });
 
@@ -321,6 +335,10 @@ $(document).on('click', '#addRoutine', function() {
   $(".exerciseOrder").each(function(key) {
     $(this).val(key);
   })
+
+  if (ok) {
+    $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> Saving changes ...');
+  }
 
   return ok
 })

@@ -218,7 +218,6 @@
 
       @php 
         $i++; 
-        
       @endphp
     @endforeach
   </div>
