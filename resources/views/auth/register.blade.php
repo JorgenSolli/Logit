@@ -131,6 +131,9 @@
                 </div>
             </div>
         </div>
+        <!--             Core JS             -->
+        <script src="{{ mix('/js/logit.min.js') }}"></script>
+        <script src="{{ mix('/js/material-dashboard.min.js') }}"></script>
 
         <script type="text/javascript">
             $().ready(function() {
