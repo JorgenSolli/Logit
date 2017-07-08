@@ -102,8 +102,8 @@
 @endsection
 
 @section('script')
-  <script src="/js/moment.js"></script>
-  <script src="/js/dashboard.js"></script>
+
+  <script src="{{ mix('/js/dashboard.min.js') }}"></script>
 
   @if ($firstTime)
     <script>
@@ -127,6 +127,5 @@
           '<i class="fa fa-thumbs-up"></i> Great. Thank you!'
       })
     </script>
-
   @endif
 @endsection

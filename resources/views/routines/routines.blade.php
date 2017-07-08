@@ -77,6 +77,6 @@
 @endsection
 
 @section('script')
-  <script src="/js/routines.js"></script>
+  <script src="{{ mix('/js/routines.min.js') }}"></script>
 @endsection
 

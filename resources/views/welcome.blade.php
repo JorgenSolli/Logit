@@ -153,9 +153,6 @@
 	@include('layouts.scripts')
 
 	@section('script')
-		<script>
-			
-		</script>
 	@endsection
 </body>
 </html>

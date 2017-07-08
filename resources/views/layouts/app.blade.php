@@ -104,7 +104,11 @@
             @include('layouts.footer')
         </div>
     </div>
-  @include('layouts.scripts')
+  
+  <!--             Core JS             -->
+  <script src="{{ mix('/js/logit.min.js') }}"></script>
+  <script src="{{ mix('/js/material-dashboard.min.js') }}"></script>
+  
   @include('layouts.scriptNotifications')
   @yield('script')
 

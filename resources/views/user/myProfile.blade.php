@@ -131,5 +131,5 @@
     </div>
 @endsection
 @section('script')
-    <script src="/js/myProfile.js"></script>
+    <script src="{{ mix('/js/myProfile.min.js') }}"></script>
 @endsection

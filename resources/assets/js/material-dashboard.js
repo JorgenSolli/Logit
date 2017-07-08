@@ -4,33 +4,7 @@
  *
  * =========================================================
  *
- * Copyright 2016 Creative Tim (http://www.creative-tim.com/product/material-dashboard-pro)
- *
- *
- *                       _oo0oo_
- *                      o8888888o
- *                      88" . "88
- *                      (| -_- |)
- *                      0\  =  /0
- *                    ___/`---'\___
- *                  .' \|     |// '.
- *                 / \|||  :  |||// \
- *                / _||||| -:- |||||- \
- *               |   | \\  -  /// |   |
- *               | \_|  ''\---/''  |_/ |
- *               \  .-\__  '-'  ___/-. /
- *             ___'. .'  /--.--\  `. .'___
- *          ."" '<  `.___\_<|>_/___.' >' "".
- *         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
- *         \  \ `_.   \_ __\ /__ _/   .-` /  /
- *     =====`-.____`.___ \_____/___.-`___.-'=====
- *                       `=---='
- *
- *     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *
- *               Buddha Bless:  "No Bugs"
- *
- * ========================================================= */
+ */
 
  (function(){
      isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -91,13 +65,6 @@ $(document).ready(function(){
 
     //  Activate the tooltips
     $('[rel="tooltip"]').tooltip();
-
-    //removed class label and label-color from tag span and replaced with data-color
-    var tagClass = $('.tagsinput').data('color');
-
-    $('.tagsinput').tagsinput({
-        tagClass: ' tag-'+ tagClass +' '
-    });
 
     //    Activate bootstrap-select
     $(".select").dropdown({ "dropdownClass": "dropdown-menu", "optionClass": "" });

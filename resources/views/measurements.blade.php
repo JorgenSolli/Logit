@@ -10,5 +10,4 @@
 @endsection
 
 @section('script')
-  <script src="/js/moment.js"></script>
 @endsection

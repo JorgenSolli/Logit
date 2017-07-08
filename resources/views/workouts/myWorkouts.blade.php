@@ -50,5 +50,6 @@
 @endsection
 
 @section('script')
-  <script src="/js/workouts.js"></script>
+  <script src="{{ mix('/js/workouts.min.js') }}"></script>
+
 @endsection

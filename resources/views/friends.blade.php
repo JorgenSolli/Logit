@@ -127,6 +127,5 @@
 @endsection
 
 @section('script')
-  <script src="/js/moment.js"></script>
-  <script src="/js/friends.js"></script>
+  <script src="{{ mix('/js/friends.min.js') }}"></script>
 @endsection
