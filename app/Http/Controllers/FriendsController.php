@@ -19,7 +19,7 @@ class FriendsController extends Controller
     public function viewFriends ()
     {
 		$brukerinfo = Auth::user();
-		$friends = Friend::where('user_id', Auth::id())
+		$friends = Friend::where(['friends_with', Auth::id())
 			->join('users', 'friends.user_id', 'users.id')
 			->select('friends.id', 'friends.created_at', 'users.name', 'users.email')
 			->get();
@@ -203,32 +203,37 @@ class FriendsController extends Controller
     public function removeFriend (Request $request)
     {
     	$id = $request->id;
-		$name = User::where('id', $id)->select('name')->first();
+    	if ($name = Friend::where('id', $id)->select('user_id')->first()) {
 
-		$youAndHim = Friend::where([
-			['user_id', Auth::id()], 
-			['friends_with', $id],
-			['pending', 0]
-		])->first();
+    		$name = User::where('id', $name->user_id)->first();
+    		$id = $name->id;
 
-		$himAndYou = Friend::where([
-			['user_id', $id], 
-			['friends_with', Auth::id()],
-			['pending', 0]
-		])->first();
+			$youAndHim = Friend::where([
+				['user_id', Auth::id()], 
+				['friends_with', $id],
+				['pending', 0]
+			])->first();
 
-		# Makes sure you are both friends with eachother.
-		if ($youAndHim && $himAndYou) {
+			$himAndYou = Friend::where([
+				['user_id', $id], 
+				['friends_with', Auth::id()],
+				['pending', 0]
+			])->first();
 
-			if ($youAndHim->delete() && $himAndYou->delete()) {
-				return response()->json(array('success' => 'You are no longer friends with ' . ucfirst($name->name)));
+			# Makes sure you are both friends with eachother.
+			if ($youAndHim && $himAndYou) {
+				if ($youAndHim->delete() && $himAndYou->delete()) {
+					return response()->json(array('success' => 'You are no longer friends with ' . ucfirst($name->name)));
+				}
+
+				return response()->json(array('error' => 'Something went wrong. Please try again or contact an admin.'));
+
 			}
+			else {
+				return response()->json(array('error' => "You can't remove " + ucfirst($name->name) + " because the person is not your friend."));		
+			}
+    	}
 
-			return response()->json(array('error' => 'Something went wrong. Please try again or contact an admin.'));
-
-		}
-		else {
-			return response()->json(array('error' => "You can't remove " + ucfirst($name->name) + " because the person is not your friend."));
-		}
+    	return response()->json(array('error' => "That user does not exist."));
     }
 }

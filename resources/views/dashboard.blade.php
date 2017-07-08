@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<h1>{{ $brukerinfo->email }}</h1>
   <div class="row">
     <div class="col-xs-12">
       <h4 class="p-l-md">Show statistics for</h4>
