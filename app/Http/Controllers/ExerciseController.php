@@ -21,6 +21,7 @@ class ExerciseController extends Controller
     {
         $userId = Auth::id();
         $settings = Settings::where('user_id', Auth::id())->first();
+
         $type = RoutineJunction::where('id', $exerciseId)
             ->where('user_id', $userId)
             ->select('type')

@@ -67,41 +67,54 @@
                               <span class="fa fa-arrows-v"></span>
                               <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>
                             </div>
-                            <div class="form-group label-floating">
-                              <label class="control-label" for="exercise_name">Excersice name</label>
-                              <input type="text" class="required form-control exercise_name" id="exercise_name" 
-                                     name="supersets[{{ $ssNr }}][{{ $i }}][exercise_name]" value="{{ $superset->exercise_name }}">
-                            </div>
-                            <div class="form-group">
-                              <label>Muscle group</label>
-                              <select class="selectpicker" name="supersets[{{ $ssNr }}][{{ $i }}][muscle_group]" 
-                                      data-style="select-with-transition" title="Choose a muscle group" data-size="8">
-                                <option value="{{ $superset->muscle_group }}" selected>{{ $superset->muscle_group }}</option>
-                                <option value="back">Back</option>
-                                <option value="biceps">Biceps</option>
-                                <option value="triceps">Triceps</option>
-                                <option value="abs">Abs</option>
-                                <option value="shoulders">Shoulders</option>
-                                <option value="legs">Legs</option>
-                                <option value="chest">Chest</option>
-                              </select>
-                            </div>
+
                             <div class="row">
-                              <div class="col-md-4">
+                              {{-- Excersice Name --}}
+                              <div class="col-xs-12 col-sm-6">
+                                <div class="form-group label-floating">
+                                  <label class="control-label" for="exercise_name">Excersice name</label>
+                                  <input type="text" class="required form-control exercise_name" id="exercise_name" 
+                                         name="supersets[{{ $ssNr }}][{{ $i }}][exercise_name]" value="{{ $superset->exercise_name }}">
+                                </div>
+                              </div>
+
+                              {{-- Muscle Group --}}
+                              <div class="col-xs-12 col-sm-6">
+                                <div class="form-group" style="margin-top: 4px;">
+                                  <select class="selectpicker" name="supersets[{{ $ssNr }}][{{ $i }}][muscle_group]" 
+                                          data-style="select-with-transition" title="Choose a muscle group" data-size="8">
+                                    <option value="{{ $superset->muscle_group }}" selected>{{ $superset->muscle_group }}</option>
+                                    <option value="back">Back</option>
+                                    <option value="biceps">Biceps</option>
+                                    <option value="triceps">Triceps</option>
+                                    <option value="abs">Abs</option>
+                                    <option value="shoulders">Shoulders</option>
+                                    <option value="legs">Legs</option>
+                                    <option value="chest">Chest</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div class="row">
+                              {{-- Weight Goal --}}
+                              <div class="col-xs-12 col-sm-4">
                                 <div class="form-group label-floating">
                                   <label class="control-label" for="goal_weight">Weight goal</label>
                                   <input type="number" step="any" class="required form-control" id="goal_weight" 
                                          name="supersets[{{ $ssNr }}][{{ $i }}][goal_weight]" value="{{ $superset->goal_weight }}">
                                 </div>
                               </div>
-                              <div class="col-md-4">
+                              {{-- Sets Goal --}}
+                              <div class="col-xs-6 col-sm-4">
                                 <div class="form-group label-floating">
                                   <label class="control-label" for="goal_sets">Sets goal</label>
                                   <input type="number" class="required form-control" id="goal_sets" 
                                          name="supersets[{{ $ssNr }}][{{ $i }}][goal_sets]" value="{{ $superset->goal_sets }}">
                                 </div>
                               </div>
-                              <div class="col-md-4">
+                              {{-- Reps Goal --}}
+                              <div class="col-xs-6 col-sm-4">
                                 <div class="form-group label-floating">
                                   <label class="control-label" for="goal_reps">Reps goal</label>
                                   <input type="number" class="required form-control" id="goal_reps" 
@@ -148,57 +161,65 @@
             <div class="card-content">
             {{-- Excersice Name --}}
               <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-sm fa-trash"></span></a>
-              <div class="sort-icon handle">
+              <div class="sort-icon handle clearfix">
                 Drag me to sort
                 <span class="fa fa-arrows-v"></span>
               </div>
-              <div class="form-group">
-                <label for="exercise_name">Excersice name</label>
-                <input type="text" class="form-control" name="exercises[{{ $i }}][exercise_name]" value="{{ $junction->exercise_name }}">
-              </div>
 
-              {{-- Muscle Group --}}
-              <div class="form-group">
-                <label for="muscle_group">Muscle group</label>
-                <select class="form-control" id="muscle_group" name="exercises[{{ $i }}][muscle_group]">
-                  <option value="{{ $junction->muscle_group }}" selected>{{ $junction->muscle_group }}</option>
-                  <option value="back">Back</option>
-                  <option value="biceps">Biceps</option>
-                  <option value="triceps">Triceps</option>
-                  <option value="abs">Abs</option>
-                  <option value="shoulders">Shoulders</option>
-                  <option value="legs">Legs</option>
-                  <option value="chest">Chest</option>
-                </select>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="form-group label-floating m-t-10">
+                    <label class="control-label" for="exercise_name">Excersice name</label>
+                    <input type="text" class="form-control" name="exercises[{{ $i }}][exercise_name]" value="{{ $junction->exercise_name }}">
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                  {{-- Muscle Group --}}
+                  <div class="form-group label-floating" style="margin-top: 4px;">
+                    <select id="muscle_group" class="selectpicker" name="exercises[{{ $i }}][muscle_group]"  
+                            data-style="select-with-transition" title="Choose a muscle group" data-size="8">
+                      <option value="{{ $junction->muscle_group }}" selected>{{ $junction->muscle_group }}</option>
+                      <option value="back">Back</option>
+                      <option value="biceps">Biceps</option>
+                      <option value="triceps">Triceps</option>
+                      <option value="abs">Abs</option>
+                      <option value="shoulders">Shoulders</option>
+                      <option value="legs">Legs</option>
+                      <option value="chest">Chest</option>
+                    </select>
+                  </div>
+                </div>
               </div>
+              
               <div class="row">
                 
                 {{-- Weight Goal --}}
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="goal_weight">Weight goal</label>
+                <div class="col-xs-12 col-sm-4">
+                  <div class="form-group label-floating m-t-10">
+                    <label class="control-label" for="goal_weight">Weight goal</label>
                     <input type="number" step="any" class="form-control" id="goal_weight" name="exercises[{{ $i }}][goal_weight]" value="{{ $junction->goal_weight }}">
                   </div>
                 </div>
 
                 {{-- Sets Goal --}}
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="goal_sets">Sets goal</label>
+                <div class="col-xs-6 col-sm-4">
+                  <div class="form-group label-floating m-t-10">
+                    <label class="control-label" for="goal_sets">Sets goal</label>
                     <input type="number" class="form-control" id="goal_sets" name="exercises[{{ $i }}][goal_sets]" value="{{ $junction->goal_sets }}">
                   </div>
                 </div>
 
                 {{-- Reps Goal --}}
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="goal_reps">Reps goal</label>
+                <div class="col-xs-6 col-sm-4">
+                  <div class="form-group label-floating m-t-10">
+                    <label class="control-label" for="goal_reps">Reps goal</label>
                     <input type="number" class="form-control" id="goal_reps" name="exercises[{{ $i }}][goal_reps]" value="{{ $junction->goal_reps }}">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-4">
                   <div class="checkbox">
                     <label>
                       @if ($junction->is_warmup == 1)

@@ -20,19 +20,19 @@ mix.combine([
 	'bower_components/jquery-ui/jquery-ui.min.js',
 	'bower_components/bootstrap/dist/js/bootstrap.min.js',
 	'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js',
-	// Extracted spesific version from local. New from bower did not work well.
-	'resources/assets/js/material.min.js',
-	//'bower_components/bootstrap-material-design/dist/bootstrap-material-design.iife.min.js',
 	'bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
 	'bower_components/validate/validate.min.js',
 	'bower_components/moment/min/moment.min.js',
 	'bower_components/chartist/dist/chartist.min.js',
-	'bower_components/bootstrap-notify/js/bootstrap-notify.js',
 	'bower_components/nouislider/distribute/nouislider.min.js',
 	'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js',
 	'bower_components/datatables/media/js/jquery.dataTables.min.js',
 	'bower_components/sweetalert2/dist/sweetalert2.min.js',
-	'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js'
+	'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js',
+	// Extracted spesific version from local. New from bower did not work well.
+	'resources/assets/js/material.min.js',
+	// Creative Tim has his modded version
+	'resources/assets/js/bootstrap-notify.min.js'
 ], 'public/js/logit.min.js')
 
 mix.combine(['resources/assets/js/material-dashboard.js'], 'public/js/material-dashboard.min.js').version();

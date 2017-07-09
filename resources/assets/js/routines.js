@@ -124,42 +124,48 @@ $(document).on('click', '#addMore', function() {
     '<div class="card m-t-10 m-b-10">' +
       '<div class="card-content">' +
         '<div class="sortable-content">' +
-          '<div class="sort-icon handle">' +
+          '<div class="sort-icon handle clearfix">' +
               'Drag me to sort ' +
             '<span class="fa fa-arrows-v"></span>' +
             '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
           '</div>' +
-          '<div class="form-group label-floating">' +
-            '<label class="control-label" for="exercise_name">Excersice name</label>' +
-            '<input type="text" class="required form-control exercise_name" id="exercise_name" name="exercises[' + exerciseNr + '][exercise_name]">' +
-          '</div>' +
-          '<div class="form-group">' +
-            '<select id="muscle_group" name="exercises[' + exerciseNr + '][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Choose a muscle group" data-size="8">' +
-              '<option selected disabled>Select a muscle group</option>' +
-              '<option value="back">Back</option>' +
-              '<option value="biceps">Biceps</option>' +
-              '<option value="triceps">Triceps</option>' +
-              '<option value="abs">Abs</option>' +
-              '<option value="shoulders">Shoulders</option>' +
-              '<option value="legs">Legs</option>' +
-              '<option value="chest">Chest</option>' +
-            '</select>' +
+          '<div class="row">' +
+            '<div class="col-xs-12 col-sm-6">' +
+              '<div class="form-group m-t-10 label-floating">' +
+                '<label class="control-label" for="exercise_name">Excersice name</label>' +
+                '<input type="text" class="required form-control exercise_name" id="exercise_name" name="exercises[' + exerciseNr + '][exercise_name]">' +
+              '</div>' +
+            '</div>' +
+            '<div class="col-xs-12 col-sm-6">' +
+              '<div class="form-group" style="margin-top: 4px;">' +
+                '<select id="muscle_group" class="selectpicker" name="exercises[' + exerciseNr + '][muscle_group]" data-style="select-with-transition" title="Choose a muscle group" data-size="8">' +
+                  '<option selected disabled>Select a muscle group</option>' +
+                  '<option value="back">Back</option>' +
+                  '<option value="biceps">Biceps</option>' +
+                  '<option value="triceps">Triceps</option>' +
+                  '<option value="abs">Abs</option>' +
+                  '<option value="shoulders">Shoulders</option>' +
+                  '<option value="legs">Legs</option>' +
+                  '<option value="chest">Chest</option>' +
+                '</select>' +
+              '</div>' +
+            '</div>' +
           '</div>' +
           '<div class="row">' +
-            '<div class="col-md-4">' +
-              '<div class="form-group label-floating">' +
+            '<div class="col-xs-12 col-sm-4">' +
+              '<div class="form-group m-t-10 label-floating">' +
                 '<label class="control-label" for="goal_weight">Weight goal</label>' +
                 '<input type="number" step="any" class="required form-control" id="goal_weight" name="exercises[' + exerciseNr + '][goal_weight]">' +
               '</div>' +
             '</div>' +
-            '<div class="col-md-4">' +
-              '<div class="form-group label-floating">' +
+            '<div class="col-xs-6 col-sm-4">' +
+              '<div class="form-group m-t-10 label-floating">' +
                 '<label class="control-label" for="goal_sets">Sets goal</label>' +
                 '<input type="number" class="required form-control" id="goal_sets" name="exercises[' + exerciseNr + '][goal_sets]">' +
               '</div>' +
             '</div>' +
-            '<div class="col-md-4">' +
-              '<div class="form-group label-floating">' +
+            '<div class="col-xs-6 col-sm-4">' +
+              '<div class="form-group m-t-10 label-floating">' +
                 '<label class="control-label" for="goal_reps">Reps goal</label>' +
                 '<input type="number" class="required form-control" id="goal_reps" name="exercises[' + exerciseNr + '][goal_reps]">' +
               '</div>' +
@@ -238,7 +244,7 @@ $(document).on('click', '#addMore-superset', function() {
             '<label class="control-label" for="exercise_name">Excersice name</label>' +
             '<input type="text" class="required form-control exercise_name" id="exercise_name" name="supersets[' + supersetNr + '][' + exerciseNr + '][exercise_name]">' +
           '</div>' +
-          '<div class="form-group">' +
+          '<div class="form-group" style="margin-top: 4px;">' +
             '<select id="muscle_group" name="supersets[' + supersetNr + '][' + exerciseNr + '][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Choose a muscle group" data-size="8">' +
               '<option selected disabled>Select a muscle group</option>' +
               '<option value="back">Back</option>' +
