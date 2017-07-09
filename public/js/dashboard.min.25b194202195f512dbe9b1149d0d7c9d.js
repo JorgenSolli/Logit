@@ -1,1 +1,151 @@
-var initCharts=function(t,e,a){dataWorkoutActivityChart={labels:t,series:e},optionsWorkoutActivityChart={lineSmooth:Chartist.Interpolation.cardinal({tension:0}),axisY:{showGrid:!0,offset:40},axisX:{showGrid:!1},low:0,high:a,showPoint:!0,height:"200px"};var s=new Chartist.Line("#workoutActivityChart",dataWorkoutActivityChart,optionsWorkoutActivityChart);md.startAnimationForLineChart(s)},musclegroupsPiechart=function(t,e){var a={labels:t,series:e},s={height:"250px",chartPadding:20,labelOffset:40,labelDirection:"explode",donut:!0};Chartist.Pie("#musclegroupsPiechart",a,s)};$(document).ready(function(){for(var t=2016,e=$("#statistics-year"),a=$("#statistics-month"),s=(new Date).getFullYear(),i=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],o=["January","February","March","April","May","June","July","August","September","October","November","December"],r=moment().format("MMM"),n=s;n>=t;n--)n==s?e.append('<option value="'+n+'" selected>'+n+"</option>"):e.append('<option value="'+n+'">'+n+"</option>");for(var n=0;n<i.length;n++)r==i[n]?a.append('<option value="'+i[n]+'" selected>'+o[n]+"</option>"):a.append('<option value="'+i[n]+'">'+o[n]+"</option>");$("#statistics-type").on("change",function(){var t=$(this).val();"months"==t?$("#statistics-month").parent().show():$("#statistics-month").parent().hide()}),$("#statistics-type, statistics-year, #statistics-month").on("change",function(){c()});var c=function(){var t=$("#statistics-type").val(),e=$("#statistics-year").val(),a=$("#statistics-month").val();$.ajax({method:"GET",headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},url:"/api/getSessions/"+t+"/"+e+"/"+a,success:function(t){initCharts(t.labels,t.series,t.max)}}),$.ajax({method:"GET",headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},url:"/api/getMusclegroups/"+t+"/"+e+"/"+a,success:function(t){for(var e=!1,a=0;a<t.series.length;a++)t.series[a]>0&&(e=!0);e?musclegroupsPiechart(t.labels,t.series):$("#musclegroupsPiechart").html('<div class="m-l-20 m-b-10">You will get access to this chart when you finish at least one routine</div>');for(var a=0;a<t.labels.length;a++){var s=Math.trunc(t.series[a]);$("#"+a+"-percent").text("("+s+"%)")}}}),$.ajax({method:"GET",headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},url:"/api/getAvgGymTime/"+t+"/"+e+"/"+a,success:function(t){$("#avg_hr").text(t.avg_hr),$("#avg_min").text(t.avg_min)}})};$(".selectpickerAjax").selectpicker({}),c()});
+/*  **************** Workout Activity - Line Chart ******************** */
+var initCharts = function(labels, series, max) {
+  dataWorkoutActivityChart = {
+    labels: labels,
+    series: series
+  };
+
+  optionsWorkoutActivityChart = {
+    lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+    }),
+    axisY: {
+        showGrid: true,
+        offset: 40
+    },
+    axisX: {
+        showGrid: false,
+    },
+    low: 0,
+    high: max,
+    showPoint: true,
+    height: '200px'
+  };
+
+  var workoutActivityChart = new Chartist.Line('#workoutActivityChart', dataWorkoutActivityChart, optionsWorkoutActivityChart);
+
+  md.startAnimationForLineChart(workoutActivityChart); 
+}
+
+/*  **************** Musclegroups Worked Out - Pie Chart ******************** */
+var musclegroupsPiechart = function(labels, series) {
+
+  var dataPreferences = {
+    labels: labels,
+    series: series
+  };
+
+  var optionsPreferences = {
+    height: '250px',
+    chartPadding: 20,
+    labelOffset: 40,
+    labelDirection: 'explode',
+    donut: true
+  };
+
+  Chartist.Pie('#musclegroupsPiechart', dataPreferences, optionsPreferences);
+}
+
+$(document).ready(function() {
+    var APP_CREATED_AT = 2017 - 1; // Minus one in case people would like to import old data
+    var yearDiv = $("#statistics-year");
+    var monthDiv = $("#statistics-month");
+    var thisYear = new Date().getFullYear();
+    var monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var currMonth = moment().format('MMM');
+
+    for (var i = thisYear; i >= APP_CREATED_AT; i--) {
+        if (i == thisYear) {
+          yearDiv.append('<option value="' + i + '" selected>' + i + '</option>');
+        } else {
+          yearDiv.append('<option value="' + i + '">' + i + '</option>');
+        }
+    }
+
+    for (var i = 0; i < monthsShort.length; i++) {
+      if (currMonth == monthsShort[i]) {
+        monthDiv.append('<option value="' + monthsShort[i] + '" selected>' + monthsLong[i] + '</option>')
+      } else {
+        monthDiv.append('<option value="' + monthsShort[i] + '">' + monthsLong[i] + '</option>')
+      }
+    }
+
+    $("#statistics-type").on('change', function() {
+        var type = $(this).val();
+        if (type == "months") {
+            $("#statistics-month").parent().show();
+        } else {
+            $("#statistics-month").parent().hide();
+        }
+    });
+
+    $("#statistics-type, statistics-year, #statistics-month").on('change', function() {
+        getGraphData();
+    });
+
+    var getGraphData = function() {
+        var type  = $("#statistics-type").val();
+        var year  = $("#statistics-year").val();
+        var month = $("#statistics-month").val();
+
+        /* Data for session chart */
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/api/getSessions/' + type + '/' + year + '/' + month,
+            success: function(data) {
+                initCharts(data.labels, data.series, data.max);
+            }
+        })
+
+        /* Data for musclegroup chart */
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/api/getMusclegroups/' + type + '/' + year + '/' + month,
+            success: function(data) {
+                var hasValue = false
+                for (var i = 0; i < data.series.length; i++) {
+                    if (data.series[i] > 0) {
+                        hasValue = true
+                    }
+                }
+
+                if (hasValue) {
+                    musclegroupsPiechart(data.labels, data.series);
+                } else {
+                    $("#musclegroupsPiechart").html('<div class="m-l-20 m-b-10">You will get access to this chart when you finish at least one routine</div>')
+                }
+
+                for (var i = 0; i < data.labels.length; i++) {
+                    var percent = Math.trunc(data.series[i]);
+                    $("#" + i + "-percent").text("(" + percent + "%)")
+                }
+            }
+        })
+
+        /* Data for workout-time data */
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/api/getAvgGymTime/' + type + '/' + year + '/' + month,
+            success: function(data) {
+                $("#avg_hr").text(data.avg_hr)
+                $("#avg_min").text(data.avg_min)
+            }
+        })
+    }
+
+    // Waits for information to be appended before invoking the selectpicker
+    $('.selectpickerAjax').selectpicker({});
+    
+    // Loads the graph
+    getGraphData();
+});

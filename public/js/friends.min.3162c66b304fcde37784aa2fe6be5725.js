@@ -1,1 +1,196 @@
-$(document).ready(function(){$("#findPeople").on("click",function(){var e=$("#searchString").val(),t=$("#people-result");$.ajax({url:"/dashboard/friends/findFriends",data:{q:e},success:function(e){if(e.error)s="!",$.notify({icon:"add_alert",message:"Search field cannot be empty"},{type:"danger",timer:4e3,placement:{from:"top",align:"right"}});else{for(var s='<table class="table"><thead class="text-primary"><tr><th>Name</th><th>Email</th><th>Action</th></tr></thead><tbody>',a=0;a<e.users.length;a++)s+="<tr><td>"+e.users[a].name+"</td><td>"+e.users[a].email+'</td><td id="'+e.users[a].id+'"><a class="addfriend pointer btn btn-sm btn-success">send request</a></td></tr>';s+="</tbody></table>",t.html(s)}}})}),$(document).on("click",".addfriend",function(){var e=$(this).parent().attr("id"),t=$(this);t.addClass("disabled"),t.html('<span class="fa fa-spin fa-circle-o-notch"></span> Sending request ...'),$.ajax({method:"GET",url:"/dashboard/friends/sendRequest",data:{id:e},success:function(e){e.error?$.notify({icon:"add_alert",message:e.error},{type:"danger",timer:4e3,placement:{from:"top",align:"right"}}):(swal("Done!",e.success,"success"),t.removeClass("disabled addfriend"),t.html('<span class="fa fa-check"></span> Request sent!'))}})}),$(document).on("click",".respondRequest",function(){var e=$(this).attr("id"),t=$(this);t.addClass("disabled"),$.ajax({method:"GET",url:"/dashboard/friends/respondRequest",data:{id:e},success:function(e){e.error?$.notify({icon:"add_alert",message:e.error},{type:"danger",timer:4e3,placement:{from:"top",align:"right"}}):(swal("Done!",e.success,"success"),t.removeClass("disabled respondRequest"),location.reload())}})}),$(document).on("click",".removeFriend",function(){var t=$(this),s=t.attr("id"),a=t.parent().find(".name").text();swal({title:"Are you sure?",text:a+" will be removed from your friendslist!",type:"warning",showCancelButton:!0,confirmButtonColor:"#3085d6",cancelButtonColor:"#d33",confirmButtonText:"Yes, remove him/her!"}).then(function(){swal("Removed!","You just lost a friend ;(","success"),e(s,t)})});var e=function(e,t){t.addClass("disabled"),$.ajax({method:"GET",url:"/api/friends/removeFriend",data:{id:e},success:function(e){e.error?($.notify({icon:"add_alert",message:e.error},{type:"danger",timer:4e3,placement:{from:"top",align:"right"}}),t.removeClass("disabled")):(swal("Done!",e.success,"success"),t.closest(".col-md-4").fadeOut())}})}});
+$(document).ready(function() {
+
+	$("#findPeople").on('click', function() {
+		var string = $("#searchString").val()
+		var table = $("#people-result")
+
+		$.ajax({
+			url: '/dashboard/friends/findFriends',
+			data: {
+				q: string
+			},
+			success: function(users) {
+
+				if (users.error) {
+					data = "!";
+					$.notify({
+        				icon: "add_alert",
+				        message: "Search field cannot be empty"
+
+				    },{
+				        type: 'danger',
+				        timer: 4000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				} else {
+					var data = '<table class="table">' +
+			                    '<thead class="text-primary">' +
+				                  	'<tr>' +
+					                    '<th>Name</th>' +
+					                    '<th>Email</th>' +
+					                    '<th>Action</th>' +
+				                  	'</tr>' +
+			                  	'</thead>' +
+		                  	'<tbody>';
+
+					for (var i = 0; i < users.users.length; i++) {
+						data += '<tr>' +
+			                        '<td>' + users.users[i].name + '</td>' +
+			                        '<td>' + users.users[i].email +'</td>' +
+			                        '<td id="' + users.users[i].id + '">' +
+			                        	'<a class="addfriend pointer btn btn-sm btn-success">send request</a>' +
+		                        	'</td>' +
+	                      		'</tr>';
+					}
+
+					data += '</tbody>' +
+	                    '</table>';
+
+                    table.html(data)
+				}
+			}
+		})
+	})
+
+	$(document).on('click', '.addfriend', function() {
+		var id = $(this).parent().attr('id')
+		var obj = $(this);
+		obj.addClass('disabled');
+        obj.html('<span class="fa fa-spin fa-circle-o-notch"></span> Sending request ...');
+		$.ajax({
+			method: 'GET',
+			url: '/dashboard/friends/sendRequest',
+			data: {
+				id: id
+			},
+			success: function(data){
+				if (data.error) {
+					$.notify({
+        				icon: "add_alert",
+				        message: data.error
+
+				    },{
+				        type: 'danger',
+				        timer: 4000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				} else {
+					swal(
+						'Done!',
+						data.success,
+						'success'
+					)
+
+					obj.removeClass('disabled addfriend');
+        			obj.html('<span class="fa fa-check"></span> Request sent!');
+				}
+			}
+		})
+	})
+
+	$(document).on('click', '.respondRequest', function() {
+		var id = $(this).attr('id')
+		var obj = $(this);
+		obj.addClass('disabled');
+
+		$.ajax({
+			method: 'GET',
+			url: '/dashboard/friends/respondRequest',
+			data: {
+				id: id
+			},
+			success: function(data){
+				if (data.error) {
+					$.notify({
+        				icon: "add_alert",
+				        message: data.error
+
+				    },{
+				        type: 'danger',
+				        timer: 4000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				} else {
+					swal(
+						'Done!',
+						data.success,
+						'success'
+					)
+
+					obj.removeClass('disabled respondRequest');
+					location.reload();
+				}
+			}
+		})
+	})
+	
+	$(document).on('click', '.removeFriend', function() {
+		var obj = $(this);
+		var id = obj.attr('id')
+		var name = obj.parent().find('.name').text()
+
+		swal({
+			title: 'Are you sure?',
+			text: name + " will be removed from your friendslist!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, remove him/her!'
+		}).then(function () {
+			swal(
+				'Removed!',
+				'You just lost a friend ;(',
+				'success'
+			)
+			removeFriend(id, obj);
+		})
+	})
+
+	var removeFriend = function(id, obj) {
+		obj.addClass('disabled');
+		$.ajax({
+			method: 'GET',
+			url: '/api/friends/removeFriend',
+			data: {
+				id: id
+			},
+			success: function(data){
+				if (data.error) {
+					$.notify({
+        				icon: "add_alert",
+				        message: data.error
+
+				    },{
+				        type: 'danger',
+				        timer: 4000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				    // If the function throws an error, enable the button again
+				    obj.removeClass('disabled');
+				} else {
+					swal(
+						'Done!',
+						data.success,
+						'success'
+					)
+					// Removes the row (the friend)
+					obj.closest('.col-md-4').fadeOut();
+					
+				}
+			}
+		})
+	}
+})

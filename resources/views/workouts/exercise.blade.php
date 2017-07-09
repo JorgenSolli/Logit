@@ -22,7 +22,6 @@
 				<div class="card m-b-10 m-t-10">
 					<div class="card-header">
 						<h4 class="card-title">Set nr {{ $i }}</h4>
-
 					</div>
 					<div class="card-content">
 						<input type="hidden" name="exercise[{{ $i }}][set]" value="{{ $i }}">
@@ -31,12 +30,35 @@
 						@else
 							<input type="hidden" name="exercise[{{ $i }}][is_warmup]" value="0">
 						@endif
-						<div class="form-group m-t-0">
-						    <label for="weight">Weight</label>
 
-						    <label class="hidden control-label" for="weight"> | Hey don't give up! Finish all sets. You can do it!</label>
-						    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]" 
-						    	placeholder="Your goal is {{ $exercise->goal_weight }}. @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
+						<div class="form-group m-t-0">
+						    <label for="weight">Weight Type</label>
+							<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker" 
+									data-style="select-with-transition" title="Choose weight type" data-size="8">
+								<option selected value="raw">Raw Weight</option>
+								<option value="assisted">Assisted Weight</option>
+								<option value="band">Resistance Band</option>
+							</select>
+						</div>
+
+						<div class="form-group weight_type">
+							<div class="raw assisted">
+							    <label class="raw_label" for="weight">Weight</label>
+							    <label class="hidden control-label" for="weight"> | Hey don't give up! Finish all sets. You can do it!</label>
+							    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]" 
+							    	placeholder="Your goal is {{ $exercise->goal_weight }}. @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
+							</div>
+							<div class="band" style="display: none">
+								<label for="weight">Band Type</label>
+								<select name="exercise[{{ $i }}][band_type]" class="selectpicker" 
+										data-style="select-with-transition" title="Choose weight type" data-size="8">
+									<option selected value="black">Black</option>
+									<option value="blue">Blue</option>
+									<option value="green">Green</option>
+									<option value="red">Red</option>
+									<option value="yellow">Yellow</option>
+								</select>
+							</div>
 				  		</div>
 
 					  	<div class="form-group">
