@@ -35,7 +35,7 @@ class CreateWorkoutJunctionsTable extends Migration
             $table->boolean('is_warmup')->default(0);
             $table->integer('set_nr');
             $table->integer('reps');
-            $table->string('weightType')->default('weight');
+            $table->string('weight_type')->default('weight');
             $table->string('weight');
             $table->timestamps();
         });
