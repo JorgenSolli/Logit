@@ -39,7 +39,7 @@
                                     {{ csrf_field() }}
                                     <div class="card card-login card-hidden">
                                         <div class="text-center">
-                                            <h3 class="card-title">Login to Loggit</h3>
+                                            <h3 class="card-title">Login to Logit</h3>
                                         </div>
                                         <div class="card-content">
                                             <div class="input-group">

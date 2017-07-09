@@ -11,7 +11,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">Loggit</a>
+                    <a class="navbar-brand" href="/">Logit</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -45,7 +45,7 @@
                                                     <i class="material-icons">timeline</i>
                                                 </div>
                                                 <div class="description">
-                                                    <h4 class="info-title">Stay in shape with Loggit</h4>
+                                                    <h4 class="info-title">Stay in shape with Logit</h4>
                                                     <p class="description">
                                                         Continue or start logging your workouts digitally! Be able to see progress and trends in your activities. 
                                                     </p>
@@ -58,7 +58,7 @@
                                                 <div class="description">
                                                     <h4 class="info-title">Free for everyone</h4>
                                                     <p class="description">
-                                                        Loggit is available for everyone. Free of charge of course!
+                                                        Logit is available for everyone. Free of charge of course!
                                                     </p>
                                                 </div>
                                             </div>
