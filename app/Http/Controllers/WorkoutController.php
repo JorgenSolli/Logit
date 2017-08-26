@@ -110,6 +110,8 @@ class WorkoutController extends Controller
                 ])
                 ->update([
                     'weight' => $request->weight,
+                    'weight_type' => $request->weight_type,
+                    'band_type' => $request->band_type,
                     'reps' => $request->reps
                 ]);
 
@@ -260,9 +262,18 @@ class WorkoutController extends Controller
                         $exercise->routine_id       = $routine_id;
                         $exercise->exercise_name    = $exercise_name;
                         $exercise->is_warmup		= $exercise_specific['is_warmup'];
+                        $exercise->weight_type      = $exercise_specific['weight_type'];
                         $exercise->reps             = $exercise_specific['reps'];
                         $exercise->set_nr           = $exercise_specific['set'];
-                        $exercise->weight           = $exercise_specific['weight'];
+
+                        // If the current exercise if of type band, se the weight to 0.
+                        if ($exercise_specific['weight'] === null && $exercise_specific['weight_type'] === 'band') {
+                            $exercise->weight       = 0;
+                        } 
+                        else {
+                            $exercise->weight       = $exercise_specific['weight'];
+                        }
+                        $exercise->band_type        = $exercise_specific['band_type'];
 
                         $exercise->save();
                     }

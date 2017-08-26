@@ -75,3 +75,6 @@ Route::put('/api/exercise/{routineId}', 'ExerciseController@addExercise');
 Route::get('/clear', 'ApiController@flushSessions');
 Route::post('/api/notifications/check', 'ApiController@checkNotifications');
 Route::post('/api/notifications/clear/', 'ApiController@clearNotification');
+
+/* Dev paths */
+Route::get('showSession', 'DevController@showSession');

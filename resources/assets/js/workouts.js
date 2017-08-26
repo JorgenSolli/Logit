@@ -44,17 +44,17 @@ $(document).ready(function(){
 		var weight_type = $(this).closest(".card-content").find(".weight_type");
 		
 		if (val == "band") {
-			weight_type.find('.band').show();
-			weight_type.find('.raw').hide();
+			weight_type.find('.band').show().removeClass("ignore");
+			weight_type.find('.raw').hide().addClass("ignore");
 		}
 		else if (val == "assisted") {
-			weight_type.find('.band').hide();
-			weight_type.find('.raw').show();
+			weight_type.find('.band').hide().addClass("ignore");
+			weight_type.find('.raw').show().removeClass("ignore");
 			weight_type.find('.raw_label').text('Assisted Weight');
 		}
 		else {
-			weight_type.find('.band').hide();
-			weight_type.find('.raw').show();
+			weight_type.find('.band').hide().addClass("ignore");
+			weight_type.find('.raw').show().removeClass("ignore");
 			weight_type.find('.raw_label').text('Weight');
 		}
 	})
@@ -148,6 +148,7 @@ $(document).ready(function(){
 	    success: function(data) {
       		$("#workouts").hide();
 	  		$("#viewWorkout").html(data['data']).show();
+      		$('.selectpicker').selectpicker({});
 	    },
 	  })
 	})
@@ -180,6 +181,8 @@ $(document).ready(function(){
 		var parent = $(this).parent().parent();
 		var reps = parent.find('.reps').val();
 		var weight = parent.find('.weight').val();
+		var weight_type = parent.find('.selectpicker.weight_type').val();
+		var band_type = parent.find('.selectpicker.band_type').val();
 		var junction_id = parent.find('input[name="workout_junction_id"]').val();
 
 		$.ajax({
@@ -191,6 +194,8 @@ $(document).ready(function(){
 			data: {
 				junction_id: junction_id,
 				weight: weight,
+				weight_type: weight_type,
+				band_type: band_type,
 				reps: reps,
 			},
 			success: function(data) {
@@ -237,7 +242,7 @@ $(document).ready(function(){
 	$(document).on('click', '#saveWorkout', function() {
 		var ok = true
 		$(".required").each(function(index) {
-			if ($(this).val() == "") {
+			if ($(this).val() == "" && $(this).parent().hasClass("ignore") === false ) {
 				$(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden")
 				ok = false
 			} else {

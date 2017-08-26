@@ -16,8 +16,10 @@ class WorkoutJunction extends Model
         'workout_id', 
         'is_warmup',
         'exercise_name',
+        'weight_type',
         'set_nr',
         'reps',
         'weight',
+        'band_type',
     ];
 }

@@ -32,7 +32,7 @@
 						@endif
 
 						<div class="form-group m-t-0">
-						    <label for="weight">Weight Type</label>
+							<label for="weight">Weight Type</label>
 							<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker" 
 									data-style="select-with-transition" title="Choose weight type" data-size="8">
 								<option selected value="raw">Raw Weight</option>
@@ -48,7 +48,7 @@
 							    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]" 
 							    	placeholder="Your goal is {{ $exercise->goal_weight }}. @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
 							</div>
-							<div class="band" style="display: none">
+							<div class="band ignore" style="display: none">
 								<label for="weight">Band Type</label>
 								<select name="exercise[{{ $i }}][band_type]" class="selectpicker" 
 										data-style="select-with-transition" title="Choose weight type" data-size="8">

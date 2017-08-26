@@ -129,7 +129,6 @@ class ExerciseController extends Controller
             $name = $request->superset_name;
 
             foreach ($request->superset as $set) {
-                //dd($set);
                 session()->push('supersets', [
                     'superset_name' => $name, 
                     'note' => ([
