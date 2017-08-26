@@ -29,6 +29,8 @@ mix.combine([
 	'bower_components/datatables/media/js/jquery.dataTables.min.js',
 	'bower_components/sweetalert2/dist/sweetalert2.min.js',
 	'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js',
+	// Version from bower fucked shit up.. Reverting to the included one.
+	'resources/assets/js/jquery.datatables.js',
 	// Extracted spesific version from local. New from bower did not work well.
 	'resources/assets/js/material.min.js',
 	// Creative Tim has his modded version

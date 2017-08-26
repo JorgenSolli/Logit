@@ -45,7 +45,7 @@ class RoutineController extends Controller
             ->count();
 
             if ($last_used) {
-                $routines[$key] = collect(['last_used'  => Carbon\Carbon::parse($last_used->created_at)->format('d M Y H:i')])->merge($routines[$key]);
+                $routines[$key] = collect(['last_used'  => Carbon\Carbon::parse($last_used->created_at)->format('d/m/Y H:i')])->merge($routines[$key]);
             } else {
                 $routines[$key] = collect(['last_used'  => 'N/A'])->merge($routines[$key]);
             }

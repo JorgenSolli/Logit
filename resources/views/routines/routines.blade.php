@@ -52,7 +52,7 @@
                   </td>
                   <td>{{ $routine['last_used'] }}</td>
                   <td>{{ $routine['times_used'] }}</td>
-                  <td>{{ Carbon\Carbon::parse($routine['created_at'])->format('d M Y H:i') }}</td>
+                  <td>{{ Carbon\Carbon::parse($routine['created_at'])->format('d/m/Y H:i') }}</td>
 
                   <td class="text-center">
                     <a class="pointer deleteRoutine" id="{{ $routine['id'] }}">
