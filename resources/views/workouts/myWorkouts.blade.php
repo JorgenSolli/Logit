@@ -26,7 +26,10 @@
           <tbody>
             @foreach ($workouts as $workout)
               <tr id="workout-{{ $workout->workout_id }}">
-                <td>{{ Carbon\Carbon::parse($workout->created_at)->format('d/m/Y H:i') }}</td>
+                <td>
+                  <span class="hidden">{{ Carbon\Carbon::parse($workout->created_at)->format('Y/m/d H:i') }}</span>
+                  {{ Carbon\Carbon::parse($workout->created_at)->format('d/m/Y H:i') }}
+                </td>
                 <td class="name">{{ $workout->routine_name }}</td>
                 <td class="text-center">
                   <a id="{{ $workout->workout_id }}" class="pointer deleteWorkout">

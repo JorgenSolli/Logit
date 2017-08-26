@@ -50,9 +50,15 @@
                       <span class="fa fa-unlock"></span> Active
                     @endif
                   </td>
-                  <td>{{ $routine['last_used'] }}</td>
+                  <td>
+                    <span class="hidden">{{ $routine['last_used_sortdate'] }}</span>
+                    {{ $routine['last_used'] }}
+                  </td>
                   <td>{{ $routine['times_used'] }}</td>
-                  <td>{{ Carbon\Carbon::parse($routine['created_at'])->format('d/m/Y H:i') }}</td>
+                  <td>
+                    <span class="hidden">{{ Carbon\Carbon::parse($routine['created_at'])->format('Y/m/d H:i') }}</span>
+                    {{ Carbon\Carbon::parse($routine['created_at'])->format('d/m/Y H:i') }}
+                  </td>
 
                   <td class="text-center">
                     <a class="pointer deleteRoutine" id="{{ $routine['id'] }}">
