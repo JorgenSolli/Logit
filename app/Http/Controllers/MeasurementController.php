@@ -20,11 +20,17 @@ class MeasurementController extends Controller
 		$brukerinfo = Auth::user();
         $settings = Settings::where('user_id', $brukerinfo->id)->first();
 
-
-        $unit = ($settings->unit === "Metric") ? "cm" : "in";
-
+        if ($settings) {
+            $unit = ($settings->unit === "Metric") ? "cm" : "in";
+        } else {
+            $unit = "cm";
+        }
 
         $measurements = Measurement::where('user_id', $brukerinfo->id)->first();
+        if (!$measurements) {
+            $measurements = null;
+        }
+
 		$topNav = [
             0 => [
                 'url'  => '/dashboard/measurements',
