@@ -55,7 +55,8 @@ Route::get('/dashboard/my_routines/delete/{routine}', 'RoutineController@deleteR
 Route::get('/dashboard/settings', 'SettingsController@viewSettings');
 
 /* Measurements */
-Route::get('/dashboard/measurements', 'MeasurementsController@measurements');
+Route::get('/dashboard/measurements', 'MeasurementController@measurements');
+Route::post('/dashboard/measurements/save', 'MeasurementController@saveMeasurements');
 
 /* Workouts */
 Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts');

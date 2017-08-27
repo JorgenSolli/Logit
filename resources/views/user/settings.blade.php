@@ -31,15 +31,15 @@
 		                                <option disabled selected> Prefered units</option>
 			                            @if ($settings && $settings->unit)
 			                                @if ($settings->unit == 'Imperial')
-			                                	<option value="Imperial" selected> Imperial (pounds)</option>
+			                                	<option value="Imperial" selected> Imperial (pounds, inches)</option>
 		                            			<option value="Metric"> Metric (kilograms)</option>
 			                                @else
-				                            	<option value="Metric" selected> Metric (kilograms)</option>
+				                            	<option value="Metric" selected> Metric (kilograms, centimeters)</option>
 				                            	<option value="Imperial"> Imperial (pounds)</option>
 			                            	@endif
 			                           	@else
-			                           		<option value="Imperial" selected> Imperial (pounds)</option>
-		                        			<option value="Metric"> Metric (kilograms)</option>
+			                           		<option value="Imperial" selected> Imperial (pounds, inches)</option>
+		                        			<option value="Metric"> Metric (kilograms, centimeters)</option>
 			                            @endif
 			                        </select>
 		                        </div>

@@ -36,7 +36,7 @@ class CreateWorkoutJunctionsTable extends Migration
             $table->integer('set_nr');
             $table->integer('reps');
             $table->string('weight_type')->default('raw');
-            $table->string('weight')->nullable();
+            $table->decimal('weight', 10, 2)->nullable();
             $table->string('band_type')->nullable();
             $table->timestamps();
         });
