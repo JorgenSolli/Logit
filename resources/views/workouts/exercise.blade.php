@@ -45,8 +45,17 @@
 							<div class="raw assisted">
 							    <label class="raw_label" for="weight">Weight</label>
 							    <label class="hidden control-label" for="weight"> | Hey don't give up! Finish all sets. You can do it!</label>
+							    @php $placeholder = "";@endphp
+							    @unless(empty($prevExercise[$i - 1])) 
+						    		@if ($prevExercise[$i - 1]['weight_type'] === "band")
+						    			@php $placeholder = "Last time you used the " . $prevExercise[$i - 1]['band_type'] . " "  .$prevExercise[$i - 1]['weight_type']; @endphp
+					    			@else
+					    				@php $placeholder = "Last time you lifted " . $prevExercise[$i - 1]['weight']; @endphp
+					    			@endif
+				    			@endunless
+
 							    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]" 
-							    	placeholder="Your goal is {{ $exercise->goal_weight }}. @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
+							    	placeholder="Your goal is {{ $exercise->goal_weight }}. {{ $placeholder }}">
 							</div>
 							<div class="band ignore" style="display: none">
 								<label for="weight">Band Type</label>
