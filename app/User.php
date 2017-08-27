@@ -18,6 +18,7 @@ class User extends Authenticatable
         'name', 
         'first_time',
         'email', 
+        'gender',
         'password', 
         'yob', 
         'goal', 

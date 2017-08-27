@@ -102,7 +102,7 @@
 				        <div class="col-md-3">
 				            <div class="card card-pricing card-raised card-hover">
 				                <div class="card-content">
-				                    <h6 class="category">The Cheapass</h6>
+				                    <h6 class="category">The Cheap ass</h6>
 				                    <div class="icon icon-success">
 				                        <i class="material-icons">money_off</i>
 				                    </div>
