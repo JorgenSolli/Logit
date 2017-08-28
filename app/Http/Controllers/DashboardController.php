@@ -58,10 +58,23 @@ class DashboardController extends Controller
             $brukerinfo->update(['first_time'=> 0]);
         }
         
+
+        $topTenExercises = WorkoutJunction::select(DB::raw('id, exercise_name, count(*) as c'))
+            ->where([
+                ['user_id', $brukerinfo->id],
+                ['is_warmup', 0],
+            ])
+            ->groupBy('exercise_name')
+            ->having('c', '>', 1)
+            ->orderBy('c', 'DESC')
+            ->limit(10)
+            ->get();
+            
         return view('dashboard', [
-            'topNav'     => $topNav,
-            'brukerinfo' => $brukerinfo,
-            'firstTime'  => $firstTime,
+            'topNav'          => $topNav,
+            'brukerinfo'      => $brukerinfo,
+            'firstTime'       => $firstTime,
+            'topTenExercises' => $topTenExercises,
         ]);
     }
 

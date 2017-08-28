@@ -11,6 +11,17 @@ use Logit\Settings;
 class MeasurementController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('timezone');
+    }
+    
+    /**
      * Displays the measurements view for the current user
      *
      * @return view
