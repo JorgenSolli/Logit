@@ -66,6 +66,9 @@
     }
 }
 
+/*  Removed to prevent whitespace under dropdowns
+ *  (https://github.com/creativetimofficial/material-dashboard-pro/issues/54)
+ 
 .btn-group.bootstrap-select .dropdown-menu,
 .dropdown .dropdown-menu,
 .timeline .dropdown .dropdown-menu,
@@ -103,3 +106,4 @@
     visibility: visible;
     @include opacity(1);
 }
+*/

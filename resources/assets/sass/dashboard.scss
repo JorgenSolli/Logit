@@ -369,3 +369,17 @@
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+.form-group.has-error button.dropdown-toggle {
+  color: #b94a48 !important;
+}
+
+.sp-added-height {
+
+  .dropdown-menu.open {
+    max-height: calc(326px + 30px) !important;
+    padding-bottom: 30px !important;
+    overflow: initial !important;
+    box-sizing: border-box !important;
+  }
+}

@@ -312,7 +312,16 @@ $(document).on('click', '#addRoutine', function() {
     } else {
       $(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden")
     }
-  })
+  });
+
+  $(".btn-group.bootstrap-select").each(function() {
+    if ($(this).find('button').attr('title') == "Select a muscle group") {
+      $(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden")
+      ok = false
+    } else {
+      $(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden")
+    }
+  });
 
   var names = [];
   var dupes = [];

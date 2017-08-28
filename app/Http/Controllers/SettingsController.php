@@ -5,6 +5,8 @@ namespace Logit\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Logit\Settings;
+use Logit\RoutineJunction;
+use Logit\WorkoutJunction;
 
 class SettingsController extends Controller
 {
@@ -21,6 +23,9 @@ class SettingsController extends Controller
         $settings = Settings::where('user_id', Auth::id())
             ->first();
 
+        $exercises = RoutineJunction::select('id', 'exercise_name')->where('user_id', $brukerinfo->id)->get()->unique('exercise_name');
+
+
         $topNav = [
             0 => [
                 'url'  => '/user/settings',
@@ -31,6 +36,7 @@ class SettingsController extends Controller
         return view('user.settings', [
             'topNav'     => $topNav,
             'settings'   => $settings,
+            'exercises'  => $exercises,
             'brukerinfo' => $brukerinfo
         ]);
     }
@@ -87,5 +93,22 @@ class SettingsController extends Controller
 
 
         return back()->with('script_danger', 'Something went wrong. Please try again.');
+    }
+
+    public function renameExercise (Request $request)
+    {
+
+        // Wraps both update in a condition check in case one fails.
+        $workoutJunction = WorkoutJunction::where([
+                ['user_id', Auth::id()],
+                ['exercise_name', $request->old_name]
+            ])->update(['exercise_name' => $request->new_name]);
+            $routineJunction = RoutineJunction::where([
+                ['user_id', Auth::id()],
+                ['exercise_name', $request->old_name],
+            ])
+            ->update(['exercise_name' => $request->new_name]);
+
+        return back()->with('script_success', 'Exercise has been renamed.');
     }
 }

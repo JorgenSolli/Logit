@@ -84,7 +84,7 @@
         <div class="col-sm-4 col-md-4">
             <div class="card">
                 <div class="card-header card-header-icon" data-background-color="blue">
-                    <i class="material-icons">message</i>
+                    <i class="material-icons">view_list</i>
                 </div>
                 <div class="card-content">
                     <h4 class="card-title">Top 10 exercises! <small>Warmup sets are not counted</small></h4>

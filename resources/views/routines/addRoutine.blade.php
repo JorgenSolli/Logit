@@ -38,8 +38,7 @@
             {{-- Muscle Group --}}
             <div class="form-group">
               <input class="exerciseOrder" type="hidden" name="exercises[0][order_nr]" value="0">
-              <select id="muscle_group" name="exercises[0][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Choose a muscle group" data-size="8">
-                <option selected disabled>Select a muscle group</option>
+              <select id="muscle_group" name="exercises[0][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Select a muscle group" data-size="7">
                 <option value="back">Back</option>
                 <option value="biceps">Biceps</option>
                 <option value="triceps">Triceps</option>
