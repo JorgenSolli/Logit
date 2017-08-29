@@ -142,6 +142,23 @@
                                         help
                                     </i>
                                 </div>
+
+                                <div class="form-group label-floating">
+                                    <div class="pull-left togglebutton">
+                                        <label>
+                                            @if ($settings)
+                                                @if ($settings->use_timer === 1)
+                                                    <input name="use_timer" type="checkbox" checked="">
+                                                @else
+                                                    <input name="use_timer" type="checkbox">
+                                                @endif
+                                            @else
+                                                <input name="use_timer" type="checkbox">
+                                            @endif
+                                            Show timer when exercising
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-rose pull-right">Update Settings</button>

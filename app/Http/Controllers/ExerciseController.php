@@ -71,12 +71,14 @@ class ExerciseController extends Controller
                     ->where('user_id', Auth::id())
                     ->limit($nrOfSets)
                     ->orderBy('created_at', 'DESC')
+                    ->orderBy('set_nr', 'ASC')
                     ->get();
             } else {
                 $previousExercise = WorkoutJunction::where('exercise_name', $exercise->exercise_name)
                     ->where('user_id', Auth::id())
                     ->limit($nrOfSets)
                     ->orderBy('created_at', 'DESC')
+                    ->orderBy('set_nr', 'ASC')
                     ->get();
             }
         }

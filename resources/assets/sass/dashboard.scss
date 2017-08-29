@@ -383,3 +383,25 @@
     box-sizing: border-box !important;
   }
 }
+
+/* Timer */
+#timer {
+  position: fixed;
+  bottom: 0;
+  background-color: #2ab27b;
+  color: #fff;
+  padding: 0px 20px;
+  width: 100%;
+  font-size: 3rem;
+  line-height: 5rem;
+  z-index: 10;
+
+  span, i.fa {
+    cursor: pointer;
+  } 
+}
+
+/* Compensates for the timer-height */
+.hasTimer {
+  margin-bottom: 50px;
+}

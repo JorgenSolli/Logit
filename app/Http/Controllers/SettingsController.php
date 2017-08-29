@@ -87,6 +87,12 @@ class SettingsController extends Controller
             $settings->count_warmup_in_stats = 1;
         }
 
+        if (!array_key_exists('use_timer', $data)) {
+            $settings->use_timer = 0;
+        } else {
+            $settings->use_timer = 1;
+        }
+
         if ($settings->save()) {
             return back()->with('script_success', 'Settings updated.');
         }

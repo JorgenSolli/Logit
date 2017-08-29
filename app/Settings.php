@@ -20,5 +20,6 @@ class Settings extends Model
         'accept_friends',
         'strict_previous_exercise',
         'count_warmup_in_stats',
+        'use_timer',
     ];
 }

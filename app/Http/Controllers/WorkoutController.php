@@ -147,6 +147,8 @@ class WorkoutController extends Controller
 
         $brukerinfo = Auth::user();
 
+        $settings = Settings::where('user_id', $brukerinfo->id)->first();
+
         $topNav = [
             0 => [
                 'url'  => '/dashboard/start',
@@ -186,7 +188,8 @@ class WorkoutController extends Controller
             'topNav'     => $topNav,
             'exercises'  => $allExercises,
             'routine_id' => $routine->id,
-            'brukerinfo' => $brukerinfo
+            'brukerinfo' => $brukerinfo,
+            'settings'   => $settings,
         ]);
     }
 

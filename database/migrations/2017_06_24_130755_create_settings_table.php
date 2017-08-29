@@ -28,6 +28,7 @@ class CreateSettingsTable extends Migration
             $table->boolean('accept_friends')->default(0);
             $table->boolean('strict_previous_exercise')->default(1);
             $table->boolean('count_warmup_in_stats')->default(0);
+            $table->boolean('use_timer')->default(0);
 
             $table->timestamps();
         });
