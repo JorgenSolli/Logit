@@ -56,6 +56,7 @@ class SettingsController extends Controller
         $settings->user_id = Auth::id();
         $settings->unit = $data['unit'];
         $settings->timezone = $data['timezone'];
+        $settings->timer_sound_interval = $data['timer_sound_interval'];
 
         if (!array_key_exists('recap', $data)) {
             $settings->recap = 0;
@@ -116,5 +117,10 @@ class SettingsController extends Controller
             ->update(['exercise_name' => $request->new_name]);
 
         return back()->with('script_success', 'Exercise has been renamed.');
+    }
+
+    public function getSettings ()
+    {
+        return Settings::where('user_id', Auth::id())->first();
     }
 }

@@ -43,6 +43,14 @@
                                         @endif
                                     </select>
                                 </div>
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Play sound every x seconds (Timer) Leave blank to disable</label>
+                                    <input type="number" class="form-control" 
+                                           name="timer_sound_interval"
+                                           value="@if ($settings && $settings->timer_sound_interval){{ $settings->timer_sound_interval }}@endif">
+                                </div>
+
+                                
                             </div>
                             <div class="col-md-6 settings-toggles">
                                 <div class="form-group label-floating">

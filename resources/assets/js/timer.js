@@ -1,3 +1,13 @@
+var soundInterval;
+$.ajax({
+  method: 'GET',
+  url: '/user/settings/get',
+  async: false,
+  success: function(data) {
+    soundInterval = data.timer_sound_interval;
+  }
+});
+
 var timerHtml = '<div id="timer">' +
     '<div class="row">' +
       '<div class="col-xs-6 text-center">' +
@@ -15,13 +25,26 @@ var timerHtml = '<div id="timer">' +
 $("#app").append(timerHtml);
 $("footer.footer").addClass("hasTimer");
 
-var minutes = 0;
+// Keep track of soundqueue. Will reset once audio plays.
+var secondsSinceAudio = 0;
 var seconds = 0;
+var minutes = 0;
+
 var timerMinutes = $("#timer-minutes");
 var timerSeconds = $("#timer-seconds");
 
+if (soundInterval) {
+  var ding = new Audio('/media/ding.wav');
+}
+
 var intervarSettings = function() {
   seconds++;
+  secondsSinceAudio++;
+
+  if (soundInterval && secondsSinceAudio === soundInterval) {
+    secondsSinceAudio = 0;
+    ding.play();
+  }
   
   if (seconds < 60 && minutes < 1) {
     timerMinutes.html('00');
@@ -32,10 +55,8 @@ var intervarSettings = function() {
   if (seconds === 60) {
     seconds = '00';
     minutes++;
-    
-    var audio = new Audio('/media/ding.wav');
-    audio.play();
   }
+
   if (minutes < 10) {
     minutes = ('0' + minutes).slice(-2);
   }
@@ -67,6 +88,9 @@ var operators = function(method) {
 
 $(document).on('click', '#timer-play', function() {
   $(this).removeClass("fa-play").addClass('fa-pause').attr('id', "timer-pause");
+  if (soundInterval) {
+    ding.play(); ding.pause();
+  }
   operators("play");
 });
 

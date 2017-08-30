@@ -30,6 +30,7 @@ Route::post('/user/edit', 'UserController@editProfile');
 Route::get('/user/settings', 'SettingsController@settings');
 Route::post('/user/settings/edit', 'SettingsController@editSettings');
 Route::post('/user/settings/renameExercise', 'SettingsController@renameExercise');
+Route::get('/user/settings/get', 'SettingsController@getSettings');
 
 /* Friends */
 Route::get('dashboard/friends', 'FriendsController@viewFriends');
