@@ -238,7 +238,7 @@ $(document).on('click', '#addMore-superset', function() {
           '<div class="sort-icon handle-child">' +
               'Drag me to sort ' +
             '<span class="fa fa-arrows-v"></span>' +
-            '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
+            '<a class="deleteExercise deleteExercise-supserset btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
           '</div>' +
           '<div class="form-group label-floating">' +
             '<label class="control-label" for="exercise_name">Excersice name</label>' +
