@@ -99,7 +99,7 @@ $(document).ready(function() {
             success: function(data) {
                 initCharts(data.labels, data.series, data.max);
             }
-        })
+        });
 
         /* Data for musclegroup chart */
         $.ajax({
@@ -127,7 +127,7 @@ $(document).ready(function() {
                     $("#" + i + "-percent").text("(" + percent + "%)")
                 }
             }
-        })
+        });
 
         /* Data for workout-time data */
         $.ajax({
@@ -140,7 +140,25 @@ $(document).ready(function() {
                 $("#avg_hr").text(data.avg_hr)
                 $("#avg_min").text(data.avg_min)
             }
-        })
+        });
+
+        /* Data for top ten exercises */
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/api/getTopTenExercises/' + type + '/' + year + '/' + month,
+            success: function(data) {
+                $("#topTenExercises").empty();
+                $.each(data, function(key) {
+                    $("#topTenExercises").append('<tr>' + 
+                        '<td>' + data[key].exercise_name + '</td>' + 
+                        '<td>' + data[key].count + '</td>' + 
+                    '</tr>');
+                });
+            }
+        });
     }
 
     // Waits for information to be appended before invoking the selectpicker

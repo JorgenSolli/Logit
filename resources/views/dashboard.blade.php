@@ -87,7 +87,7 @@
                     <i class="material-icons">view_list</i>
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Top 10 exercises! <small>Warmup sets are not counted</small></h4>
+                    <h4 class="card-title">Top 10 exercises!</h4>
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead class="text-primary">
@@ -96,13 +96,8 @@
                                     <th>Sets completed</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($topTenExercises as $exercise)
-                                    <tr>
-                                        <td>{{ $exercise->exercise_name }}</td>
-                                        <td>{{ $exercise->c }}</td>
-                                    </tr>
-                                @endforeach
+                            <tbody id="topTenExercises">
+                                
                             </tbody>
                         </table>
                     </div>

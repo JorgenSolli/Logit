@@ -57,24 +57,11 @@ class DashboardController extends Controller
 
             $brukerinfo->update(['first_time'=> 0]);
         }
-        
-
-        $topTenExercises = WorkoutJunction::select(DB::raw('id, exercise_name, count(*) as c'))
-            ->where([
-                ['user_id', $brukerinfo->id],
-                ['is_warmup', 0],
-            ])
-            ->groupBy('exercise_name')
-            ->having('c', '>', 1)
-            ->orderBy('c', 'DESC')
-            ->limit(10)
-            ->get();
             
         return view('dashboard', [
             'topNav'          => $topNav,
             'brukerinfo'      => $brukerinfo,
             'firstTime'       => $firstTime,
-            'topTenExercises' => $topTenExercises,
         ]);
     }
 
@@ -563,5 +550,121 @@ class DashboardController extends Controller
         }
 
         return $result;
-    }  
+    }
+
+    /**
+     * Gets the top ten exercises completed in a specific timeframe
+     *
+     * @param  string $type specifies year or month
+     * @param  int $year specifies the year
+     * @param  int $month specifies the mont
+     * @return \Illuminate\Http\Response
+     */
+    public function getTopTenExercises ($type, $year, $month)
+    {
+        $settings = Settings::where('user_id', Auth::id())->first();
+        $brukerinfo = Auth::user();
+
+        if ($type == "year") {
+            if ($settings->count_warmup_in_stats == 1) {
+                $where = [
+                    ['user_id', $brukerinfo->id],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                ];
+            } 
+            else {
+                $where = [
+                    ['user_id', $brukerinfo->id],
+                    ['is_warmup', 0],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                ];
+            }
+        }
+        else {
+            function is_leap_year($year) {
+                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
+                    return 29;
+                }
+                return 28;
+            }
+            $selectedMonth = ucfirst($month);
+            $isLeapYear = false;
+            $monthData = collect([
+                'Jan' => [
+                    'int' => 1,
+                    'days' => 31
+                ], 
+                'Feb' => [
+                    'int' => 2,
+                    'days' => is_leap_year($year)
+                ],
+                'Mar' => [
+                    'int' => 3,
+                    'days' => 31
+                ],
+                'Apr' => [
+                    'int' => 4,
+                    'days' => 30
+                ],
+                'May' => [
+                    'int' => 5,
+                    'days' => 31
+                ],
+                'Jun' => [
+                    'int' => 6,
+                    'days' => 30
+                ],
+                'Jul' => [
+                    'int' => 7,
+                    'days' => 31
+                ],
+                'Aug' => [
+                    'int' => 8,
+                    'days' => 31
+                ],
+                'Sep' => [
+                    'int' => 9,
+                    'days' => 30
+                ],
+                'Oct' => [
+                    'int' => 1,
+                    'days' => 31
+                ],
+                'Nov' => [
+                    'int' => 1,
+                    'days' => 30
+                ],
+                'Dec' => [
+                    'int' => 1,
+                    'days' => 31
+                ] 
+            ]);
+
+            if ($settings->count_warmup_in_stats == 1) {
+                $where = [
+                    ['user_id', $brukerinfo->id],
+                    [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                ];
+            }
+            else {
+                $where = [
+                    ['user_id', $brukerinfo->id],
+                    ['is_warmup', 0],
+                    [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                ];
+            }
+        }
+
+        $topTenExercises = WorkoutJunction::select(DB::raw('id, exercise_name, count(*) as count'))
+            ->where($where)
+            ->groupBy('exercise_name')
+            ->having('count', '>', 1)
+            ->orderBy('count', 'DESC')
+            ->limit(10)
+            ->get();
+
+        return $topTenExercises;
+    }
 }

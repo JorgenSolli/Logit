@@ -44,9 +44,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 settings-toggles">
                                 <div class="form-group label-floating">
-                                    <div class="pull-left togglebutton">
+                                    <div class="togglebutton">
                                         <label>
                                             @if ($settings)
                                                 @if ($settings->recap === 1)
@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group label-floating">
-                                    <div class="pull-left togglebutton">
+                                    <div class="togglebutton">
                                         <label>
                                             @if ($settings)
                                                 @if ($settings->share_workouts === 1)
@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="form-group label-floating">
-                                    <div class="pull-left togglebutton">
+                                    <div class="togglebutton">
                                         <label>
                                             @if ($settings)
                                                 @if ($settings->accept_friends === 1)
@@ -98,7 +98,7 @@
                                 </div>
 
                                 <div class="form-group label-floating">
-                                    <div class="pull-left togglebutton">
+                                    <div class="togglebutton">
                                         <label>
                                             @if ($settings)
                                                 @if ($settings->strict_previous_exercise === 1)
@@ -110,18 +110,18 @@
                                                 <input name="strict_previous_exercise" type="checkbox">
                                             @endif
                                             Strict "Previously lifted" data 
+                                            <i class="m-l-10 material-icons material-icons-sm pointer" 
+                                                rel="tooltip" 
+                                                data-placement="top" 
+                                                title="When doing an exercies, we look for previously completed exercies and let you know how much you lifted. Would you like us to look for the exercies strictly in your current routine, or look in all routines for the same exercise?">
+                                                help
+                                            </i>
                                         </label>
                                     </div>
-                                    <i class="pull-left m-l-10 material-icons material-icons-sm pointer" 
-                                        rel="tooltip" 
-                                        data-placement="top" 
-                                        title="When doing an exercies, we look for previously completed exercies and let you know how much you lifted. Would you like us to look for the exercies strictly in your current routine, or look in all routines for the same exercise?">
-                                        help
-                                    </i>
                                 </div>
 
                                 <div class="form-group label-floating">
-                                    <div class="pull-left togglebutton">
+                                    <div class="togglebutton">
                                         <label>
                                             @if ($settings)
                                                 @if ($settings->count_warmup_in_stats === 1)
@@ -133,17 +133,17 @@
                                                 <input name="count_warmup_in_stats" type="checkbox">
                                             @endif
                                             Let warmup sets influence your statistics
+                                            <i class="m-l-10 material-icons material-icons-sm pointer" 
+                                                rel="tooltip" 
+                                                data-placement="top" 
+                                                title="If you have dedicates sets to warmin up, allowing this will influence especially your 'Musclegroups worked out' stats">
+                                                help
+                                            </i>
                                         </label>
                                     </div>
-                                    <i class="pull-left m-l-10 material-icons material-icons-sm pointer" 
-                                        rel="tooltip" 
-                                        data-placement="top" 
-                                        title="If you have dedicates sets to warmin up, allowing this will influence especially your 'Musclegroups worked out' stats">
-                                        help
-                                    </i>
                                 </div>
 
-                                <div class="form-group label-floating">
+                                <div class="form-group label-floating clearfix">
                                     <div class="pull-left togglebutton">
                                         <label>
                                             @if ($settings)
@@ -184,7 +184,7 @@
                             </span>
 
                             <div class="form-group label-floating {{ $errors->has('password') ? ' has-error' : '' }}">
-                                <input id="password" type="password" class="form-control" name="password" required autofocus placeholder="New Password">
+                                <input id="password" type="password" class="form-control" name="password" required placeholder="New Password">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">

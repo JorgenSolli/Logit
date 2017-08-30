@@ -384,6 +384,20 @@
   }
 }
 
+/* Settings */
+.settings-toggles {
+  .form-group {
+    margin-top: 0;
+  }
+
+  .material-icons {
+    position: relative;
+    height: 0;
+    line-height: 0;
+    top: 5px;
+  }
+}
+
 /* Timer */
 #timer {
   position: fixed;

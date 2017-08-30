@@ -1,13 +1,14 @@
 {
   "/mix.js": "/mix.b2328beb0372c051d06d.js",
-  "/css/app.css": "/css/app.ea41b55b89424f3f6f1d.css",
+  "/css/app.css": "/css/app.1fbbe48137dc86ca5333.css",
   "/js/logit.min.js": "/js/logit.min.c8510720000b4481d40bb1e973a2ad4b.js",
   "/js/material-dashboard.min.js": "/js/material-dashboard.min.906afc810a16e82cfe49844c6fcdd04e.js",
-  "/js/dashboard.min.js": "/js/dashboard.min.25b194202195f512dbe9b1149d0d7c9d.js",
+  "/js/dashboard.min.js": "/js/dashboard.min.4a3ff9b88eb2e5810cb3b4a4021cb27c.js",
   "/js/friends.min.js": "/js/friends.min.3162c66b304fcde37784aa2fe6be5725.js",
   "/js/logitFuncs.min.js": "/js/logitFuncs.min.d83cde93b1508e4f8a538e657f7cb418.js",
   "/js/myProfile.min.js": "/js/myProfile.min.6505140d5bd913e09cb17334bfb6ce8c.js",
   "/js/routines.min.js": "/js/routines.min.9f9c20698bf83b46a2de0fe404096449.js",
   "/js/settings.min.js": "/js/settings.min.2bb5786e411669cd54ccc7bce5ed73d3.js",
-  "/js/workouts.min.js": "/js/workouts.min.a6659017593dfcf8feca06b7db3b006d.js"
+  "/js/workouts.min.js": "/js/workouts.min.a6659017593dfcf8feca06b7db3b006d.js",
+  "/js/timer.min.js": "/js/timer.min.42eb301a67fdd60a42e6586eae8fe2e3.js"
 }

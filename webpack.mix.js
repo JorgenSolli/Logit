@@ -45,3 +45,4 @@ mix.combine(['resources/assets/js/myProfile.js'], 'public/js/myProfile.min.js').
 mix.combine(['resources/assets/js/routines.js'], 'public/js/routines.min.js').version();
 mix.combine(['resources/assets/js/settings.js'], 'public/js/settings.min.js').version();
 mix.combine(['resources/assets/js/workouts.js'], 'public/js/workouts.min.js').version();
+mix.combine(['resources/assets/js/timer.js'], 'public/js/timer.min.js').version();
