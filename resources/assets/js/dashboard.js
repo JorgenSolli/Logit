@@ -110,6 +110,7 @@ $(document).ready(function() {
 
     $("#statistics-type, statistics-year, #statistics-month").on('change', function() {
         getGraphData();
+        compaseExercise();
     });
 
     var compaseExercise = function() {
@@ -126,7 +127,13 @@ $(document).ready(function() {
             },
             url: '/api/getExerciseProgress/' + type + '/' + year + '/' + month + '/' + exercise,
             success: function(data) {
-                compareExerciseChart(data.labels, data.series, data.low, data.max);
+                if (data.success) {
+                    $("#compareExerciseChart").empty();
+                    compareExerciseChart(data.labels, data.series, data.low, data.max);
+                }
+                else {
+                    $("#compareExerciseChart").html("<h3 style='margin: 0 0 10px 20px;'>No data for this exercise!</h3>");
+                }
             }
         });
     }

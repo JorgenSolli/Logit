@@ -37,12 +37,11 @@ if (soundInterval) {
   var ding = new Audio('/media/ding.wav');
 }
 
-var intervarSettings = function() {
+var intervarSettings = function(reset) {  
   seconds++;
   secondsSinceAudio++;
 
   if (soundInterval && secondsSinceAudio === soundInterval) {
-    secondsSinceAudio = 0;
     ding.play();
   }
   
@@ -63,26 +62,43 @@ var intervarSettings = function() {
 
   timerSeconds.html(seconds);
   timerMinutes.html(minutes);
+
+  console.log("seconds: " + seconds + " Since last play: " + secondsSinceAudio);
 }
 
-var countSeconds;
+var countSeconds = null;
+
+var resetSound = function(timer) {
+  ding.pause();
+  ding.currentTime = 0;
+  window.clearInterval(countSeconds);
+
+  if (timer) {
+    minutes = 0;
+    seconds = 0;
+    secondsSinceAudio = 0;
+    timerMinutes.html('00');
+    timerSeconds.html('00');
+
+    countSeconds = setInterval(function() {
+      intervarSettings(true);
+    }, 1000);
+  }
+}
 
 var operators = function(method) {
   if (method === "pause") {
-    window.clearInterval(countSeconds);
+    resetSound();
   }
 
   else if (method === "play") {
     countSeconds = setInterval(function() {
-      intervarSettings();
+      intervarSettings(true);
     }, 1000);
   }
 
   else if (method === "reset") {
-    minutes = 0;
-    seconds = 0;
-    timerMinutes.html('00');
-    timerSeconds.html('00');
+    resetSound(true);
   }
 };
 
@@ -100,5 +116,6 @@ $(document).on('click', '#timer-pause', function() {
 });
 
 $(document).on('click', '#timer-reset', function() {
+  $("#timer-play").removeClass("fa-play").addClass('fa-pause').attr('id', "timer-pause");
   operators("reset");
 });

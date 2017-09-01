@@ -541,12 +541,6 @@ class DashboardController extends Controller
      */
     public function getExerciseProgress ($type, $year, $month, $exercise)
     {
-
-        $workouts = Workout::with(['junction' => function($query) use ($exercise) {
-                $query->where('exercise_name', 'like', $exercise);
-            }])
-        ->get();
-
         $result = array(
             'labels' => [],
             'series' => [
@@ -554,23 +548,81 @@ class DashboardController extends Controller
             ],
             'low' => 0,
             'max' => 0,
+            'success' => true
         );
 
-        foreach ($workouts as $workout) {
-            foreach ($workout->junction as $junction) {
-                array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
-                array_push($result['series'][0], $junction->weight);
+
+        if ($type == "year") {
+            $workouts = Workout::with(['junction' => function($query) use ($exercise, $year) {
+                    $query->where([
+                        ['exercise_name', 'like', $exercise],
+                        [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                    ]);
+                }])
+            ->get();
+
+
+            foreach ($workouts as $workout) {
+                if ($workout->junction) {
+                    foreach ($workout->junction as $junction) {
+                        array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
+                        array_push($result['series'][0], $junction->weight);
+                    }
+                }
+            }
+
+            /* If we actually have data to work with */
+            if ($result['series'][0]) {
+                $result['max'] = (max($result['series'][0]) ? max($result['series'][0]) + 10 : 0);
+                $result['low'] = (min($result['series'][0]) < 10 ? $result['low'] = min($result['series'][0]) : $result['low'] = min($result['series'][0]) - 10);
+            }
+            else {
+                $result['success'] = false;
+            }
+            
+        }
+        else {
+
+            function is_leap_year($year) {
+                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
+                    return 29;
+                }
+                return 28;
+            }
+            # Makes sure the month we get from out request is formated correctly
+            $selectedMonth = ucfirst($month);
+            # Sets up the expected dataformat
+            $monthData = LogitFunctions::parseDate($type, $year, $month);
+
+            $workouts = Workout::with(['junction' => function($query) use ($exercise, $year, $monthData, $selectedMonth) {
+                    $query->where([
+                        ['exercise_name', 'like', $exercise],
+                        [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                        [DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                    ]);
+                }])
+            ->get();
+
+            foreach ($workouts as $workout) {
+                if ($workout->junction) {
+                    foreach ($workout->junction as $junction) {
+                        array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
+                        array_push($result['series'][0], $junction->weight);
+                    }
+                }
+            }
+
+            /* If we actually have data to work with */
+            if ($result['series'][0]) {
+                $result['max'] = (max($result['series'][0]) ? max($result['series'][0]) + 10 : 0);
+                $result['low'] = (min($result['series'][0]) < 10 ? $result['low'] = min($result['series'][0]) : $result['low'] = min($result['series'][0]) - 10);
+            }
+            else {
+                $result['success'] = false;
             }
         }
 
-        $result['max'] = max($result['series'][0]) + 10;
-
-        if (min($result['series'][0]) < 10) {
-            $result['low'] = min($result['series'][0]);
-        } else {
-            $result['low'] = min($result['series'][0]) - 10;
-        }
-
         return $result;
+
     }
 }
