@@ -57,9 +57,10 @@
 }
 
 /* Dashbaord */
-
-.data-text h1 {
-
+.ct-chart-rotate-labels .ct-label.ct-horizontal {
+  transform: rotate(20deg);
+  /*position: relative;
+  top: 15px;*/
 }
 
 /* Welcome */

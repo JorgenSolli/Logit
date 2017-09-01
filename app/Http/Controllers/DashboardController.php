@@ -4,11 +4,14 @@ namespace Logit\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon;
 use DB;
 use Logit\User;
 use Logit\Workout;
 use Logit\Settings;
 use Logit\WorkoutJunction;
+use Logit\RoutineJunction;
+use Logit\Classes\LogitFunctions;
 
 class DashboardController extends Controller
 {
@@ -31,6 +34,23 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $brukerinfo = Auth::user();
+        $settings = Settings::where('user_id', $brukerinfo->id)->first();
+        
+        if ($settings->count_warmup_in_stats == 1) {
+            $exercises = RoutineJunction::where('user_id', $brukerinfo->id)
+                ->orderBy('exercise_name', 'ASC')
+                ->get()
+                ->unique('exercise_name');
+        } else {
+            $exercises = RoutineJunction::where([
+                    'user_id' => $brukerinfo->id,
+                    'is_warmup' => 0,
+                ])
+                ->orderBy('exercise_name', 'ASC')
+                ->get()
+                ->unique('exercise_name');
+        }
+
         $topNav = [
             0 => [
                 'url'  => '/',
@@ -61,6 +81,7 @@ class DashboardController extends Controller
         return view('dashboard', [
             'topNav'          => $topNav,
             'brukerinfo'      => $brukerinfo,
+            'exercises'       => $exercises,
             'firstTime'       => $firstTime,
         ]);
     }
@@ -75,25 +96,12 @@ class DashboardController extends Controller
      */
     public function getGrapData ($type, $year, $month)
     {
-        if ($type == "year") {
+        if ($type === "year") {
             $data = Workout::where('user_id', Auth::id())
                 ->where( DB::raw('YEAR(created_at)'), '=', date($year) )
                 ->get();
 
-            $getMonth = [
-                'Jan' => 0, 
-                'Feb' => 1,
-                'Mar' => 2,
-                'Apr' => 3,
-                'May' => 4,
-                'Jun' => 5,
-                'Jul' => 6,
-                'Aug' => 7,
-                'Sep' => 8,
-                'Oct' => 9,
-                'Nov' => 10,
-                'Dec' => 11
-            ];
+            $getMonth = LogitFunctions::parseDate($type, $year, $month);
 
             $result = array(
                 'labels' => [
@@ -142,57 +150,9 @@ class DashboardController extends Controller
             }
             # Makes sure the month we get from out request is formated correctly
             $selectedMonth = ucfirst($month);
+            
             # Sets up the expected dataformat
-            $monthData = collect([
-                'Jan' => [
-                    'int' => 1,
-                    'days' => 31
-                ], 
-                'Feb' => [
-                    'int' => 2,
-                    'days' => is_leap_year($year)
-                ],
-                'Mar' => [
-                    'int' => 3,
-                    'days' => 31
-                ],
-                'Apr' => [
-                    'int' => 4,
-                    'days' => 30
-                ],
-                'May' => [
-                    'int' => 5,
-                    'days' => 31
-                ],
-                'Jun' => [
-                    'int' => 6,
-                    'days' => 30
-                ],
-                'Jul' => [
-                    'int' => 7,
-                    'days' => 31
-                ],
-                'Aug' => [
-                    'int' => 8,
-                    'days' => 31
-                ],
-                'Sep' => [
-                    'int' => 9,
-                    'days' => 30
-                ],
-                'Oct' => [
-                    'int' => 1,
-                    'days' => 31
-                ],
-                'Nov' => [
-                    'int' => 1,
-                    'days' => 30
-                ],
-                'Dec' => [
-                    'int' => 1,
-                    'days' => 31
-                ] 
-            ]);
+            $monthData = LogitFunctions::parseDate($type, $year, $month);
 
             # Initialized our output
             $result = array(
@@ -451,56 +411,7 @@ class DashboardController extends Controller
             }
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
-            $monthData = collect([
-                'Jan' => [
-                    'int' => 1,
-                    'days' => 31
-                ], 
-                'Feb' => [
-                    'int' => 2,
-                    'days' => is_leap_year($year)
-                ],
-                'Mar' => [
-                    'int' => 3,
-                    'days' => 31
-                ],
-                'Apr' => [
-                    'int' => 4,
-                    'days' => 30
-                ],
-                'May' => [
-                    'int' => 5,
-                    'days' => 31
-                ],
-                'Jun' => [
-                    'int' => 6,
-                    'days' => 30
-                ],
-                'Jul' => [
-                    'int' => 7,
-                    'days' => 31
-                ],
-                'Aug' => [
-                    'int' => 8,
-                    'days' => 31
-                ],
-                'Sep' => [
-                    'int' => 9,
-                    'days' => 30
-                ],
-                'Oct' => [
-                    'int' => 1,
-                    'days' => 31
-                ],
-                'Nov' => [
-                    'int' => 1,
-                    'days' => 30
-                ],
-                'Dec' => [
-                    'int' => 1,
-                    'days' => 31
-                ] 
-            ]);
+            $monthData = LogitFunctions::parseDate($type, $year, $month);
 
             if ($settings->count_warmup_in_stats == 1) {
 
@@ -589,56 +500,7 @@ class DashboardController extends Controller
             }
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
-            $monthData = collect([
-                'Jan' => [
-                    'int' => 1,
-                    'days' => 31
-                ], 
-                'Feb' => [
-                    'int' => 2,
-                    'days' => is_leap_year($year)
-                ],
-                'Mar' => [
-                    'int' => 3,
-                    'days' => 31
-                ],
-                'Apr' => [
-                    'int' => 4,
-                    'days' => 30
-                ],
-                'May' => [
-                    'int' => 5,
-                    'days' => 31
-                ],
-                'Jun' => [
-                    'int' => 6,
-                    'days' => 30
-                ],
-                'Jul' => [
-                    'int' => 7,
-                    'days' => 31
-                ],
-                'Aug' => [
-                    'int' => 8,
-                    'days' => 31
-                ],
-                'Sep' => [
-                    'int' => 9,
-                    'days' => 30
-                ],
-                'Oct' => [
-                    'int' => 1,
-                    'days' => 31
-                ],
-                'Nov' => [
-                    'int' => 1,
-                    'days' => 30
-                ],
-                'Dec' => [
-                    'int' => 1,
-                    'days' => 31
-                ] 
-            ]);
+            $monthData = LogitFunctions::parseDate($type, $year, $month);
 
             if ($settings->count_warmup_in_stats == 1) {
                 $where = [
@@ -666,5 +528,49 @@ class DashboardController extends Controller
             ->get();
 
         return $topTenExercises;
+    }
+
+    /**
+     * User choses one exercise and will be able to see the progress in specified timeframe
+     *
+     * @param  string $type specifies year or month
+     * @param  int $year specifies the year
+     * @param  int $month specifies the mont
+     * @param  string $exercise name of exercise to compare
+     * @return \Illuminate\Http\Response
+     */
+    public function getExerciseProgress ($type, $year, $month, $exercise)
+    {
+
+        $workouts = Workout::with(['junction' => function($query) use ($exercise) {
+                $query->where('exercise_name', 'like', $exercise);
+            }])
+        ->get();
+
+        $result = array(
+            'labels' => [],
+            'series' => [
+                []
+            ],
+            'low' => 0,
+            'max' => 0,
+        );
+
+        foreach ($workouts as $workout) {
+            foreach ($workout->junction as $junction) {
+                array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
+                array_push($result['series'][0], $junction->weight);
+            }
+        }
+
+        $result['max'] = max($result['series'][0]) + 10;
+
+        if (min($result['series'][0]) < 10) {
+            $result['low'] = min($result['series'][0]);
+        } else {
+            $result['low'] = min($result['series'][0]) - 10;
+        }
+
+        return $result;
     }
 }

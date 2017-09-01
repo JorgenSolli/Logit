@@ -16,4 +16,12 @@ class Workout extends Model
         'routine_id',
         'duration_minutes',
     ];
+
+    /**
+     * Get the related workout junction
+     */
+    public function junction()
+    {
+        return $this->hasMany('Logit\WorkoutJunction');
+    }
 }

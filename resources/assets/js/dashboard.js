@@ -46,6 +46,34 @@ var musclegroupsPiechart = function(labels, series) {
   Chartist.Pie('#musclegroupsPiechart', dataPreferences, optionsPreferences);
 }
 
+var compareExerciseChart = function(labels, series, low, max) {
+  dataCompareExerciseChart = {
+    labels: labels,
+    series: series
+  };
+
+  optionsCompareExerciseChart = {
+    lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+    }),
+    axisY: {
+        showGrid: true,
+        offset: 40
+    },
+    axisX: {
+        showGrid: false,
+    },
+    low: low,
+    high: max,
+    showPoint: true,
+    height: '200px'
+  };
+
+  var compareExerciseChart = new Chartist.Line('#compareExerciseChart', dataCompareExerciseChart, optionsCompareExerciseChart);
+
+  md.startAnimationForLineChart(compareExerciseChart); 
+}
+
 $(document).ready(function() {
     var APP_CREATED_AT = 2017 - 1; // Minus one in case people would like to import old data
     var yearDiv = $("#statistics-year");
@@ -83,6 +111,25 @@ $(document).ready(function() {
     $("#statistics-type, statistics-year, #statistics-month").on('change', function() {
         getGraphData();
     });
+
+    var compaseExercise = function() {
+        var type     = $("#statistics-type").val();
+        var year     = $("#statistics-year").val();
+        var month    = $("#statistics-month").val();
+        var exercise = $("#exercise_name").val();
+
+         /* Data for compare exercise chart */
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/api/getExerciseProgress/' + type + '/' + year + '/' + month + '/' + exercise,
+            success: function(data) {
+                compareExerciseChart(data.labels, data.series, data.low, data.max);
+            }
+        });
+    }
 
     var getGraphData = function() {
         var type  = $("#statistics-type").val();
@@ -160,6 +207,10 @@ $(document).ready(function() {
             }
         });
     }
+
+    $(document).on('change', '#exercise_name', function() {
+        compaseExercise();
+    });
 
     // Waits for information to be appended before invoking the selectpicker
     $('.selectpickerAjax').selectpicker({});

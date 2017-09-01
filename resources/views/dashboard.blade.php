@@ -105,6 +105,21 @@
             </div>
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="blue">
+            <i class="material-icons">transfer_within_a_station</i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">Exercise progress</h4>
+            <select id="exercise_name" class="selectpicker" data-style="btn btn-primary" title="Select exercise" data-size="7">
+                @foreach ($exercises as $exercise)
+                    <option value="{{ $exercise->exercise_name }}">{{ $exercise->exercise_name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div id="compareExerciseChart" class="ct-chart ct-chart-rotate-labels"></div>
+    </div>
 @endsection
 
 @section('script')

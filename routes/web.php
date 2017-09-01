@@ -23,6 +23,7 @@ Route::get('/api/getSessions/{type}/{year}/{month}', 'DashboardController@getGra
 Route::get('/api/getAvgGymTime/{type}/{year}/{month}', 'DashboardController@getAvgGymTime');
 Route::get('/api/getMusclegroups/{type}/{year}/{month}', 'DashboardController@getMusclegroups');
 Route::get('/api/getTopTenExercises/{type}/{year}/{month}', 'DashboardController@getTopTenExercises');
+Route::get('/api/getExerciseProgress/{type}/{year}/{month}/{exercise}', 'DashboardController@getExerciseProgress');
 
 /* User/Settings */
 Route::get('/user', 'UserController@myProfile');

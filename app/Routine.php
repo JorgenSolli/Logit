@@ -16,4 +16,12 @@ class Routine extends Model
         'routine_name',
         'status',
     ];
+
+    /**
+     * Get the related workout junction
+     */
+    public function junction()
+    {
+        return $this->hasMany('Logit\RoutineJunction');
+    }
 }
