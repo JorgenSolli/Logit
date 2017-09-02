@@ -164,6 +164,12 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * 3rd Party Providers
+         */
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
@@ -177,10 +183,6 @@ return [
         Logit\Providers\EventServiceProvider::class,
         Logit\Providers\RouteServiceProvider::class,
 
-        /*
-         * 3rd Party Providers
-         */
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 
     ],
 
@@ -231,7 +233,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
-
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
+        
     ],
 
 ];

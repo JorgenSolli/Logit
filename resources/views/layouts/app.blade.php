@@ -51,16 +51,16 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="{{ (Request::is('dashboard/my_routines') ? 'active' : '') }}">
-                        <a href="/dashboard/my_routines">
-                            <i class="material-icons">accessibility</i>
-                            <p>My Routines</p>
-                        </a>
-                    </li>
                     <li class="{{ (Request::is('dashboard/start') ? 'active' : '') }}">
                         <a href="/dashboard/start">
                             <i class="material-icons">play_circle_outline</i>
                             <p>Start Workout</p>
+                        </a>
+                    </li>
+                    <li class="{{ (Request::is('dashboard/my_routines') ? 'active' : '') }}">
+                        <a href="/dashboard/my_routines">
+                            <i class="material-icons">accessibility</i>
+                            <p>My Routines</p>
                         </a>
                     </li>
                     <li class="{{ (Request::is('dashboard/workouts') ? 'active' : '') }}">
