@@ -1,1 +1,0 @@
-$(document).ready(function(){$.ajax({headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},url:"https://restcountries.eu/rest/v2/all",method:"GET",success:function(e){for(var t=0;t<e.length;t++)$("#location").append('<option value="'+e[t].name+'">'+e[t].name+"</option>")}})});
