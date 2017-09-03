@@ -17,5 +17,10 @@
   },
   "dependencies": {
     "chart.js": "^2.5.0"
-  }
+  },
+  "scripts": {
+    "prod": "npm run production",
+    "dev": "npm run watch",
+    "postinstall": "npm run production"
+  },
 }
