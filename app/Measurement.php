@@ -23,5 +23,6 @@ class Measurement extends Model
         'calves',
         'thighs',
         'hips',
+        'date',
     ];
 }

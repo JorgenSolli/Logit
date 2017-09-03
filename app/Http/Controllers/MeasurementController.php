@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Logit\Measurement;
 use Logit\Settings;
+use Carbon;
 
 class MeasurementController extends Controller
 {
@@ -29,6 +30,7 @@ class MeasurementController extends Controller
     public function measurements ()
     {
 		$brukerinfo = Auth::user();
+        $dateNow = Carbon\Carbon::now();
         $settings = Settings::where('user_id', $brukerinfo->id)->first();
 
         if ($settings) {
@@ -37,10 +39,17 @@ class MeasurementController extends Controller
             $unit = "cm";
         }
 
-        $measurements = Measurement::where('user_id', $brukerinfo->id)->first();
-        if (!$measurements) {
-            $measurements = null;
+        $lastInput = Measurement::where('user_id', $brukerinfo->id)
+            ->orderBy('date', 'DESC')
+            ->first();
+
+        if (!$lastInput) {
+            $lastInput = null;
         }
+
+        $measurements =  Measurement::where('user_id', $brukerinfo->id)
+            ->orderBy('date', 'DESC')
+            ->get();
 
 		$topNav = [
             0 => [
@@ -51,6 +60,8 @@ class MeasurementController extends Controller
 
     	return view('measurements', [
     		'brukerinfo'   => $brukerinfo,
+            'dateNow'      => $dateNow,
+            'lastInput'    => $lastInput,
             'measurements' => $measurements,
             'unit'         => $unit,
     		'topNav' 	   => $topNav
@@ -78,8 +89,29 @@ class MeasurementController extends Controller
         $measurements->calves    = $request->calves;
         $measurements->thighs    = $request->thighs;
         $measurements->hips      = $request->hips;
+        $measurements->date      = $request->date;
         
         $measurements->save();
         return back()->with('script_success', 'Profile updated.');
+    }
+
+    /**
+     * Deletes an entry (measurement) for current user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteMeasurement (Request $request)
+    {
+        $id = $request->id;
+
+        $measurement = Measurement::where('id', $id)->first();
+
+        if ($measurement->user_id === Auth::id()) {
+            $measurement->delete();
+            return "true";
+        }
+        else {
+            return "false";
+        }
     }
 }

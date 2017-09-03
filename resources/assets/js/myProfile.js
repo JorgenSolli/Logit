@@ -1,6 +1,9 @@
 $(document).ready(function() {
     var getQuote = function() {
         $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             url: "https://api.forismatic.com/api/1.0/?",
             dataType: "jsonp",
             data: "method=getQuote&format=jsonp&lang=en&jsonp=?",
@@ -18,6 +21,9 @@ $(document).ready(function() {
     })
 
     $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         url: 'https://restcountries.eu/rest/v2/all',
         success: function(data) {
 

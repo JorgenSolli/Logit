@@ -1,5 +1,8 @@
 $(document).ready(function() {
 	$.ajax({
+		headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
 		url: 'https://restcountries.eu/rest/v2/all',
 		method: 'GET',
 		success: function(data) {

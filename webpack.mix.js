@@ -18,17 +18,18 @@ mix.combine([
 	'bower_components/arrive/src/arrive.js',
 	'bower_components/tether/dist/js/tether.min.js',
 	'bower_components/jquery-ui/jquery-ui.min.js',
+	'bower_components/moment/min/moment.min.js',
 	'bower_components/bootstrap/dist/js/bootstrap.min.js',
 	'bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js',
 	'bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
 	'bower_components/validate/validate.min.js',
-	'bower_components/moment/min/moment.min.js',
 	'bower_components/chartist/dist/chartist.min.js',
 	'bower_components/nouislider/distribute/nouislider.min.js',
 	'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js',
 	'bower_components/datatables/media/js/jquery.dataTables.min.js',
 	'bower_components/sweetalert2/dist/sweetalert2.min.js',
 	'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js',
+	'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
 	// Version from bower fucked shit up.. Reverting to the included one.
 	'resources/assets/js/jquery.datatables.js',
 	// Extracted spesific version from local. New from bower did not work well.
@@ -46,3 +47,4 @@ mix.combine(['resources/assets/js/routines.js'], 'public/js/routines.min.js').ve
 mix.combine(['resources/assets/js/settings.js'], 'public/js/settings.min.js').version();
 mix.combine(['resources/assets/js/workouts.js'], 'public/js/workouts.min.js').version();
 mix.combine(['resources/assets/js/timer.js'], 'public/js/timer.min.js').version();
+mix.combine(['resources/assets/js/measurements.js'], 'public/js/measurements.min.js').version();

@@ -15,7 +15,6 @@
     "test",
     "tests"
   ],
-  /* DO NOT CHANGE ANY OF THERE VERSION NUMBERS. IT MIGHT BREAKE THE APP! */
   "devDependencies": {
     "validate": "^0.11.1",
     "moment": "^2.18.1",
@@ -33,6 +32,7 @@
     "bootstrap": "^3.3.7",
     "jqueryui-touch-punch": "*",
     "perfect-scrollbar": "^0.6.13",
-    "bootstrap-material-design": "^4.0.2"
+    "bootstrap-material-design": "^4.0.2",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
   }
 }

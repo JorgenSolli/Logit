@@ -28,6 +28,7 @@ class CreateMeasurementsTable extends Migration
             $table->decimal('calves', 10, 2)->nullable();
             $table->decimal('thighs', 10, 2)->nullable();
             $table->decimal('hips', 10, 2)->nullable();
+            $table->timestamp('date')->nullable();
 
             $table->timestamps();
         });

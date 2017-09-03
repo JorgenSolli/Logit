@@ -5,6 +5,9 @@ $(document).ready(function() {
 		var table = $("#people-result")
 
 		$.ajax({
+			headers: {
+	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        },
 			url: '/dashboard/friends/findFriends',
 			data: {
 				q: string
@@ -61,6 +64,9 @@ $(document).ready(function() {
 		obj.addClass('disabled');
         obj.html('<span class="fa fa-spin fa-circle-o-notch"></span> Sending request ...');
 		$.ajax({
+			headers: {
+	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        },
 			method: 'GET',
 			url: '/dashboard/friends/sendRequest',
 			data: {
@@ -100,6 +106,9 @@ $(document).ready(function() {
 		obj.addClass('disabled');
 
 		$.ajax({
+			headers: {
+	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        },
 			method: 'GET',
 			url: '/dashboard/friends/respondRequest',
 			data: {
@@ -159,6 +168,9 @@ $(document).ready(function() {
 	var removeFriend = function(id, obj) {
 		obj.addClass('disabled');
 		$.ajax({
+			headers: {
+	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        },
 			method: 'GET',
 			url: '/api/friends/removeFriend',
 			data: {
