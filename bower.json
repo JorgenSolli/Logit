@@ -36,7 +36,6 @@
     "eonasdan-bootstrap-datetimepicker": "^4.17.37"
   },
   "resolutions": {
-    "jQuery": "^3.2.1",
-    "bootstrap": "^3.3.7"
+    "jquery": ">=1.8"
   }
 }
