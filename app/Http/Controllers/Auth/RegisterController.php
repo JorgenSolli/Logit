@@ -7,6 +7,11 @@ use Logit\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Jrean\UserVerification\Traits\VerifiesUsers;
+use Jrean\UserVerification\Facades\UserVerification;
+
 class RegisterController extends Controller
 {
     /*
@@ -22,12 +27,14 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    use VerifiesUsers;
+
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/register/success';
 
     /**
      * Create a new controller instance.
@@ -36,7 +43,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        /*$this->middleware('guest');*/
+        $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError', 'resend']]);
     }
 
     /**
@@ -68,5 +76,68 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        event(new Registered($user));
+
+        UserVerification::generate($user);
+
+        UserVerification::send($user, 'Welcome to Logit!');
+
+        $userData = [
+            'email' => $user->email,
+            'name'  => $user->name,
+        ];
+
+        return $this->registered($request, $user)
+                   ?: redirect($this->redirectPath())->with($userData);
+    }
+
+    /**
+     * Displays the users newly registert Email with a custom message.
+     *
+     * @param  \Logit\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function checkEmail ()
+    {
+        return view('auth.checkEmail');
+    }
+
+    /**
+     * Resends the confirm email to the user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resend (Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if ($user->verified === 0) {
+
+            UserVerification::generate($user);
+            UserVerification::send($user, 'Welcome to Logit!');
+
+            $userData = [
+                'email' => $user->email,
+                'name'  => $user->name,
+            ];
+
+            $request->session()->flash('script_success', 'Email sent!');
+            return view('welcome');
+        }
     }
 }

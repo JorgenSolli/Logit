@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'guest' => \Logit\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'timezone' => \Logit\Http\Middleware\TimeZone::class,
+        'isVerified' => \Jrean\UserVerification\Middleware\IsVerified::class,
     ];
 }

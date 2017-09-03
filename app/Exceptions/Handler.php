@@ -3,7 +3,9 @@
 namespace Logit\Exceptions;
 
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
+use Jrean\UserVerification\Exceptions\UserNotVerifiedException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -43,7 +45,14 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {
+    {   
+        if ($exception instanceof UserNotVerifiedException) {
+            return response()
+                ->view('auth.errors.notVerified', [
+                    'email' => Auth::user()->email,    
+                ]);
+        }
+
         return parent::render($request, $exception);
     }
 

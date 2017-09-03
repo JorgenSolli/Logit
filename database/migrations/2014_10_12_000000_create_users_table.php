@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('country')->nullable();
             $table->string('password');
+            $table->boolean('verified')->default(false);
+            $table->string('verification_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

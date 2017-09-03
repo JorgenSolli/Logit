@@ -3,49 +3,7 @@
 <html lang="en">
 @include('layouts.head')
 <body>
-	<nav class="navbar navbar-primary navbar-transparent navbar-absolute">
-	    <div class="container">
-	        <div class="navbar-header">
-	            <button type="button" class="navbar-toggle" data-toggle="collapse">
-	                <span class="sr-only">Toggle navigation</span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	            </button>
-	            <a class="navbar-brand" href="/">Logit</a>
-	        </div>
-	        <div class="collapse navbar-collapse">
-	            <ul class="nav navbar-nav navbar-right">
-	            	@if (auth::guest())
-		                <li class="">
-		                    <a href="/login">
-		                        <i class="material-icons">fingerprint</i> Login
-		                    </a>
-		                </li>
-		                <li class="">
-		                    <a href="/register">
-		                        <i class="material-icons">person_add</i> Register
-		                    </a>
-		                </li>
-	            	@else
-		                <li>
-		                    <a href="/dashboard">
-		                        <i class="material-icons">home</i> Launch Logit
-		                    </a>
-		                </li>
-		                <li>
-	                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-	                            <i class="material-icons">input</i> Logout
-	                        </a>
-	                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-	                        	{{ csrf_field() }}
-	                      	</form>
-	                    </li>
-	            	@endif
-	            </ul>
-	        </div>
-	    </div>
-	</nav>
+	@include('layouts.guest.nav')
 	<div class="wrapper wrapper-full-page">
 	    <div class="full-page full-page-fixed pricing-page home-bg-full" data-image="/img/home-bg-full.jpg">
 	        <div class="content">
@@ -152,7 +110,7 @@
 	<!--             Core JS             -->
 	<script src="{{ mix('/js/logit.min.js') }}"></script>
 	<script src="{{ mix('/js/material-dashboard.min.js') }}"></script>
-	
+	@include('layouts.scriptNotifications')
 	@section('script')
 	@endsection
 </body>

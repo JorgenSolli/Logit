@@ -11,6 +11,7 @@ use Logit\Workout;
 use Logit\Settings;
 use Logit\WorkoutJunction;
 use Logit\RoutineJunction;
+use Logit\Exception\Handler;
 use Logit\Classes\LogitFunctions;
 
 class DashboardController extends Controller
@@ -33,9 +34,29 @@ class DashboardController extends Controller
      */
     public function dashboard()
     {
-        $brukerinfo = Auth::user();
-        $settings = Settings::where('user_id', $brukerinfo->id)->first();
         
+        $brukerinfo = Auth::user();
+        $firstTime = false;
+
+        /* Checks if this is the users first time visiting */
+        if ($brukerinfo->first_time === 1) {
+            /* Setting some standard settings */
+            Settings::create([
+                'user_id'        => Auth::id(),
+                'timezone'       => 'UTC',
+                'unit'           => 'Metric',
+                'recap'          => 1,
+                'share_workouts' => 0,
+                'accept_friends' => 0,
+            ]);
+
+            /* Letting the user know about some stuff */
+            $firstTime = true;
+            $brukerinfo->update(['first_time'=> 0]);
+        }
+
+        $settings = Settings::where('user_id', $brukerinfo->id)->first();
+
         if ($settings->count_warmup_in_stats == 1) {
             $exercises = RoutineJunction::where('user_id', $brukerinfo->id)
                 ->orderBy('exercise_name', 'ASC')
@@ -57,26 +78,6 @@ class DashboardController extends Controller
                 'name' => 'Dashboard'
             ]
         ];
-
-        $firstTime = false;
-
-        /* Checks if this is the users first time visiting */
-        if ($brukerinfo->first_time === 1) {
-            /* Setting some standard settings */
-            Settings::create([
-                'user_id'        => Auth::id(),
-                'timezone'       => 'UTC',
-                'unit'           => 'Metric',
-                'recap'          => 1,
-                'share_workouts' => 0,
-                'accept_friends' => 0,
-            ]);
-
-            /* Letting the user know about some stuff */
-            $firstTime = true;
-
-            $brukerinfo->update(['first_time'=> 0]);
-        }
             
         return view('dashboard', [
             'topNav'          => $topNav,

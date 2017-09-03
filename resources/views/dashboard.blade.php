@@ -138,7 +138,7 @@
         title: 'Welcome to Logit!',
         type: 'info',
         html:
-          'Since this is the first time loggin in, I suggest you head over to ' +
+          'Since this is the first time loggin in, I suggest you head over to the' +
           '<a href="/user">My profile</a> and <a href="/user/settings">Settings</a> page to get you started ' +
           '(Click on your name on the left side).<br><br> ' +
           "Once that's done you can head over to <a href='/dashboard/my_routines'>My Routines</a>!",
