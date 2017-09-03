@@ -389,6 +389,11 @@
   }
 }
 
+div.alert b.alert-header {
+  display: inline-block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
 /* Settings */
 .settings-toggles {
   .form-group {

@@ -121,7 +121,7 @@
 				<h4 class="card-title">Measurement logs</h4>
 				<div class="toolbar"></div>
 
-				@if ($measurements)
+				@if ($measurements->first())
 					<div class="material-datatables">
 				        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
 							<thead>

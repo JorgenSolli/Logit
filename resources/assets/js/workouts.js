@@ -16,6 +16,44 @@ $(document).ready(function(){
 	  	})
 	}
 
+	var saveWorkout = function(form, data) {
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: form,
+			method: 'POST',
+			data: data,
+			success: function(data) {
+				if (data.success) {
+					$.notify({
+				        icon: "add_alert",
+				        message: data.message,
+
+				    },{
+				        type: 'success',
+				        timer: 2000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+
+				    cancelExercise();
+				}
+			}
+		});
+	}
+
+	var cancelExercise = function() {
+		$("#data").empty();
+		
+		$(".ps-container").scrollTop(0);
+		$(".ps-container").perfectScrollbar('update');
+		
+		$("#exercises").slideDown();
+	}
+
 	$("#exercises a").on('click', function() {
 		var obj = $(this);
 		var exerciseId = obj.attr('id');
@@ -37,7 +75,7 @@ $(document).ready(function(){
 				obj.html(exercise).removeClass('disabled');
 			},
 		})
-	})
+	});
 
 	$(document).on('change', '#weight_type', function() {
 		var val = $(this).val();
@@ -57,7 +95,7 @@ $(document).ready(function(){
 			weight_type.find('.raw').show().removeClass("ignore");
 			weight_type.find('.raw_label').text('Weight');
 		}
-	})
+	});
 
 	$(document).on('click', '#finishWorkout', function(e) {
 		e.preventDefault();
@@ -125,16 +163,11 @@ $(document).ready(function(){
             $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> finishing ...');
 			return window.location.href = href;
 		}
-	})
+	});
 
 	$(document).on('click', '#cancelExercise', function() {
-		$("#data").empty();
-		
-		$(".ps-container").scrollTop(0);
-		$(".ps-container").perfectScrollbar('update');
-		
-		$("#exercises").slideDown();
-	})
+		cancelExercise();
+	});
 
 	$(document).on('click', '.viewWorkout', function() {
 	  var workoutId = $(this).children('input').val();
@@ -151,7 +184,7 @@ $(document).ready(function(){
       		$('.selectpicker').selectpicker({});
 	    },
 	  })
-	})
+	});
 
 	$(document).on('click', '.deleteWorkout', function() {
 		var workoutId = $(this).attr('id');
@@ -173,7 +206,7 @@ $(document).ready(function(){
 			)
 			deleteWorkout(workoutId);
 		})
-	})
+	});
 
 	$(document).on('click', '.updateWorkoutRow', function() {
 		// var setNr = parent.find('.set_nr').html().trim();
@@ -229,7 +262,7 @@ $(document).ready(function(){
 				}
 			},
 		})
-	})
+	});
 
 	$(document).on('click', '.workout-back', function() {
 		$("#viewWorkout").empty().hide();
@@ -253,9 +286,12 @@ $(document).ready(function(){
 		if (ok) {
 			$(this).addClass('disabled');
             $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> saving ...');
+            var form = $(this).closest('form').attr('action');
+            var data = $(this).closest('form').serialize();
+            saveWorkout(form, data);
 		}
 		return ok
-	})
+	});
 
 	$(document).on('click', '#clearSession', function(e) {
 		e.preventDefault();
@@ -279,7 +315,7 @@ $(document).ready(function(){
 				return false;
 			}
 		})
-	})
+	});
 
 	$('#datatables').DataTable({
 		"pagingType": "full_numbers",
@@ -295,6 +331,6 @@ $(document).ready(function(){
 		search: "_INPUT_",
 		searchPlaceholder: "Search records",
 		}
-	})
-	var table = $('#datatables').DataTable();
+	});
+	// var table = $('#datatables').DataTable();
 });

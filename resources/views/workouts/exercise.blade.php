@@ -12,10 +12,12 @@
 			<h1>{{ $exercise->exercise_name }}</h1>
 
 			@if ($note && $note->note)
-				<div class="alert {{ $note->label }} alert-dismissible" role="alert">
-				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				  <strong>Last time you did this exercise you left a note!<br><hr style="margin-top: 5px; margin-bottom: 5px"></strong> {{ $note->note }}
-				</div>
+				<div class="alert {{ $note->label }}" data-notify="container">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+                    <span data-notify="message">
+                        <b class="alert-header m-b-10">Your note form last session:</b><br/> {{ $note->note }}
+                    </span>
+                </div>
 			@endif
 
 			@for ($i = 1; $i <= $nrOfSets; $i++)
@@ -101,7 +103,7 @@
 							<a id="cancelExercise" style="width:100%" class="btn btn-danger">Cancel</a>
 						</div>
 						<div class="col-xs-8">
-							<button style="width:100%" type="submit" id="saveWorkout" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
+							<button style="width:100%" type="button" id="saveWorkout" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
 						</div>
 					</div>
 				</div>
@@ -122,10 +124,12 @@
 			<h1>Superset: {{ $exercise[0]->superset_name }}</h1> 
 
 			@if ($note && $note->note)
-				<div class="alert {{ $note->label }} alert-dismissible" role="alert">
-				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				  <strong>Last time you did this exercise you left a note!<br><hr style="margin-top: 5px; margin-bottom: 5px"></strong> {{ $note->note }}
-				</div>
+				<div class="alert {{ $note->label }}" data-notify="container">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+                    <span data-notify="message">
+                        <b class="alert-header m-b-10">Your note form last session:</b><br/> {{ $note->note }}
+                    </span>
+                </div>
 			@endif
 
 			@for ($i = 1; $i <= $nrOfSets; $i++)
@@ -184,7 +188,7 @@
 							<a id="cancelExercise" style="width:100%" class="btn btn-danger">Cancel</a>
 						</div>
 						<div class="col-xs-8">
-							<button style="width:100%" type="submit" id="saveWorkout" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
+							<button style="width:100%" type="button" id="saveWorkout" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
 						</div>
 					</div>
 				</div>

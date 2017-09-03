@@ -50,7 +50,7 @@ class MeasurementController extends Controller
         $measurements =  Measurement::where('user_id', $brukerinfo->id)
             ->orderBy('date', 'DESC')
             ->get();
-
+            
 		$topNav = [
             0 => [
                 'url'  => '/dashboard/measurements',

@@ -145,6 +145,10 @@ class ExerciseController extends Controller
             }
         }
 
-        return back()->with('script_success', 'Exercise saved. Good job!');
+        // return back()->with('script_success', 'Exercise saved. Good job!');
+        $response = [
+            'success' => true,
+            'message' => 'Exercise saved. Good job!'];
+        return $response;
     }
 }
