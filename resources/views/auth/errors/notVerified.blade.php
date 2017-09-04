@@ -13,7 +13,7 @@
 				            <h2 class="title">Whops!</h2>
 		            		<h5 class="description">You account has not been activated yet. If you haven't recieved any email from us, type in you email and click send to try again.</h5>
 
-		            		<form role="form" action="register/resend" method="post">
+		            		<form role="form" action="/register/resend" method="post">
 		            			{{ csrf_field() }}
 				            	<div class="input-group">
 									<input type="text" class="form-control input-fill" name="email" placeholder="Your email" value="{{ $email }}">
