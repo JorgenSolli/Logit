@@ -4,6 +4,7 @@ namespace Logit\Http\Controllers\Auth;
 
 use Logit\User;
 use Logit\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -11,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Jrean\UserVerification\Traits\VerifiesUsers;
 use Jrean\UserVerification\Facades\UserVerification;
+use Jrean\UserVerification\Exceptions\UserNotFoundException;
+use Jrean\UserVerification\Exceptions\UserIsVerifiedException;
+use Jrean\UserVerification\Exceptions\TokenMismatchException;
 
 class RegisterController extends Controller
 {
@@ -103,6 +107,42 @@ class RegisterController extends Controller
 
         return $this->registered($request, $user)
                    ?: redirect($this->redirectPath())->with($userData);
+    }
+
+    /**
+     * Handle the user verification. (overrides VerifiesUsers@getVerification)
+     *
+     * @param  string  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function getVerification(Request $request, $token)
+    {
+        if (! $this->validateRequest($request)) {
+            return redirect($this->redirectIfVerificationFails());
+        }
+
+        try {
+            $user = UserVerification::process($request->input('email'), $token, $this->userTable());
+        } catch (UserNotFoundException $e) {
+            return redirect($this->redirectIfVerificationFails());
+        } catch (UserIsVerifiedException $e) {
+            return redirect($this->redirectIfVerified());
+        } catch (TokenMismatchException $e) {
+            return redirect($this->redirectIfVerificationFails());
+        }
+
+        if (config('user-verification.auto-login') === true) {
+            auth()->loginUsingId($user->id);
+        }
+
+        if (Auth::id()) {
+            return redirect('dashboard')
+                ->with('script_success', 'Your account is now verified. Welcome to Logit!');
+        } else {
+            return redirect($this->redirectAfterVerification())
+                ->with('script_success', 'Your account is now verified. Feel free to log in!')
+                ->with('email', $request->input('email'));
+        }
     }
 
     /**
