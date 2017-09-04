@@ -7,11 +7,11 @@
     "require": {
         "php": "7.0.*",
         "guzzlehttp/guzzle": "^6.3",
+        "jrean/laravel-user-verification": "dev-master",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "sentry/sentry": "^1.7",
-        "sentry/sentry-laravel": "^0.7.0",
-        "jrean/laravel-user-verification": "dev-master"
+        "sentry/sentry-laravel": "^0.7.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
