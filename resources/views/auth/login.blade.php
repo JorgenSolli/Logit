@@ -44,6 +44,12 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <div class="checkbox m-t-0 text-center">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="remember" id="remember">
+                                                Remember me
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="footer text-center">
                                         <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg">Let's go</button>
