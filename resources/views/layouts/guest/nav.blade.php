@@ -11,7 +11,7 @@
 	        </div>
 	        <div class="collapse navbar-collapse">
 	            <ul class="nav navbar-nav navbar-right">
-	            	@if (auth::guest())
+	            	@guest
 		                <li class="{{ (Request::is('login') ? 'active' : '') }}">
 		                    <a href="/login">
 		                        <i class="material-icons">fingerprint</i> Login
@@ -36,7 +36,7 @@
 	                        	{{ csrf_field() }}
 	                      	</form>
 	                    </li>
-	            	@endif
+	            	@endguest
 	            </ul>
 	        </div>
 	    </div>
