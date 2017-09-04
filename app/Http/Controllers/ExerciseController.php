@@ -106,6 +106,7 @@ class ExerciseController extends Controller
     public function addExercise ($routine_id, Request $request)
     {   
         if ($request->type === 'regular') {
+            $junction = $request->routine_junction_id;
 
             session()->forget($request->exercise_name);
 
@@ -115,7 +116,7 @@ class ExerciseController extends Controller
                     'text' => $request->note,
                     'labelType' => $request->labelType
                 ]),
-                'routine_junction_id' => $request->routine_junction_id,
+                'routine_junction_id' => $junction,
                 'exercises' => (
                     $request->exercise
                 ),
@@ -148,7 +149,9 @@ class ExerciseController extends Controller
         // return back()->with('script_success', 'Exercise saved. Good job!');
         $response = [
             'success' => true,
-            'message' => 'Exercise saved. Good job!'];
+            'message' => 'Exercise saved. Good job!',
+            'id'      => $junction, 
+        ];
         return $response;
     }
 }

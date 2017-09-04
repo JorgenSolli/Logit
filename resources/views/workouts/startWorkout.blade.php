@@ -43,12 +43,12 @@
         
         @if (session($exercise->superset_name))
           <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="incomplete">
-            <span class="fa fa-clock-o"></span>&nbsp;
+            <span data-icon="status"></span>&nbsp;
             {{ $exercise->superset_name }}
           </a>
         @else
           <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="completed">
-            <span class="fa fa-check"></span>&nbsp;
+            <span data-icon="status"></span>&nbsp;
             {{ $exercise->superset_name }}
           </a>
         @endif
@@ -61,12 +61,12 @@
         
         @if (session($exercise->exercise_name))
           <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="incomplete">
-            <span class="fa fa-clock-o"></span>&nbsp;
+            <span data-icon="status"></span>&nbsp;
             {{ $exercise->exercise_name }}
           </a>
         @else
           <a id="{{ $exercise->id }}" class="pointer list-group-item" data-status="completed">
-            <span class="fa fa-check"></span>&nbsp;
+            <span data-icon="status"></span>&nbsp;
             {{ $exercise->exercise_name }}
           </a>
         

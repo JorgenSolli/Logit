@@ -1,59 +1,71 @@
-$(document).ready(function(){
-	var deleteWorkout = function(id) {
-		$.ajax({
-			url: '/api/delete_workout/' + id,
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-			method: 'GET',
-			success: function(data) {
-				console.log(data);
-				if (data.success) {
-					$("#workout-" + id).fadeOut();
-					$("tr.child").fadeOut();
-				}
-			},
-	  	})
-	}
+var setIconStatus = function() {
+	$('a[data-status="incomplete"').each(function(index) {
+		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fa fa-clock-o');
+	});
 
-	var saveWorkout = function(form, data) {
-		$.ajax({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-			url: form,
-			method: 'POST',
-			data: data,
-			success: function(data) {
-				if (data.success) {
-					$.notify({
-				        icon: "add_alert",
-				        message: data.message,
+	$('a[data-status="completed"').each(function(index) {
+		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fa fa-check');
+	});
+}
 
-				    },{
-				        type: 'success',
-				        timer: 2000,
-				        placement: {
-				            from: 'top',
-				            align: 'right'
-				        }
-				    });
-
-				    cancelExercise();
-				}
+var deleteWorkout = function(id) {
+	$.ajax({
+		url: '/api/delete_workout/' + id,
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		method: 'GET',
+		success: function(data) {
+			console.log(data);
+			if (data.success) {
+				$("#workout-" + id).fadeOut();
+				$("tr.child").fadeOut();
 			}
-		});
-	}
+		},
+  	})
+}
 
-	var cancelExercise = function() {
-		$("#data").empty();
-		
-		$(".ps-container").scrollTop(0);
-		$(".ps-container").perfectScrollbar('update');
-		
-		$("#exercises").slideDown();
-	}
+var saveWorkout = function(form, data, id) {
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: form,
+		method: 'POST',
+		data: data,
+		success: function(data) {
+			if (data.success) {
+				$.notify({
+			        icon: "add_alert",
+			        message: data.message,
 
+			    },{
+			        type: 'success',
+			        timer: 2000,
+			        placement: {
+			            from: 'top',
+			            align: 'right'
+			        }
+			    });
+
+				// Calls cancelExercise to clear current view and load exercise-list
+			    cancelExercise();
+			    $("#" + data.id).attr('data-status', 'completed');
+			    setIconStatus();
+			}
+		}
+	});
+}
+
+var cancelExercise = function() {
+	$("#data").empty();
+	$(".ps-container").scrollTop(0);
+	$(".ps-container").perfectScrollbar('update');
+	$("#exercises").slideDown();
+	window.scrollTo(0, 0);
+}
+
+$(document).ready(function(){
 	$("#exercises a").on('click', function() {
 		var obj = $(this);
 		var exerciseId = obj.attr('id');
@@ -273,7 +285,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click', '#saveWorkout', function() {
-		var ok = true
+		var ok = true;
 		$(".required").each(function(index) {
 			if ($(this).val() == "" && $(this).parent().hasClass("ignore") === false ) {
 				$(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden")
@@ -281,14 +293,15 @@ $(document).ready(function(){
 			} else {
 				$(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden")
 			}
-		})
+		});
 
 		if (ok) {
 			$(this).addClass('disabled');
             $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> saving ...');
             var form = $(this).closest('form').attr('action');
             var data = $(this).closest('form').serialize();
-            saveWorkout(form, data);
+            var id = $(this).closest('input[name="routine_junction_id"]').val();
+            saveWorkout(form, data, id);
 		}
 		return ok
 	});
@@ -332,5 +345,6 @@ $(document).ready(function(){
 		searchPlaceholder: "Search records",
 		}
 	});
-	// var table = $('#datatables').DataTable();
+
+	setIconStatus();
 });
