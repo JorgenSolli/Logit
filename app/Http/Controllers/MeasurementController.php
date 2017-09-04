@@ -34,9 +34,11 @@ class MeasurementController extends Controller
         $settings = Settings::where('user_id', $brukerinfo->id)->first();
 
         if ($settings) {
-            $unit = ($settings->unit === "Metric") ? "cm" : "in";
+            $unit_distance = ($settings->unit === "Metric") ? "cm" : "in";
+            $unit_weight = ($settings->unit === "Metric") ? "kg" : "pounds";
         } else {
-            $unit = "cm";
+            $unit_distance = "cm";
+            $unit_weight = "kg";
         }
 
         $lastInput = Measurement::where('user_id', $brukerinfo->id)
@@ -59,12 +61,13 @@ class MeasurementController extends Controller
         ];
 
     	return view('measurements', [
-    		'brukerinfo'   => $brukerinfo,
-            'dateNow'      => $dateNow,
-            'lastInput'    => $lastInput,
-            'measurements' => $measurements,
-            'unit'         => $unit,
-    		'topNav' 	   => $topNav
+    		'brukerinfo'    => $brukerinfo,
+            'dateNow'       => $dateNow,
+            'lastInput'     => $lastInput,
+            'measurements'  => $measurements,
+            'unit_distance' => $unit_distance,
+            'unit_weight'   => $unit_weight,
+    		'topNav' 	    => $topNav
 		]);
     }
 

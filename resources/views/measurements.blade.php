@@ -14,7 +14,7 @@
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-							    <label class="control-label" for="weight">Weight ({{ $unit }})</label>
+							    <label class="control-label" for="weight">Weight ({{ $unit_weight }})</label>
 								<input id="weight" type="number" step="any" class="form-control" name="weight" 
 									value="@if($lastInput && $lastInput->weight){{ $lastInput->weight }}@endif"/>
 							</div>
@@ -30,7 +30,7 @@
 						
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="neck">Neck ({{ $unit }})</label>
+								<label class="control-label" for="neck">Neck ({{ $unit_distance }})</label>
 								<input id="neck" type="number" step="any" class="form-control" name="neck" 
 									value="@if($lastInput && $lastInput->neck){{ $lastInput->neck }}@endif"/>
 							</div>
@@ -38,7 +38,7 @@
 						
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="shoulders">Shoulders ({{ $unit }})</label>
+								<label class="control-label" for="shoulders">Shoulders ({{ $unit_distance }})</label>
 								<input id="shoulders" type="number" step="any" class="form-control" name="shoulders" 
 									value="@if($lastInput && $lastInput->houlders){{ $lastInput->shoulders }}@endif"/>
 							</div>
@@ -46,7 +46,7 @@
 						
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="arms">Arms ({{ $unit }})</label>
+								<label class="control-label" for="arms">Arms ({{ $unit_distance }})</label>
 								<input id="arms" type="number" step="any" class="form-control" name="arms" 
 									value="@if($lastInput && $lastInput->arms){{ $lastInput->arms }}@endif"/>
 							</div>
@@ -54,7 +54,7 @@
 						
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="chest">Chest ({{ $unit }})</label>
+								<label class="control-label" for="chest">Chest ({{ $unit_distance }})</label>
 								<input id="chest" type="number" step="any" class="form-control" name="chest" 
 									value="@if($lastInput && $lastInput->chest){{ $lastInput->chest }}@endif"/>
 							</div>
@@ -62,7 +62,7 @@
 						
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="waist">Waist ({{ $unit }})</label>
+								<label class="control-label" for="waist">Waist ({{ $unit_distance }})</label>
 								<input id="waist" type="number" step="any" class="form-control" name="waist" 
 									value="@if($lastInput && $lastInput->waist){{ $lastInput->waist }}@endif"/>
 							</div>
@@ -70,7 +70,7 @@
 						
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="forearms">Forearms ({{ $unit }})</label>
+								<label class="control-label" for="forearms">Forearms ({{ $unit_distance }})</label>
 								<input id="forearms" type="number" step="any" class="form-control" name="forearms" 
 									value="@if($lastInput && $lastInput->forearms){{ $lastInput->forearms }}@endif"/>
 							</div>
@@ -78,7 +78,7 @@
 						
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="calves">Calves ({{ $unit }})</label>
+								<label class="control-label" for="calves">Calves ({{ $unit_distance }})</label>
 								<input id="calves" type="number" step="any" class="form-control" name="calves" 
 									value="@if($lastInput && $lastInput->calves){{ $lastInput->calves }}@endif"/>
 							</div>
@@ -86,7 +86,7 @@
 						
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="thighs">Thighs ({{ $unit }})</label>
+								<label class="control-label" for="thighs">Thighs ({{ $unit_distance }})</label>
 								<input id="thighs" type="number" step="any" class="form-control" name="thighs" 
 									value="@if($lastInput && $lastInput->thighs){{ $lastInput->thighs }}@endif"/>
 							</div>
@@ -94,7 +94,7 @@
 
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
-								<label class="control-label" for="hips">Hips ({{ $unit }})</label>
+								<label class="control-label" for="hips">Hips ({{ $unit_distance }})</label>
 								<input id="hips" type="number" step="any" class="form-control" name="date"
 									value="@if($lastInput && $lastInput->hips){{ $lastInput->hips }}@endif"/>
 							</div>
