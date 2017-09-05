@@ -40,7 +40,7 @@
 							<div class="form-group label-floating">
 								<label class="control-label" for="shoulders">Shoulders ({{ $unit_distance }})</label>
 								<input id="shoulders" type="number" step="any" class="form-control" name="shoulders" 
-									value="@if($lastInput && $lastInput->houlders){{ $lastInput->shoulders }}@endif"/>
+									value="@if($lastInput && $lastInput->shoulders){{ $lastInput->shoulders }}@endif"/>
 							</div>
 						</div>
 						
@@ -95,7 +95,7 @@
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 							<div class="form-group label-floating">
 								<label class="control-label" for="hips">Hips ({{ $unit_distance }})</label>
-								<input id="hips" type="number" step="any" class="form-control" name="date"
+								<input id="hips" type="number" step="any" class="form-control" name="hips"
 									value="@if($lastInput && $lastInput->hips){{ $lastInput->hips }}@endif"/>
 							</div>
 						</div>
