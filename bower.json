@@ -37,6 +37,10 @@
   },
   "resolutions": {
     "jquery": ">=1.8",
-    "bootstrap": ">=3.3.7"
+    "bootstrap": ">=3.3.7",
+    "chartist": "^0.11.0"
+  },
+  "dependencies": {
+    "chartist-plugin-tooltip": "^0.0.18"
   }
 }

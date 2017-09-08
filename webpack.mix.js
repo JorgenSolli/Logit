@@ -30,6 +30,7 @@ mix.combine([
 	'bower_components/sweetalert2/dist/sweetalert2.min.js',
 	'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js',
 	'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+	'bower_components/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js',
 	// Version from bower fucked shit up.. Reverting to the included one.
 	'resources/assets/js/jquery.datatables.js',
 	// Extracted spesific version from local. New from bower did not work well.

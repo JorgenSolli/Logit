@@ -1,30 +1,42 @@
 /*  **************** Workout Activity - Line Chart ******************** */
 var initCharts = function(labels, series, max) {
-  dataWorkoutActivityChart = {
-    labels: labels,
-    series: series
-  };
+    dataWorkoutActivityChart = {
+        labels: labels,
+        series: series
+    };
 
-  optionsWorkoutActivityChart = {
-    lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-    }),
-    axisY: {
-        showGrid: true,
-        offset: 40
-    },
-    axisX: {
-        showGrid: false,
-    },
-    low: 0,
-    high: max,
-    showPoint: true,
-    height: '200px'
-  };
+    optionsWorkoutActivityChart = {
+        lineSmooth: Chartist.Interpolation.cardinal({
+            tension: 0
+        }),
+        axisY: {
+            showGrid: true,
+            offset: 40
+        },
+        axisX: {
+            showGrid: false,
+        },
+        low: 0,
+        high: max,
+        showPoint: true,
+        height: '200px',
+        plugins: [
+            Chartist.plugins.tooltip({
+                tooltipOffset: {
+                    y: 55
+                }
+            })
+        ]
+    };
 
-  var workoutActivityChart = new Chartist.Line('#workoutActivityChart', dataWorkoutActivityChart, optionsWorkoutActivityChart);
 
-  md.startAnimationForLineChart(workoutActivityChart); 
+    var workoutActivityChart = new Chartist.Line(
+        '#workoutActivityChart', 
+        dataWorkoutActivityChart, 
+        optionsWorkoutActivityChart
+    );
+
+  md.startAnimationForLineChart(workoutActivityChart);
 }
 
 /*  **************** Musclegroups Worked Out - Pie Chart ******************** */

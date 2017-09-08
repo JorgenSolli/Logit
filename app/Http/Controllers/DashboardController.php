@@ -97,6 +97,34 @@ class DashboardController extends Controller
      */
     public function getGrapData ($type, $year, $month)
     {
+        // Playground
+        $playground = array(
+                'labels' => [],
+                'series' => [
+                    []
+                ],
+                'max' => 0,
+            );
+
+        $day = 0;
+
+        array_push($playground['series'][0], [
+            'meta' => null, 
+            'value' => null
+        ]);
+        
+
+        $playground['series'][0][$day]['value'] = $playground['series'][0][$day]['value'] + 1;
+
+        // dd($playground['series'][0][0]['value']);
+        // End playground
+
+
+
+
+
+
+
         if ($type === "year") {
             $data = Workout::where('user_id', Auth::id())
                 ->where( DB::raw('YEAR(created_at)'), '=', date($year) )
@@ -167,14 +195,18 @@ class DashboardController extends Controller
             # Populates the outputArray with data specific for the specific month
             for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
                 array_push($result['labels'], $i);
-                array_push($result['series'][0], 0);
+                array_push($result['series'][0], [
+                    'meta' => '', 
+                    'value' => 0
+                ]);
             }
 
             # Grabs the data relevant
-            $data = Workout::where('user_id', Auth::id())
-                ->where(DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int']))
-                ->where(DB::raw('YEAR(created_at)'), '=', date($year))
-                ->orderBy('created_at', 'ASC')
+            $data = Workout::where('workouts.user_id', Auth::id())
+                ->where(DB::raw('MONTH(workouts.created_at)'), '=', date($monthData[$selectedMonth]['int']))
+                ->where(DB::raw('YEAR(workouts.created_at)'), '=', date($year))
+                ->join('routines', 'workouts.routine_id', '=', 'routines.id')
+                ->orderBy('workouts.created_at', 'ASC')
                 ->get();
 
             # Iterates over the result
@@ -187,11 +219,20 @@ class DashboardController extends Controller
                 }
 
                 # Subtracts 1 on the index for day, as this is naturally offset by this amount. Index starts at 0, day starts at 1
-                $result['series'][0][(int)$day - 1] = $result['series'][0][(int)$day - 1] + 1;
+                //$result['series'][0][(int)$day - 1] = $result['series'][0][(int)$day - 1] + 1;
+                $result['series'][0][(int)$day - 1]['value'] = $result['series'][0][(int)$day - 1]['value'] + 1;
+                $result['series'][0][(int)$day - 1]['meta'] = $value->routine_name;
             }
 
             # Finds the max value and appends 1 (for cosmetic reason)
-            $result['max'] = max($result['series'][0]) + 1;
+            $max = 0;
+            foreach ($result['series'][0] as $key => $value) {
+                if ($value['value'] > $max - 1) {
+                    $max = $value['value'] + 1;
+                }  
+            }
+
+            $result['max'] = $max;
         }
 
         # Returns the result as an json array
