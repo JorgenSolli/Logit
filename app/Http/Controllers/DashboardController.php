@@ -97,33 +97,6 @@ class DashboardController extends Controller
      */
     public function getGrapData ($type, $year, $month)
     {
-        // Playground
-        $playground = array(
-                'labels' => [],
-                'series' => [
-                    []
-                ],
-                'max' => 0,
-            );
-
-        $day = 0;
-
-        array_push($playground['series'][0], [
-            'meta' => null, 
-            'value' => null
-        ]);
-        
-
-        $playground['series'][0][$day]['value'] = $playground['series'][0][$day]['value'] + 1;
-
-        // dd($playground['series'][0][0]['value']);
-        // End playground
-
-
-
-
-
-
 
         if ($type === "year") {
             $data = Workout::where('user_id', Auth::id())
@@ -207,6 +180,7 @@ class DashboardController extends Controller
                 ->where(DB::raw('YEAR(workouts.created_at)'), '=', date($year))
                 ->join('routines', 'workouts.routine_id', '=', 'routines.id')
                 ->orderBy('workouts.created_at', 'ASC')
+                ->select('workouts.created_at', 'routines.routine_name')
                 ->get();
 
             # Iterates over the result
@@ -221,7 +195,9 @@ class DashboardController extends Controller
                 # Subtracts 1 on the index for day, as this is naturally offset by this amount. Index starts at 0, day starts at 1
                 //$result['series'][0][(int)$day - 1] = $result['series'][0][(int)$day - 1] + 1;
                 $result['series'][0][(int)$day - 1]['value'] = $result['series'][0][(int)$day - 1]['value'] + 1;
-                $result['series'][0][(int)$day - 1]['meta'] = $value->routine_name;
+                if ($result['series'][0][(int)$day - 1]['meta'] === "") {
+                    $result['series'][0][(int)$day - 1]['meta'] = $value->routine_name;
+                }
             }
 
             # Finds the max value and appends 1 (for cosmetic reason)
@@ -234,6 +210,8 @@ class DashboardController extends Controller
 
             $result['max'] = $max;
         }
+
+        //dd($result);
 
         # Returns the result as an json array
         return $result;
