@@ -193,7 +193,6 @@ class DashboardController extends Controller
                 }
 
                 # Subtracts 1 on the index for day, as this is naturally offset by this amount. Index starts at 0, day starts at 1
-                //$result['series'][0][(int)$day - 1] = $result['series'][0][(int)$day - 1] + 1;
                 $result['series'][0][(int)$day - 1]['value'] = $result['series'][0][(int)$day - 1]['value'] + 1;
 
                 $string = $value->routine_name;

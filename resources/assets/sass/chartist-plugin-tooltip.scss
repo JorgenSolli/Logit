@@ -4,8 +4,8 @@
   opacity: 0;
   min-width: 5em;
   padding: .5em;
-  background: #F4C63D;
-  color: #453D3F;
+  background: #0cb4c9;
+  color: #ffffff;
   font-family: Oxygen,Helvetica,Arial,sans-serif;
   font-weight: 700;
   text-align: center;
@@ -14,7 +14,8 @@
   -webkit-transition: opacity .2s linear;
   -moz-transition: opacity .2s linear;
   -o-transition: opacity .2s linear;
-  transition: opacity .2s linear; 
+  transition: opacity .2s linear;
+  border-radius: 3px;
 }
   
 .chartist-tooltip:before {
@@ -26,7 +27,7 @@
   height: 0;
   margin-left: -15px;
   border: 15px solid transparent;
-  border-top-color: #F4C63D; 
+  border-top-color: #0cb4c9; 
 }
 
 .chartist-tooltip.tooltip-show {
