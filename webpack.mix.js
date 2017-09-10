@@ -23,14 +23,16 @@ mix.combine([
 	'node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js',
 	'node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js',
 	'node_modules/validate.js/validate.min.js',
-	'node_modules/chartist/dist/chartist.min.js',
 	'node_modules/nouislider/distribute/nouislider.min.js',
 	'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
 	'node_modules/datatables/media/js/jquery.dataTables.min.js',
 	'node_modules/sweetalert2/dist/sweetalert2.min.js',
 	'node_modules/jasny-bootstrap/dist/js/jasny-bootstrap.min.js',
 	'node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+	'node_modules/chartist/dist/chartist.min.js',
 	'node_modules/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js',
+	'node_modules/chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js',
+	'node_modules/chartist-plugin-threshold/dist/chartist-plugin-threshold.js',
 	// Version from bower fucked shit up.. Reverting to the included one.
 	'resources/assets/js/jquery.datatables.js',
 	// Extracted spesific version from local. New from bower did not work well.

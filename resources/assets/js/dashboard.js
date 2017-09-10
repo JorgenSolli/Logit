@@ -11,7 +11,8 @@ var initCharts = function(labels, series, max) {
         }),
         axisY: {
             showGrid: true,
-            offset: 40
+            offset: 40,
+            onlyInteger: true
         },
         axisX: {
             showGrid: false,
@@ -20,6 +21,7 @@ var initCharts = function(labels, series, max) {
         high: max,
         showPoint: true,
         height: '200px',
+        showArea: true,
         plugins: [
             Chartist.plugins.tooltip({
                 tooltipOffset: {
@@ -36,7 +38,7 @@ var initCharts = function(labels, series, max) {
         optionsWorkoutActivityChart
     );
 
-  md.startAnimationForLineChart(workoutActivityChart);
+    md.startAnimationForLineChart(workoutActivityChart);
 }
 
 /*  **************** Musclegroups Worked Out - Pie Chart ******************** */

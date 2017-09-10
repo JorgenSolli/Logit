@@ -4,9 +4,6 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-// chartist-plugin-tooltip
-@import "chartist-plugin-tooltip";
-
 // Material Dashboard
 @import "material-dashboard";
 
@@ -15,3 +12,6 @@
 
 // Dashboard
 @import "dashboard";
+
+// chartist-plugin-tooltip
+@import "chartist-plugin-styles";

@@ -855,6 +855,14 @@ chart.js@^2.5.0:
     chartjs-color "^2.1.0"
     moment "^2.10.6"
 
+chartist-plugin-axistitle@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/chartist-plugin-axistitle/-/chartist-plugin-axistitle-0.0.1.tgz#c85dcb7c41fcc9f465996f43998a8895c1bb84ad"
+
+chartist-plugin-threshold@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/chartist-plugin-threshold/-/chartist-plugin-threshold-0.0.2.tgz#14a53f951e323e87e45925cc16cce90000f1f81b"
+
 chartist-plugin-tooltips@^0.0.17:
   version "0.0.17"
   resolved "https://registry.yarnpkg.com/chartist-plugin-tooltips/-/chartist-plugin-tooltips-0.0.17.tgz#fc1a98eb5d3771235b6e08cd1c18cc96c2110660"

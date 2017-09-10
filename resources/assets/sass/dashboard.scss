@@ -277,9 +277,16 @@
 
 /* Pie Chart Colors */
 
+/* Line Chart Colors */
+.ct-series-a .ct-point {
+  stroke: #30b57f;
+}
+
+/* Pie Chart Colors */
+
 .ct-series-a {
     .ct-slice-pie, .ct-area {
-      fill: #2c9526;
+      fill: rgba(42, 178, 123, 0.5);
     }
     .ct-slice-donut {
       stroke: #2c9526;  
