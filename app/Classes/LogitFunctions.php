@@ -79,15 +79,15 @@ class LogitFunctions {
                     'days' => 30
                 ],
                 'Oct' => [
-                    'int' => 1,
+                    'int' => 10,
                     'days' => 31
                 ],
                 'Nov' => [
-                    'int' => 1,
+                    'int' => 11,
                     'days' => 30
                 ],
                 'Dec' => [
-                    'int' => 1,
+                    'int' => 12,
                     'days' => 31
                 ] 
             ]);

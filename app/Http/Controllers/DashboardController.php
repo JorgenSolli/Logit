@@ -152,7 +152,7 @@ class DashboardController extends Controller
             }
             # Makes sure the month we get from out request is formated correctly
             $selectedMonth = ucfirst($month);
-            
+
             # Sets up the expected dataformat
             $monthData = LogitFunctions::parseDate($type, $year, $month);
 
@@ -182,7 +182,6 @@ class DashboardController extends Controller
                 ->orderBy('workouts.created_at', 'ASC')
                 ->select('workouts.created_at', 'routines.routine_name')
                 ->get();
-
             # Iterates over the result
             foreach ($data as $value) {
                 $day = $value->created_at->format('d');
@@ -214,8 +213,6 @@ class DashboardController extends Controller
 
             $result['max'] = $max;
         }
-
-        //dd($result);
 
         # Returns the result as an json array
         return $result;
