@@ -259,57 +259,9 @@ class DashboardController extends Controller
             }
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
-            $monthData = collect([
-                'Jan' => [
-                    'int' => 1,
-                    'days' => 31
-                ], 
-                'Feb' => [
-                    'int' => 2,
-                    'days' => is_leap_year($year)
-                ],
-                'Mar' => [
-                    'int' => 3,
-                    'days' => 31
-                ],
-                'Apr' => [
-                    'int' => 4,
-                    'days' => 30
-                ],
-                'May' => [
-                    'int' => 5,
-                    'days' => 31
-                ],
-                'Jun' => [
-                    'int' => 6,
-                    'days' => 30
-                ],
-                'Jul' => [
-                    'int' => 7,
-                    'days' => 31
-                ],
-                'Aug' => [
-                    'int' => 8,
-                    'days' => 31
-                ],
-                'Sep' => [
-                    'int' => 9,
-                    'days' => 30
-                ],
-                'Oct' => [
-                    'int' => 1,
-                    'days' => 31
-                ],
-                'Nov' => [
-                    'int' => 1,
-                    'days' => 30
-                ],
-                'Dec' => [
-                    'int' => 1,
-                    'days' => 31
-                ] 
-            ]);
 
+            $monthData = LogitFunctions::parseDate($type, $year, $month);
+            
             $data = Workout::where('user_id', Auth::id())
                 ->where(DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int']))
                 ->where(DB::raw('YEAR(created_at)'), '=', date($year))
