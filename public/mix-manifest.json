@@ -1,15 +1,14 @@
 {
-  "/mix.js": "/mix.b2328beb0372c051d06d.js",
-  "/css/app.css": "/css/app.e9dfabfd92967bd225ff.css",
-  "/js/logit.min.js": "/js/logit.min.2502ccb4ca7302396eb62401f592d64e.js",
-  "/js/material-dashboard.min.js": "/js/material-dashboard.min.906afc810a16e82cfe49844c6fcdd04e.js",
-  "/js/dashboard.min.js": "/js/dashboard.min.df9dc000524465a0c289bca27b6e7865.js",
-  "/js/friends.min.js": "/js/friends.min.e5001765c9d5cfaba8a6ade66e25ebbf.js",
-  "/js/logitFuncs.min.js": "/js/logitFuncs.min.d83cde93b1508e4f8a538e657f7cb418.js",
-  "/js/myProfile.min.js": "/js/myProfile.min.c9b96c316865324e3c520d751e5ce446.js",
-  "/js/routines.min.js": "/js/routines.min.423a2f67baed9f60d52d2b86f411e8f2.js",
-  "/js/settings.min.js": "/js/settings.min.dd43ab3f856ef69ba67308bd61b03a15.js",
-  "/js/workouts.min.js": "/js/workouts.min.2692242d93b2ce7fe96d1186f460e23b.js",
-  "/js/timer.min.js": "/js/timer.min.72969f58ad45551edd07b664a56d05f6.js",
-  "/js/measurements.min.js": "/js/measurements.min.6289a14f761f79fa38130c982ac76bb4.js"
+    "/css/app.css": "/css/app.css?id=9faa32de7d161be3ce46",
+    "/js/logit.min.js": "/js/logit.min.js?id=2502ccb4ca7302396eb6",
+    "/js/material-dashboard.min.js": "/js/material-dashboard.min.js?id=906afc810a16e82cfe49",
+    "/js/dashboard.min.js": "/js/dashboard.min.js?id=df9dc000524465a0c289",
+    "/js/friends.min.js": "/js/friends.min.js?id=e5001765c9d5cfaba8a6",
+    "/js/logitFuncs.min.js": "/js/logitFuncs.min.js?id=d83cde93b1508e4f8a53",
+    "/js/myProfile.min.js": "/js/myProfile.min.js?id=c9b96c316865324e3c52",
+    "/js/routines.min.js": "/js/routines.min.js?id=423a2f67baed9f60d52d",
+    "/js/settings.min.js": "/js/settings.min.js?id=dd43ab3f856ef69ba673",
+    "/js/workouts.min.js": "/js/workouts.min.js?id=9124289a6e230bf1d275",
+    "/js/timer.min.js": "/js/timer.min.js?id=72969f58ad45551edd07",
+    "/js/measurements.min.js": "/js/measurements.min.js?id=6289a14f761f79fa3813"
 }
