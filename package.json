@@ -21,13 +21,14 @@
     "chartist-plugin-axistitle": "^0.0.1",
     "chartist-plugin-threshold": "^0.0.2",
     "chartist-plugin-tooltips": "^0.0.17",
+    "cross-env": "^5.0.5",
     "datatables": "1.10.13",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "jasny-bootstrap": "^3.1.3",
     "jquery": "^3.2.1",
     "jquery-ui-dist": "^1.12.1",
     "jquery-ui-touch-punch": "^0.2.3",
-    "laravel-mix": "^0.10.0",
+    "laravel-mix": "^1.4.5",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "nouislider": "10.0.0",
@@ -36,6 +37,6 @@
     "tether": "^1.4.0",
     "validate.js": "^0.11.1",
     "vue": "^2.1.10",
-    "webpack": "2.2.1"
+    "webpack": "^3.6.0"
   }
 }
