@@ -444,21 +444,31 @@ class DashboardController extends Controller
      * @param  int $month specifies the mont
      * @return \Illuminate\Http\Response
      */
-    public function getTopTenExercises ($type, $year, $month)
+    public function getTopExercises ($type, $year, $month, Request $request)
     {
+        $limit = 10;
+        $show_active_exercises = ['routines.active', '>=', 0];
         $settings = Settings::where('user_id', Auth::id())->first();
         $brukerinfo = Auth::user();
+
+        if ($request->limit) {
+            $limit = $request->limit;
+        }
+
+        if ($request->show_active_exercises == "true") {
+            $show_active_exercises = ['routines.active', 1];
+        }
 
         if ($type == "year") {
             if ($settings->count_warmup_in_stats == 1) {
                 $where = [
-                    ['user_id', $brukerinfo->id],
+                    ['workout_junctions.user_id', $brukerinfo->id],
                     [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
                 ];
             } 
             else {
                 $where = [
-                    ['user_id', $brukerinfo->id],
+                    ['workout_junctions.user_id', $brukerinfo->id],
                     ['is_warmup', 0],
                     [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
                 ];
@@ -477,14 +487,14 @@ class DashboardController extends Controller
 
             if ($settings->count_warmup_in_stats == 1) {
                 $where = [
-                    ['user_id', $brukerinfo->id],
+                    ['workout_junctions.user_id', $brukerinfo->id],
                     [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
                     [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
                 ];
             }
             else {
                 $where = [
-                    ['user_id', $brukerinfo->id],
+                    ['workout_junctions.user_id', $brukerinfo->id],
                     ['is_warmup', 0],
                     [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
                     [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
@@ -492,15 +502,17 @@ class DashboardController extends Controller
             }
         }
 
-        $topTenExercises = WorkoutJunction::select(DB::raw('id, exercise_name, count(*) as count'))
+        $topExercises = WorkoutJunction::select(DB::raw('workout_junctions.id, workout_junctions.exercise_name, count(*) as count'))
+            ->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
             ->where($where)
+            ->where([$show_active_exercises])
             ->groupBy('exercise_name')
             ->having('count', '>', 1)
             ->orderBy('count', 'DESC')
-            ->limit(10)
+            ->limit($limit)
             ->get();
 
-        return $topTenExercises;
+        return $topExercises;
     }
 
     /**
@@ -512,18 +524,21 @@ class DashboardController extends Controller
      * @param  string $exercise name of exercise to compare
      * @return \Illuminate\Http\Response
      */
-    public function getExerciseProgress ($type, $year, $month, $exercise)
+    public function getExerciseProgress ($type, $year, $month, $exercise, Request $request)
     {
+        $show_reps   = $request->show_reps;
+        $show_weight = $request->show_weight;
+
         $result = array(
             'labels' => [],
             'series' => [
+                [],
                 []
             ],
             'low' => 0,
             'max' => 0,
             'success' => true
         );
-
 
         if ($type == "year") {
             $workouts = Workout::with(['junction' => function($query) use ($exercise, $year) {
@@ -533,29 +548,8 @@ class DashboardController extends Controller
                     ]);
                 }])
             ->get();
-
-
-            foreach ($workouts as $workout) {
-                if ($workout->junction) {
-                    foreach ($workout->junction as $junction) {
-                        array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
-                        array_push($result['series'][0], $junction->weight);
-                    }
-                }
-            }
-
-            /* If we actually have data to work with */
-            if ($result['series'][0]) {
-                $result['max'] = (max($result['series'][0]) ? max($result['series'][0]) + 10 : 0);
-                $result['low'] = (min($result['series'][0]) < 10 ? $result['low'] = min($result['series'][0]) : $result['low'] = min($result['series'][0]) - 10);
-            }
-            else {
-                $result['success'] = false;
-            }
-            
         }
         else {
-
             function is_leap_year($year) {
                 if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
                     return 29;
@@ -575,27 +569,50 @@ class DashboardController extends Controller
                     ]);
                 }])
             ->get();
+        }
 
-            foreach ($workouts as $workout) {
-                if ($workout->junction) {
-                    foreach ($workout->junction as $junction) {
-                        array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
+        foreach ($workouts as $workout) {
+            if ($workout->junction) {
+                foreach ($workout->junction as $junction) {
+                    array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
+                    if ($show_weight == "true") {
                         array_push($result['series'][0], $junction->weight);
+                    }
+
+                    if ($show_reps == "true") {
+                        array_push($result['series'][1], $junction->reps);
                     }
                 }
             }
+        }
 
-            /* If we actually have data to work with */
-            if ($result['series'][0]) {
-                $result['max'] = (max($result['series'][0]) ? max($result['series'][0]) + 10 : 0);
-                $result['low'] = (min($result['series'][0]) < 10 ? $result['low'] = min($result['series'][0]) : $result['low'] = min($result['series'][0]) - 10);
+        /* If we actually have data to work with */
+        $weightMax = 0;
+        $weightMin = 0;
+        $repMax = 0;
+        $repMin = 0;
+        if (isset($result['series'][0]) || isset($result['series'][1])) {
+
+            if (isset($result['series'][0][0])) {
+                $weightMax = max($result['series'][0]);
+                $weightMin = min($result['series'][0]);
             }
-            else {
-                $result['success'] = false;
+
+            if (isset($result['series'][1][0])) {
+                $repMax = max($result['series'][1]);
+                $repMin = min($result['series'][1]);
             }
+
+            $result['max'] = ($weightMax < $repMax) ? $repMax + 10 : $weightMax + 10;
+            $result['low'] = ($weightMin > $repMin) ? $repMin - 10 : $weightMin - 10;
+
+            // If the low value is below 0, set it to 0. We're not lifting or repping in the negavite here...
+            $result['low'] = ($result['low'] < 0) ? $result['low'] = 0 : $result['low'];
+        }
+        else {
+            $result['success'] = false;
         }
 
         return $result;
-
     }
 }

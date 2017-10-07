@@ -80,7 +80,14 @@ var compareExerciseChart = function(labels, series, low, max) {
     low: low,
     high: max,
     showPoint: true,
-    height: '200px'
+    height: '200px',
+    plugins: [
+        Chartist.plugins.tooltip({
+            tooltipOffset: {
+                y: 120
+            }
+        })
+    ]
   };
 
   var compareExerciseChart = new Chartist.Line('#compareExerciseChart', dataCompareExerciseChart, optionsCompareExerciseChart);
@@ -96,6 +103,23 @@ $(document).ready(function() {
     var monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var monthsLong = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var currMonth = moment().format('MMM');
+
+    // Keeps track of select status
+    var show_active_exercises = true;
+    var show_reps   = true;
+    var show_weight = true;
+    $(document).on('click', '#show_active_exercises', function() {
+        show_active_exercises = show_active_exercises ? false : true;
+        populateCompareExercises();
+    });
+    $(document).on('click', '#show_reps', function() {
+        show_reps = show_reps ? false : true;
+        compareExercise();
+    });
+    $(document).on('click', '#show_weight', function() {
+        show_weight = show_weight ? false : true;
+        compareExercise();
+    });
 
     for (var i = thisYear; i >= APP_CREATED_AT; i--) {
         if (i == thisYear) {
@@ -124,14 +148,15 @@ $(document).ready(function() {
 
     $("#statistics-type, statistics-year, #statistics-month").on('change', function() {
         getGraphData();
-        compaseExercise();
+        compareExercise();
+        populateCompareExercises();
     });
 
-    var compaseExercise = function() {
-        var type     = $("#statistics-type").val();
-        var year     = $("#statistics-year").val();
-        var month    = $("#statistics-month").val();
-        var exercise = $("#exercise_name").val();
+    var compareExercise = function() {
+        var type        = $("#statistics-type").val();
+        var year        = $("#statistics-year").val();
+        var month       = $("#statistics-month").val();
+        var exercise    = $("#exercise_name").val();
 
          /* Data for compare exercise chart */
         $.ajax({
@@ -140,6 +165,10 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: '/api/getExerciseProgress/' + type + '/' + year + '/' + month + '/' + exercise,
+            data: {
+                show_reps: show_reps,
+                show_weight: show_weight,
+            },
             success: function(data) {
                 if (data.success) {
                     $("#compareExerciseChart").empty();
@@ -147,6 +176,43 @@ $(document).ready(function() {
                 }
                 else {
                     $("#compareExerciseChart").html("<h3 style='margin: 0 0 10px 20px;'>No data for this exercise!</h3>");
+                }
+            }
+        });
+    }
+
+    var populateCompareExercises = function() {
+        var limit  = 99999999;
+        var type   = $("#statistics-type").val();
+        var year   = $("#statistics-year").val();
+        var month  = $("#statistics-month").val();
+        var filter = $
+
+        $.ajax({
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/api/getTopExercises/' + type + '/' + year + '/' + month,
+            data: {
+                limit: limit,
+                show_active_exercises: show_active_exercises
+            },
+            success: function(data) {
+                var refresh = false;
+                if ($("#exercise_name option").length > 0) {
+                    $("#exercise_name").empty();
+                    refresh = true;
+                }
+                $.each(data, function(key) {
+                    $("#exercise_name").append('<option value="' + data[key].exercise_name + '">' + data[key].exercise_name + '</option>');
+                });
+
+                if (refresh) {
+                    $('#exercise_name').selectpicker('refresh');
+                }
+                else {
+                    $('#exercise_name').selectpicker({});
                 }
             }
         });
@@ -216,9 +282,12 @@ $(document).ready(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '/api/getTopTenExercises/' + type + '/' + year + '/' + month,
+            url: '/api/getTopExercises/' + type + '/' + year + '/' + month,
             success: function(data) {
-                $("#topTenExercises").empty();
+                if ($("#topTenExercises tr").length > 0) {
+                    $("#topTenExercises").empty();
+                }
+
                 $.each(data, function(key) {
                     $("#topTenExercises").append('<tr>' + 
                         '<td>' + data[key].exercise_name + '</td>' + 
@@ -230,12 +299,17 @@ $(document).ready(function() {
     }
 
     $(document).on('change', '#exercise_name', function() {
-        compaseExercise();
+        compareExercise();
     });
+
+    // Loads the graph
+    getGraphData();
+
+    // Populate selects
+    populateCompareExercises();
 
     // Waits for information to be appended before invoking the selectpicker
     $('.selectpickerAjax').selectpicker({});
-    
-    // Loads the graph
-    getGraphData();
+
+    $(".bs-searchbox input.form-control").attr('placeholder', 'Search for an exercise');
 });

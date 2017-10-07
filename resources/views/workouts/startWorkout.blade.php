@@ -9,7 +9,7 @@
             <span class="btn-label">
               <i class="material-icons">keyboard_arrow_left</i>
             </span>
-            Go back
+            Back to routines
           </a>
     		</div>
         <div class="col-md-3 col-sm-6 col-xs-12 m-b-15-xs">

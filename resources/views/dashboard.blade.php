@@ -97,7 +97,6 @@
                                 </tr>
                             </thead>
                             <tbody id="topTenExercises">
-                                
                             </tbody>
                         </table>
                     </div>
@@ -112,11 +111,36 @@
         </div>
         <div class="card-content">
             <h4 class="card-title">Exercise progress</h4>
-            <select id="exercise_name" class="selectpicker" data-style="btn btn-primary" title="Select exercise" data-size="7">
-                @foreach ($exercises as $exercise)
-                    <option value="{{ $exercise->exercise_name }}">{{ $exercise->exercise_name }}</option>
-                @endforeach
-            </select>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <select id="exercise_name" data-style="btn btn-primary" title="Select exercise" data-live-search="true">
+                    </select>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <div class="checkbox">
+                        <label>
+                            <input id="show_active_exercises" type="checkbox" name="optionsCheckboxes" checked="">
+                            Only show active exercises
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <div class="checkbox">
+                        <label>
+                            <input id="show_reps" type="checkbox" name="optionsCheckboxes" checked="">
+                            Show reps
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <div class="checkbox">
+                        <label>
+                            <input id="show_weight" type="checkbox" name="optionsCheckboxes" checked="">
+                            Show weight
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="compareExerciseChart" class="ct-chart ct-chart-rotate-labels"></div>
     </div>
@@ -124,29 +148,28 @@
 
 @section('script')
 
-  <script src="{{ mix('/js/dashboard.min.js') }}"></script>
+    <script src="{{ mix('/js/dashboard.min.js') }}"></script>
 
-  @if ($firstTime)
-    <script>
-      swal(
-        'Welcome to Logit!',
-        "    ",
-        'info'
-      )
+    @if ($firstTime)
+        <script>
+            swal(
+                'Welcome to Logit!',
+                "    ",
+                'info'
+            );
 
-      swal({
-        title: 'Welcome to Logit!',
-        type: 'info',
-        html:
-          'Since this is the first time loggin in, I suggest you head over to the' +
-          '<a href="/user">My profile</a> and <a href="/user/settings">Settings</a> page to get you started ' +
-          '(Click on your name on the left side).<br><br> ' +
-          "Once that's done you can head over to <a href='/dashboard/my_routines'>My Routines</a>!",
-        showCloseButton: true,
-        showCancelButton: false,
-        confirmButtonText:
-          '<i class="fa fa-thumbs-up"></i> Great. Thank you!'
-      })
-    </script>
-  @endif
+        swal({
+            title: 'Welcome to Logit!',
+            type: 'info',
+            html:
+                'Since this is the first time loggin in, I suggest you head over to the' +
+                '<a href="/user">My profile</a> and <a href="/user/settings">Settings</a> page to get you started ' +
+                '(Click on your name on the left side).<br><br> ' +
+                "Once that's done you can head over to <a href='/dashboard/my_routines'>My Routines</a>!",
+            showCloseButton: true,
+            showCancelButton: false,
+            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great. Thank you!'
+        });
+        </script>
+    @endif
 @endsection
