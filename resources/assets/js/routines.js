@@ -356,7 +356,7 @@ $(document).on('click', '#addRoutine', function() {
   }
 
   return ok
-})
+});
 
 $(document).on('click', '#changeStatus', function() {
   var routineId = $("#routineId").val();
@@ -385,7 +385,7 @@ $(document).on('click', '#changeStatus', function() {
       $("#changeStatus").removeClass("btn-default").addClass("btn-danger").text("Refresh page and try again!")
     }
   })
-})
+});
 
 $(document).ready(function() {
   $('#datatables').DataTable({
@@ -404,4 +404,4 @@ $(document).ready(function() {
 
   var table = $('#datatables').DataTable();
   initSort();
-})
+});

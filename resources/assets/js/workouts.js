@@ -331,6 +331,21 @@ $(document).ready(function(){
 		})
 	});
 
+	$(document).on('click', '[data-routine-preview]', function() {
+		var routine = $(this).attr('data-routine-preview');
+
+		$.ajax({
+			url: '/api/routines/preview',
+			data: {
+				routine: routine
+			},
+			success: function(response) {
+				$("#previewModal").html(response.data);
+				$("#routinePreview").modal('show');
+			}
+		});
+	});
+
 	$('#datatables').DataTable({
 		"pagingType": "full_numbers",
 		"lengthMenu": [

@@ -286,4 +286,20 @@ class RoutineController extends Controller
         }
         return response()->json(array('success' => false));
     }
+
+    public function previewRoutine (Request $request)
+    {
+        $routine = $request->routine;
+        $routines = RoutineJunction::where([
+                ['routine_id', $routine],
+                ['user_id', Auth::id()]
+            ])
+            ->get();
+
+        $returnHTML = view('routines.previewRoutine')
+            ->with('routines', $routines)
+            ->render();
+
+        return response()->json(array('success' => true, 'data'=>$returnHTML));
+    }
 }

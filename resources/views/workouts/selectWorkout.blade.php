@@ -6,12 +6,15 @@
     <div class="list-group m-b-15">
       @foreach($routines as $routine)
         @if ($routine->active == 1)
-          <a href="start/{{ $routine->id }}" class="list-group-item">
-            {{ $routine->routine_name }}
-            @if (session('gymming') == $routine->id)
-              &nbsp;&nbsp;·&nbsp;&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
-            @endif
-          </a>
+          <div class="list-group-item">
+            <a href="start/{{ $routine->id }}">
+              {{ $routine->routine_name }}
+              @if (session('gymming') == $routine->id)
+                &nbsp;&nbsp;·&nbsp;&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
+              @endif
+            </a>
+            <button data-routine-preview="{{ $routine->id }}" class="btn btn-list-group-item btn-primary pull-right">Preview</button>
+          </div>
         @endif
       @endforeach
     </div>
@@ -35,4 +38,8 @@
       </div>
     @endif
   </div>
+@endsection
+<div id="previewModal"></div>
+@section('script')
+  <script src="{{ mix('/js/workouts.min.js') }}"></script>
 @endsection

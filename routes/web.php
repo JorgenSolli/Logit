@@ -49,6 +49,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	/* Routines */
 	Route::get('/dashboard/my_routines', 'RoutineController@routines');
 	Route::get('/dashboard/my_routines/add_routine', 'RoutineController@addRoutine');
+	Route::get('/api/routines/preview', 'RoutineController@previewRoutine');
 
 	// Create
 	Route::put('/dashboard/my_routines', 'RoutineController@insertRoutine');
