@@ -346,6 +346,11 @@ $(document).ready(function(){
 		});
 	});
 
+	$(document).on('click', '.startRoutine', function() {
+		var target = $(this).attr('data-href');
+		window.location=target;
+	})
+
 	$('#datatables').DataTable({
 		"pagingType": "full_numbers",
 		"lengthMenu": [

@@ -6,13 +6,11 @@
     <div class="list-group m-b-15">
       @foreach($routines as $routine)
         @if ($routine->active == 1)
-          <div class="list-group-item">
-            <a href="start/{{ $routine->id }}">
-              {{ $routine->routine_name }}
-              @if (session('gymming') == $routine->id)
-                &nbsp;&nbsp;·&nbsp;&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
-              @endif
-            </a>
+          <div data-href="start/{{ $routine->id }}" class="startRoutine pointer list-group-item">
+            {{ $routine->routine_name }}
+            @if (session('gymming') == $routine->id)
+              &nbsp;&nbsp;·&nbsp;&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
+            @endif
             <button data-routine-preview="{{ $routine->id }}" class="btn btn-list-group-item btn-primary pull-right">Preview</button>
           </div>
         @endif
