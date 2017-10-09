@@ -3,17 +3,33 @@
 @section('content')
   <h2>Glad you decided to hit the gym today!<br><small>Please select a routine</small></h2>
   <div id="routines">
-    <div class="list-group m-b-15">
+    <div class="row">
       @foreach($routines as $routine)
-        @if ($routine->active == 1)
-          <div data-href="start/{{ $routine->id }}" class="startRoutine pointer list-group-item">
-            {{ $routine->routine_name }}
-            @if (session('gymming') == $routine->id)
-              &nbsp;&nbsp;·&nbsp;&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
-            @endif
-            <button data-routine-preview="{{ $routine->id }}" class="btn btn-list-group-item btn-primary pull-right">Preview</button>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card card-pricing card-raised">
+            <div class="content">
+              <div class="icon icon-rose">
+                @foreach ($topMuscleGroup[$routine['id']] as $key => $value)
+                  @if ($loop->first)
+                    @php $muscleImage = $key; break; @endphp
+                  @endif
+                @endforeach
+                <img class="muscle-icon" src="/images/icons/muscle_groups/white/{{ $muscleImage }}.svg">
+              </div>
+              <h3 class="card-title">
+                {{ $routine['routine_name'] }}
+                @if (session('gymming') == $routine['id'])
+                  ·&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
+                @endif
+              </h3>
+              <p class="card-description">
+                  Last used: {{ $routine['last_used'] }}
+              </p>
+              <button data-href="start/{{ $routine['id'] }}" class="startRoutine btn btn-success">Start</button>
+              <button data-routine-preview="{{ $routine['id'] }}" class="btn btn-primary">Preview</button>
+            </div>
           </div>
-        @endif
+        </div>
       @endforeach
     </div>
     @if ($nrInactive > 0)

@@ -348,7 +348,7 @@ $(document).ready(function(){
 
 	$(document).on('click', '.startRoutine', function() {
 		var target = $(this).attr('data-href');
-		window.location=target;
+		// window.location=target;
 	})
 
 	$('#datatables').DataTable({

@@ -28,11 +28,94 @@ class WorkoutController extends Controller
      */
     public function selectWorkout ()
     {
-    	$routines = Routine::where('user_id', Auth::id())
+    	$routines = Routine::where([
+                ['user_id', '=', Auth::id()],
+                ['active', '=', 1],
+            ])
             ->orderBy('routine_name', 'ASC')
     	 	->get();
-	 	$junctions = RoutineJunction::where('user_id', Auth::id())
-	 		->get();
+
+        foreach ($routines as $key => $val) {
+            $last_used = Workout::where([
+                ['user_id', Auth::id()],
+                ['routine_id', $routines[$key]['id']],
+            ])
+            ->orderBy('created_at', 'desc')
+            ->limit(1)
+            ->first();
+
+            if ($last_used) {
+                $routines[$key] = collect([
+                    'last_used' => Carbon::parse($last_used->created_at)->diffForHumans()
+                    ])->merge($routines[$key]);
+                
+                $routines[$key] = collect([
+                    'last_used_sortdate' => Carbon::parse($last_used->created_at)->diffForHumans()
+                    ])->merge($routines[$key]);
+            } 
+            else {
+                $routines[$key] = collect(['last_used' => 'N/A'])->merge($routines[$key]);
+                $routines[$key] = collect(['last_used_sortdate' => '0'])->merge($routines[$key]);
+            }
+        }
+
+
+        $muscleGroups = Routine::where([
+                ['routines.user_id', '=', Auth::id()],
+                ['routines.active', '=', 1],
+            ])
+            ->orderBy('routines.routine_name', 'ASC')
+            ->join('routine_junctions', 'routine_junctions.routine_id', '=', 'routines.id')
+            ->get();
+
+        $sortMuscleGroups = [];
+        $topMuscleGroup = [];
+        $muscleReference = ['legs','chest','back','shoulders','abs','arms'];
+
+        // Adds all IDs to topMuscleGroup
+        foreach ($routines as $value) {
+            $topMuscleGroup[$routines[$key]['id']] = [
+                'legs' => 0,
+                'chest' => 0,
+                'back' => 0,
+                'shoulders' => 0,
+                'abs' => 0,
+                'arms' => 0
+            ];
+        }
+
+        // Creates the array
+        foreach ($muscleGroups as $key => $value) {
+            $sortMuscleGroups[$key] = [
+                'muscle_group' => $value->muscle_group,
+                'routine_id' => $value->routine_id
+            ];
+        }
+
+        foreach ($sortMuscleGroups as $value) {
+            if (isset($topMuscleGroup[$value['routine_id']][$value['muscle_group']])) {
+                if ($value['muscle_group'] == 'biceps' || $value['muscle_group'] == 'triceps') {
+                    dd("hit");
+                    $topMuscleGroup[$value['routine_id']]['arms']
+                        = $topMuscleGroup[$value['routine_id']]['arms'] + 1;
+                } else {
+                    $topMuscleGroup[$value['routine_id']][$value['muscle_group']] 
+                        = $topMuscleGroup[$value['routine_id']][$value['muscle_group']] + 1;
+                }
+            } else {
+                if ($value['muscle_group'] == 'biceps' || $value['muscle_group'] == 'triceps') {
+                    $topMuscleGroup[$value['routine_id']]['arms'] = 1;
+                } else {
+                    $topMuscleGroup[$value['routine_id']][$value['muscle_group']] = 1;
+                }
+            }
+        }
+
+        // Sorts the array
+        foreach ($topMuscleGroup as $key => $value) {
+            arsort($topMuscleGroup[$key]);
+        }
+	 	
         $nrInactive = Routine::where([
                 ['user_id', '=', Auth::id()],
                 ['active', '=', 0],
@@ -49,11 +132,11 @@ class WorkoutController extends Controller
         ];
 
         return view('workouts.selectWorkout', [
-            'topNav'     => $topNav,
-            'routines'   => $routines,
-            'junctions'  => $junctions,
-            'nrInactive' => $nrInactive,
-            'brukerinfo' => $brukerinfo
+            'topNav'         => $topNav,
+            'routines'       => $routines,
+            'topMuscleGroup' => $topMuscleGroup,
+            'nrInactive'     => $nrInactive,
+            'brukerinfo'     => $brukerinfo
 		]);
     }
 
