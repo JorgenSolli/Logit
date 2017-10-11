@@ -49,7 +49,7 @@ var saveWorkout = function(form, data, id) {
 			    });
 
 				// Calls cancelExercise to clear current view and load exercise-list
-			    cancelExercise("#exercises");
+			    cancelExercise();
 			    $("#" + data.id).attr('data-status', 'completed');
 			    setIconStatus();
 			}
@@ -57,16 +57,18 @@ var saveWorkout = function(form, data, id) {
 	});
 }
 
-var cancelExercise = function(jumpTarget = "#") {
-	$("#data").empty();
-	$(".ps-container").scrollTop(0);
-	$(".ps-container").perfectScrollbar('update');
-	$("#exercises").slideDown();
-	// Jumps to anchor
-	location.href = jumpTarget;
+var goToAnchor = function(target="#") {
+	location.href = target;
 }
 
-$(document).ready(function(){
+var cancelExercise = function() {
+	$("#data").empty();
+	$("#exercises").slideDown();
+	// Jumps to anchor
+	goToAnchor("#exercises");
+}
+
+$(document).ready(function() {
 	$("#exercises a").on('click', function() {
 		var obj = $(this);
 		var exerciseId = obj.attr('id');
@@ -87,6 +89,9 @@ $(document).ready(function(){
 				$('.selectpicker').selectpicker({});
 				obj.html(exercise).removeClass('disabled');
 			},
+			complete: function(){
+				goToAnchor("#data");
+			}
 		})
 	});
 
