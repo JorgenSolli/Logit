@@ -47,7 +47,7 @@
                               Friends since {{ Carbon\Carbon::parse($friend->created_at)->format('d M Y') }}
                           </p>
                           <a id="{{ $friend->id }}" class="compareStats btn btn-sm btn-primary disabled">
-                            <i class="material-icons">compare_arrows</i> Compare stats (comming soon)
+                            <i class="material-icons">compare_arrows</i> Compare stats (coming soon)
                           </a>
 
                           <a id="{{ $friend->id }}" class="removeFriend btn btn-sm btn-danger">
@@ -103,7 +103,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-8">
-                    <input id="searchString" type="text" class="form-control" placeholder="Search by email or name"> 
+                    <input id="searchString" type="text" class="form-control" placeholder="Search by email or name">
                   </div>
 
                   <div class="col-md-4">
@@ -114,7 +114,7 @@
               </div>
 
               <div id="people-result" class="table-responsive">
-                
+
               </div>
             </div>
           </div>

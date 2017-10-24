@@ -6,7 +6,7 @@
             <h4 class="p-l-md">Show statistics for</h4>
         </div>
     </div>
-      
+
     <div class="row">
         <div class="col-md-2 sm-6 col-xs-6">
             <select id="statistics-type" class="selectpicker" data-style="btn btn-primary" title="Single Select" data-size="7">
@@ -22,7 +22,7 @@
             <select id="statistics-month" class="selectpickerAjax" data-style="btn btn-primary" title="Single Select" data-size="7"></select>
         </div>
     </div>
-      
+
     <div class="card">
         <div class="card-header card-header-icon" data-background-color="blue">
             <i class="material-icons">timeline</i>
@@ -162,7 +162,7 @@
             title: 'Welcome to Logit!',
             type: 'info',
             html:
-                'Since this is the first time loggin in, I suggest you head over to the' +
+                'Since this is the first time loggin in, I suggest you head over to the ' +
                 '<a href="/user">My profile</a> and <a href="/user/settings">Settings</a> page to get you started ' +
                 '(Click on your name on the left side).<br><br> ' +
                 "Once that's done you can head over to <a href='/dashboard/my_routines'>My Routines</a>!",
