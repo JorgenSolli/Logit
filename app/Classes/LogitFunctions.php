@@ -16,7 +16,7 @@ class LogitFunctions {
     {
         if ($type === "year") {
             $getMonth = [
-                'Jan' => 0, 
+                'Jan' => 0,
                 'Feb' => 1,
                 'Mar' => 2,
                 'Apr' => 3,
@@ -39,13 +39,13 @@ class LogitFunctions {
                 }
                 return 28;
             }
-            
+
             # Sets up the expected dataformat
             $monthData = collect([
                 'Jan' => [
                     'int' => 1,
                     'days' => 31
-                ], 
+                ],
                 'Feb' => [
                     'int' => 2,
                     'days' => is_leap_year($year)
@@ -89,10 +89,27 @@ class LogitFunctions {
                 'Dec' => [
                     'int' => 12,
                     'days' => 31
-                ] 
+                ]
             ]);
 
             return $monthData;
         }
+    }
+
+    public static function parseMinutes ($minutes, $format = '%02d:%02d') {
+        if ($minutes < 1) {
+            return;
+        }
+        $hours = floor($minutes / 60);
+        $minutes = ($minutes % 60);
+
+        return sprintf($format, $hours, $minutes);
+    }
+
+    public static function parseRestTime ($time, $format = '%02d:%02d') {
+        $minutes = floor($time);
+        $seconds = round(60*($time-$minutes));
+
+        return sprintf($format, $minutes, $seconds);
     }
 }
