@@ -13,13 +13,13 @@
 
           <div class="data-text text-center">
             <h1 id="avg_hour" class="m-b-0">
-              <span id="avg_hr">{{ $hours }}</span>:<span id="avg_min">{{ $minutes }}</span>
+              {{ $time }}
             </h1>
             <h1 class="m-t-0">
               <small>Hour/Minute</small>
             </h1>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -36,13 +36,13 @@
             <h1 class="m-b-0">{{ $avgRestTime }}</h1>
             <h1 class="m-t-0">
               @if ($avgRestTime > 1)
-                <small>Minutes</small>
+                <small>Minutes/Seconds</small>
               @else
-                <small>Minute</small>
+                <small>Minute/Seconds</small>
               @endif
             </h1>
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
         </div>
         <div class="card-content">
           <h4 class="card-title">Exercises Completed</h4>
-          
+
           <div class="data-text text-center">
             <h1 class="m-b-0">{{ $totalExercises }}</h1>
             <h1 class="m-t-0">

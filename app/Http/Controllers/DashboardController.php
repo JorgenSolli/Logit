@@ -576,7 +576,13 @@ class DashboardController extends Controller
                 foreach ($workout->junction as $junction) {
                     array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
                     if ($show_weight == "true") {
-                        array_push($result['series'][0], $junction->weight);
+                        $weight = 0;
+                        if ($junction->weight_type === "assisted") {
+                            $weight = -1 * $junction->weight;
+                        } else {
+                            $weight = $junction->weight;
+                        }
+                        array_push($result['series'][0], $weight);
                     }
 
                     if ($show_reps == "true") {
@@ -606,13 +612,12 @@ class DashboardController extends Controller
             $result['max'] = ($weightMax < $repMax) ? $repMax + 10 : $weightMax + 10;
             $result['low'] = ($weightMin > $repMin) ? $repMin - 10 : $weightMin - 10;
 
-            // If the low value is below 0, set it to 0. We're not lifting or repping in the negavite here...
-            $result['low'] = ($result['low'] < 0) ? $result['low'] = 0 : $result['low'];
+
+            // $result['low'] = ($result['low'] < 0) ? $result['low'] = 0 : $result['low'];
         }
         else {
             $result['success'] = false;
         }
-
         return $result;
     }
 }

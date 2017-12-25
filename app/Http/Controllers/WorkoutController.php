@@ -5,6 +5,7 @@ namespace Logit\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Logit\Classes\LogitFunctions;
 use Logit\RoutineJunction;
 use Logit\WorkoutJunction;
 use Logit\Settings;
@@ -48,11 +49,11 @@ class WorkoutController extends Controller
                 $routines[$key] = collect([
                     'last_used' => Carbon::parse($last_used->created_at)->diffForHumans()
                     ])->merge($routines[$key]);
-                
+
                 $routines[$key] = collect([
                     'last_used_sortdate' => Carbon::parse($last_used->created_at)->diffForHumans()
                     ])->merge($routines[$key]);
-            } 
+            }
             else {
                 $routines[$key] = collect(['last_used' => 'N/A'])->merge($routines[$key]);
                 $routines[$key] = collect(['last_used_sortdate' => '0'])->merge($routines[$key]);
@@ -99,7 +100,7 @@ class WorkoutController extends Controller
                     $topMuscleGroup[$value['routine_id']]['arms']
                         = $topMuscleGroup[$value['routine_id']]['arms'] + 1;
                 } else {
-                    $topMuscleGroup[$value['routine_id']][$value['muscle_group']] 
+                    $topMuscleGroup[$value['routine_id']][$value['muscle_group']]
                         = $topMuscleGroup[$value['routine_id']][$value['muscle_group']] + 1;
                 }
             } else {
@@ -115,7 +116,7 @@ class WorkoutController extends Controller
         foreach ($topMuscleGroup as $key => $value) {
             arsort($topMuscleGroup[$key]);
         }
-	 	
+
         $nrInactive = Routine::where([
                 ['user_id', '=', Auth::id()],
                 ['active', '=', 0],
@@ -290,7 +291,7 @@ class WorkoutController extends Controller
             ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
             ->orderBy('workouts.created_at', 'DESC')
             ->get();
-            
+
         $topNav = [
             0 => [
                 'url'  => '/dashboard/workouts',
@@ -355,7 +356,7 @@ class WorkoutController extends Controller
                         // If the current exercise if of type band, se the weight to 0.
                         if ($exercise_specific['weight'] === null && $exercise_specific['weight_type'] === 'band') {
                             $exercise->weight       = 0;
-                        } 
+                        }
                         else {
                             $exercise->weight       = $exercise_specific['weight'];
                         }
@@ -435,17 +436,8 @@ class WorkoutController extends Controller
             ->get()
             ->count();
 
-        $avgRestTime = $minutes / $totalSets;
-
-        $hours = floor($minutes / 60);
-        if ($hours < 10) {
-            $hours = sprintf("%02d", $hours);
-        }
-
-        $minutes = ($minutes % 60);
-        if ($minutes < 10) {
-            $minutes = sprintf("%02d", $minutes);
-        }
+        $avgRestTime = LogitFunctions::parseRestTime($minutes / $totalSets);
+        $time = LogitFunctions::parseMinutes($minutes);
 
         $topNav = [
             0 => [
@@ -466,8 +458,7 @@ class WorkoutController extends Controller
             'brukerinfo'     => $brukerinfo,
             'topNav'         => $topNav,
             'workout'        => $workout,
-            'hours'          => $hours,
-            'minutes'        => $minutes,
+            'time'           => $time,
             'avgRestTime'    => $avgRestTime,
             'totalExercises' => $totalExercises
         ]);
