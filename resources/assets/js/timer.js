@@ -10,13 +10,13 @@ $.ajax({
 
 var timerHtml = '<div id="timer">' +
     '<div class="row">' +
-      '<div class="col-xs-6 text-center">' +
+      '<div class="col-xs-4 text-center">' +
         '<span id="timer-minutes">00</span>:<span id="timer-seconds">00</span>' +
       '</div>' +
-      '<div class="col-xs-3">' +
+      '<div class="col-xs-4 text-center">' +
         '<i id="timer-play" class="fa fa-play"></i>' +
       '</div>' +
-      '<div class="col-xs-3">' +
+      '<div class="col-xs-4 text-center">' +
         '<i id="timer-reset" class="fa fa-repeat"></i>' +
       '</div>' +
     '</div>' +
