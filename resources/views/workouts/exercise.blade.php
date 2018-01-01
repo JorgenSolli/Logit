@@ -114,6 +114,7 @@
 @elseif ($exercise[0])
 	@unless (session($exercise[0]->superset_name))
 		<h1>You have already finished this exercise</h1>
+		<a id="cancelExercise" style="width:100%" class="btn btn-white">Go back</a>
 	@else
 		<form action="/api/exercise/{{ $routineId[0]['routine_id'] }}" method="POST">
 			{{ csrf_field() }}

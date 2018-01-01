@@ -46,11 +46,15 @@ class ExerciseController extends Controller
 
         if ($type === 'superset') {
             $ssName = $exercise->superset_name;
+            $ri = $exercise->routine_id; 
+            
             $exercise = RoutineJunction::where([
                 ['user_id', Auth::id()],
+                ['routine_id', $ri],
                 ['type', 'superset'],
                 ['superset_name', $ssName]
             ])->get();
+            
             $supersetsCount = $exercise->count();
             $nrOfSets = $exercise[0]->goal_sets;
         } 
@@ -58,6 +62,7 @@ class ExerciseController extends Controller
             $supersetsCount = 0;
             $nrOfSets = $exercise->goal_sets;
         }
+
 
 
         if ($type === 'superset') {
