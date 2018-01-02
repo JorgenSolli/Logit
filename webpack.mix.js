@@ -19,6 +19,7 @@ mix.combine([
 	'node_modules/tether/dist/js/tether.min.js',
 	'node_modules/jquery-ui-dist/jquery-ui.min.js',
 	'node_modules/moment/min/moment.min.js',
+	'node_modules/chart.js/dist/Chart.min.js',
 	'node_modules/bootstrap/dist/js/bootstrap.min.js',
 	'node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js',
 	'node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js',

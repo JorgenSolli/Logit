@@ -60,39 +60,55 @@ var musclegroupsPiechart = function(labels, series) {
   Chartist.Pie('#musclegroupsPiechart', dataPreferences, optionsPreferences);
 }
 
-var compareExerciseChart = function(labels, series, low, max) {
-  dataCompareExerciseChart = {
-    labels: labels,
-    series: series
-  };
-
-  optionsCompareExerciseChart = {
-    lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-    }),
-    axisY: {
-        showGrid: true,
-        offset: 40
-    },
-    axisX: {
-        showGrid: false,
-    },
-    low: low,
-    high: max,
-    showPoint: true,
-    height: '200px',
-    plugins: [
-        Chartist.plugins.tooltip({
-            tooltipOffset: {
-                y: 120
-            }
-        })
-    ]
-  };
-
-  var compareExerciseChart = new Chartist.Line('#compareExerciseChart', dataCompareExerciseChart, optionsCompareExerciseChart);
-
-  md.startAnimationForLineChart(compareExerciseChart); 
+var chart;
+var compareExerciseChart = function(labels, series, exercise) {
+    var ctx = $("#compareExerciseChart");
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Weight',
+                data: series[0],
+                borderWidth: 2,
+                borderColor: 'rgb(54, 162, 235)',
+                backgroundColor: 'rgba(54, 162, 235, 0.15)',
+                fill: false,
+            },
+            {
+                label: 'Reps',
+                data: series[1],
+                borderWidth: 2,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.15)',
+                fill: false,
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                fontFamily: 'Open Sans',
+                fontSize: 25,
+                fontColor: '#3C4858',
+                text: 'Your progress for ' + exercise
+            },
+            layout: {
+                padding: {
+                    top: 0,
+                    right: 10,
+                    bottom: 5,
+                    left: 5
+                }
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            responsiveAnimationDuration: 100
+        }
+    });
 }
 
 $(document).ready(function() {
@@ -111,14 +127,6 @@ $(document).ready(function() {
     $(document).on('click', '#show_active_exercises', function() {
         show_active_exercises = show_active_exercises ? false : true;
         populateCompareExercises();
-    });
-    $(document).on('click', '#show_reps', function() {
-        show_reps = show_reps ? false : true;
-        compareExercise();
-    });
-    $(document).on('click', '#show_weight', function() {
-        show_weight = show_weight ? false : true;
-        compareExercise();
     });
 
     for (var i = thisYear; i >= APP_CREATED_AT; i--) {
@@ -146,7 +154,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#statistics-type, statistics-year, #statistics-month").on('change', function() {
+    $("#statistics-type, #statistics-year, #statistics-month").on('change', function() {
         getGraphData();
         compareExercise();
         populateCompareExercises();
@@ -170,9 +178,15 @@ $(document).ready(function() {
                 show_weight: show_weight,
             },
             success: function(data) {
+                if ($("#compareExerciseChart").html().length == 0) {
+                    $("#compareExerciseChart").parent().height(300);
+                }
+
                 if (data.success) {
-                    $("#compareExerciseChart").empty();
-                    compareExerciseChart(data.labels, data.series, data.low, data.max);
+                    if (chart) {
+                        chart.destroy();
+                    }
+                    compareExerciseChart(data.labels, data.series, data.exercise);
                 }
                 else {
                     $("#compareExerciseChart").html("<h3 style='margin: 0 0 10px 20px;'>No data for this exercise!</h3>");

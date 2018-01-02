@@ -535,8 +535,7 @@ class DashboardController extends Controller
                 [],
                 []
             ],
-            'low' => 0,
-            'max' => 0,
+            'exercise' => null,
             'success' => true
         );
 
@@ -592,28 +591,8 @@ class DashboardController extends Controller
             }
         }
 
-        /* If we actually have data to work with */
-        $weightMax = 0;
-        $weightMin = 0;
-        $repMax = 0;
-        $repMin = 0;
         if (isset($result['series'][0]) || isset($result['series'][1])) {
-
-            if (isset($result['series'][0][0])) {
-                $weightMax = max($result['series'][0]);
-                $weightMin = min($result['series'][0]);
-            }
-
-            if (isset($result['series'][1][0])) {
-                $repMax = max($result['series'][1]);
-                $repMin = min($result['series'][1]);
-            }
-
-            $result['max'] = ($weightMax < $repMax) ? $repMax + 10 : $weightMax + 10;
-            $result['low'] = ($weightMin > $repMin) ? $repMin - 10 : $weightMin - 10;
-
-
-            // $result['low'] = ($result['low'] < 0) ? $result['low'] = 0 : $result['low'];
+            $result['exercise'] = $exercise;
         }
         else {
             $result['success'] = false;

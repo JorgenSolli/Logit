@@ -124,25 +124,11 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-sm-2 col-xs-4">
-                    <div class="checkbox">
-                        <label>
-                            <input id="show_reps" type="checkbox" name="optionsCheckboxes" checked="">
-                            Show reps
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-2 col-xs-4">
-                    <div class="checkbox">
-                        <label>
-                            <input id="show_weight" type="checkbox" name="optionsCheckboxes" checked="">
-                            Show weight
-                        </label>
-                    </div>
-                </div>
             </div>
         </div>
-        <div id="compareExerciseChart" class="ct-chart ct-chart-rotate-labels"></div>
+        <div style="position: relative; width: 100%; height: 0px">
+            <canvas id="compareExerciseChart"></canvas>
+        </div>
     </div>
 @endsection
 

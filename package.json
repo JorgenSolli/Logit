@@ -30,7 +30,7 @@
     "bootstrap-sass": "^3.3.7",
     "bootstrap-select": "^1.12.4",
     "bower": "^1.8.0",
-    "chart.js": "^2.5.0",
+    "chart.js": "^2.7.1",
     "chartist": "^0.11.0",
     "chartist-plugin-axistitle": "^0.0.1",
     "chartist-plugin-threshold": "^0.0.2",
