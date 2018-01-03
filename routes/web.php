@@ -17,10 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('register/success', 'Auth\RegisterController@checkEmail');
-Route::post('register/resend', 'Auth\RegisterController@resend');
-Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
-Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+Route::get('/register/success', 'Auth\RegisterController@checkEmail');
+Route::post('/register/resend', 'Auth\RegisterController@resend');
+Route::get('/email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
+Route::get('/email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
 
 Route::group(['middleware' => ['isVerified']], function () {
 	/* Dashboard */
@@ -40,13 +40,13 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::get('/user/settings/get', 'SettingsController@getSettings');
 
 	/* Friends */
-	Route::get('dashboard/friends', 'FriendsController@viewFriends');
-	Route::get('dashboard/friends/friend/{friendId}', 'FriendsController@viewFriend');
-	Route::get('dashboard/friends/findFriends', 'FriendsController@findFriends');
-	Route::get('dashboard/friends/sendRequest', 'FriendsController@sendRequest');
-	Route::get('dashboard/friends/respondRequest', 'FriendsController@respondRequest');
-	Route::get('api/friends/removeFriend', 'FriendsController@removeFriend');
-	Route::post('dashboard/friends/share-routine', 'FriendsController@shareRoutine');
+	Route::get('/dashboard/friends', 'FriendsController@viewFriends');
+	Route::get('/dashboard/friends/friend/{friendId}', 'FriendsController@viewFriend');
+	Route::get('/dashboard/friends/findFriends', 'FriendsController@findFriends');
+	Route::get('/dashboard/friends/sendRequest', 'FriendsController@sendRequest');
+	Route::get('/dashboard/friends/respondRequest', 'FriendsController@respondRequest');
+	Route::get('/api/friends/removeFriend', 'FriendsController@removeFriend');
+	Route::post('/dashboard/friends/share-routine', 'FriendsController@shareRoutine');
 
 	/* Routines */
 	Route::get('/dashboard/my_routines', 'RoutineController@routines');
@@ -93,5 +93,5 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::post('/api/notifications/clear/', 'ApiController@clearNotification');
 
 	/* Dev paths */
-	Route::get('showSession', 'DevController@showSession');
+	Route::get('/showSession', 'DevController@showSession');
 });
