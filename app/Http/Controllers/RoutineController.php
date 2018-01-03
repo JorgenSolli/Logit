@@ -25,7 +25,17 @@ class RoutineController extends Controller
     public function routines ()
     {
         $brukerinfo = Auth::user();
-        $routines = Routine::where('user_id', Auth::id())
+        $routines = Routine::where([
+                ['user_id', Auth::id()],
+                ['pending', 0],
+            ])
+            ->orderBy('routines.routine_name', 'asc')
+            ->get();
+
+        $pending = Routine::where([
+                ['user_id', Auth::id()],
+                ['pending', 1],
+            ])
             ->orderBy('routines.routine_name', 'asc')
             ->get();
 
@@ -69,7 +79,8 @@ class RoutineController extends Controller
         return view('routines.routines', [
             'topNav'     => $topNav,
             'brukerinfo' => $brukerinfo,
-            'routines'   => $routines
+            'routines'   => $routines,
+            'pending'    => $pending,
         ]);
     }
 
@@ -91,6 +102,20 @@ class RoutineController extends Controller
             'topNav'     => $topNav,
             'brukerinfo' => $brukerinfo,
         ]);
+    }
+
+    public function acceptRoutine ($routineId)
+    {
+        $routine = Routine::where('id', $routineId)->firstOrFail();
+
+        if (!$routine) {
+            abort(403, "You are not the owner of this routine");
+        }
+
+        $routine->pending = 0;
+        $routine->save();
+
+        return back()->with('success', 'Routine added to your collection.');
     }
 
     public function insertRoutine (Request $request)

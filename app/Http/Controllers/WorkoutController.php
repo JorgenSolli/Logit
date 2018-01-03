@@ -32,6 +32,7 @@ class WorkoutController extends Controller
     	$routines = Routine::where([
                 ['user_id', '=', Auth::id()],
                 ['active', '=', 1],
+                ['pending', 0],
             ])
             ->orderBy('routine_name', 'ASC')
     	 	->get();

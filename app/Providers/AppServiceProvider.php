@@ -2,6 +2,8 @@
 
 namespace Logit\Providers;
 
+use Logit\Notification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -15,6 +17,23 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        
+        view()->composer('layouts.topnav', function($view) {
+            $notifications = Notification::where([
+                ['user_id', Auth::id()],
+                ['read', 0],
+            ])->get();
+            
+            $count = Notification::where([
+                ['user_id', Auth::id()],
+                ['read', 0],
+            ])->count();
+            
+            $view->with([
+                'notifications' => $notifications,
+                'notificationsCount' => $count,
+            ]);
+        });
     }
 
     /**

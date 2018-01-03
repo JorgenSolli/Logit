@@ -46,17 +46,12 @@
                           <p class="card-description">
                               Friends since {{ Carbon\Carbon::parse($friend->created_at)->format('d M Y') }}
                           </p>
-                          <a id="{{ $friend->id }}" class="compareStats btn btn-sm btn-primary disabled">
-                            <i class="material-icons">compare_arrows</i> Compare stats (coming soon)
-                          </a>
-
-                          <a id="{{ $friend->id }}" class="removeFriend btn btn-sm btn-danger">
-                            <i class="material-icons">close</i> Remove friend
+                          <a href="/dashboard/friends/friend/{{ $friend->user_id }}" class="btn btn-sm btn-primary">
+                            Details
                           </a>
                         </div>
                       </div>
                     </div>
-
                   @endforeach
                 </div>
               @else

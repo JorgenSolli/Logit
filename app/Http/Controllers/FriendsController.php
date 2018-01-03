@@ -4,8 +4,10 @@ namespace Logit\Http\Controllers;
 
 use Logit\User;
 use Logit\Friend;
+use Logit\Routine;
 use Logit\Settings;
 use Logit\Notification;
+use Logit\RoutineJunction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +26,7 @@ class FriendsController extends Controller
 				['pending', 0]
 			])
 			->join('users', 'friends.user_id', 'users.id')
-			->select('friends.id', 'friends.created_at', 'users.name', 'users.email')
+			->select('friends.id', 'friends.user_id', 'friends.created_at', 'users.name', 'users.email')
 			->get();
 
 		// Finds people that are trying to be your friend
@@ -42,12 +44,98 @@ class FriendsController extends Controller
             ]
         ];
 
-    	return view('friends', [
+    	return view('friends.friends', [
     		'brukerinfo' => $brukerinfo,
     		'topNav'	 => $topNav,
     		'friends' 	 => $friends,
     		'pending' 	 => $pending,
 		]);
+    }
+
+    /**
+     * Grab all friends connected to Authed user
+     * @param Int $friendId the friend to view
+     * @return \Illuminate\Http\Response
+     */
+    public function viewFriend ($friendId)
+    {
+    	$brukerinfo = Auth::user();
+
+    	if (!Friend::where([ ['user_id', Auth::id()], ['friends_with', $friendId] ])->first()) {
+    		abort(403, 'You need to be friends with the person to view this page');
+    	}
+
+    	$friend = User::where('id', $friendId)->first();
+
+    	$routines = Routine::where('user_id', Auth::id())->get();
+
+    	$topNav = [
+            0 => [
+                'url'  => '/dashboard/friends/',
+                'name' => 'Friends'
+            ],
+            1 => [
+            	'url'  => '/dashboard/friends/friend/' + $friendId,
+                'name' => $friend->name
+            ]
+        ];
+
+    	return view('friends.friend', [
+    		'brukerinfo' => $brukerinfo,
+    		'routines'	 => $routines,
+    		'topNav'	 => $topNav,
+    		'friend' 	 => $friend,
+    	]);
+    }
+
+    /**
+     * Shared a routine with another user
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
+    public function shareRoutine (Request $request)
+    {
+		$routine = Routine::where('id', $request->routine)->firstOrFail();
+		$friend = $request->friend;
+
+		if (!Friend::where([['user_id', auth::id()], ['friends_with'], $friend])) {
+			abort(403, "You are not friends with this person!");
+		}
+		
+		// Make sure the user actually owns the routine!
+		if (!$routine->user_id == Auth::id()) {
+			abort(403, "You do now own this routine!");
+		}
+
+		$junctions = RoutineJunction::where('routine_id', $routine->id)->get();
+
+		$shareRoutine = $routine->replicate();
+		$shareRoutine->user_id = $friend;
+		$shareRoutine->sharer = Auth::id();
+		$shareRoutine->pending = 1;
+		$shareRoutine->save();
+
+		$routineId = $shareRoutine->id;
+
+		foreach ($junctions as $junction) {
+			$shareRoutineJunction = $junction->replicate();
+			$shareRoutineJunction->user_id = $friend;
+			$shareRoutineJunction->routine_id = $routineId;
+			$shareRoutineJunction->save();
+		}
+
+		$notify = new Notification;
+		$notify->user_id = $friend;
+		$notify->content = Auth::user()->name . " has shared a routine with you!";
+		$notify->icon = 'accessibility';
+		$notify->url = '/dashboard/my_routines';
+
+		if ($notify->save()) {
+			return back()->with('script_success', 'Routine successfully shared.');
+		} else {
+			return back()->with('script_danger', 'Something went wrong. Please try again.');
+		}
     }
 
     /**
