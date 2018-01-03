@@ -46,7 +46,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::get('/dashboard/friends/sendRequest', 'FriendsController@sendRequest');
 	Route::get('/dashboard/friends/respondRequest', 'FriendsController@respondRequest');
 	Route::get('/api/friends/removeFriend', 'FriendsController@removeFriend');
-	Route::post('/dashboard/friends/share-routine', 'FriendsController@shareRoutine');
+	Route::post('/dashboard/friends/shareRoutine', 'FriendsController@shareRoutine');
 
 	/* Routines */
 	Route::get('/dashboard/my_routines', 'RoutineController@routines');

@@ -28,7 +28,7 @@
                 <div class="card-content">
                     <h4 class="card-title">Share routines</h4>
 
-                    <form action="/dashboard/friends/share-routine/" method="POST">
+                    <form action="/dashboard/friends/shareRoutine" method="POST">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-sm-9">
