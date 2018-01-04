@@ -60,6 +60,7 @@ var musclegroupsPiechart = function(labels, series) {
   Chartist.Pie('#musclegroupsPiechart', dataPreferences, optionsPreferences);
 }
 
+// Define chart here so we can destroy it later
 var chart;
 var compareExerciseChart = function(labels, series, exercise) {
     var ctx = $("#compareExerciseChart");

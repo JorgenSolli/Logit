@@ -176,6 +176,19 @@
 		      	@endif
 			</div>
 		</div>
+
+		<div class="card">
+			<div class="card-header card-header-icon" data-background-color="green">
+				<i class="material-icons">pregnant_woman</i>
+			</div>
+			<div class="card-content">
+				<h4 class="card-title">Your progress</h4>
+				<div class="toolbar"></div>
+				<div style="position: relative; width: 100%; height: 450px">
+					<canvas id="measurementProgress"></canvas>
+				</div>
+			</div>
+		</div>
 	</div>
 
 @endsection

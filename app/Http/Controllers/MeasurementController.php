@@ -4,10 +4,9 @@ namespace Logit\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use Logit\Measurement;
 use Logit\Settings;
-use Carbon;
+use Carbon\Carbon;
 
 class MeasurementController extends Controller
 {
@@ -30,7 +29,7 @@ class MeasurementController extends Controller
     public function measurements ()
     {
 		$brukerinfo = Auth::user();
-        $dateNow = Carbon\Carbon::now();
+        $dateNow = Carbon::now();
         $settings = Settings::where('user_id', $brukerinfo->id)->first();
 
         if ($settings) {
@@ -69,6 +68,46 @@ class MeasurementController extends Controller
             'unit_weight'   => $unit_weight,
     		'topNav' 	    => $topNav
 		]);
+    }
+
+    public function getMeasurements ()
+    {
+        $result = array(
+            'labels' => [],
+            'series' => [
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+            ]
+        );
+
+        $measurements = Measurement::where('user_id', Auth::id())->get();
+
+        foreach ($measurements as $measurement) {
+            array_push($result['labels'], Carbon::parse($measurement->created_at)->format('d/m/y'));
+
+            array_push($result['series'][0], $measurement->weight);
+            array_push($result['series'][1], $measurement->arms);
+            array_push($result['series'][2], $measurement->calves);
+            array_push($result['series'][3], $measurement->body_fat);
+            array_push($result['series'][4], $measurement->chest);
+            array_push($result['series'][5], $measurement->thighs);
+            array_push($result['series'][6], $measurement->neck);
+            array_push($result['series'][7], $measurement->waist);
+            array_push($result['series'][8], $measurement->hips);
+            array_push($result['series'][9], $measurement->shoulders);
+            array_push($result['series'][10], $measurement->forearms);
+        }
+
+        return $result;
     }
 
     /**

@@ -72,6 +72,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::get('/dashboard/measurements', 'MeasurementController@measurements');
 	Route::post('/dashboard/measurements/save', 'MeasurementController@saveMeasurements');
 	Route::post('/dashboard/measurements/delete', 'MeasurementController@deleteMeasurement');
+	Route::get('/dashboard/measurements/get_measurements', 'MeasurementController@getMeasurements');
 
 	/* Workouts */
 	Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts');
