@@ -121,7 +121,7 @@
                                             <i class="m-l-10 material-icons material-icons-sm pointer" 
                                                 rel="tooltip" 
                                                 data-placement="top" 
-                                                title="When doing an exercies, we look for previously completed exercies and let you know how much you lifted. Would you like us to look for the exercies strictly in your current routine, or look in all routines for the same exercise?">
+                                                title="When doing an exercise, we fetch last completed exercise and let you know how much you lifted last time. Would you like us to look for the exercise strictly in your current routine, or in all routines?">
                                                 help
                                             </i>
                                         </label>
@@ -144,7 +144,7 @@
                                             <i class="m-l-10 material-icons material-icons-sm pointer" 
                                                 rel="tooltip" 
                                                 data-placement="top" 
-                                                title="If you have dedicates sets to warmin up, allowing this will influence especially your 'Musclegroups worked out' stats">
+                                                title="If you have dedicated sets to warming up, allowing this will heavily influence your 'Musclegroups worked out' and other statistics">
                                                 help
                                             </i>
                                         </label>
