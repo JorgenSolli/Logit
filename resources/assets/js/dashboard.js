@@ -1,70 +1,98 @@
 /*  **************** Workout Activity - Line Chart ******************** */
-var initCharts = function(labels, series, max) {
-    dataWorkoutActivityChart = {
-        labels: labels,
-        series: series
-    };
-
-    optionsWorkoutActivityChart = {
-        lineSmooth: Chartist.Interpolation.cardinal({
-            tension: 0
-        }),
-        axisY: {
-            showGrid: true,
-            offset: 40,
-            onlyInteger: true
+var sessionsChart;
+var initSessionsChart = function(labels, series, meta, max, stepSize) {
+    var ctx = $("#workoutActivityChart");
+    sessionsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Sessions',
+                data: series,
+                lineTension: 0,
+                borderWidth: 2,
+                borderColor: 'rgba(45, 204, 112, 1)',
+                backgroundColor: 'rgba(45, 204, 112, 0.15)',
+                fill: true,
+            }]
         },
-        axisX: {
-            showGrid: false,
-        },
-        low: 0,
-        high: max,
-        showPoint: true,
-        height: '200px',
-        showArea: true,
-        plugins: [
-            Chartist.plugins.tooltip({
-                tooltipOffset: {
-                    y: 55
+        options: {
+            title: {
+                display: false,
+                lineHeight: 1,
+            },
+            layout: {
+                padding: {
+                    top: 1,
+                    right: 10,
+                    bottom: 5,
+                    left: 5
                 }
-            })
-        ]
-    };
-
-
-    var workoutActivityChart = new Chartist.Line(
-        '#workoutActivityChart', 
-        dataWorkoutActivityChart, 
-        optionsWorkoutActivityChart
-    );
-
-    md.startAnimationForLineChart(workoutActivityChart);
+            },
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        stepSize: stepSize,
+                        min: 0,
+                    },
+                }]
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+                callbacks: {
+                    title: function(tooltipItem, data) {
+                        var item = null;
+                        if (meta) {
+                            var label = tooltipItem[0].xLabel;
+                            item = meta[label-1]
+                        }
+                        return item;
+                    }
+                },
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            responsiveAnimationDuration: 100
+        }
+    });
 }
 
 /*  **************** Musclegroups Worked Out - Pie Chart ******************** */
-var musclegroupsPiechart = function(labels, series) {
+var musclegroupsPiechart;
+var initMusclegroupsPiechart = function(labels, series) {
+    var ctx = $("#musclegroupsPiechart");
+    musclegroupsPiechart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Musclegroup',
+                data: series,
+                pointStyle: 'rectRot',
+                backgroundColor: ['#2c9526','#00562e','#007ccf','#1e3a64','#8737ca','#cb257f','#e83400'],
+            }],
 
-  var dataPreferences = {
-    labels: labels,
-    series: series
-  };
-
-  var optionsPreferences = {
-    height: '250px',
-    chartPadding: 20,
-    labelOffset: 40,
-    labelDirection: 'explode',
-    donut: true
-  };
-
-  Chartist.Pie('#musclegroupsPiechart', dataPreferences, optionsPreferences);
+        },
+        options: {
+            responsive: true,
+            responsiveAnimationDuration: 100,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            }
+        }
+    });
 }
 
 // Define chart here so we can destroy it later
-var chart;
-var compareExerciseChart = function(labels, series, exercise) {
+var exerciseChart;
+var compareExerciseChart = function(labels, series, exercise, max) {
     var ctx = $("#compareExerciseChart");
-    chart = new Chart(ctx, {
+    exerciseChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
@@ -100,6 +128,14 @@ var compareExerciseChart = function(labels, series, exercise) {
                     bottom: 5,
                     left: 5
                 }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        stepSize: 10,
+                        max: max
+                    },
+                }]
             },
             tooltips: {
                 mode: 'index',
@@ -167,33 +203,35 @@ $(document).ready(function() {
         var month       = $("#statistics-month").val();
         var exercise    = $("#exercise_name").val();
 
-         /* Data for compare exercise chart */
-        $.ajax({
-            method: 'GET',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/api/getExerciseProgress/' + type + '/' + year + '/' + month + '/' + exercise,
-            data: {
-                show_reps: show_reps,
-                show_weight: show_weight,
-            },
-            success: function(data) {
-                if ($("#compareExerciseChart").html().length == 0) {
-                    $("#compareExerciseChart").parent().height(300);
-                }
-
-                if (data.success) {
-                    if (chart) {
-                        chart.destroy();
+        /* Data for compare exercise chart */
+        if (exercise) {
+            $.ajax({
+                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/api/getExerciseProgress/' + type + '/' + year + '/' + month + '/' + exercise,
+                data: {
+                    show_reps: show_reps,
+                    show_weight: show_weight,
+                },
+                success: function(data) {
+                    if ($("#compareExerciseChart").html().length == 0) {
+                        $("#compareExerciseChart").parent().height(300);
                     }
-                    compareExerciseChart(data.labels, data.series, data.exercise);
+
+                    if (data.success) {
+                        if (exerciseChart) {
+                            exerciseChart.destroy();
+                        }
+                        compareExerciseChart(data.labels, data.series, data.exercise, data.max);
+                    }
+                    else {
+                        $("#compareExerciseChart").html("<h3 style='margin: 0 0 10px 20px;'>No data for this exercise!</h3>");
+                    }
                 }
-                else {
-                    $("#compareExerciseChart").html("<h3 style='margin: 0 0 10px 20px;'>No data for this exercise!</h3>");
-                }
-            }
-        });
+            });
+        }
     }
 
     var populateCompareExercises = function() {
@@ -246,7 +284,10 @@ $(document).ready(function() {
             },
             url: '/api/getSessions/' + type + '/' + year + '/' + month,
             success: function(data) {
-                initCharts(data.labels, data.series, data.max);
+                if (sessionsChart) {
+                    sessionsChart.destroy();
+                }
+                initSessionsChart(data.labels, data.series, data.meta, data.max, data.stepSize);
             }
         });
 
@@ -266,15 +307,20 @@ $(document).ready(function() {
                 }
 
                 if (hasValue) {
-                    musclegroupsPiechart(data.labels, data.series);
+                    if (musclegroupsPiechart) {
+                        musclegroupsPiechart.destroy();
+                    }
+                    
+                    initMusclegroupsPiechart(data.labels, data.series);
+                    
+                    for (var i = 0; i < data.labels.length; i++) {
+                        var percent = Math.trunc(data.series[i]);
+                        $("#" + i + "-percent").text("(" + percent + "%)")
+                    }
                 } else {
                     $("#musclegroupsPiechart").html('<div class="m-l-20 m-b-10">You will get access to this chart when you finish at least one routine</div>')
                 }
 
-                for (var i = 0; i < data.labels.length; i++) {
-                    var percent = Math.trunc(data.series[i]);
-                    $("#" + i + "-percent").text("(" + percent + "%)")
-                }
             }
         });
 
