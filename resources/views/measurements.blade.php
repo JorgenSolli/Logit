@@ -115,7 +115,7 @@
 
 		<div class="card">
 			<div class="card-header card-header-icon" data-background-color="green">
-				<i class="material-icons">pregnant_woman</i>
+				<i class="material-icons">history</i>
 			</div>
 			<div class="card-content">
 				<h4 class="card-title">Measurement logs</h4>
@@ -179,7 +179,7 @@
 
 		<div class="card">
 			<div class="card-header card-header-icon" data-background-color="green">
-				<i class="material-icons">pregnant_woman</i>
+				<i class="material-icons">show_chart</i>
 			</div>
 			<div class="card-content">
 				<h4 class="card-title">Your progress</h4>
