@@ -25,7 +25,7 @@ Route::get('/email-verification/check/{token}', 'Auth\RegisterController@getVeri
 Route::group(['middleware' => ['isVerified']], function () {
 	/* Dashboard */
 	Route::get('/dashboard', 'DashboardController@dashboard');
-	Route::get('/api/getSessions/{type}/{year}/{month}', 'DashboardController@getGrapData');
+	Route::get('/api/getSessions/{type}/{year}/{month}', 'DashboardController@getTotalWorkouts');
 	Route::get('/api/getAvgGymTime/{type}/{year}/{month}', 'DashboardController@getAvgGymTime');
 	Route::get('/api/getMusclegroups/{type}/{year}/{month}', 'DashboardController@getMusclegroups');
 	Route::get('/api/getTopExercises/{type}/{year}/{month}', 'DashboardController@getTopExercises');
