@@ -30,7 +30,9 @@
         <div class="card-content">
             <h4 class="card-title">Workout Activity</h4>
         </div>
-        <div id="workoutActivityChart" class="ct-chart"></div>
+        <div style="position: relative; width: 100%; height: 200px">
+            <canvas id="workoutActivityChart"></canvas>
+        </div>
     </div>
 
     <div class="row">
@@ -63,9 +65,13 @@
                 <div class="card-header card-header-icon" data-background-color="blue">
                     <i class="material-icons">donut_large</i>
                 </div>
+
+
                 <div class="card-content">
-                    <h4 class="card-title">Musclegroups worked out</h4>
-                    <div id="musclegroupsPiechart" class="ct-chart"></div>
+                    <h4 class="card-title">Musclegroups worked out (in percent)</h4>
+                    <div style="position: relative; width: 100%; height: 200px">
+                        <canvas id="musclegroupsPiechart"></canvas>
+                    </div>
                 </div>
 
                 <div class="card-footer">

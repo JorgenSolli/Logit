@@ -95,7 +95,7 @@ class DashboardController extends Controller
      * @param  int $month specifies the mont
      * @return \Illuminate\Http\Response
      */
-    public function getGrapData ($type, $year, $month)
+    public function getTotalWorkouts ($type, $year, $month)
     {
 
         if ($type === "year") {
@@ -120,15 +120,14 @@ class DashboardController extends Controller
                     'Nov',
                     'Dec'
                 ],
-                'series' => [
-                    []
-                ],
+                'series' => [],
                 'max' => 0,
+                'stepSize' => 5,
             );
 
             # Populates the series index with months in the year
             for ($i=0; $i < 12; $i++) { 
-                array_push($result['series'][0], 0);
+                array_push($result['series'], 0);
             }
 
             # Iterates over our results and pushes the data into our array
@@ -136,11 +135,11 @@ class DashboardController extends Controller
                 // Gets the month of the current results and formats in the format specified in our getMonth array so we can match the results
                 $month = $data[$i]->created_at->format('M');
                 // Populates the series array. Using getMonth to get the correct index for the month
-                $result['series'][0][$getMonth[$month]] = $result['series'][0][$getMonth[$month]] + 1;
+                $result['series'][$getMonth[$month]] = $result['series'][$getMonth[$month]] + 1;
             }
 
             # Finds the max value and appends 1 (for cosmetic reason)
-            $result['max'] = max($result['series'][0]) + 1;
+            $result['max'] = max($result['series']) + 1;
         } 
         elseif ($type == "months") {
             # Function to fid leap year. This will affect our results
@@ -159,19 +158,17 @@ class DashboardController extends Controller
             # Initialized our output
             $result = array(
                 'labels' => [],
-                'series' => [
-                    []
-                ],
+                'series' => [],
+                'meta' => [],
                 'max' => 0,
+                'stepSize' => 1,
             );
 
             # Populates the outputArray with data specific for the specific month
             for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
                 array_push($result['labels'], $i);
-                array_push($result['series'][0], [
-                    'meta' => '', 
-                    'value' => 0
-                ]);
+                array_push($result['series'], 0);
+                array_push($result['meta'], "");
             }
 
             # Grabs the data relevant
@@ -192,22 +189,22 @@ class DashboardController extends Controller
                 }
 
                 # Subtracts 1 on the index for day, as this is naturally offset by this amount. Index starts at 0, day starts at 1
-                $result['series'][0][(int)$day - 1]['value'] = $result['series'][0][(int)$day - 1]['value'] + 1;
+                $result['series'][(int)$day - 1] = $result['series'][(int)$day - 1] + 1;
 
                 $string = $value->routine_name;
-                if ($result['series'][0][(int)$day - 1]['meta'] != "") {
+                if ($result['meta'][(int)$day - 1] != "") {
                     $comma = ", ";
-                    $string = $result['series'][0][(int)$day - 1]['meta'] .= $comma .= $string;
+                    $string = $result['meta'][(int)$day - 1] .= $comma .= $string;
                 }
 
-                $result['series'][0][(int)$day - 1]['meta'] = $string;
+                $result['meta'][(int)$day - 1] = $string;
             }
 
             # Finds the max value and appends 1 (for cosmetic reason)
             $max = 0;
-            foreach ($result['series'][0] as $key => $value) {
-                if ($value['value'] > $max - 1) {
-                    $max = $value['value'] + 1;
+            foreach ($result['series'] as $value) {
+                if ($value > $max - 1) {
+                    $max = $value + 0.1;
                 }  
             }
 
@@ -371,7 +368,7 @@ class DashboardController extends Controller
                     $index = array_search($key,array_keys($musclegroups));
                     $percent = $val / $total * 100;
 
-                    $result['series'][$index] = $percent;
+                    $result['series'][$index] = (int)$percent;
                 }
             }
         } 
@@ -428,7 +425,7 @@ class DashboardController extends Controller
                     $index = array_search($key,array_keys($musclegroups));
                     $percent = $val / $total * 100;
 
-                    $result['series'][$index] = $percent;
+                    $result['series'][$index] = (int)$percent;
                 }
             }
         }
@@ -536,7 +533,8 @@ class DashboardController extends Controller
                 []
             ],
             'exercise' => null,
-            'success' => true
+            'success' => true,
+            'max' => 0,
         );
 
         if ($type == "year") {
@@ -590,6 +588,17 @@ class DashboardController extends Controller
                 }
             }
         }
+
+        $max = 0;
+        foreach ($result['series'] as $series) {
+            foreach ($series as $value) {
+                if ($value > $max - 1) {
+                    $max = $value + 10;
+                }  
+            }
+        }
+
+        $result['max'] = $max;
 
         if (isset($result['series'][0]) || isset($result['series'][1])) {
             $result['exercise'] = $exercise;
