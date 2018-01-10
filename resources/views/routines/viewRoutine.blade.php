@@ -7,12 +7,12 @@
         <input type="hidden" value="{{ $routine->active }}" name="status" id="status">
         <input type="hidden" value="{{ $routine->id }}" name="routineId" id="routineId"> 
         @if ($routine->active == 1)
-          <button type="button" id="changeStatus" class="btn btn-default" role="button"><span class="fa fa-lock"></span> Set inactive</button>
+          <button type="button" id="changeStatus" class="btn btn-default" role="button"><i class="fal fa-lock"></i> Set inactive</button>
         @else
-          <button type="button" id="changeStatus" class="btn btn-default" role="button"><span class="fa fa-unlock"></span> Set active</button>
+          <button type="button" id="changeStatus" class="btn btn-default" role="button"><i class="fal fa-unlock"></i> Set active</button>
         @endif
-        <button type="submit" id="addRoutine" class="btn btn-success" role="button"><span class="fa fa-floppy-o"></span> Update</button>
-        <button type="button" class="btn btn-danger routine-back">Back</button>
+        <button type="submit" id="addRoutine" class="btn btn-success" role="button"><i class="fal fa-save"></i> Update</button>
+        <button type="button" class="btn btn-danger routine-back"><i class="fal fa-angle-left"></i> Back</button>
       </div>
     </div>
   </div>
@@ -45,8 +45,8 @@
               <div class="sortable-content">
                 <div class="sort-icon handle">             
                    Drag me to sort 
-                  <span class="fa fa-arrows-v"></span>
-                  <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>
+                  <span class="fal fa-arrows-v"></span>
+                  <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
                 </div>
                 <div class="form-group label-floating">
                   <label class="control-label">Superset Name</label>
@@ -64,8 +64,8 @@
                           <div class="sortable-content">
                             <div class="sort-icon handle-child">
                                 Drag me to sort
-                              <span class="fa fa-arrows-v"></span>
-                              <a class="deleteExercise deleteExercise-supserset btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>
+                              <span class="fal fa-arrows-v"></span>
+                              <a class="deleteExercise deleteExercise-supserset btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
                             </div>
 
                             <div class="row">
@@ -160,10 +160,10 @@
           <div class="card m-b-10">
             <div class="card-content">
             {{-- Excersice Name --}}
-              <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-sm fa-trash"></span></a>
+              <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-sm fa-trash"></span></a>
               <div class="sort-icon handle clearfix">
                 Drag me to sort
-                <span class="fa fa-arrows-v"></span>
+                <span class="fal fa-arrows-v"></span>
               </div>
 
               <div class="row">
@@ -254,12 +254,12 @@
         <input type="hidden" value="{{ $routine->active }}" name="status" id="status">
         <input type="hidden" value="{{ $routine->id }}" name="routineId" id="routineId"> 
         @if ($routine->active == 1)
-          <button type="button" id="changeStatus" class="btn btn-default" role="button"><span class="fa fa-lock"></span> Set inactive</button>
+          <button type="button" id="changeStatus" class="btn btn-default" role="button"><i class="fal fa-lock"></i> Set inactive</button>
         @else
-          <button type="button" id="changeStatus" class="btn btn-default" role="button"><span class="fa fa-unlock"></span> Set active</button>
+          <button type="button" id="changeStatus" class="btn btn-default" role="button"><i class="fal fa-unlock"></i> Set active</button>
         @endif
-        <button type="submit" id="addRoutine" class="btn btn-success" role="button"><span class="fa fa-floppy-o"></span> Update</button>
-        <button type="button" class="btn btn-danger routine-back">Back</button>
+        <button type="submit" id="addRoutine" class="btn btn-success" role="button"><i class="fal fa-save"></i> Update</button>
+        <button type="button" class="btn btn-danger routine-back"><i class="fal fa-angle-left"></i> Back</button>
       </div>
     </div>
   </div>

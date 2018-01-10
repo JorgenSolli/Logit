@@ -2,15 +2,15 @@ $(document).ready(function() {
     $('.datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD H:mm',
         icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-chevron-up",
-            down: "fa fa-chevron-down",
-            previous: 'fa fa-chevron-left',
-            next: 'fa fa-chevron-right',
-            today: 'fa fa-screenshot',
-            clear: 'fa fa-trash',
-            close: 'fa fa-remove'
+            time: "fal fa-clock",
+            date: "fal fa-calendar",
+            up: "fal fa-chevron-up",
+            down: "fal fa-chevron-down",
+            previous: 'fal fa-chevron-left',
+            next: 'fal fa-chevron-right',
+            today: 'fal fa-screenshot',
+            clear: 'fal fa-trash danger-color',
+            close: 'fal fa-remove'
         },
         showClear: true,
     });

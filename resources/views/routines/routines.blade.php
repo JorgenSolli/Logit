@@ -45,9 +45,9 @@
                   </td>
                   <td>
                     @if ($routine['active'] == 0)
-                      <span class="fa fa-lock"></span> Inactive
+                      <span class="fal fa-lock"></span> Inactive
                     @else
-                      <span class="fa fa-unlock"></span> Active
+                      <span class="fal fa-unlock"></span> Active
                     @endif
                   </td>
                   <td>
@@ -62,13 +62,13 @@
 
                   <td class="text-center">
                     <a class="pointer deleteRoutine" id="{{ $routine['id'] }}">
-                      <span class="fa fa-trash-o fa-lg danger-color"></span>
+                      <span class="fal fa-trash fa-lg danger-color"></span>
                     </a>
                   </td>
                   <td class="text-center">
                     <a class="viewRoutine pointer" data-toggle="modal" data-target="#viewRoutineModal">
                       <input type="hidden" value="{{ $routine['id'] }}">
-                      <span class="fa fa-pencil fa-lg success-color"></span>
+                      <span class="fal fa-pencil fa-lg success-color"></span>
                     </a>
                   </td>
                 </tr>
@@ -76,7 +76,7 @@
             </tbody>
           </table>
         </div>
-        <a class="btn btn-primary" href="my_routines/add_routine" role="button"><span class="fa fa-plus"></span> Add a routine</a>
+        <a class="btn btn-primary" href="my_routines/add_routine" role="button"><span class="fal fa-plus"></span> Add a routine</a>
       </div>
     </div>
 
@@ -115,17 +115,17 @@
                     <td class="text-center">
                       <a class="viewRoutine pointer" data-toggle="modal" data-target="#viewRoutineModal">
                         <input type="hidden" value="{{ $routine['id'] }}">
-                        <span class="fa fa-pencil fa-lg success-color"></span>
+                        <span class="fal fa-pencil fa-lg success-color"></span>
                       </a>
                     </td>
                     <td class="text-center">
                       <a href="/dashboard/my_routines/accept_routine/{{ $routine['id'] }}" class="pointer">
-                        <span class="fa fa-check fa-lg success-color"></span>
+                        <span class="fal fa-check fa-lg success-color"></span>
                       </a>
                     </td>
                     <td class="text-center">
                       <a class="pointer deleteRoutine" id="{{ $routine['id'] }}">
-                        <span class="fa fa-trash-o fa-lg danger-color"></span>
+                        <span class="fal fa-trash fa-lg danger-color"></span>
                       </a>
                     </td>
                   </tr>

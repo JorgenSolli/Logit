@@ -80,22 +80,22 @@
 							<h4 class="card-title">Core features</h4>
 							<section class="row text-center panel-specials">
 								<div class="col-sm-3 fadeIn">
-									<h4><span class="fa fa-calendar-check-o"></span> Date specific statistics</h4>
+									<h4><span class="fal fa-calendar-check"></span> Date specific statistics</h4>
 									<p>Watch your progress as time passes. See when you're not as active as you might wish to be.</p>
 								</div>
 
 								<div class="col-sm-3 fadeIn">
-									<h4><span class="fa fa-puzzle-piece"></span> Add custom Routines</h4>
+									<h4><span class="fal fa-puzzle-piece"></span> Add custom Routines</h4>
 									<p>Predifining your routine saves you a lot of typing on your phone when working out.</p>
 								</div>
 
 								<div class="col-sm-3 fadeIn">
-									<h4><span class="fa fa-heartbeat"></span> Easy workout walkthrough</h4>
+									<h4><span class="fal fa-heartbeat"></span> Easy workout walkthrough</h4>
 									<p>Focus on keeping your heartbeat up instead of spending your time entering data on your phone.</p>
 								</div>
 
 								<div class="col-sm-3 fadeIn">
-									<h4><span class="fa fa-magic"></span> Good looks</h4>
+									<h4><span class="fal fa-magic"></span> Good looks</h4>
 									<p>I've worked hard to make sure the app both works well on all devices and looks good at the same time.</p>
 								</div>
 							</section>

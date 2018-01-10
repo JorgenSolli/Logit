@@ -36,3 +36,12 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+// Colors
+.danger-color {
+	color: $brand-danger;
+}
+
+.success-color {
+	color: $brand-success;
+}

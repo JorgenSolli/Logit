@@ -33,13 +33,13 @@
                 <td class="name">{{ $workout->routine_name }}</td>
                 <td class="text-center">
                   <a id="{{ $workout->workout_id }}" class="pointer deleteWorkout">
-                    <span class="fa fa-trash-o fa-lg danger-color"></span>
+                    <span class="fal fa-trash fa-lg danger-color"></span>
                   </a>
                 </td>
                 <td class="text-center">
                   <a class="viewWorkout pointer">
                     <input type="hidden" value="{{ $workout->workout_id }}">
-                    <span class="fa fa-pencil fa-lg success-color"></span>
+                    <span class="fal fa-pencil fa-lg success-color"></span>
                   </a>
                 </td>
               </tr>

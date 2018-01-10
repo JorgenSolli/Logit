@@ -163,7 +163,7 @@
 
 									<td class="text-center">
 										<a id="{{ $measurement->id }}" class="pointer deleteMeasurement">
-											<span class="fa fa-trash-o fa-lg danger-color"></span>
+											<span class="fal fa-trash fa-lg danger-color"></span>
 										</a>
 									</td>
 								</tr>

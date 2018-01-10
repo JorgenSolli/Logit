@@ -76,13 +76,13 @@
 
                 <div class="card-footer">
                     <h6>Legend</h6>
-                    <i class="fa fa-circle ct-legend-a"></i> Back <span id="0-percent"></span>
-                    <i class="fa fa-circle ct-legend-b"></i> Biceps <span id="1-percent"></span>
-                    <i class="fa fa-circle ct-legend-c"></i> Triceps <span id="2-percent"></span>
-                    <i class="fa fa-circle ct-legend-d"></i> Abs <span id="3-percent"></span>
-                    <i class="fa fa-circle ct-legend-e"></i> Shoulders <span id="4-percent"></span>
-                    <i class="fa fa-circle ct-legend-f"></i> Legs <span id="5-percent"></span>
-                    <i class="fa fa-circle ct-legend-g"></i> Chest <span id="6-percent"></span>
+                    <i class="fas fa-circle ct-legend-a"></i> Back <span id="0-percent"></span>
+                    <i class="fas fa-circle ct-legend-b"></i> Biceps <span id="1-percent"></span>
+                    <i class="fas fa-circle ct-legend-c"></i> Triceps <span id="2-percent"></span>
+                    <i class="fas fa-circle ct-legend-d"></i> Abs <span id="3-percent"></span>
+                    <i class="fas fa-circle ct-legend-e"></i> Shoulders <span id="4-percent"></span>
+                    <i class="fas fa-circle ct-legend-f"></i> Legs <span id="5-percent"></span>
+                    <i class="fas fa-circle ct-legend-g"></i> Chest <span id="6-percent"></span>
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@
                 "Once that's done you can head over to <a href='/dashboard/my_routines'>My Routines</a>!",
             showCloseButton: true,
             showCancelButton: false,
-            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great. Thank you!'
+            confirmButtonText: '<i class="fal fa-thumbs-up"></i> Great. Thank you!'
         });
         </script>
     @endif

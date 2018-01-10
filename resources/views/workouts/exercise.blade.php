@@ -104,7 +104,7 @@
 							<a id="cancelExercise" style="width:100%" class="btn btn-danger">Cancel</a>
 						</div>
 						<div class="col-xs-8">
-							<button style="width:100%" type="button" id="saveWorkout" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
+							<button style="width:100%" type="button" id="saveWorkout" class="btn btn-success"><span class="fal fa-save"></span> Save</button>
 						</div>
 					</div>
 				</div>
@@ -190,7 +190,7 @@
 							<a id="cancelExercise" style="width:100%" class="btn btn-danger">Cancel</a>
 						</div>
 						<div class="col-xs-8">
-							<button style="width:100%" type="button" id="saveWorkout" class="btn btn-success"><span class="fa fa-floppy-o"></span> Save</button>
+							<button style="width:100%" type="button" id="saveWorkout" class="btn btn-success"><span class="fal fa-save"></span> Save</button>
 						</div>
 					</div>
 				</div>

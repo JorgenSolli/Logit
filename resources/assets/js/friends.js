@@ -62,7 +62,7 @@ $(document).ready(function() {
 		var id = $(this).parent().attr('id')
 		var obj = $(this);
 		obj.addClass('disabled');
-        obj.html('<span class="fa fa-spin fa-circle-o-notch"></span> Sending request ...');
+        obj.html('<span class="fal fa-spin fa-circle-notch"></span> Sending request ...');
 		$.ajax({
 			headers: {
 	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -94,7 +94,7 @@ $(document).ready(function() {
 					)
 
 					obj.removeClass('disabled addfriend');
-        			obj.html('<span class="fa fa-check"></span> Request sent!');
+        			obj.html('<span class="fal fa-check"></span> Request sent!');
 				}
 			}
 		})

@@ -126,8 +126,8 @@ $(document).on('click', '#addMore', function() {
         '<div class="sortable-content">' +
           '<div class="sort-icon handle clearfix">' +
               'Drag me to sort ' +
-            '<span class="fa fa-arrows-v"></span>' +
-            '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
+            '<span class="fal fa-arrows-v"></span>' +
+            '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>' +
           '</div>' +
           '<div class="row">' +
             '<div class="col-xs-12 col-sm-6">' +
@@ -202,8 +202,8 @@ $(document).on('click', '#addSuperset', function() {
             '<div class="sortable-content">' +
               '<div class="sort-icon handle">' +
                ' Drag me to sort ' +
-                '<span class="fa fa-arrows-v"></span>' +
-                '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
+                '<span class="fal fa-arrows-v"></span>' +
+                '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>' +
               '</div>' +
               '<div class="form-group label-floating">' +
                 '<label class="control-label" for="exercise_name">Superset Name</label>' +
@@ -237,8 +237,8 @@ $(document).on('click', '#addMore-superset', function() {
         '<div class="sortable-content">' +
           '<div class="sort-icon handle-child">' +
               'Drag me to sort ' +
-            '<span class="fa fa-arrows-v"></span>' +
-            '<a class="deleteExercise deleteExercise-supserset btn btn-sm btn-danger pull-right"><span class="fa fa-trash"></span></a>' +
+            '<span class="fal fa-arrows-v"></span>' +
+            '<a class="deleteExercise deleteExercise-supserset btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>' +
           '</div>' +
           '<div class="form-group label-floating">' +
             '<label class="control-label" for="exercise_name">Excersice name</label>' +
@@ -352,7 +352,7 @@ $(document).on('click', '#addRoutine', function() {
   })
 
   if (ok) {
-    $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> Saving changes ...');
+    $(this).html('<span class="fal fa-spin fa-circle-notch"></span> Saving changes ...');
   }
 
   return ok

@@ -27,7 +27,7 @@
           <div class="sortable-content">
             <div class="sort-icon handle">
               Drag me to sort
-              <span class="fa fa-arrows-v"></span>
+              <span class="fal fa-arrows-v"></span>
             </div>
             {{-- Excersice Name --}}
             <div class="form-group label-floating">
@@ -97,8 +97,8 @@
         <button id="addMore" type="button" class="btn btn-primary">Add another exercise</button>
         <button id="addSuperset" type="button" class="btn btn-primary">Add superset group</button>
         <div class="pull-right">
-          <button type="submit" id="addRoutine" class="btn btn-success" href="my_routines/add_routine" role="button"><span class="fa fa-plus"></span> Add routine</button>
-          <a class="btn btn-danger" href="/dashboard/my_routines" role="button"><span class="fa fa-ban"></span> Cancel</a>
+          <button type="submit" id="addRoutine" class="btn btn-success" href="my_routines/add_routine" role="button"><span class="fal fa-plus"></span> Add routine</button>
+          <a class="btn btn-danger" href="/dashboard/my_routines" role="button"><span class="fal fa-ban"></span> Cancel</a>
         </div>
       </div>
     </div>

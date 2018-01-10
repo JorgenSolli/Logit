@@ -1,10 +1,10 @@
 var setIconStatus = function() {
 	$('a[data-status="incomplete"').each(function(index) {
-		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fa fa-clock-o');
+		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fal fa-clock');
 	});
 
 	$('a[data-status="completed"').each(function(index) {
-		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fa fa-check');
+		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fal fa-check');
 	});
 }
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
 		var exercise = obj.html();
 		$(this).addClass('disabled');
-        $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> Getting exercise ...');
+        $(this).html('<span class="fal fa-spin fa-circle-notch"></span> Getting exercise ...');
 
 		$.ajax({
 			url: '/api/exercise/' + exerciseId,
@@ -178,7 +178,7 @@ $(document).ready(function() {
 
 		if (atLeastOne && !incompleteItems) {
 			$(this).addClass('disabled');
-            $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> finishing ...');
+            $(this).html('<span class="fal fa-spin fa-circle-notch"></span> finishing ...');
 			return window.location.href = href;
 		}
 	});
@@ -303,7 +303,7 @@ $(document).ready(function() {
 
 		if (ok) {
 			$(this).addClass('disabled');
-            $(this).html('<span class="fa fa-spin fa-circle-o-notch"></span> saving ...');
+            $(this).html('<span class="fal fa-spin fa-circle-notch"></span> saving ...');
             var form = $(this).closest('form').attr('action');
             var data = $(this).closest('form').serialize();
             var id = $(this).closest('input[name="routine_junction_id"]').val();

@@ -19,7 +19,7 @@
               <h3 class="card-title">
                 {{ $routine['routine_name'] }}
                 @if (session('gymming') == $routine['id'])
-                  ·&nbsp;<span class="fa fa-clock-o"></span><small> In progress </small>
+                  ·&nbsp;<span class="fal fa-clock"></span><small> In progress </small>
                 @endif
               </h3>
               <p class="card-description">

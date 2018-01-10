@@ -23,7 +23,7 @@
     		<div class="col-md-6 col-sm-12 m-t-15-sm clear-sm">
     			<a id="finishWorkout" href="/dashboard/workout/finish/{{ $routine_id }}" class="btn-fullwidth btn btn-lg btn-success">
             <span class="btn-label">
-              <i class="fa fa-trophy fa-lg"></i>
+              <i class="fal fa-trophy fa-lg"></i>
             </span>
             Finish and save session
           </a>
