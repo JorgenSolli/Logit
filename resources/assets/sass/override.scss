@@ -1,0 +1,11 @@
+@media (min-width: 992px) {
+	.register-page .card-signup .input-group .input-group-addon {
+    padding-top: 30px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .register-page .card-signup .input-group .input-group-addon {
+    padding-top: 10px !important;
+  }
+}
