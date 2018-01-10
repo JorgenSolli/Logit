@@ -86,12 +86,12 @@
 
 								<div class="col-sm-3 fadeIn">
 									<h4><span class="fal fa-puzzle-piece"></span> Add custom Routines</h4>
-									<p>Predifining your routine saves you a lot of typing on your phone when working out.</p>
+									<p>Predefining  your routine saves you a lot of typing on your phone when working out.</p>
 								</div>
 
 								<div class="col-sm-3 fadeIn">
 									<h4><span class="fal fa-heartbeat"></span> Easy workout walkthrough</h4>
-									<p>Focus on keeping your heartbeat up instead of spending your time entering data on your phone.</p>
+									<p>Focus on keeping your heartbeat up instead of spending your time entering redundant data on your phone.</p>
 								</div>
 
 								<div class="col-sm-3 fadeIn">
