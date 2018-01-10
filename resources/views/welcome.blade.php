@@ -24,7 +24,7 @@
 				                    </div>
 				                    <h3 class="card-title">Easy to use</h3>
 				                    <p class="card-description">
-				                        Get goin in a matter of minutes with intuitive setups.
+				                        Get going in a matter of minutes with intuitive setups.
 				                    </p>
 				                </div>
 				            </div>
