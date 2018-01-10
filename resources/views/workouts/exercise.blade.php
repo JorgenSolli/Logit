@@ -22,7 +22,7 @@
 			@endif
 
 			@for ($i = 1; $i <= $nrOfSets; $i++)
-				<div class="card m-b-10 m-t-10">
+				<div class="exercise-card card m-b-10 m-t-10">
 					<div class="card-header">
 						<h4 class="card-title">Set nr {{ $i }}</h4>
 					</div>
@@ -100,10 +100,10 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-xs-4">
+						<div class="col-xs-5">
 							<a id="cancelExercise" style="width:100%" class="btn btn-danger">Cancel</a>
 						</div>
-						<div class="col-xs-8">
+						<div class="col-xs-7">
 							<button style="width:100%" type="button" id="saveWorkout" class="btn btn-success"><span class="fal fa-save"></span> Save</button>
 						</div>
 					</div>

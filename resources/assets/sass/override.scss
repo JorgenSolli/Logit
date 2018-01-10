@@ -1,11 +1,41 @@
 @media (min-width: 992px) {
 	.register-page .card-signup .input-group .input-group-addon {
-    padding-top: 30px !important;
-  }
+		padding-top: 30px !important;
+	}
 }
 
 @media (max-width: 991px) {
-  .register-page .card-signup .input-group .input-group-addon {
-    padding-top: 10px !important;
-  }
+	.register-page .card-signup .input-group .input-group-addon {
+		padding-top: 10px !important;
+	}
+
+	.modal .modal-dialog {
+		margin-top: 30px;
+	}
+}
+
+.exercise-card .card-content {
+	padding-top: 0;
+
+	.form-group {
+		.bootstrap-select {
+			margin-top: 0;
+		}
+
+		label {
+			color: #404040;
+			margin-bottom: 0;
+		}
+
+		input {
+			padding-top: 0;
+		}
+
+		margin-top: 0;
+	}
+}
+
+/* This only works with a pre-defined timeline height. As for the current content this will work fine. */
+.timeline:before {
+    height: calc(100% - 100px);
 }
