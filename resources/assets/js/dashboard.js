@@ -15,7 +15,7 @@ $(function() {
     var show_reps   = true;
     var show_weight = true;
 
-        Dashboard = {
+    Dashboard = {
         init: function() {
             Dashboard.compareExercise();
             Dashboard.populateCompareExercises();
