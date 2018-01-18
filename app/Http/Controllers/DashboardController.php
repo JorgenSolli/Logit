@@ -142,7 +142,7 @@ class DashboardController extends Controller
             $result['max'] = max($result['series']) + 1;
         } 
         elseif ($type == "months") {
-            # Function to fid leap year. This will affect our results
+            # Function to find leap year. This will affect our results
             function is_leap_year($year) {
                 if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
                     return 29;
@@ -521,11 +521,8 @@ class DashboardController extends Controller
      * @param  string $exercise name of exercise to compare
      * @return \Illuminate\Http\Response
      */
-    public function getExerciseProgress ($type, $year, $month, $exercise, Request $request)
+    public function getExerciseProgress ($type, $year, $month, $exercise)
     {
-        $show_reps   = $request->show_reps;
-        $show_weight = $request->show_weight;
-
         $result = array(
             'labels' => [],
             'series' => [
@@ -572,19 +569,16 @@ class DashboardController extends Controller
             if ($workout->junction) {
                 foreach ($workout->junction as $junction) {
                     array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
-                    if ($show_weight == "true") {
-                        $weight = 0;
-                        if ($junction->weight_type === "assisted") {
-                            $weight = -1 * $junction->weight;
-                        } else {
-                            $weight = $junction->weight;
-                        }
-                        array_push($result['series'][0], $weight);
-                    }
 
-                    if ($show_reps == "true") {
-                        array_push($result['series'][1], $junction->reps);
+                    $weight = 0;
+                    if ($junction->weight_type === "assisted") {
+                        $weight = -1 * $junction->weight;
+                    } else {
+                        $weight = $junction->weight;
                     }
+                    array_push($result['series'][0], $weight);
+
+                    array_push($result['series'][1], $junction->reps);
                 }
             }
         }
@@ -606,6 +600,69 @@ class DashboardController extends Controller
         else {
             $result['success'] = false;
         }
+        return $result;
+    }
+
+    /**
+     * Gets the total completion ratio for finishes sessions in the specified timeframe
+     *
+     * @param  string $type specifies year or month
+     * @param  int $year specifies the year
+     * @param  int $month specifies the mont
+     * @return \Illuminate\Http\Response
+     */
+    public function getCompletionRatio ($type, $year, $month)
+    {
+        if ($type === "year") {
+            $workouts = Workout::where('user_id', Auth::id())
+                ->where( DB::raw('YEAR(created_at)'), '=', date($year) )
+                ->select('id', 'routine_id')
+                ->get();
+        }
+        else {
+            # Makes sure the month we get from out request is formated correctly
+            $selectedMonth = ucfirst($month);
+
+            # Sets up the expected dataformat
+            $monthData = LogitFunctions::parseDate($type, $year, $month);
+
+            # Gets all sessions completed in timeframe
+            $workouts = Workout::where('workouts.user_id', Auth::id())
+                ->where(DB::raw('MONTH(workouts.created_at)'), '=', date($monthData[$selectedMonth]['int']))
+                ->where(DB::raw('YEAR(workouts.created_at)'), '=', date($year))
+                ->select('id', 'routine_id')
+                ->get();
+        }
+
+        $target = 0;
+        $actual = 0;
+
+        foreach ($workouts as $workout) {
+            $target += RoutineJunction::where('routine_id', $workout->routine_id)->count();
+            $actual += WorkoutJunction::where([
+                ['workout_id', $workout->id],
+                ['set_nr', 1]
+            ])->count();
+        }
+
+        if ($target > 0 && $actual > 0) {
+            $ratio = floor(($actual / $target) * 100);
+
+            $result = [
+                "success" => true,
+                "target"  => $target,
+                "actual"  => $actual,
+                "ratio"   => $ratio,
+            ];
+        } else {
+            $result = [
+                "success" => false,
+                "msg"     => "No data for this period",
+            ];
+        }
+
+        
+
         return $result;
     }
 }

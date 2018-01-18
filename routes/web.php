@@ -30,6 +30,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::get('/api/getMusclegroups/{type}/{year}/{month}', 'DashboardController@getMusclegroups');
 	Route::get('/api/getTopExercises/{type}/{year}/{month}', 'DashboardController@getTopExercises');
 	Route::get('/api/getExerciseProgress/{type}/{year}/{month}/{exercise}', 'DashboardController@getExerciseProgress');
+	Route::get('/api/getCompletionRatio/{type}/{year}/{month}', 'DashboardController@getCompletionRatio');
 
 	/* User/Settings */
 	Route::get('/user', 'UserController@myProfile');

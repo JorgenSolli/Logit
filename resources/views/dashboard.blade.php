@@ -37,25 +37,47 @@
 
     <div class="row">
         <div class="col-sm-4 col-md-3">
-            <div class="card">
-                <div class="card-header card-header-icon" data-background-color="blue">
-                    <i class="material-icons">timer</i>
-                </div>
-                <div class="card-content">
-                    <div class="clearfix">
-                        <h4 class="card-title pull-left">Average workout time</h4>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="material-icons">timer</i>
+                        </div>
+                        <div class="card-content">
+                            <div class="clearfix">
+                                <h4 class="card-title pull-left">Average workout time</h4>
+                            </div>
+                            <div class="data-text text-center">
+                                <h1 id="avg_hour" class="m-b-0 m-t-0">
+                                    <span id="avg_hr"></span><small id="avg_hr_label"></small> <span id="avg_min"></span><small id="avg_min_label"></small>
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <p>Workouts that lasted less then 10 minutes does not affect your average time.</p>
+                        </div>
                     </div>
-                    <div class="data-text text-center">
-                        <h1 id="avg_hour" class="m-b-0">
-                            <span id="avg_hr"></span>:<span id="avg_min"></span>
-                        </h1>
-                        <h1 class="m-t-0">
-                            <small>Hour/Minute</small>
-                        </h1>
-                    </div>
                 </div>
-                <div class="card-footer">
-                    <p>Workouts that lasted less then 10 minutes does not affect your average time.</p>
+
+                <div class="col-xs-12">
+                    <div class="card m-t-10">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="material-icons">thumbs_up_down</i>
+                        </div>
+                        <div class="card-content">
+                            <div class="clearfix">
+                                <h4 class="card-title pull-left">Session Completion Ratio</h4>
+                            </div>
+                            <div class="data-text text-center">
+                                <h1 class="m-b-0 m-t-0">
+                                    <span id="completion_rate"></span><span id="completion_rate_label">%</span>
+                                </h1>
+
+                                <div id="completion_rate_bar" class="progress progress-line-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,7 +91,7 @@
 
                 <div class="card-content">
                     <h4 class="card-title">Musclegroups worked out (in percent)</h4>
-                    <div style="position: relative; width: 100%; height: 200px">
+                    <div style="position: relative; width: 100%; height: 205px">
                         <canvas id="musclegroupsPiechart"></canvas>
                     </div>
                 </div>
