@@ -311,19 +311,18 @@ $(document).ready(function() {
             saveWorkout(form, data, id);
 		} else {
 			$.notify({
-		        icon: "add_alert",
-		        message: "One or more fields were left blank!"
-
-		    },{
-		        type: 'danger',
-		        timer: 4000,
-		        placement: {
-		            from: 'top',
-		            align: 'center'
-		        }
-		    });
+				icon: "error_outline",
+				message: "One or more fields were left blank!"
+			},{
+				type: 'danger',
+				timer: 4000,
+				placement: {
+					from: 'top',
+					align: 'center'
+				}
+			});
 		}
-		
+
 		return ok
 	});
 
