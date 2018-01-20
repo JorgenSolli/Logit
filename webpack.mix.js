@@ -35,7 +35,6 @@ mix.combine([
 	'node_modules/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js',
 	'node_modules/chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js',
 	'node_modules/chartist-plugin-threshold/dist/chartist-plugin-threshold.js',
-	'node_modules/jquery.scrollto/jquery.scrollTo.min.js',
 	// Version from bower fucked shit up.. Reverting to the included one.
 	'resources/assets/js/jquery.datatables.js',
 	// Extracted spesific version from local. New from bower did not work well.
