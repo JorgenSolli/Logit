@@ -292,12 +292,13 @@ $(document).ready(function() {
 
 	$(document).on('click', '#saveWorkout', function() {
 		var ok = true;
+
 		$(".required").each(function(index) {
 			if ($(this).val() == "" && $(this).parent().hasClass("ignore") === false ) {
-				$(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden")
+				$(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden");
 				ok = false
 			} else {
-				$(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden")
+				$(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden");
 			}
 		});
 
@@ -308,7 +309,21 @@ $(document).ready(function() {
             var data = $(this).closest('form').serialize();
             var id = $(this).closest('input[name="routine_junction_id"]').val();
             saveWorkout(form, data, id);
+		} else {
+			$.notify({
+		        icon: "add_alert",
+		        message: "One or more fields were left blank!"
+
+		    },{
+		        type: 'danger',
+		        timer: 4000,
+		        placement: {
+		            from: 'top',
+		            align: 'center'
+		        }
+		    });
 		}
+		
 		return ok
 	});
 
