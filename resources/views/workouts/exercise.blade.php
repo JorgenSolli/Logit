@@ -136,9 +136,9 @@
 
 			@for ($i = 1; $i <= $nrOfSets; $i++)
 				<div class="thisExercise">
-					<div class="card card-transparent m-t-10 m-b-10">
+					<div class="exercise-card card m-b-10 m-t-10 card-transparent">
 						<div class="card-content">
-							<h4>Set nr {{ $i }}</h4>
+							<h4 class="m-b-0">Set nr {{ $i }}</h4>
 							@for ($j = 0; $j <= $supersetsCount - 1; $j++)
 								<input type="hidden" name="superset[{{ $j }}][{{ $i }}][exercise_name]" value="{{ $exercise[$j]->exercise_name }}">
 								<div class="card m-b-10 m-t-10">
