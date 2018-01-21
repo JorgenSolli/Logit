@@ -249,19 +249,29 @@
 
   <div class="card">
     <div class="card-content clearfix">
+      <div class="row">
+        <div class="col-md-7">
+          <button id="addMore" type="button" class="btn btn-primary btn-fullwidth">Add another exercise!</button>
+          <button id="addSuperset" type="button" class="btn btn-primary btn-fullwidth">Add superset group</button>
+        </div>
+        <div class="col-md-5">
+          <input type="hidden" value="{{ $routine->active }}" name="status" id="status">
+          <input type="hidden" value="{{ $routine->id }}" name="routineId" id="routineId"> 
+          @if ($routine->active == 1)
+            <button type="button" id="changeStatus" class="btn btn-default btn-fullwidth" role="button"><i class="fal fa-lock"></i> Set inactive</button>
+          @else
+            <button type="button" id="changeStatus" class="btn btn-default btn-fullwidth" role="button"><i class="fal fa-unlock"></i> Set active</button>
+          @endif
 
-      <button id="addMore" type="button" class="btn btn-primary">Add another exercise!</button>
-      <button id="addSuperset" type="button" class="btn btn-primary">Add superset group</button>
-      <div class="pull-right">
-        <input type="hidden" value="{{ $routine->active }}" name="status" id="status">
-        <input type="hidden" value="{{ $routine->id }}" name="routineId" id="routineId"> 
-        @if ($routine->active == 1)
-          <button type="button" id="changeStatus" class="btn btn-default" role="button"><i class="fal fa-lock"></i> Set inactive</button>
-        @else
-          <button type="button" id="changeStatus" class="btn btn-default" role="button"><i class="fal fa-unlock"></i> Set active</button>
-        @endif
-        <button type="submit" id="addRoutine" class="btn btn-success" role="button"><i class="fal fa-save"></i> Update</button>
-        <button type="button" class="btn btn-danger routine-back"><i class="fal fa-angle-left"></i> Back</button>
+          <div class="row">
+            <div class="col-md-6">
+              <button type="submit" id="addRoutine" class="btn btn-success btn-fullwidth" role="button"><i class="fal fa-save"></i> Update</button>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-danger routine-back btn-fullwidth"><i class="fal fa-angle-left"></i> Back</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

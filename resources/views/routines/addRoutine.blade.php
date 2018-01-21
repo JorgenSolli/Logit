@@ -83,7 +83,22 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4">
+              {{-- Reps Goal --}}
+              <div class="col-md-8 col-xs-6">
+                <div class="form-group label-floating">
+                  <label class="control-label" for="media">Media</label>
+                  <input type="text" class="required form-control" id="media" name="exercises[0][media]">
+                  <i class="material-icons material-icons-sm pointer is-tooltip" 
+                      rel="tooltip" 
+                      data-placement="top" 
+                      title="Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?">
+                      help
+                  </i>
+                </div>
+              </div>
+
+              {{-- Warmup --}}
+              <div class="col-md-4 col-xs-6">
                 <div class="checkbox">
                   <label>
                     <input type="checkbox" name="exercises[0][is_warmup]">
@@ -102,11 +117,15 @@
     
     <div class="card m-t-10 m-b-10">
       <div class="card-content">
-        <button id="addMore" type="button" class="btn btn-primary">Add another exercise</button>
-        <button id="addSuperset" type="button" class="btn btn-primary">Add superset group</button>
-        <div class="pull-right">
-          <button type="submit" id="addRoutine" class="btn btn-success" href="my_routines/add_routine" role="button"><span class="fal fa-plus"></span> Add routine</button>
-          <a class="btn btn-danger" href="/dashboard/my_routines" role="button"><span class="fal fa-ban"></span> Cancel</a>
+        <div class="row">
+          <div class="col-md-7 col-sm-12">
+            <button id="addMore" type="button" class="btn btn-primary is-sm-fullwidth">Add another exercise</button>
+            <button id="addSuperset" type="button" class="btn btn-primary pull-left is-sm-fullwidth">Add superset group</button>
+          </div>
+          <div class="col-md-5 col-sm-12">
+            <button type="submit" id="addRoutine" class="btn btn-success pull-right is-sm-fullwidth" href="my_routines/add_routine" role="button"><span class="fal fa-save"></span> Add routine</button>
+            <a class="btn btn-danger pull-right is-sm-fullwidth" href="/dashboard/my_routines" role="button"><span class="fal fa-ban"></span> Cancel</a>
+          </div>
         </div>
       </div>
     </div>

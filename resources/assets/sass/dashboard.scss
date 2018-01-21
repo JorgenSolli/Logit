@@ -63,6 +63,16 @@
     .bootstrap-select {
       margin-top: 4px;
     }
+
+    .is-tooltip {
+      position: absolute;
+      top: 10px;
+      right: 0;
+    }
+  }
+
+  .checkbox {
+    margin-top: 24px;
   }
 }
 
@@ -236,6 +246,12 @@
     margin-left: 100px !important;
     margin-bottom: 20px !important;
     left: calc(50% + -180px);
+  }
+}
+
+@media (max-width: 991px) {
+  .is-sm-fullwidth {
+    width: 100%;
   }
 }
 
