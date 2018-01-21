@@ -85,7 +85,6 @@ $(document).ready(function() {
         method: 'POST',
         url: '/api/notifications/check',
         success: function(data) {
-            console.log("check");
             if (data.notifications.length) {
                 /* We have some data to append, so clear this first */
                 $("#user-notifications").empty();
