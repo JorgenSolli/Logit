@@ -141,6 +141,7 @@ class RoutineController extends Controller
                 $junction->goal_weight   = $exercise['goal_weight'];
                 $junction->goal_sets     = $exercise['goal_sets'];
                 $junction->goal_reps     = $exercise['goal_reps'];
+                $junction->media         = $exercise['media'];
 
                 if (!array_key_exists('is_warmup', $exercise)) {
                     $junction->is_warmup = 0;
@@ -171,6 +172,7 @@ class RoutineController extends Controller
                     $junction->goal_weight   = $exercise['goal_weight'];
                     $junction->goal_sets     = $exercise['goal_sets'];
                     $junction->goal_reps     = $exercise['goal_reps'];
+                    $junction->media         = $exercise['media'];
 
                     if (!array_key_exists('is_warmup', $exercise)) {
                         $junction->is_warmup = 0;
@@ -222,16 +224,15 @@ class RoutineController extends Controller
 	public function updateRoutine (Request $request, Routine $routine)
 	{
 		if ($routine->user_id == Auth::id()) {
-			// Deletes old junctions and inserts new ones
+            // Deletes old junctions and inserts new ones
             RoutineJunction::where('routine_id', $request->routineId)->delete();
 
-	        $routine->user_id = Auth::id();
-	        $routine->routine_name = $request->routine_name;
-	        $routine->update();
+            $routine->user_id = Auth::id();
+            $routine->routine_name = $request->routine_name;
+            $routine->update();
 
             $exercises = $request->exercises;
             $supersets = $request->supersets;
-
             if ($exercises) {
                 foreach ($exercises as $exercise) {
                     $junction = new RoutineJunction;
@@ -246,10 +247,16 @@ class RoutineController extends Controller
                     $junction->goal_sets     = $exercise['goal_sets'];
                     $junction->goal_reps     = $exercise['goal_reps'];
 
-                    if (!array_key_exists('is_warmup', $exercise)) {
-                        $junction->is_warmup = 0;
-                    } else {
+                    if (array_key_exists('is_warmup', $exercise)) {
                         $junction->is_warmup = 1;
+                    } else {
+                        $junction->is_warmup = 0;
+                    }
+
+                    if (array_key_exists('media', $exercise)) {
+                        $junction->media = $exercise['media'];
+                    } else {
+                        $junction->media = null;
                     }
 
                     $junction->save();
@@ -276,10 +283,16 @@ class RoutineController extends Controller
                         $junction->goal_sets     = $exercise['goal_sets'];
                         $junction->goal_reps     = $exercise['goal_reps'];
 
-                        if (!array_key_exists('is_warmup', $exercise)) {
-                            $junction->is_warmup = 0;
-                        } else {
+                        if (array_key_exists('is_warmup', $exercise)) {
                             $junction->is_warmup = 1;
+                        } else {
+                            $junction->is_warmup = 0;
+                        }
+
+                        if (array_key_exists('media', $exercise)) {
+                            $junction->media = $exercise['media'];
+                        } else {
+                            $junction->media = null;
                         }
                         
                         $junction->save();

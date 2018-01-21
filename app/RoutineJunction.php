@@ -19,5 +19,6 @@ class RoutineJunction extends Model
         'goal_sets',
         'goal_weight',
         'muscle_group',
+        'media',
     ];
 }

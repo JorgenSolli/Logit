@@ -8,6 +8,37 @@ var setIconStatus = function() {
 	});
 }
 
+var setMediaLink = function() {
+	if ($('input[name*="media"]').length) {
+		// If we're dealing with a superset
+		if ($('input[name="superset_name"]').length) {
+
+			$('input[name*="media"]').each(function(index) {
+				var data = JSON.parse($(this).val());
+				var link = data.media;
+				var icon = '<i class="fal fa-external-link"></i> ';
+
+				if (link.search('youtube.com/watch?') !== -1 || link.search('youtu.be/') !== -1) {
+					icon = '<i class="fab fa-youtube"></i> ';
+				}
+				var element = '<a class="label label-primary" target="_blank" href="' + link + '">' + icon + data.name + '</a> ';
+				$("#media").append(element);
+			});
+		} 
+		else {
+			var link = $('input[name="media"').val();
+			var icon = '<i class="fal fa-external-link"></i>';
+
+			if (link.search('youtube.com/watch?') !== -1 || link.search('youtu.be/') !== -1) {
+				icon = '<i class="fab fa-youtube"></i>';
+			}
+			
+			var element = '<a target="_blank" href="' + link + '">' + icon + '</a>';
+			$("#exercise_name").append(element);
+		}
+	}
+}
+
 var deleteWorkout = function(id) {
 	$.ajax({
 		url: '/api/delete_workout/' + id,
@@ -91,6 +122,7 @@ $(document).ready(function() {
 			},
 			complete: function(){
 				goToAnchor("#data");
+				setMediaLink();
 			}
 		})
 	});

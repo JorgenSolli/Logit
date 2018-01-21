@@ -83,7 +83,7 @@
               </div>
             </div>
             <div class="row">
-              {{-- Reps Goal --}}
+              {{-- Media --}}
               <div class="col-md-8 col-xs-6">
                 <div class="form-group label-floating">
                   <label class="control-label" for="media">Media</label>
@@ -119,7 +119,7 @@
       <div class="card-content">
         <div class="row">
           <div class="col-md-7 col-sm-12">
-            <button id="addMore" type="button" class="btn btn-primary is-sm-fullwidth">Add another exercise</button>
+            <button id="addMore" type="button" class="btn btn-primary pull-left is-sm-fullwidth">Add another exercise</button>
             <button id="addSuperset" type="button" class="btn btn-primary pull-left is-sm-fullwidth">Add superset group</button>
           </div>
           <div class="col-md-5 col-sm-12">

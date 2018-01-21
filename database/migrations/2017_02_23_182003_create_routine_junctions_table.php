@@ -35,6 +35,7 @@ class CreateRoutineJunctionsTable extends Migration
             $table->integer('goal_reps');
             $table->integer('goal_sets');
             $table->integer('goal_weight');
+            $table->string('media')->nullable();
             $table->timestamps();
         });
     }

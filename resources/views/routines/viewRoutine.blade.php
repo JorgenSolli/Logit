@@ -125,7 +125,20 @@
                               </div>
                             </div>
                             <div class="row">
-                              <div class="col-md-4">
+                              {{-- Media --}}
+                              <div class="col-md-8 col-xs-6">
+                                <div class="form-group label-floating">
+                                  <label class="control-label" for="media">Media</label>
+                                  <input type="text" class="required form-control" id="media" name="supersets[{{ $ssNr }}][{{ $i }}][media]" value="{{ $superset->media }}">
+                                  <i class="material-icons material-icons-sm pointer is-tooltip"
+                                      rel="tooltip" 
+                                      data-placement="top" 
+                                      title="Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?">
+                                      help
+                                  </i>
+                                </div>
+                              </div>
+                              <div class="col-md-4 col-xs-6">
                                 <div class="checkbox">
                                   <label>
                                     <input type="checkbox" name="supersets[{{ $ssNr }}][{{ $i }}][is_warmup]">
@@ -220,8 +233,24 @@
                   </div>
                 </div>
               </div>
+
               <div class="row">
-                <div class="col-sm-4">
+                {{-- Reps Goal --}}
+                <div class="col-md-8 col-xs-6">
+                  <div class="form-group label-floating">
+                    <label class="control-label" for="media">Media</label>
+                    <input type="text" class="required form-control" id="media" name="exercises[{{ $i }}][media]" value="{{ $junction->media }}">
+                    <i class="material-icons material-icons-sm pointer is-tooltip" 
+                        rel="tooltip" 
+                        data-placement="top" 
+                        title="Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?">
+                        help
+                    </i>
+                  </div>
+                </div>
+
+                {{-- Warmup --}}
+                <div class="col-md-4 col-xs-6">
                   <div class="checkbox">
                     <label>
                       @if ($junction->is_warmup == 1)

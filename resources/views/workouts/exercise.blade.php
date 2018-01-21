@@ -9,8 +9,9 @@
 			<input type="hidden" name="routine_junction_id" value="{{ $exercise->id }}">
 			<input type="hidden" name="type" value="regular">
 			<input type="hidden" name="exercise_name" value="{{ $exercise->exercise_name }}">
+			<input type="hidden" name="media" value="{{ $exercise->media }}">
 
-			<h1>{{ $exercise->exercise_name }}</h1>
+			<h1 id="exercise_name">{{ $exercise->exercise_name }} </h1>
 
 			@if ($note && $note->note)
 				<div class="alert {{ $note->label }}" data-notify="container">
@@ -123,7 +124,15 @@
 			<input type="hidden" name="type" value="superset">
 			<input type="hidden" name="routine_junction_id" value="{{ $exercise[0]->id }}">
 			<input type="hidden" name="superset_name" value="{{ $exercise[0]->superset_name }}">
-			<h1>Superset: {{ $exercise[0]->superset_name }}</h1> 
+
+			@foreach ($exercise as $media)
+				@if ($media->media)
+					<input type="hidden" name="media[{{ $loop->index }}]" value='{"media":"{{ $media->media }}","name":"{{ $media->exercise_name }}"}'>
+				@endif
+			@endforeach
+
+			<h1>Superset: {{ $exercise[0]->superset_name }}</h1>
+			<div id="media"></div>
 
 			@if ($note && $note->note)
 				<div class="alert {{ $note->label }}" data-notify="container">
