@@ -43,9 +43,10 @@
           <div class="card m-t-10 m-b-10" style="background: rgba(255, 255, 255, 0.8)">
             <div class="card-content">
               <div class="sortable-content">
-                <div class="sort-icon handle">             
-                   Drag me to sort 
-                  <span class="fal fa-arrows-v"></span>
+                <div class="clearfix">
+                  <div class="btn-sm btn-primary sort-icon handle pull-left">             
+                    <span class="fal fa-arrows-v"></span> Drag to sort
+                  </div>
                   <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
                 </div>
                 <div class="form-group label-floating">
@@ -62,10 +63,11 @@
                       <div class="card m-t-10 m-b-10">
                         <div class="card-content">
                           <div class="sortable-content">
-                            <div class="sort-icon handle-child">
-                                Drag me to sort
-                              <span class="fal fa-arrows-v"></span>
-                              <a class="deleteExercise deleteExercise-supserset btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
+                            <div class="clearfix">
+                              <div class="btn-sm btn-primary sort-icon handle pull-left">             
+                                <span class="fal fa-arrows-v"></span> Drag to sort
+                              </div>
+                              <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
                             </div>
 
                             <div class="row">
@@ -160,12 +162,12 @@
           <div class="card m-b-10">
             <div class="card-content">
             {{-- Excersice Name --}}
-              <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-sm fa-trash"></span></a>
-              <div class="sort-icon handle clearfix">
-                Drag me to sort
-                <span class="fal fa-arrows-v"></span>
+              <div class="clearfix">
+                <div class="btn-sm btn-primary sort-icon handle pull-left">             
+                  <span class="fal fa-arrows-v"></span> Drag to sort
+                </div>
+                <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
               </div>
-
               <div class="row">
                 <div class="col-xs-12 col-sm-6">
                   <div class="form-group label-floating m-t-10">

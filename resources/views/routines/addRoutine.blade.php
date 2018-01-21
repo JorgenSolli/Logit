@@ -25,29 +25,37 @@
       <div class="card m-t-10 m-b-10">
         <div class="card-content">
           <div class="sortable-content">
-            <div class="sort-icon handle">
-              Drag me to sort
-              <span class="fal fa-arrows-v"></span>
+            <div class="clearfix">
+              <div class="sort-icon handle btn-sm btn-primary pull-left">
+                <span class="fal fa-arrows-v"></span> Drag to sort
+              </div>
             </div>
-            {{-- Excersice Name --}}
-            <div class="form-group label-floating">
-              <label class="control-label" for="exercise_name">Excersice name</label>
-              <input type="text" class="required form-control exercise_name" id="exercise_name" name="exercises[0][exercise_name]">
-            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                {{-- Excersice Name --}}
+                <div class="form-group label-floating">
+                  <label class="control-label" for="exercise_name">Excersice name</label>
+                  <input type="text" class="required form-control exercise_name" id="exercise_name" name="exercises[0][exercise_name]">
+                </div>
+              </div>
 
-            {{-- Muscle Group --}}
-            <div class="form-group">
-              <input class="exerciseOrder" type="hidden" name="exercises[0][order_nr]" value="0">
-              <select id="muscle_group" name="exercises[0][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Select a muscle group" data-size="7">
-                <option value="back">Back</option>
-                <option value="biceps">Biceps</option>
-                <option value="triceps">Triceps</option>
-                <option value="abs">Abs</option>
-                <option value="shoulders">Shoulders</option>
-                <option value="legs">Legs</option>
-                <option value="chest">Chest</option>
-              </select>
+              <div class="col-xs-12 col-sm-6">
+                {{-- Muscle Group --}}
+                <div class="form-group">
+                  <input class="exerciseOrder" type="hidden" name="exercises[0][order_nr]" value="0">
+                  <select id="muscle_group" name="exercises[0][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Select a muscle group" data-size="7">
+                    <option value="back">Back</option>
+                    <option value="biceps">Biceps</option>
+                    <option value="triceps">Triceps</option>
+                    <option value="abs">Abs</option>
+                    <option value="shoulders">Shoulders</option>
+                    <option value="legs">Legs</option>
+                    <option value="chest">Chest</option>
+                  </select>
+                </div>
+              </div>
             </div>
+            
             <div class="row">
               
               {{-- Weight Goal --}}
@@ -59,7 +67,7 @@
               </div>
 
               {{-- Sets Goal --}}
-              <div class="col-md-4">
+              <div class="col-sm-6 col-xs-6 col-md-4">
                 <div class="form-group label-floating">
                   <label class="control-label" for="goal_sets">Sets goal</label>
                   <input type="number" class="required form-control" id="goal_sets" name="exercises[0][goal_sets]">
@@ -67,7 +75,7 @@
               </div>
 
               {{-- Reps Goal --}}
-              <div class="col-md-4">
+              <div class="col-sm-6 col-xs-6 col-md-4">
                 <div class="form-group label-floating">
                   <label class="control-label" for="goal_reps">Reps goal</label>
                   <input type="number" class="required form-control" id="goal_reps" name="exercises[0][goal_reps]">

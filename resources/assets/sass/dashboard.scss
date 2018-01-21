@@ -23,6 +23,9 @@
 .m-l-20 {
   margin-left: 20px !important;
 }
+.m-x-0 {
+  margin: 0 !important;
+}
 
 .lh-48 {
   line-height: 48px !important;
@@ -46,6 +49,21 @@
 
 .card-transparent {
   background: rgba(255, 255, 255, 0.8);
+}
+
+.card-content {
+  .handle {
+    width: 95px;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-top: 10px;
+
+    .bootstrap-select {
+      margin-top: 4px;
+    }
+  }
 }
 
 .z-fix {

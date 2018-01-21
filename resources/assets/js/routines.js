@@ -124,10 +124,11 @@ $(document).on('click', '#addMore', function() {
     '<div class="card m-t-10 m-b-10">' +
       '<div class="card-content">' +
         '<div class="sortable-content">' +
-          '<div class="sort-icon handle clearfix">' +
-              'Drag me to sort ' +
-            '<span class="fal fa-arrows-v"></span>' +
-            '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>' +
+          '<div class="clearfix">' +
+            '<div class="btn-sm btn-primary sort-icon handle pull-left">' +
+              '<span class="fal fa-arrows-v"></span> Drag to sort' +
+            '</div>' +
+            '<a class="deleteExercise btn btn-sm btn-danger pull-right m-x-0"><span class="fal fa-trash"></span></a>' +
           '</div>' +
           '<div class="row">' +
             '<div class="col-xs-12 col-sm-6">' +
@@ -137,7 +138,7 @@ $(document).on('click', '#addMore', function() {
               '</div>' +
             '</div>' +
             '<div class="col-xs-12 col-sm-6">' +
-              '<div class="form-group" style="margin-top: 4px;">' +
+              '<div class="form-group">' +
                 '<select id="muscle_group" class="selectpicker" name="exercises[' + exerciseNr + '][muscle_group]" data-style="select-with-transition" title="Choose a muscle group" data-size="8">' +
                   '<option selected disabled>Select a muscle group</option>' +
                   '<option value="back">Back</option>' +
@@ -200,10 +201,12 @@ $(document).on('click', '#addSuperset', function() {
         '<div class="card card-transparent m-t-10 m-b-10">' +
           '<div class="card-content">' +
             '<div class="sortable-content">' +
-              '<div class="sort-icon handle">' +
-               ' Drag me to sort ' +
-                '<span class="fal fa-arrows-v"></span>' +
-                '<a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>' +
+              '<div class="clearfix">' +
+                '<div class="btn-sm btn-primary sort-icon handle pull-left">' +
+                    'Drag to sort ' +
+                  '<span class="fal fa-arrows-v"></span>' +
+                '</div>' +
+                '<a class="deleteExercise btn btn-sm btn-danger pull-right m-x-0"><span class="fal fa-trash"></span></a>' +
               '</div>' +
               '<div class="form-group label-floating">' +
                 '<label class="control-label" for="exercise_name">Superset Name</label>' +
@@ -235,26 +238,34 @@ $(document).on('click', '#addMore-superset', function() {
     '<div class="card m-t-10 m-b-10">' +
       '<div class="card-content">' +
         '<div class="sortable-content">' +
-          '<div class="sort-icon handle-child">' +
-              'Drag me to sort ' +
-            '<span class="fal fa-arrows-v"></span>' +
-            '<a class="deleteExercise deleteExercise-supserset btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>' +
+          '<div class="clearfix">' +
+            '<div class="btn-sm btn-primary sort-icon handle pull-left">' +
+                'Drag to sort ' +
+              '<span class="fal fa-arrows-v"></span>' +
+            '</div>' +
+            '<a class="deleteExercise btn btn-sm btn-danger pull-right m-x-0"><span class="fal fa-trash"></span></a>' +
           '</div>' +
-          '<div class="form-group label-floating">' +
-            '<label class="control-label" for="exercise_name">Excersice name</label>' +
-            '<input type="text" class="required form-control exercise_name" id="exercise_name" name="supersets[' + supersetNr + '][' + exerciseNr + '][exercise_name]">' +
-          '</div>' +
-          '<div class="form-group" style="margin-top: 4px;">' +
-            '<select id="muscle_group" name="supersets[' + supersetNr + '][' + exerciseNr + '][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Choose a muscle group" data-size="8">' +
-              '<option selected disabled>Select a muscle group</option>' +
-              '<option value="back">Back</option>' +
-              '<option value="biceps">Biceps</option>' +
-              '<option value="triceps">Triceps</option>' +
-              '<option value="abs">Abs</option>' +
-              '<option value="shoulders">Shoulders</option>' +
-              '<option value="legs">Legs</option>' +
-              '<option value="chest">Chest</option>' +
-            '</select>' +
+          '<div class="row">' +
+            '<div class="col-xs-12 col-sm-6">' +
+              '<div class="form-group label-floating">' +
+                '<label class="control-label" for="exercise_name">Excersice name</label>' +
+                '<input type="text" class="required form-control exercise_name" id="exercise_name" name="supersets[' + supersetNr + '][' + exerciseNr + '][exercise_name]">' +
+              '</div>' +
+            '</div>' +
+            '<div class="col-xs-12 col-sm-6">' +
+              '<div class="form-group">' +
+                '<select id="muscle_group" name="supersets[' + supersetNr + '][' + exerciseNr + '][muscle_group]" class="selectpicker" data-style="select-with-transition" title="Choose a muscle group" data-size="8">' +
+                  '<option selected disabled>Select a muscle group</option>' +
+                  '<option value="back">Back</option>' +
+                  '<option value="biceps">Biceps</option>' +
+                  '<option value="triceps">Triceps</option>' +
+                  '<option value="abs">Abs</option>' +
+                  '<option value="shoulders">Shoulders</option>' +
+                  '<option value="legs">Legs</option>' +
+                  '<option value="chest">Chest</option>' +
+                '</select>' +
+              '</div>' +
+            '</div>' +
           '</div>' +
           '<div class="row">' +
             '<div class="col-md-4">' +
@@ -263,13 +274,13 @@ $(document).on('click', '#addMore-superset', function() {
                 '<input type="number" step="any" class="required form-control" id="goal_weight" name="supersets[' + supersetNr + '][' + exerciseNr + '][goal_weight]">' +
               '</div>' +
             '</div>' +
-            '<div class="col-md-4">' +
+            '<div class="col-sm-6 col-xs-6 col-md-4">' +
               '<div class="form-group label-floating">' +
                 '<label class="control-label" for="goal_sets">Sets goal</label>' +
                 '<input type="number" class="required form-control" id="goal_sets" name="supersets[' + supersetNr + '][' + exerciseNr + '][goal_sets]">' +
               '</div>' +
             '</div>' +
-            '<div class="col-md-4">' +
+            '<div class="col-sm-6 col-xs-6 col-md-4">' +
               '<div class="form-group label-floating">' +
                 '<label class="control-label" for="goal_reps">Reps goal</label>' +
                 '<input type="number" class="required form-control" id="goal_reps" name="supersets[' + supersetNr + '][' + exerciseNr + '][goal_reps]">' +
