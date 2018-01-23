@@ -81,6 +81,7 @@ var resetSound = function(timer) {
   ding.pause();
   ding.currentTime = 0;
   secondsSinceAudio = 0;
+  hasPlayedAudtio = false;
   minutes = 0;
   seconds = 0;
   window.clearInterval(countSeconds);
@@ -100,12 +101,12 @@ var resetSound = function(timer) {
 var operators = function(method) {
   if (method === "pause") {
     resetSound();
-    hasPlayedAudtio = true;
   }
 
   else if (method === "play") {
     realStartTime = new Date;
     timeSinceLastDing = new Date;
+    hasPlayedAudtio = false;
     countSeconds = setInterval(function() {
       intervarSettings(true);
     }, 1000);
