@@ -200,9 +200,9 @@ $(function() {
                         $("#completion_rate").text(data.ratio);
                         $("#completion_rate_label").text("%");
 
-                        if (data.ratio < 80 && data.ratio > 65) {
+                        if (data.ratio < 80 && data.ratio >= 65) {
                             status = "progress-bar-warning";
-                        } else if (data.ratio < 65) {
+                        } else if (data.ratio <= 64) {
                             status = "progress-bar-danger";
                         } else {
                             status = "progress-bar-success";
