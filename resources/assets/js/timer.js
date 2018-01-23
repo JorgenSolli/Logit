@@ -55,7 +55,7 @@ var intervarSettings = function(reset) {
     seconds = totalSeconds;
   }
 
-  if (soundInterval && secondsSinceAudio > soundInterval && !hasPlayedAudtio) {
+  if (soundInterval && secondsSinceAudio >= soundInterval && !hasPlayedAudtio) {
     ding.play();
     hasPlayedAudtio = true;
   }
