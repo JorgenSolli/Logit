@@ -30,6 +30,8 @@ var secondsSinceAudio = 0;
 var seconds = 0;
 var minutes = 0;
 
+var realStartTime, timeSinceLastDing;
+
 var timerMinutes = $("#timer-minutes");
 var timerSeconds = $("#timer-seconds");
 
@@ -37,9 +39,13 @@ if (soundInterval) {
   var ding = new Audio('/media/ding.wav');
 }
 
+var addSecond = function(timeStarted) {
+  return Math.floor((new Date - timeStarted) / 1000);
+}
+
 var intervarSettings = function(reset) {  
-  seconds++;
-  secondsSinceAudio++;
+  seconds = addSecond(realStartTime);
+  secondsSinceAudio = addSecond(timeSinceLastDing);
 
   if (soundInterval && secondsSinceAudio === soundInterval) {
     ding.play();
@@ -53,6 +59,7 @@ var intervarSettings = function(reset) {
   }
   if (seconds === 60) {
     seconds = '00';
+    realStartTime = new Date;
     minutes++;
   }
 
@@ -62,8 +69,6 @@ var intervarSettings = function(reset) {
 
   timerSeconds.html(seconds);
   timerMinutes.html(minutes);
-
-  console.log("seconds: " + seconds + " Since last play: " + secondsSinceAudio);
 }
 
 var countSeconds = null;
@@ -76,6 +81,8 @@ var resetSound = function(timer) {
   if (timer) {
     minutes = 0;
     seconds = 0;
+    realStartTime = new Date;
+    timeSinceLastDing = new Date;
     secondsSinceAudio = 0;
     timerMinutes.html('00');
     timerSeconds.html('00');
@@ -92,6 +99,8 @@ var operators = function(method) {
   }
 
   else if (method === "play") {
+    realStartTime = new Date;
+    timeSinceLastDing = new Date;
     countSeconds = setInterval(function() {
       intervarSettings(true);
     }, 1000);
