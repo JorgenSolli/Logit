@@ -30,7 +30,7 @@ var secondsSinceAudio = 0;
 var seconds = 0;
 var minutes = 0;
 
-var realStartTime, timeSinceLastDing;
+var realStartTime, timeSinceLastDing, totalSeconds;
 
 var timerMinutes = $("#timer-minutes");
 var timerSeconds = $("#timer-seconds");
@@ -40,12 +40,19 @@ if (soundInterval) {
 }
 
 var addSecond = function(timeStarted) {
-  return Math.floor((new Date - timeStarted) / 1000);
+    return Math.floor((new Date - timeStarted) / 1000);
 }
 
 var intervarSettings = function(reset) {  
-  seconds = addSecond(realStartTime);
+  totalSeconds = addSecond(realStartTime);
   secondsSinceAudio = addSecond(timeSinceLastDing);
+
+  minutes = Math.floor(totalSeconds / 60);
+  if (minutes > 0) {
+    seconds = totalSeconds - (minutes * 60);
+  } else {
+    seconds = totalSeconds;
+  }
 
   if (soundInterval && secondsSinceAudio === soundInterval) {
     ding.play();
@@ -56,11 +63,6 @@ var intervarSettings = function(reset) {
   }
   if (seconds < 10) {
     seconds = ('0' + seconds).slice(-2); 
-  }
-  if (seconds === 60) {
-    seconds = '00';
-    realStartTime = new Date;
-    minutes++;
   }
 
   if (minutes < 10) {
@@ -112,7 +114,7 @@ var operators = function(method) {
 };
 
 $(document).on('click', '#timer-play', function() {
-  $(this).removeClass("fa-play").addClass('fa-pause').attr('id', "timer-pause");
+  $(this).removeClass("fa-play").addClass('fa-stop').attr('id', "timer-pause");
   if (soundInterval) {
     ding.play(); ding.pause();
   }
@@ -120,11 +122,11 @@ $(document).on('click', '#timer-play', function() {
 });
 
 $(document).on('click', '#timer-pause', function() {
-  $(this).removeClass("fa-pause").addClass('fa-play').attr('id', "timer-play");
+  $(this).removeClass("fa-stop").addClass('fa-play').attr('id', "timer-play");
   operators("pause");
 });
 
 $(document).on('click', '#timer-reset', function() {
-  $("#timer-play").removeClass("fa-play").addClass('fa-pause').attr('id', "timer-pause");
+  $("#timer-play").removeClass("fa-play").addClass('fa-stop').attr('id', "timer-pause");
   operators("reset");
 });
