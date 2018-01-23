@@ -27,6 +27,7 @@ $("footer.footer").addClass("hasTimer");
 
 // Keep track of soundqueue. Will reset once audio plays.
 var secondsSinceAudio = 0;
+var hasPlayedAudtio = false;
 var seconds = 0;
 var minutes = 0;
 
@@ -54,8 +55,9 @@ var intervarSettings = function(reset) {
     seconds = totalSeconds;
   }
 
-  if (soundInterval && secondsSinceAudio === soundInterval) {
+  if (soundInterval && secondsSinceAudio > soundInterval && !hasPlayedAudtio) {
     ding.play();
+    hasPlayedAudtio = true;
   }
   
   if (seconds < 60 && minutes < 1) {
@@ -78,14 +80,14 @@ var countSeconds = null;
 var resetSound = function(timer) {
   ding.pause();
   ding.currentTime = 0;
+  secondsSinceAudio = 0;
+  minutes = 0;
+  seconds = 0;
   window.clearInterval(countSeconds);
 
   if (timer) {
-    minutes = 0;
-    seconds = 0;
     realStartTime = new Date;
     timeSinceLastDing = new Date;
-    secondsSinceAudio = 0;
     timerMinutes.html('00');
     timerSeconds.html('00');
 
@@ -98,6 +100,7 @@ var resetSound = function(timer) {
 var operators = function(method) {
   if (method === "pause") {
     resetSound();
+    hasPlayedAudtio = true;
   }
 
   else if (method === "play") {
