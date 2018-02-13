@@ -9,7 +9,7 @@ var setIconStatus = function() {
 }
 
 var setMediaLink = function() {
-	if ($('input[name*="media"]').length) {
+	if ($('input[name*="media"]').val() !== "") {
 		// If we're dealing with a superset
 		if ($('input[name="superset_name"]').length) {
 
