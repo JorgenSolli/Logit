@@ -6,7 +6,7 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 }
 
 body {
-    background-color: #f5f8fa;
+    background-color: #f8f9fa;
     color: #74787E;
     height: 100%;
     hyphens: auto;
@@ -82,7 +82,7 @@ img {
 /* Layout */
 
 .wrapper {
-    background-color: #f5f8fa;
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -108,8 +108,8 @@ img {
 }
 
 .header a {
-    color: #bbbfc3;
-    font-size: 19px;
+    color: #3097D1;
+    font-size: 24px;
     font-weight: bold;
     text-decoration: none;
     text-shadow: 0 1px 0 white;
@@ -118,9 +118,7 @@ img {
 /* Body */
 
 .body {
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #EDEFF2;
-    border-top: 1px solid #EDEFF2;
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -131,6 +129,7 @@ img {
 
 .inner-body {
     background-color: #FFFFFF;
+    border-radius: 5px;
     margin: 0 auto;
     padding: 0;
     width: 570px;

@@ -8,8 +8,11 @@ use Logit\Routine;
 use Logit\Settings;
 use Logit\Notification;
 use Logit\RoutineJunction;
+use Logit\Mail\ShareRoutine;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class FriendsController extends Controller
 {
@@ -130,6 +133,13 @@ class FriendsController extends Controller
 		$notify->content = Auth::user()->name . " has shared a routine with you!";
 		$notify->icon = 'accessibility';
 		$notify->url = '/dashboard/my_routines';
+
+		Mail::to(User::where('id', $friend)->firstOrFail())
+			->send(new ShareRoutine(
+				$shareRoutine, 
+				Auth::user(),
+				User::where('id', $friend)->firstOrFail())
+			);
 
 		if ($notify->save()) {
 			return back()->with('script_success', 'Routine successfully shared.');
