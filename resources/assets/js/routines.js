@@ -144,6 +144,7 @@ $(document).on('click', '#addMore', function() {
                   '<option value="back">Back</option>' +
                   '<option value="biceps">Biceps</option>' +
                   '<option value="triceps">Triceps</option>' +
+                  '<option value="forearms">Forearms</option>' +
                   '<option value="abs">Abs</option>' +
                   '<option value="shoulders">Shoulders</option>' +
                   '<option value="legs">Legs</option>' +
@@ -271,6 +272,7 @@ $(document).on('click', '#addMore-superset', function() {
                   '<option value="back">Back</option>' +
                   '<option value="biceps">Biceps</option>' +
                   '<option value="triceps">Triceps</option>' +
+                  '<option value="forearms">Forearms</option>' +
                   '<option value="abs">Abs</option>' +
                   '<option value="shoulders">Shoulders</option>' +
                   '<option value="legs">Legs</option>' +
