@@ -129,7 +129,7 @@
                               <div class="col-md-8 col-xs-6">
                                 <div class="form-group label-floating">
                                   <label class="control-label" for="media">Media</label>
-                                  <input type="text" class="required form-control" id="media" name="supersets[{{ $ssNr }}][{{ $i }}][media]" value="{{ $superset->media }}">
+                                  <input type="text" class="form-control" id="media" name="supersets[{{ $ssNr }}][{{ $i }}][media]" value="{{ $superset->media }}">
                                   <i class="material-icons material-icons-sm pointer is-tooltip"
                                       rel="tooltip" 
                                       data-placement="top" 
@@ -239,7 +239,7 @@
                 <div class="col-md-8 col-xs-6">
                   <div class="form-group label-floating">
                     <label class="control-label" for="media">Media</label>
-                    <input type="text" class="required form-control" id="media" name="exercises[{{ $i }}][media]" value="{{ $junction->media }}">
+                    <input type="text" class="form-control" id="media" name="exercises[{{ $i }}][media]" value="{{ $junction->media }}">
                     <i class="material-icons material-icons-sm pointer is-tooltip" 
                         rel="tooltip" 
                         data-placement="top" 

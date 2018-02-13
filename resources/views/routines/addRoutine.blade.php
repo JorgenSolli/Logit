@@ -87,7 +87,7 @@
               <div class="col-md-8 col-xs-6">
                 <div class="form-group label-floating">
                   <label class="control-label" for="media">Media</label>
-                  <input type="text" class="required form-control" id="media" name="exercises[0][media]">
+                  <input type="text" class="form-control" id="media" name="exercises[0][media]">
                   <i class="material-icons material-icons-sm pointer is-tooltip" 
                       rel="tooltip" 
                       data-placement="top" 
