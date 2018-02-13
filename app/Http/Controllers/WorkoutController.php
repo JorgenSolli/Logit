@@ -96,8 +96,7 @@ class WorkoutController extends Controller
 
         foreach ($sortMuscleGroups as $value) {
             if (isset($topMuscleGroup[$value['routine_id']][$value['muscle_group']])) {
-                if ($value['muscle_group'] == 'biceps' || $value['muscle_group'] == 'triceps') {
-                    dd("hit");
+                if ($value['muscle_group'] == 'biceps' || $value['muscle_group'] == 'triceps' || $value['muscle_group'] == 'forearms') {
                     $topMuscleGroup[$value['routine_id']]['arms']
                         = $topMuscleGroup[$value['routine_id']]['arms'] + 1;
                 } else {
