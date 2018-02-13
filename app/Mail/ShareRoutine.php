@@ -54,6 +54,7 @@ class ShareRoutine extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.shareRoutine');
+        return $this->markdown('emails.shareRoutine')
+                    ->subject($this->sender->name . ' has shared a routine with you!');
     }
 }
