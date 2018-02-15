@@ -72,13 +72,12 @@ var saveWorkout = function(form, data, id) {
 
 			    },{
 			        type: 'success',
-			        timer: 2000,
+			        delay: 200,
 			        placement: {
 			            from: 'top',
 			            align: 'right'
 			        }
 			    });
-
 				// Calls cancelExercise to clear current view and load exercise-list
 			    cancelExercise();
 			    $("#" + data.id).attr('data-status', 'completed');
