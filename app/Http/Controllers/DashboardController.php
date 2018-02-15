@@ -142,13 +142,6 @@ class DashboardController extends Controller
             $result['max'] = max($result['series']) + 1;
         } 
         elseif ($type == "months") {
-            # Function to find leap year. This will affect our results
-            function is_leap_year($year) {
-                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
-                    return 29;
-                }
-                return 28;
-            }
             # Makes sure the month we get from out request is formated correctly
             $selectedMonth = ucfirst($month);
 
@@ -248,12 +241,6 @@ class DashboardController extends Controller
             }
         } 
         elseif ($type == "months") {
-            function is_leap_year($year) {
-                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
-                    return 29;
-                }
-                return 28;
-            }
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
 
@@ -376,12 +363,6 @@ class DashboardController extends Controller
             }
         } 
         elseif ($type == "months") {
-            function is_leap_year($year) {
-                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
-                    return 29;
-                }
-                return 28;
-            }
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
             $monthData = LogitFunctions::parseDate($type, $year, $month);
@@ -475,12 +456,6 @@ class DashboardController extends Controller
             }
         }
         else {
-            function is_leap_year($year) {
-                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
-                    return 29;
-                }
-                return 28;
-            }
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
             $monthData = LogitFunctions::parseDate($type, $year, $month);
@@ -548,12 +523,6 @@ class DashboardController extends Controller
             ->get();
         }
         else {
-            function is_leap_year($year) {
-                if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
-                    return 29;
-                }
-                return 28;
-            }
             # Makes sure the month we get from out request is formated correctly
             $selectedMonth = ucfirst($month);
             # Sets up the expected dataformat
