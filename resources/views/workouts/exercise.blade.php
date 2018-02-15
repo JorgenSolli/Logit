@@ -156,6 +156,17 @@
 									</div>
 									<div class="card-content">
 										<input type="hidden" name="superset[{{ $j }}][{{ $i }}][set]" value="{{ $i }}">
+										
+										<div class="form-group m-t-0">
+											<label for="weight">Weight Type</label>
+											<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker" 
+													data-style="select-with-transition" title="Choose weight type" data-size="8">
+												<option selected value="raw">Raw Weight</option>
+												<option value="assisted">Assisted Weight</option>
+												<option value="band">Resistance Band</option>
+											</select>
+										</div>
+										
 										<div class="form-group m-t-0">
 										    <label for="weight">Weight</label>
 
