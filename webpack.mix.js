@@ -46,6 +46,7 @@ mix.combine([
 mix.combine(['resources/assets/js/material-dashboard.js'], 'public/js/material-dashboard.min.js').version();
 mix.combine(['resources/assets/js/dashboard.js'], 'public/js/dashboard.min.js').version();
 mix.combine(['resources/assets/js/friends.js'], 'public/js/friends.min.js').version();
+mix.combine(['resources/assets/js/friend.js'], 'public/js/friend.min.js').version();
 mix.combine(['resources/assets/js/logitFuncs.js'], 'public/js/logitFuncs.min.js').version();
 mix.combine(['resources/assets/js/myProfile.js'], 'public/js/myProfile.min.js').version();
 mix.combine(['resources/assets/js/routines.js'], 'public/js/routines.min.js').version();
