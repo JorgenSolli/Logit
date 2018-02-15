@@ -191,7 +191,7 @@ class FriendsController extends Controller
      * @param  Request
      * @return \Illuminate\Http\Response
      */
-    public function sendrequest (Request $request)
+    public function sendRequest (Request $request)
     {
     	$id = $request->id;
 		$name = User::where('id', $id)->select('name')->first();
