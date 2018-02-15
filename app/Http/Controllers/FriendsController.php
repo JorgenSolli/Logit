@@ -267,7 +267,10 @@ class FriendsController extends Controller
 			$accepter = Auth::user();
 
 			// Updates the current pending request
-			$pendingRequest = Friend::where('user_id', $id)->first();
+			$pendingRequest = Friend::where([
+				['user_id', $id],
+				['friends_with', Auth::id()]
+			])->first();
 			$pendingRequest->pending = 0;
 			$pendingRequest->update();
 			
