@@ -300,6 +300,7 @@ class DashboardController extends Controller
             'back' => 0, 
             'biceps' => 0, 
             'triceps' => 0, 
+            'forearms' => 0,
             'abs' => 0, 
             'shoulders' => 0, 
             'legs' => 0, 
@@ -311,6 +312,7 @@ class DashboardController extends Controller
                 'back',
                 'biceps',
                 'triceps',
+                'forearms',
                 'abs',
                 'shoulders',
                 'legs',
@@ -320,6 +322,7 @@ class DashboardController extends Controller
                 0,  // back
                 0,  // biceps
                 0,  // triceps
+                0,  // forearms
                 0,  // abs
                 0,  // shoulders
                 0,  // legs

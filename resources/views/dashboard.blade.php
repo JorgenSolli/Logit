@@ -101,6 +101,7 @@
                     <i class="fas fa-circle ct-legend-a"></i> Back <span id="0-percent"></span>
                     <i class="fas fa-circle ct-legend-b"></i> Biceps <span id="1-percent"></span>
                     <i class="fas fa-circle ct-legend-c"></i> Triceps <span id="2-percent"></span>
+                    <i class="fas fa-circle ct-legend-h"></i> Forearms <span id="7-percent"></span>
                     <i class="fas fa-circle ct-legend-d"></i> Abs <span id="3-percent"></span>
                     <i class="fas fa-circle ct-legend-e"></i> Shoulders <span id="4-percent"></span>
                     <i class="fas fa-circle ct-legend-f"></i> Legs <span id="5-percent"></span>
