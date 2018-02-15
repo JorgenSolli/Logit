@@ -123,7 +123,7 @@ $(document).ready(function() {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 method: 'POST',
-                url: '/api/notifications/clear/',
+                url: '/api/notifications/clear',
                 data: {
                     id: id
                 },
