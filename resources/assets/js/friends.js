@@ -129,14 +129,14 @@ $(document).ready(function() {
 				        }
 				    });
 				} else {
-					swal(
-						'Done!',
-						data.success,
-						'success'
-					)
-
-					obj.removeClass('disabled respondRequest');
-					location.reload();
+					swal({
+						title: 'Done!',
+						text: data.success,
+						type: 'success',
+						confirmButtonText: 'Fuck yeah!'
+					}).then(function () {
+						return location.reload();
+					});
 				}
 			}
 		})
