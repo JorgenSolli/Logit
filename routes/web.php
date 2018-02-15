@@ -42,12 +42,15 @@ Route::group(['middleware' => ['isVerified']], function () {
 
 	/* Friends */
 	Route::get('/dashboard/friends', 'FriendsController@viewFriends');
-	Route::get('/dashboard/friends/friend/{friendId}', 'FriendsController@viewFriend');
 	Route::get('/dashboard/friends/findFriends', 'FriendsController@findFriends');
 	Route::get('/dashboard/friends/sendRequest', 'FriendsController@sendRequest');
 	Route::get('/dashboard/friends/respondRequest', 'FriendsController@respondRequest');
-	Route::get('/api/friends/removeFriend', 'FriendsController@removeFriend');
 	Route::post('/dashboard/friends/shareRoutine', 'FriendsController@shareRoutine');
+	
+	/* Friend */
+	Route::get('/api/friends/removeFriend', 'FriendController@removeFriend');
+	Route::get('/dashboard/friends/friend/{friendId}', 'FriendsController@viewFriend');
+	Route::get('/dashboard/friends/friend/populateExercises', 'FriendsController@populateExercises');
 
 	/* Routines */
 	Route::get('/dashboard/my_routines', 'RoutineController@routines');
