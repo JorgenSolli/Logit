@@ -542,6 +542,7 @@ class DashboardController extends Controller
                     $query->where([
                         ['exercise_name', 'like', $exercise],
                         [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                        ['workout_junctions.user_id', Auth::id()]
                     ]);
                 }])
             ->get();
@@ -563,6 +564,7 @@ class DashboardController extends Controller
                         ['exercise_name', 'like', $exercise],
                         [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
                         [DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                        ['workout_junctions.user_id', Auth::id()]
                     ]);
                 }])
             ->get();
