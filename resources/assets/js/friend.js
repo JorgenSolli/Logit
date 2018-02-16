@@ -12,11 +12,12 @@ $(document).ready(function() {
 	var your_picker = "#your_exercises";
 	var pickers = "#your_exercises, #friend_exercises";
 
-	var your_chart, friend_chart;
+	var your_chart, friend_chart, type, year, month, sessionsChart;
 
 	FriendFunctions = {
 		init: function() {
 			FriendFunctions.populateExercises();
+			FriendFunctions.populateCharts();
 		},
 
 		initSelects: function() {
@@ -78,6 +79,103 @@ $(document).ready(function() {
                     else {
                         $(pickers).selectpicker({});
                     }
+                }
+            });
+        },
+
+        populateCharts: function() {
+            var type  = $("#statistics-type").val();
+            var year  = $("#statistics-year").val();
+            var month = $("#statistics-month").val();
+
+            /* Data for session chart */
+            $.ajax({
+                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/api/friends/friend/getSessionData',
+                data: {
+                	type: type,
+                	year: year,
+                	month: month,
+                	user_id: friend_id
+                },
+                success: function(data) {
+                    if (sessionsChart) {
+                        sessionsChart.destroy();
+                    }
+
+                    FriendFunctions.sessionsChart(data.labels, data.series, data.meta, data.max, data.stepSize);
+                }
+            });
+        },
+
+        sessionsChart: function(labels, series, meta, max, stepSize) {
+            var ctx = $("#workoutActivityChart");
+            sessionsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+	                    label: 'Your sessions',
+                        data: series.yours,
+                        lineTension: 0,
+                        borderWidth: 2,
+                        borderColor: 'rgba(45, 204, 112, 1)',
+                        backgroundColor: 'rgba(45, 204, 112, 0.15)',
+                        fill: true,
+	                }, {
+	                    label: 'Friends sessions',
+                        data: series.friends,
+                        lineTension: 0,
+                        borderWidth: 2,
+                        borderColor: 'rgba(48, 151, 209, 1)',
+                        backgroundColor: 'rgba(48, 151, 209, 0.15)',
+                        fill: true,
+	                }]
+                },
+                options: {
+                    title: {
+                        display: false,
+                        lineHeight: 1,
+                    },
+                    layout: {
+                        padding: {
+                            top: 1,
+                            right: 10,
+                            bottom: 5,
+                            left: 5
+                        }
+                    },
+                    legend: {
+                        display: true,
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                stepSize: stepSize,
+                                min: 0,
+                            },
+                        }]
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            title: function(tooltipItem, data) {
+                                var item = null;
+                                if (meta) {
+                                    var label = tooltipItem[0].xLabel;
+                                    item = meta[label-1]
+                                }
+                                return item;
+                            }
+                        },
+                    },
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    responsiveAnimationDuration: 100
                 }
             });
         },
@@ -199,6 +297,24 @@ $(document).ready(function() {
     $(document).on('change', friend_picker, function() {
     	var exercise = $(friend_picker).val();
         FriendFunctions.compareExercise(friend_id, exercise, '#friend_exercise');
+    });
+
+    $("#statistics-type").on('change', function() {
+        type = $(this).val();
+        console.log(type);
+        if (type == "months") {
+            $("#statistics-month").parent().show();
+        } else {
+            $("#statistics-month").parent().hide();
+        }
+    });
+
+    $("#statistics-type, #statistics-year, #statistics-month").on('change', function() {
+        type  = $("#statistics-type").val();
+        year  = $("#statistics-year").val();
+        month = $("#statistics-month").val();
+
+        FriendFunctions.init();
     });
 
 	$(document).on('click', '#removeFriend', function() {

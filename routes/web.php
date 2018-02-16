@@ -51,6 +51,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::get('/api/friends/removeFriend', 'FriendController@removeFriend');
 	Route::get('/api/friends/friend/populateExercises', 'FriendController@getExercises');
 	Route::get('/api/friends/friend/getExerciseData', 'FriendController@getExerciseData');
+	Route::get('/api/friends/friend/getSessionData', 'FriendController@getSessionData');
 	Route::get('/dashboard/friends/friend/{friendId}', 'FriendController@viewFriend');
 	
 

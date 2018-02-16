@@ -133,6 +133,40 @@ class FriendController extends Controller
 	}
 
 	/**
+     * Gets session amount from friend and Authed user
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
+	public function getSessionData (Request $request)
+	{
+		$type = $request->type;
+		$month = $request->month;
+		$year = $request->year;
+		$userId = $request->user_id;
+
+		$friendData = LogitFunctions::fetchSessionData($type, $month, $year, $userId);
+		$yourData  = LogitFunctions::fetchSessionData($type, $month, $year, Auth::id());
+
+		$result = array(
+            'labels' => [],
+            'series' => [
+            	'yours' => [],
+            	'friends' => [],
+            ],
+            'meta' => [],
+            'max' => 0,
+            'stepSize' => 1,
+        );
+
+		$result['labels'] = $friendData['labels'];
+		$result['series']['yours'] = $yourData['series'];
+		$result['series']['friends'] = $friendData['series'];
+
+		return $result;
+	}
+
+	/**
      * Gets data for specific exercise
      *
      * @param  Request
