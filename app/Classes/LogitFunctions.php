@@ -6,6 +6,9 @@ use DB;
 use Carbon;
 
 use Logit\Workout;
+use Logit\Friend;
+
+use Illuminate\Support\Facades\Auth;
 
 class LogitFunctions {
 
@@ -105,6 +108,8 @@ class LogitFunctions {
      */
     public static function fetchExerciseData ($type, $month, $year, $exercise, $userId)
     {
+        LogitFunctions::canView($userId);
+
         $result = array(
             'labels' => [],
             'series' => [
@@ -180,6 +185,120 @@ class LogitFunctions {
         return $result; 
     }
 
+    public static function fetchSessionData ($type, $month, $year, $userId)
+    {
+        LogitFunctions::canView($userId);
+
+        if ($type === "year") {
+            $data = Workout::where('user_id', $userId)
+                ->where( DB::raw('YEAR(created_at)'), '=', date($year) )
+                ->get();
+
+            $getMonth = LogitFunctions::parseDate($type, $year, $month);
+
+            $result = array(
+                'labels' => [
+                    'Jan',
+                    'Feb',
+                    'Mar',
+                    'Apr',
+                    'May',
+                    'Jun',
+                    'Jul',
+                    'Aug',
+                    'Sep',
+                    'Oct',
+                    'Nov',
+                    'Dec'
+                ],
+                'series' => [],
+                'max' => 0,
+                'stepSize' => 5,
+            );
+
+            # Populates the series index with months in the year
+            for ($i=0; $i < 12; $i++) { 
+                array_push($result['series'], 0);
+            }
+
+            # Iterates over our results and pushes the data into our array
+            for ($i=0; $i < count($data); $i++) {
+                // Gets the month of the current results and formats in the format specified in our getMonth array so we can match the results
+                $month = $data[$i]->created_at->format('M');
+                // Populates the series array. Using getMonth to get the correct index for the month
+                $result['series'][$getMonth[$month]] = $result['series'][$getMonth[$month]] + 1;
+            }
+
+            # Finds the max value and appends 1 (for cosmetic reason)
+            $result['max'] = max($result['series']) + 1;
+        } 
+        elseif ($type == "months") {
+            # Makes sure the month we get from out request is formated correctly
+            $selectedMonth = ucfirst($month);
+
+            # Sets up the expected dataformat
+            $monthData = LogitFunctions::parseDate($type, $year, $month);
+
+            # Initialized our output
+            $result = array(
+                'labels' => [],
+                'series' => [],
+                'meta' => [],
+                'max' => 0,
+                'stepSize' => 1,
+            );
+
+            # Populates the outputArray with data specific for the specific month
+            for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
+                array_push($result['labels'], $i);
+                array_push($result['series'], 0);
+                array_push($result['meta'], "");
+            }
+
+            # Grabs the data relevant
+            $data = Workout::where('workouts.user_id', $userId)
+                ->where(DB::raw('MONTH(workouts.created_at)'), '=', date($monthData[$selectedMonth]['int']))
+                ->where(DB::raw('YEAR(workouts.created_at)'), '=', date($year))
+                ->join('routines', 'workouts.routine_id', '=', 'routines.id')
+                ->orderBy('workouts.created_at', 'ASC')
+                ->select('workouts.created_at', 'routines.routine_name')
+                ->get();
+            # Iterates over the result
+            foreach ($data as $value) {
+                $day = $value->created_at->format('d');
+                
+                # Removes a zero in front of the int. 04 becomes 4 and so on. This is so we can corretctly match indexes in our result array
+                if ($day > 0 && $day < 10) {
+                    $day = ltrim($day, 0);
+                }
+
+                # Subtracts 1 on the index for day, as this is naturally offset by this amount. Index starts at 0, day starts at 1
+                $result['series'][(int)$day - 1] = $result['series'][(int)$day - 1] + 1;
+
+                $string = $value->routine_name;
+                if ($result['meta'][(int)$day - 1] != "") {
+                    $comma = ", ";
+                    $string = $result['meta'][(int)$day - 1] .= $comma .= $string;
+                }
+
+                $result['meta'][(int)$day - 1] = $string;
+            }
+
+            # Finds the max value and appends 1 (for cosmetic reason)
+            $max = 0;
+            foreach ($result['series'] as $value) {
+                if ($value > $max - 1) {
+                    $max = $value + 0.1;
+                }  
+            }
+
+            $result['max'] = $max;
+        }
+
+        # Returns the result as an json array
+        return $result;
+    }
+
     public static function is_leap_year ($year) {
         if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
             return 29;
@@ -202,5 +321,22 @@ class LogitFunctions {
         $seconds = round(60*($time-$minutes));
 
         return sprintf($format, $minutes, $seconds);
+    }
+
+    public static function canView ($userId)
+    {
+        if ($userId !== Auth::id()) {
+            $areWeFriends = Friend::where([
+                ['user_id', Auth::id()],
+                ['friends_with', $userId],
+                ['pending', 0]
+            ])->first();
+
+            if (!$areWeFriends) {
+                return abort(403, 'Unauthorized action.');
+            }
+        }
+
+        return true;
     }
 }
