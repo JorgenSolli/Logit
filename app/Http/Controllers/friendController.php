@@ -7,7 +7,8 @@ use Logit\Friend;
 use Logit\Routine;
 use Logit\Settings;
 use Logit\Notification;
-use Logit\RoutineJunction;
+use Logit\WorkoutJunction;
+use Logit\Classes\LogitFunctions;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,10 +94,63 @@ class FriendController extends Controller
     		'friend' 	 => $friend,
     	]);
     }
-	
-	public function populateExercises ()
+
+    /**
+     * Gets all exercises from user
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
+	public function getExercises (Request $request)
 	{
-		
+		$you = Auth::user();
+		$friend = User::where('id', $request->friend_id)->firstOrFail();
+
+		$exercises = [
+			'you' => [], 
+			'friend' => []
+		];
+
+        $your_exercises = WorkoutJunction::where('workout_junctions.user_id', $you->id)
+			->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
+			->where('workout_junctions.is_warmup', 0)
+			->select('exercise_name')
+            ->groupBy('exercise_name')
+            ->get();
+
+        array_push($exercises['you'], $your_exercises);
+        
+		$friend_exercises = WorkoutJunction::where('workout_junctions.user_id', $friend->id)
+			->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
+			->where('workout_junctions.is_warmup', 0)
+			->select('exercise_name')
+            ->groupBy('exercise_name')
+            ->get();
+
+        array_push($exercises['friend'], $friend_exercises);
+
+        return $exercises;
 	}
 
+	/**
+     * Gets data for specific exercise
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
+	public function getExerciseData (Request $request)
+	{	
+		$type = $request->type;
+		$month = $request->month;
+		$year = $request->year;
+
+		if ($request->user_id === 'auth') {
+			$userId = Auth::id();
+		} else {
+			$userId = $request->user_id;
+		}
+		$result = LogitFunctions::fetchExerciseData($type, $month, $year, $request->exercise, $userId);
+
+		return $result;
+	}
 }
