@@ -115,6 +115,7 @@ class LogitFunctions {
             'success' => true,
             'max' => 0,
         );
+
         if ($type == "year") {
             $workouts = Workout::with(['junction' => function($query) use ($exercise, $year, $userId) {
                     $query->where([
@@ -130,7 +131,6 @@ class LogitFunctions {
             $selectedMonth = ucfirst($month);
             # Sets up the expected dataformat
             $monthData = LogitFunctions::parseDate($type, $year, $month);
-
             $workouts = Workout::with(['junction' => function($query) use ($exercise, $year, $monthData, $selectedMonth, $userId) {
                     $query->where([
                         ['exercise_name', 'like', $exercise],
