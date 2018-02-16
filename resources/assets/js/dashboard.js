@@ -417,9 +417,7 @@ $(function() {
     });
 
     $(document).on('change', '#exercise_name', function() {
-        exercise = $("#exercise_name").val();
         Dashboard.compareExercise();
-        console.log(exercise);
     });
 
     Dashboard.initSelects();
