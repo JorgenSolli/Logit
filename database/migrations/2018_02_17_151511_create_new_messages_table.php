@@ -23,7 +23,7 @@ class CreateNewMessagesTable extends Migration
                 
             $table->string('title');
             $table->string('type');
-            $table->string('html');
+            $table->text('html');
             $table->string('confirmButtonText');
             $table->boolean('is_new')->default(1);
 
