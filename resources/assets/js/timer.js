@@ -1,136 +1,118 @@
-var soundInterval;
-$.ajax({
-  method: 'GET',
-  url: '/user/settings/get',
-  async: false,
-  success: function(data) {
-    soundInterval = data.timer_sound_interval;
-  }
-});
 
-var timerHtml = '<div id="timer">' +
-    '<div class="row">' +
-      '<div class="col-xs-4 text-center">' +
-        '<span id="timer-minutes">00</span>:<span id="timer-seconds">00</span>' +
-      '</div>' +
-      '<div class="col-xs-4 text-center">' +
-        '<i id="timer-play" class="fal fa-play"></i>' +
-      '</div>' +
-      '<div class="col-xs-4 text-center">' +
-        '<i id="timer-reset" class="fal fa-repeat"></i>' +
-      '</div>' +
-    '</div>' +
-  '</div>';
+var soundInterval, ding, cosmeticSec, cosmeticMin;
+var hasPlayedAudio = false;
+var playDing = false;
+var timer = new Timer();
 
-$("#app").append(timerHtml);
-$("footer.footer").addClass("hasTimer");
+var timerSettings = {};
 
-// Keep track of soundqueue. Will reset once audio plays.
-var secondsSinceAudio = 0;
-var hasPlayedAudtio = false;
-var seconds = 0;
-var minutes = 0;
+setTimerSettings = function(data) {
+    timerSettings.direction = data.timer_direction;
+    timerSettings.play_sound = data.timer_play_sound;
+    timerSettings.seconds = data.timer_seconds;
+    timerSettings.minutes = data.timer_minutes;
 
-var realStartTime, timeSinceLastDing, totalSeconds;
-
-var timerMinutes = $("#timer-minutes");
-var timerSeconds = $("#timer-seconds");
-
-if (soundInterval) {
-  var ding = new Audio('/media/ding.wav');
+    // Keep track of soundqueue. Will reset once audio plays.
+    if (timerSettings.play_sound) {
+        ding = new Audio('/media/ding.wav');
+    }
 }
 
-var addSecond = function(timeStarted) {
-    return Math.floor((new Date - timeStarted) / 1000);
+var getSettings = function() {
+    $.ajax({
+        method: 'GET',
+        url: '/user/settings/get',
+        success: function(data) {
+            setTimerSettings(data);   
+        }
+    });
 }
+getSettings();
 
-var intervarSettings = function(reset) {  
-  totalSeconds = addSecond(realStartTime);
-  secondsSinceAudio = addSecond(timeSinceLastDing);
+$(document).ready(function() {
 
-  minutes = Math.floor(totalSeconds / 60);
-  if (minutes > 0) {
-    seconds = totalSeconds - (minutes * 60);
-  } else {
-    seconds = totalSeconds;
-  }
+    var timerHtml = '<div id="timer">' +
+                        '<div class="row">' +
+                            '<div class="col-xs-4 text-center">' +
+                                '<div id="timerValues"></div>' +
+                            '</div>' +
+                            '<div class="col-xs-4 text-center">' +
+                                '<i id="timer-play" class="fal fa-play"></i>' +
+                            '</div>' +
+                            '<div class="col-xs-4 text-center">' +
+                                '<i id="timer-reset" class="fal fa-repeat"></i>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
 
-  if (soundInterval && secondsSinceAudio >= soundInterval && !hasPlayedAudtio) {
-    ding.play();
-    hasPlayedAudtio = true;
-  }
-  
-  if (seconds < 60 && minutes < 1) {
-    timerMinutes.html('00');
-  }
-  if (seconds < 10) {
-    seconds = ('0' + seconds).slice(-2); 
-  }
+    $("#app").append(timerHtml);
+    $("footer.footer").addClass("hasTimer");
 
-  if (minutes < 10) {
-    minutes = ('0' + minutes).slice(-2);
-  }
+    if (timerSettings.direction == 'default') {
+        $("#timerValues").html('00:00');
+    } else {        
+        cosmeticSec = timerSettings.seconds < 10 ? cosmeticSec = ('0' + timerSettings.seconds).slice(-2) : cosmeticSec = timerSettings.seconds;
+        cosmeticMin = timerSettings.minutes < 10 ? cosmeticMin = ('0' + timerSettings.minutes).slice(-2) : cosmeticMin = timerSettings.minutes;
 
-  timerSeconds.html(seconds);
-  timerMinutes.html(minutes);
-}
+        $("#timerValues").html(cosmeticMin + ':' + cosmeticSec);
+    }
 
-var countSeconds = null;
+    $(document).on('click', '#timer-play', function() {
+        hasPlayedAudio = false;
+        
+        if (timerSettings.direction == 'default') {
+            timer.start();
+        } else {
+            timer.start({
+                countdown: true, 
+                startValues: {
+                    seconds: timerSettings.seconds,
+                    minutes: timerSettings.minutes,
+                }
+            });
+        }
+        $(this).removeClass("fa-play").addClass('fa-pause').attr('id', "timer-pause");
+        // Loads the sound imidediately so its initialized on all phone devices. 
+        if (timerSettings.play_sound) {
+            ding.play(); ding.pause();
+        }
+    });
 
-var resetSound = function(timer) {
-  ding.pause();
-  ding.currentTime = 0;
-  secondsSinceAudio = 0;
-  hasPlayedAudtio = false;
-  minutes = 0;
-  seconds = 0;
-  window.clearInterval(countSeconds);
+    $(document).on('click', '#timer-pause', function() {
+        timer.pause();
+        $(this).removeClass("fa-pause").addClass('fa-play').attr('id', "timer-play");
+    });
 
-  if (timer) {
-    realStartTime = new Date;
-    timeSinceLastDing = new Date;
-    timerMinutes.html('00');
-    timerSeconds.html('00');
+    $(document).on('click', '#timer-reset', function() {
+        timer.reset();
+        hasPlayedAudio = false;
+        $("#timer-play").removeClass("fa-play").addClass('fa-pause').attr('id', "timer-pause");
+    });
 
-    countSeconds = setInterval(function() {
-      intervarSettings(true);
-    }, 1000);
-  }
-}
+    timer.addEventListener('secondsUpdated', function (e) {
+        $('#timer #timerValues').html(timer.getTimeValues().toString(['minutes', 'seconds']));
+        var time = timer.getTimeValues();
 
-var operators = function(method) {
-  if (method === "pause") {
-    resetSound();
-  }
+        if (timerSettings.direction == 'default') {
+            if (time.seconds >= timerSettings.seconds && time.minutes == timerSettings.minutes && timerSettings.play_sound && !hasPlayedAudio) {
+                ding.play();
+                hasPlayedAudio = true;
+            }
+        } else {
+            if (time.minutes == 0 && time.seconds < 1) {
+                ding.play();
+                hasPlayedAudio = true;
+                $("#timer-pause").removeClass("fa-pause").addClass('fa-play').attr('id', "timer-play");
+            }
+        }
 
-  else if (method === "play") {
-    realStartTime = new Date;
-    timeSinceLastDing = new Date;
-    hasPlayedAudtio = false;
-    countSeconds = setInterval(function() {
-      intervarSettings(true);
-    }, 1000);
-  }
+    });
 
-  else if (method === "reset") {
-    resetSound(true);
-  }
-};
+    timer.addEventListener('started', function (e) {
+        $('#timer #timerValues').html(timer.getTimeValues().toString(['minutes', 'seconds']));
+    });
 
-$(document).on('click', '#timer-play', function() {
-  $(this).removeClass("fa-play").addClass('fa-stop').attr('id', "timer-pause");
-  if (soundInterval) {
-    ding.play(); ding.pause();
-  }
-  operators("play");
-});
-
-$(document).on('click', '#timer-pause', function() {
-  $(this).removeClass("fa-stop").addClass('fa-play').attr('id', "timer-play");
-  operators("pause");
-});
-
-$(document).on('click', '#timer-reset', function() {
-  $("#timer-play").removeClass("fa-play").addClass('fa-stop').attr('id', "timer-pause");
-  operators("reset");
+    timer.addEventListener('reset', function (e) {
+        $('#timer #timerValues').html(timer.getTimeValues().toString(['minutes', 'seconds']));
+    });
 });
