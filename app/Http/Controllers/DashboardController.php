@@ -9,7 +9,7 @@ use DB;
 use Logit\User;
 use Logit\Workout;
 use Logit\Settings;
-use Logit\newMessage;
+use Logit\NewMessage;
 use Logit\WorkoutJunction;
 use Logit\RoutineJunction;
 use Logit\Exception\Handler;
