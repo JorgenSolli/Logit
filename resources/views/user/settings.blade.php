@@ -285,23 +285,16 @@
                                 name="timer_direction" 
                                 data-style="btn btn-primary" 
                                 title="Timer type">
-                            @if ($settings && $settings->timer_direction)
-                                <option disabled>Timer type</option>
-                                @if ($settings->timer_direction == "default")
-                                    <option value="default" selected>Default</option>
-                                @else
-                                    <option value="default">Default</option>
-                                @endif
-
-                                @if ($settings->timer_direction == "countdown")
-                                    <option value="countdown" selected>Countdown</option>
-                                @else
-                                    <option value="countdown">Countdown</option>
-                                @endif
+                            @if ($settings->timer_direction == "default")
+                                <option value="default" selected>Default timer</option>
                             @else
-                                <option disabled selected>Timer type</option>
-                                <option value="default">Default</option>
-                                <option value="countdown">Countdown</option>
+                                <option value="default">Default timer</option>
+                            @endif
+
+                            @if ($settings->timer_direction == "countdown")
+                                <option value="countdown" selected>Countdown timer</option>
+                            @else
+                                <option value="countdown">Countdown timer</option>
                             @endif
                         </select>
 
