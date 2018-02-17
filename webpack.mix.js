@@ -55,3 +55,4 @@ mix.combine(['resources/assets/js/settings.js'], 'public/js/settings.min.js').ve
 mix.babel(['resources/assets/js/workouts.js'], 'public/js/workouts.min.js').version();
 mix.combine(['resources/assets/js/timer.js'], 'public/js/timer.min.js').version();
 mix.combine(['resources/assets/js/measurements.js'], 'public/js/measurements.min.js').version();
+mix.combine(['resources/assets/js/admin.js'], 'public/js/admin.min.js').version();

@@ -24,6 +24,7 @@ class User extends Authenticatable
         'goal', 
         'country',
         'timezone',
+        'is_admin',
     ];
 
     /**

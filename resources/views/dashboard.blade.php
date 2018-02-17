@@ -167,24 +167,48 @@
 
     @if ($firstTime)
         <script>
-            swal(
-                'Welcome to Logit!',
-                "    ",
-                'info'
-            );
+            $(document).ready(function() {
+                swal({
+                    title: 'Welcome to Logit!',
+                    type: 'info',
+                    html:
+                        'Since this is the first time loggin in, I suggest you head over to the ' +
+                        '<a href="/user">My profile</a> and <a href="/user/settings">Settings</a> page to get you started ' +
+                        '(Click on your name on the left side).<br><br> ' +
+                        "Once that's done you can head over to <a href='/dashboard/my_routines'>My Routines</a>!",
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                    confirmButtonText: '<i class="fal fa-thumbs-up"></i> Great. Thank you!'
+                });
+            });
+        </script>
+    @endif
 
-        swal({
-            title: 'Welcome to Logit!',
-            type: 'info',
-            html:
-                'Since this is the first time loggin in, I suggest you head over to the ' +
-                '<a href="/user">My profile</a> and <a href="/user/settings">Settings</a> page to get you started ' +
-                '(Click on your name on the left side).<br><br> ' +
-                "Once that's done you can head over to <a href='/dashboard/my_routines'>My Routines</a>!",
-            showCloseButton: true,
-            showCancelButton: false,
-            confirmButtonText: '<i class="fal fa-thumbs-up"></i> Great. Thank you!'
-        });
+    @if ($newMessage)
+        <script>
+            $(document).ready(function() {
+                var messageId = {{ $newMessage->id }};
+                swal({
+                    title: "{{ $newMessage->title }}",
+                    type: "{{ $newMessage->type }}",
+                    html: "{!! $newMessage->html !!}",
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                    confirmButtonText: "{{ $newMessage->confirmButtonText }}"
+                }).then(function () {
+                    $.ajax({
+                        url: '/api/message/clear/',
+                        data: {
+                            message_id: messageId
+                        },
+                        success: function() {
+                            return true;
+                        }
+                    });
+                });
+            });
         </script>
     @endif
 @endsection

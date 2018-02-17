@@ -6,6 +6,7 @@ use DB;
 use Logit\Note;
 use Logit\Workout;
 use Logit\Settings;
+use Logit\NewMessage;
 use Logit\Notification;
 use Logit\RoutineJunction;
 use Logit\WorkoutJunction;
@@ -73,5 +74,25 @@ class ApiController extends Controller
         }
 
         return;
+    }
+
+    /**
+     * Markes a message as read
+     *
+     * @return Void
+     */
+    public function clearMessage (Request $request)
+    {
+        $messageId = $request->message_id;
+        $message = NewMessage::where('id', $messageId)->first();
+
+        if ($message->user_id == Auth::id()) {
+            $message->is_new = 0;
+            $message->save();
+
+            return;
+        }
+
+        abort(403, 'Not your message!');
     }
 }

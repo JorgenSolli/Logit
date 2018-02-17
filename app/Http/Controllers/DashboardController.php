@@ -9,6 +9,7 @@ use DB;
 use Logit\User;
 use Logit\Workout;
 use Logit\Settings;
+use Logit\newMessage;
 use Logit\WorkoutJunction;
 use Logit\RoutineJunction;
 use Logit\Exception\Handler;
@@ -37,6 +38,10 @@ class DashboardController extends Controller
         
         $brukerinfo = Auth::user();
         $firstTime = false;
+        $newMessage = NewMessage::where([
+                ['user_id', $brukerinfo->id],
+                ['is_new', 1]
+            ])->first();
 
         /* Checks if this is the users first time visiting */
         if ($brukerinfo->first_time === 1) {
@@ -84,6 +89,7 @@ class DashboardController extends Controller
             'brukerinfo'      => $brukerinfo,
             'exercises'       => $exercises,
             'firstTime'       => $firstTime,
+            'newMessage'      => $newMessage,
         ]);
     }
 

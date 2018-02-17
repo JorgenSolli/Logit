@@ -99,8 +99,11 @@ Route::group(['middleware' => ['isVerified']], function () {
 	/* API routes */
 	Route::get('/clear', 'ApiController@flushSessions');
 	Route::post('/api/notifications/check', 'ApiController@checkNotifications');
-	Route::post('/api/notifications/clear/', 'ApiController@clearNotification');
+	Route::post('/api/notifications/clear', 'ApiController@clearNotification');
+	Route::get('/api/message/clear', 'ApiController@clearMessage');
 
-	/* Dev paths */
-	Route::get('/showSession', 'DevController@showSession');
+	/* Dev/Admin paths */
+	Route::get('/admin/showSession', 'DevController@showSession');
+	Route::get('/admin', 'DevController@adminPanel');
+	Route::post('/admin/newMessage', 'DevController@newMessage');
 });

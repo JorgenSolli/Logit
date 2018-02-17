@@ -11,6 +11,7 @@
     "/js/routines.min.js": "/js/routines.min.js?id=363265bdec5d041580f1",
     "/js/settings.min.js": "/js/settings.min.js?id=dd43ab3f856ef69ba673",
     "/js/workouts.min.js": "/js/workouts.min.js?id=2e17045a2cf659340637",
-    "/js/timer.min.js": "/js/timer.min.js?id=8ffec9a47d47c84cc596",
-    "/js/measurements.min.js": "/js/measurements.min.js?id=9be8efede17639a525c7"
+    "/js/timer.min.js": "/js/timer.min.js?id=ca43854a8e3353ac1cd9",
+    "/js/measurements.min.js": "/js/measurements.min.js?id=9be8efede17639a525c7",
+    "/js/admin.min.js": "/js/admin.min.js?id=7ca02a92575c55a8acb5"
 }
