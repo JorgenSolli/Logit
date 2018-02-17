@@ -292,7 +292,6 @@ class WorkoutController extends Controller
     public function viewWorkouts ()
     {
         $brukerinfo = Auth::user();
-
         $workouts = Workout::where('workouts.user_id', Auth::id())
             ->join('routines', 'workouts.routine_id', '=', 'routines.id')
             ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
@@ -429,6 +428,19 @@ class WorkoutController extends Controller
         $brukerinfo = Auth::user();
         $workoutName = Routine::where('id', $workout->routine_id)
             ->first();
+
+        // Function to set all proper date_started for old workouts
+        $allWorkouts = Workout::get();
+
+        foreach ($allWorkouts as $workout) {
+            $duration = $workout->duration_minutes;
+            $started = new Carbon($workout->created_at->subMinutes($duration));
+
+            if ($duration > 0) {
+                $workout->date_started = $started;
+                $workout->save();
+            }
+        }
 
         $minutes = $workout->duration_minutes;
 
