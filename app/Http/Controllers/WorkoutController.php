@@ -232,6 +232,12 @@ class WorkoutController extends Controller
         $brukerinfo = Auth::user();
 
         $settings = Settings::where('user_id', $brukerinfo->id)->first();
+        $timerSettings = array(
+            'direction' => $settings->timer_direction,
+            'play_sound' => $settings->timer_play_sound,
+            'seconds' => $settings->timer_seconds,
+            'minutes' => $settings->timer_minutes,
+        );
 
         $topNav = [
             0 => [
@@ -267,13 +273,14 @@ class WorkoutController extends Controller
             session(['gymming' => $routine->id]);
             session(['started_gymming' => $dateTime]);
         }
-
+        
         return view('workouts.startWorkout', [
-            'topNav'     => $topNav,
-            'exercises'  => $allExercises,
-            'routine_id' => $routine->id,
-            'brukerinfo' => $brukerinfo,
-            'settings'   => $settings,
+            'topNav'        => $topNav,
+            'exercises'     => $allExercises,
+            'routine_id'    => $routine->id,
+            'brukerinfo'    => $brukerinfo,
+            'settings'      => $settings,
+            'timerSettings' => $timerSettings,
         ]);
     }
 

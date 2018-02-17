@@ -82,6 +82,14 @@
   <script src="{{ mix('/js/workouts.min.js') }}"></script>
 
   @if ($settings->use_timer === 1)
+    <script>
+      var timerSettings = {
+        direction: '{{ $timerSettings['direction']}}',
+        play_sound: {{ $timerSettings['play_sound']}},
+        seconds: {{ $timerSettings['seconds']}},
+        minutes: {{ $timerSettings['minutes']}},
+      }
+    </script>
     <script src="{{ mix('/js/timer.min.js') }}"></script>
   @endif
 @endsection

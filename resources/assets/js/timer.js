@@ -4,33 +4,7 @@ var hasPlayedAudio = false;
 var playDing = false;
 var timer = new Timer();
 
-var timerSettings = {};
-
-setTimerSettings = function(data) {
-    timerSettings.direction = data.timer_direction;
-    timerSettings.play_sound = data.timer_play_sound;
-    timerSettings.seconds = data.timer_seconds;
-    timerSettings.minutes = data.timer_minutes;
-
-    // Keep track of soundqueue. Will reset once audio plays.
-    if (timerSettings.play_sound) {
-        ding = new Audio('/media/ding.wav');
-    }
-}
-
-var getSettings = function() {
-    $.ajax({
-        method: 'GET',
-        url: '/user/settings/get',
-        success: function(data) {
-            setTimerSettings(data);   
-        }
-    });
-}
-getSettings();
-
 $(document).ready(function() {
-
     var timerHtml = '<div id="timer">' +
                         '<div class="row">' +
                             '<div class="col-xs-4 text-center">' +
@@ -50,10 +24,9 @@ $(document).ready(function() {
 
     if (timerSettings.direction == 'default') {
         $("#timerValues").html('00:00');
-    } else {        
+    } else {
         cosmeticSec = timerSettings.seconds < 10 ? cosmeticSec = ('0' + timerSettings.seconds).slice(-2) : cosmeticSec = timerSettings.seconds;
         cosmeticMin = timerSettings.minutes < 10 ? cosmeticMin = ('0' + timerSettings.minutes).slice(-2) : cosmeticMin = timerSettings.minutes;
-
         $("#timerValues").html(cosmeticMin + ':' + cosmeticSec);
     }
 
