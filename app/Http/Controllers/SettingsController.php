@@ -56,7 +56,6 @@ class SettingsController extends Controller
         $settings->user_id = Auth::id();
         $settings->unit = $data['unit'];
         $settings->timezone = $data['timezone'];
-        $settings->timer_sound_interval = $data['timer_sound_interval'];
 
         if (!array_key_exists('recap', $data)) {
             $settings->recap = 0;
@@ -88,18 +87,53 @@ class SettingsController extends Controller
             $settings->count_warmup_in_stats = 1;
         }
 
+        if ($settings->save()) {
+            return back()->with('script_success', 'Settings updated.');
+        }
+
+        return back()->with('script_danger', 'Something went wrong. Please try again.');
+    }
+
+    public function timerSettings (Request $request)
+    {   
+        $data = $request->all();
+
+        $settings = Settings::where('user_id', Auth::id())
+            ->first();
+
+        // If there is not an instance of the user already in our settingstable
+        if (!$settings) {
+            $settings = new Settings;
+        }
+
         if (!array_key_exists('use_timer', $data)) {
             $settings->use_timer = 0;
         } else {
             $settings->use_timer = 1;
         }
 
-        if ($settings->save()) {
-            return back()->with('script_success', 'Settings updated.');
+        if (!array_key_exists('timer_play_sound', $data)) {
+            $settings->timer_play_sound = 0;
+        } else {
+            $settings->timer_play_sound = 1;
         }
 
+        $settings->timer_direction = $data['timer_direction'];
 
-        return back()->with('script_danger', 'Something went wrong. Please try again.');
+        if ($request->timer_minutes > 60) {
+            return back()->with('script_danger', 'Seconds cannot be more then 60');
+        }
+        
+        if ($request->timer_seconds > 60) {
+            return back()->with('script_danger', 'Minutes cannot be more then 60');
+        }
+
+        $settings->timer_minutes = $request->timer_minutes;
+        $settings->timer_seconds = $request->timer_seconds;
+
+        if ($settings->save()) {
+            return back()->with('script_success', 'Timer settings updated.');
+        }
     }
 
     public function renameExercise (Request $request)

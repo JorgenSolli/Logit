@@ -29,8 +29,10 @@ class CreateSettingsTable extends Migration
             $table->boolean('strict_previous_exercise')->default(1);
             $table->boolean('count_warmup_in_stats')->default(0);
             $table->boolean('use_timer')->default(0);
-            $table->integer('timer_sound_interval')->nullable();
-
+            $table->boolean('timer_play_sound')->default(0);
+            $table->string('timer_direction')->default('default');
+            $table->integer('timer_seconds')->default(0);
+            $table->integer('timer_minutes')->default(0);
             $table->timestamps();
         });
     }

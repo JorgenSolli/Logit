@@ -21,6 +21,9 @@ class Settings extends Model
         'strict_previous_exercise',
         'count_warmup_in_stats',
         'use_timer',
-        'timer_sound_interval',
+        'timer_play_sound',
+        'timer_direction',
+        'timer_seconds',
+        'timer_minutes',
     ];
 }

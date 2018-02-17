@@ -13,7 +13,7 @@
                     <div class="card-content">
                         <h4 class="card-title">Your personal settings</h4>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5 col-xs-12">
                                 <div class="form-group label-floating">
                                     <select id="country" class="form-control" name="timezone" data-style="btn btn-primary" title="Your Timezone">
                                         @if ($settings && $settings->timezone)
@@ -43,16 +43,8 @@
                                         @endif
                                     </select>
                                 </div>
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Play sound after x seconds (Timer) Leave blank to disable</label>
-                                    <input type="number" class="form-control" 
-                                           name="timer_sound_interval"
-                                           value="@if ($settings && $settings->timer_sound_interval){{ $settings->timer_sound_interval }}@endif">
-                                </div>
-
-                                
                             </div>
-                            <div class="col-md-6 settings-toggles">
+                            <div class="col-md-7 col-xs-12 settings-toggles">
                                 <div class="form-group label-floating">
                                     <div class="togglebutton">
                                         <label>
@@ -150,26 +142,9 @@
                                         </label>
                                     </div>
                                 </div>
-
-                                <div class="form-group label-floating clearfix">
-                                    <div class="pull-left togglebutton">
-                                        <label>
-                                            @if ($settings)
-                                                @if ($settings->use_timer === 1)
-                                                    <input name="use_timer" type="checkbox" checked="">
-                                                @else
-                                                    <input name="use_timer" type="checkbox">
-                                                @endif
-                                            @else
-                                                <input name="use_timer" type="checkbox">
-                                            @endif
-                                            Show timer when exercising
-                                        </label>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-rose pull-right">Update Settings</button>
+                        <input type="submit" class="btn btn-rose pull-right" value="Update Settings" />
                         <div class="clearfix"></div>
                     </div>
                 </form>
@@ -253,6 +228,104 @@
                                 <input type="submit" class="btn btn-rose" value="Do it!" />
                             </div>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="rose">
+                    <i class="material-icons">timer</i>
+                </div>
+                <div class="card-content">
+                    <h4 class="card-title">Timer settings</h4>
+                    <form action="/user/settings/edit/timer" method="post">
+                        {{ csrf_field() }}
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group label-floating clearfix">
+                                    <div class="pull-left togglebutton">
+                                        <label>
+                                            @if ($settings)
+                                                @if ($settings->use_timer === 1)
+                                                    <input name="use_timer" type="checkbox" checked="">
+                                                @else
+                                                    <input name="use_timer" type="checkbox">
+                                                @endif
+                                            @else
+                                                <input name="use_timer" type="checkbox">
+                                            @endif
+                                            Show timer when exercising
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-floating clearfix">
+                                    <div class="pull-left togglebutton">
+                                        <label>
+                                            @if ($settings)
+                                                @if ($settings->timer_play_sound === 1)
+                                                    <input name="timer_play_sound" type="checkbox" checked="">
+                                                @else
+                                                    <input name="timer_play_sound" type="checkbox">
+                                                @endif
+                                            @else
+                                                <input name="timer_play_sound" type="checkbox">
+                                            @endif
+                                            Play sound when timer reaches target
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <select class="selectpicker sp-added-height" 
+                                name="timer_direction" 
+                                data-style="btn btn-primary" 
+                                title="Timer type">
+                            @if ($settings && $settings->timer_direction)
+                                <option disabled>Timer type</option>
+                                @if ($settings->timer_direction == "default")
+                                    <option value="default" selected>Default</option>
+                                @else
+                                    <option value="default">Default</option>
+                                @endif
+
+                                @if ($settings->timer_direction == "countdown")
+                                    <option value="countdown" selected>Countdown</option>
+                                @else
+                                    <option value="countdown">Countdown</option>
+                                @endif
+                            @else
+                                <option disabled selected>Timer type</option>
+                                <option value="default">Default</option>
+                                <option value="countdown">Countdown</option>
+                            @endif
+                        </select>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Target minutes</label>
+                                    <input type="number" class="form-control" 
+                                           name="timer_minutes"
+                                           value="@if ($settings && $settings->timer_minutes){{ $settings->timer_minutes }}@endif">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Target seconds</label>
+                                    <input type="number" class="form-control" 
+                                           name="timer_seconds"
+                                           value="@if ($settings && $settings->timer_seconds){{ $settings->timer_seconds }}@endif">
+                                </div> 
+                            </div>
+                        </div>
+
+                        <input type="submit" class="btn btn-rose pull-right" value="Save"/>
+                        <div class="clearfix"></div>
                     </form>
                 </div>
             </div>
