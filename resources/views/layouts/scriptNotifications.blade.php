@@ -24,7 +24,7 @@
 			
 		    $.notify({
 		        icon: "add_alert",
-		        message: "{!! session('script_success') !!}"
+		        message: "{!! session('script_danger') !!}"
 
 		    },{
 		        type: 'danger',
