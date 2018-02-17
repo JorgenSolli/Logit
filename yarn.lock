@@ -1965,6 +1965,10 @@ each-async@^1.0.0, each-async@^1.1.1:
     onetime "^1.0.0"
     set-immediate-shim "^1.0.0"
 
+easytimer.js@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/easytimer.js/-/easytimer.js-2.0.3.tgz#d3fb20ba3d4ee7517dbbb0bdaa101a81d9d9748f"
+
 ecc-jsbn@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
