@@ -14,12 +14,29 @@
           <div class="data-text text-center">
             <h1 id="avg_hour" class="m-b-0">
               {{ $time }}
+              @if ($hasPrevious)
+                <span class="up-or-down">
+                  @if ($timeLess)
+                    <i class="far fa-angle-down danger-color"></i>
+                  @else
+                    <i class="far fa-angle-up success-color"></i>
+                  @endif
+                </span>
+              @endif
             </h1>
+            @if ($hasPrevious)
+              <p style="margin-bottom: 0">
+                @if ($timeLess)
+                  Down from previous {{ $lastTime }}
+                @else
+                  Up from previous {{ $lastTime }}
+                @endif
+              </p>
+            @endif
             <h1 class="m-t-0">
               <small>Hour/Minute</small>
             </h1>
           </div>
-
         </div>
       </div>
     </div>
@@ -33,7 +50,27 @@
           <h4 class="card-title">Average rest time</h4>
 
           <div class="data-text text-center">
-            <h1 class="m-b-0">{{ $avgRestTime }}</h1>
+            <h1 class="m-b-0">
+              {{ $avgRestTime }}
+              @if ($hasPrevious)
+                <span class="up-or-down">
+                  @if ($timeLess)
+                    <i class="far fa-angle-down danger-color"></i>
+                  @else
+                    <i class="far fa-angle-up success-color"></i>
+                  @endif
+                </span>
+              @endif
+            </h1>
+            @if ($hasPrevious)
+              <p style="margin-bottom: 0">
+                @if ($timeLess)
+                  Down from previous {{ $lastAvgRestTime }}
+                @else
+                  Up from previous {{ $lastAvgRestTime }}
+                @endif
+              </p>
+            @endif
             <h1 class="m-t-0">
               @if ($avgRestTime > 1)
                 <small>Minutes/Seconds</small>
@@ -52,7 +89,6 @@
         <div class="card-header card-header-icon" data-background-color="blue">
           @if ($totalExercises > 9)
             <i class="material-icons">filter_9_plus</i>
-
           @else
             <i class="material-icons">filter_{{ $totalExercises }}</i>
           @endif
@@ -61,12 +97,33 @@
           <h4 class="card-title">Exercises Completed</h4>
 
           <div class="data-text text-center">
-            <h1 class="m-b-0">{{ $totalExercises }}</h1>
+            <h1 class="m-b-0">
+              {{ $totalExercises }}
+              @if ($hasPrevious && $totalExercises !== $lastTotalExercises)
+                <span class="up-or-down">
+                  @if ($timeLess)
+                    <i class="far fa-angle-down danger-color"></i>
+                  @else
+                    <i class="far fa-angle-up success-color"></i>
+                  @endif
+                </span>
+              @endif
+            </h1>
+            <p style="margin-bottom: 0">
+              @if ($hasPrevious && $totalExercises !== $lastTotalExercises)
+                @if ($timeLess)
+                  Down from previous {{ $lastTotalExercises }}
+                @else
+                  Up from previous {{ $lastTotalExercises }}
+                @endif
+              @else
+                Previous {{ $lastTotalExercises }}
+              @endif
+            </p>
             <h1 class="m-t-0">
               <small>Exercises</small>
             </h1>
           </div>
-
         </div>
       </div>
     </div>

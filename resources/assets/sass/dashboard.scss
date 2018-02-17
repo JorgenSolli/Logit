@@ -520,6 +520,13 @@ div.form-group input.input-fill {
 img.muscle-icon {
   width: 90px;
   height: 90px;
-  background-color: e91e63;
+  background-color: #e91e63;
   border-radius: 100%;
+}
+
+/* Recap stuff */
+.up-or-down {
+  position: relative;
+  top: -20px;
+  font-size: 20px;
 }

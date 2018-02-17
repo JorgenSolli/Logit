@@ -425,13 +425,24 @@ class WorkoutController extends Controller
      */
     public function recap (Workout $workout)
     {
+        $previousWorkout = Workout::where([
+                ['routine_id', $workout->routine_id],
+                ['user_id', Auth::id()]
+            ])
+            ->latest()
+            ->offset(1)
+            ->first();
+
         $brukerinfo = Auth::user();
         $workoutName = Routine::where('id', $workout->routine_id)
             ->first();
         $minutes = $workout->duration_minutes;
+
+
         $totalSets = WorkoutJunction::where('workout_id', $workout->id)
             ->get()
             ->count();
+
 
         $totalExercises = WorkoutJunction::where([
                 ['workout_id', $workout->id],
@@ -441,9 +452,44 @@ class WorkoutController extends Controller
             ->get()
             ->count();
 
-        $avgRestTime = LogitFunctions::parseRestTime($minutes / $totalSets);
+
         $time = LogitFunctions::parseMinutes($minutes);
 
+        $avgRestTime = LogitFunctions::parseRestTime($minutes / $totalSets);
+
+        $previousTotalSets = $lastTotalExercises = $lastAvgRestTime = $avgRestTimeLess = $lastTime = $timeLess = $totalExercisesLess = $hasPrevious = null;
+
+        // PREVIOUS DATA //
+        if ($previousWorkout) {
+            $hasPrevious = true;
+            $previousTotalSets = WorkoutJunction::where('workout_id', $previousWorkout->id)
+                ->get()
+                ->count();
+            
+            $lastTotalExercises = WorkoutJunction::where([
+                    ['workout_id', $previousWorkout->id],
+                    ['set_nr', 1],
+                    ['is_warmup', 0]
+                ])
+                ->get()
+                ->count();
+            
+            // Session rest-time previous session
+            $lastAvgRestTime = LogitFunctions::parseRestTime($previousWorkout->duration_minutes / $previousTotalSets);
+            
+            // Up or down from last session
+            $avgRestTimeLess = ($avgRestTime < $lastAvgRestTime) ? true : false;
+            
+            // Session time previous session
+            $lastTime = LogitFunctions::parseMinutes($previousWorkout->duration_minutes);
+            
+            // Up or down from last session
+            $timeLess = ($minutes < $previousWorkout->duration_minutes) ? true : false;
+
+            // Up or down from last session
+            $totalExercisesLess = ($totalExercises < $lastTotalExercises) ? true : false;
+        }
+        
         $topNav = [
             0 => [
                 'url'  => '/dashboard/workouts',
@@ -460,12 +506,20 @@ class WorkoutController extends Controller
         ];
 
         return view('workouts.recap', [
-            'brukerinfo'     => $brukerinfo,
-            'topNav'         => $topNav,
-            'workout'        => $workout,
-            'time'           => $time,
-            'avgRestTime'    => $avgRestTime,
-            'totalExercises' => $totalExercises
+            'brukerinfo'         => $brukerinfo,
+            'topNav'             => $topNav,
+            'workout'            => $workout,
+            'previousWorkout'    => $previousWorkout,
+            'time'               => $time,
+            'lastTime'           => $lastTime,
+            'timeLess'           => $timeLess,
+            'avgRestTime'        => $avgRestTime,
+            'lastAvgRestTime'    => $lastAvgRestTime,
+            'avgRestTimeLess'    => $avgRestTimeLess,
+            'totalExercises'     => $totalExercises,
+            'lastTotalExercises' => $lastTotalExercises,
+            'totalExercisesLess' => $totalExercisesLess,
+            'hasPrevious'        => $hasPrevious,
         ]);
     }
 }
