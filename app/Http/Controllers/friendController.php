@@ -113,21 +113,11 @@ class FriendController extends Controller
 			'friend' => []
 		];
 
-        $your_exercises = WorkoutJunction::where('workout_junctions.user_id', $you->id)
-			->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
-			->where('workout_junctions.is_warmup', 0)
-			->select('exercise_name')
-            ->groupBy('exercise_name')
-            ->get();
+        $your_exercises = LogitFunctions::getExercises($request->type, $request->year, $request->month, true, false, Auth::id());
 
         array_push($exercises['you'], $your_exercises);
         
-		$friend_exercises = WorkoutJunction::where('workout_junctions.user_id', $friend->id)
-			->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
-			->where('workout_junctions.is_warmup', 0)
-			->select('exercise_name')
-            ->groupBy('exercise_name')
-            ->get();
+		$friend_exercises = LogitFunctions::getExercises($request->type, $request->year, $request->month, true, false, $friend->id);
 
         array_push($exercises['friend'], $friend_exercises);
 

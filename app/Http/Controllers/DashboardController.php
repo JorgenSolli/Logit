@@ -432,66 +432,9 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getTopExercises ($type, $year, $month, Request $request)
-    {
-        $limit = 10;
-        $show_active_exercises = ['routines.active', '>=', 0];
-        $settings = Settings::where('user_id', Auth::id())->first();
-        $brukerinfo = Auth::user();
-
-        if ($request->limit) {
-            $limit = $request->limit;
-        }
-
-        if ($request->show_active_exercises == "true") {
-            $show_active_exercises = ['routines.active', 1];
-        }
-
-        if ($type == "year") {
-            if ($settings->count_warmup_in_stats == 1) {
-                $where = [
-                    ['workout_junctions.user_id', $brukerinfo->id],
-                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
-                ];
-            } 
-            else {
-                $where = [
-                    ['workout_junctions.user_id', $brukerinfo->id],
-                    ['is_warmup', 0],
-                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
-                ];
-            }
-        }
-        else {
-            $selectedMonth = ucfirst($month);
-            $monthData = LogitFunctions::parseDate($type, $year, $month);
-
-            if ($settings->count_warmup_in_stats == 1) {
-                $where = [
-                    ['workout_junctions.user_id', $brukerinfo->id],
-                    [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
-                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
-                ];
-            }
-            else {
-                $where = [
-                    ['workout_junctions.user_id', $brukerinfo->id],
-                    ['is_warmup', 0],
-                    [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
-                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
-                ];
-            }
-        }
-        
-        $topExercises = WorkoutJunction::select(DB::raw('workout_junctions.id, workout_junctions.exercise_name, count(*) as count'))
-            ->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
-            ->where($where)
-            ->groupBy('exercise_name')
-            ->having('count', '>', 0)
-            ->orderBy('count', 'DESC')
-            ->limit($limit)
-            ->get();
-        
-        return $topExercises;
+    {        
+        $isTopTen = ($request->limit == 10) ? true : false;        
+        return LogitFunctions::getExercises($type, $year, $month, $request->show_active_exercises, $isTopTen, Auth::id());
     }
 
     /**

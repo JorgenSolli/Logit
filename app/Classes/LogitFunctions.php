@@ -7,8 +7,11 @@ use Carbon;
 
 use Logit\Workout;
 use Logit\Friend;
-
+use Logit\Settings;
+use Logit\WorkoutJunction;
+use Logit\User;
 use Illuminate\Support\Facades\Auth;
+
 
 class LogitFunctions {
 
@@ -333,10 +336,84 @@ class LogitFunctions {
             ])->first();
 
             if (!$areWeFriends) {
-                return abort(403, 'Unauthorized action.');
+                return response()
+                    ->view('errors.custom', [
+                        'error' => "You don't have permission to view this page"],
+                        403
+                    );
             }
         }
 
         return true;
+    }
+
+    /**
+     * User choses one exercise and will be able to see the progress in specified timeframe
+     *
+     * @param  string $type specifies year or month
+     * @param  int $year specifies the year
+     * @param  int $month specifies the mont
+     * @param  boolean $activeExercises specifies to fetch all or just active excercises
+     * @param  boolean @isTopTen specifies to fetch only top ten or not
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public static function getExercises ($type, $year, $month, $activeExercises, $isTopTen, $userId) 
+    {           
+            
+        $limit = $isTopTen ? 10 : 9999;
+        $show_active_exercises = $activeExercises ? ['routines.active', 1] : ['routines.active', '>=', 0];
+
+        LogitFunctions::canView($userId);        
+
+        $settings = Settings::where('user_id', $userId)->first();
+        $brukerinfo = User::where('id', $userId)->first();
+     
+        if ($type == "year") {
+            if ($settings->count_warmup_in_stats == 1) {
+                $where = [
+                    ['workout_junctions.user_id', $userId],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                ];
+            } 
+            else {
+                $where = [
+                    ['workout_junctions.user_id', $userId],
+                    ['is_warmup', 0],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                ];
+            }
+        }
+        else {
+            $selectedMonth = ucfirst($month);
+            $monthData = LogitFunctions::parseDate($type, $year, $month);
+
+            if ($settings->count_warmup_in_stats == 1) {
+                $where = [
+                    ['workout_junctions.user_id', $userId],
+                    [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                ];
+            }
+            else {
+                $where = [
+                    ['workout_junctions.user_id', $userId],
+                    ['is_warmup', 0],
+                    [DB::raw('MONTH(workout_junctions.created_at)'), '=', date($monthData[$selectedMonth]['int'])],
+                    [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
+                ];
+            }
+        }
+        
+        $topExercises = WorkoutJunction::select(DB::raw('workout_junctions.id, workout_junctions.exercise_name, count(*) as count'))
+            ->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
+            ->where($where)
+            ->groupBy('exercise_name')
+            ->having('count', '>', 0)
+            ->orderBy('count', 'DESC')
+            ->limit($limit)
+            ->get();
+        
+        return $topExercises;
     }
 }
