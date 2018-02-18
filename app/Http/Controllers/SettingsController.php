@@ -22,9 +22,12 @@ class SettingsController extends Controller
 
         $settings = Settings::where('user_id', Auth::id())
             ->first();
-
-        $exercises = RoutineJunction::select('id', 'exercise_name')->where('user_id', $brukerinfo->id)->get()->unique('exercise_name');
-
+            
+        $exercises = WorkoutJunction::select('exercise_name')
+            ->where('user_id', $brukerinfo->id)
+            ->orderBy('exercise_name')
+            ->distinct()
+            ->get();
 
         $topNav = [
             0 => [
