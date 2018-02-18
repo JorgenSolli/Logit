@@ -1,17 +1,17 @@
 {
-    "/css/app.css": "/css/app.css?id=16239a9ec0a995f7060e",
-    "/css/fontawesome.css": "/css/fontawesome.css?id=4a28e9e789f66ba180e0",
-    "/js/logit.min.js": "/js/logit.min.js?id=7e66eb4c3b5ee26321ec",
-    "/js/material-dashboard.min.js": "/js/material-dashboard.min.js?id=906afc810a16e82cfe49",
+    "/css/app.css": "/css/app.css?id=71ed14b94c3f0f409139",
+    "/css/fontawesome.css": "/css/fontawesome.css?id=69d76a45117e9aed65e5",
+    "/js/logit.min.js": "/js/logit.min.js?id=3035146e772188ec943a",
+    "/js/material-dashboard.min.js": "/js/material-dashboard.min.js?id=1c151c792c2041448d17",
     "/js/dashboard.min.js": "/js/dashboard.min.js?id=5a7f7528afd89ed2db40",
-    "/js/friends.min.js": "/js/friends.min.js?id=bd88dec1831bd16247e8",
-    "/js/friend.min.js": "/js/friend.min.js?id=54c7bb5023bff4ea4742",
+    "/js/friends.min.js": "/js/friends.min.js?id=6005c3a69780c21cc0a8",
+    "/js/friend.min.js": "/js/friend.min.js?id=5ee4a2ad6330d7d573c1",
     "/js/logitFuncs.min.js": "/js/logitFuncs.min.js?id=c46018ebfee2d9b018ec",
     "/js/myProfile.min.js": "/js/myProfile.min.js?id=c9b96c316865324e3c52",
-    "/js/routines.min.js": "/js/routines.min.js?id=363265bdec5d041580f1",
+    "/js/routines.min.js": "/js/routines.min.js?id=72de1872282a1dfa7401",
     "/js/settings.min.js": "/js/settings.min.js?id=dd43ab3f856ef69ba673",
-    "/js/workouts.min.js": "/js/workouts.min.js?id=8362f930143615460df9",
+    "/js/workouts.min.js": "/js/workouts.min.js?id=da3d626d4d0c130a93ea",
     "/js/timer.min.js": "/js/timer.min.js?id=5aded1772d09ec944206",
-    "/js/measurements.min.js": "/js/measurements.min.js?id=9be8efede17639a525c7",
-    "/js/admin.min.js": "/js/admin.min.js?id=eff178d4dc3bc2a3a3f6"
+    "/js/measurements.min.js": "/js/measurements.min.js?id=74b2cf15a588e1fa947b",
+    "/js/admin.min.js": "/js/admin.min.js?id=97fa76bef8d9f2808101"
 }
