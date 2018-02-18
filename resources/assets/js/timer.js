@@ -13,7 +13,7 @@ $(document).ready(function() {
     var loadTimerHtml = '<div id="timer">' +
                             '<div class="row">' +
                                 '<div class="col-xs-12 text-center">' +
-                                    '<button id="loadTimer" class="btn btn-rose">' +
+                                    '<button id="loadTimer" class="btn btn-success btn-fullwidth">' +
                                         '<i class="far fa-clock"></i> Load timer' + 
                                     '</button>' +
                                 '</div>' +
