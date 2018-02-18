@@ -52,8 +52,6 @@ $(function() {
         },
 
         populateCompareExercises: function() {
-            var limit  = 99999999;
-
             $.ajax({
                 method: 'GET',
                 headers: {
@@ -61,7 +59,7 @@ $(function() {
                 },
                 url: '/api/getTopExercises/' + type + '/' + year + '/' + month,
                 data: {
-                    limit: limit,
+                    limit: false,
                     show_active_exercises: show_active_exercises
                 },
                 success: function(data) {
@@ -168,6 +166,9 @@ $(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 url: '/api/getTopExercises/' + type + '/' + year + '/' + month,
+                data: {
+                    limit: 10
+                },
                 success: function(data) {
                     if ($("#topTenExercises tr").length > 0) {
                         $("#topTenExercises").empty();

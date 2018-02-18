@@ -432,7 +432,7 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getTopExercises ($type, $year, $month, Request $request)
-    {        
+    {      
         $isTopTen = ($request->limit == 10) ? true : false;        
         return LogitFunctions::getExercises($type, $year, $month, $request->show_active_exercises, $isTopTen, Auth::id());
     }
