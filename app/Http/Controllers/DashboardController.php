@@ -463,7 +463,6 @@ class DashboardController extends Controller
         }
         else {
             $selectedMonth = ucfirst($month);
-            $isLeapYear = false;
             $monthData = LogitFunctions::parseDate($type, $year, $month);
 
             if ($settings->count_warmup_in_stats == 1) {
@@ -482,17 +481,16 @@ class DashboardController extends Controller
                 ];
             }
         }
-
+        
         $topExercises = WorkoutJunction::select(DB::raw('workout_junctions.id, workout_junctions.exercise_name, count(*) as count'))
             ->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
             ->where($where)
-            ->where([$show_active_exercises])
             ->groupBy('exercise_name')
-            ->having('count', '>', 1)
+            ->having('count', '>', 0)
             ->orderBy('count', 'DESC')
             ->limit($limit)
             ->get();
-
+        
         return $topExercises;
     }
 
