@@ -40,12 +40,14 @@ $(document).ready(function() {
             text: "The entry will be gone forever",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, I am sure!'
+            confirmButtonClass: 'btn btn-danger',
+            confirmButtonText: 'Yes, I am sure!',
+            cancelButtonClass: 'btn btn-primary',
+            cancelButtonText: 'Cancel',
+            buttonsStyling: false
         }).then(function () {
             deleteMeasurement(id, obj);
-        })
+        }).done();
 
     });
 
@@ -73,26 +75,29 @@ var deleteMeasurement = function(id, obj) {
         },
         success: function(data) {
             if (data === "true") {
-                swal(
-                    'Removed!',
-                    'Entry removed',
-                    'success'
-                );
+                swal({
+                    title: 'Removed!',
+                    text: 'Entry removed',
+                    type: 'success',
+                    confirmButtonClass: 'btn btn-primary',
+                    buttonsStyling: false
+                }).done();
                 obj.closest('tr').remove();
             }
             else {
-                swal(
-                    'Whops!',
-                    'Something went wrong! Try again.',
-                    'error'
-                );
+                swal({
+                    title: 'Whops!',
+                    text: 'Something went wrong! Try again.',
+                    type: 'error',
+                    confirmButtonClass: 'btn btn-danger',
+                    buttonsStyling: false
+                }).done();
             }
         }
     });
 };
 
 var viewProgress = function(labels, series) {
-    console.log(series[0]);
     var ctx = $("#measurementProgress");
     var chart = new Chart(ctx, {
         type: 'line',

@@ -226,7 +226,6 @@ class FriendsController extends Controller
     {
     	$id = $request->id;
 		$name = User::where('id', $id)->select('name')->first();
-
 		$friends = Friend::where([
 			['user_id', Auth::id()], 
 			['friends_with', $id],
@@ -237,33 +236,45 @@ class FriendsController extends Controller
 		if (!$friends) {
 
 			$accepter = Auth::user();
-
-			// Updates the current pending request
+			
 			$pendingRequest = Friend::where([
 				['user_id', $id],
 				['friends_with', Auth::id()]
 			])->first();
-			$pendingRequest->pending = 0;
-			$pendingRequest->update();
-			
-			// Creates a new entry for the user that accepts the invite
-			$friendship = new Friend;
-			$friendship->user_id = Auth::id();
-			$friendship->friends_with = $id;
-			$friendship->pending = 0;
 
-			$notify = new Notification;
-			$notify->user_id = $id;
-			$notify->content = ucfirst($accepter->name) . " has accepted you as a friend. How nice!";
-			$notify->icon = 'insert_emoticon';
-			$notify->url = '/dashboard/friends';
+			// If the user declines the request
+			if ($request->decline == "true") {
+				$pendingRequest->delete();
 
-			if ($friendship->save() && $notify->save()) {
-				return response()->json(array('success' => 'You are now friends with ' . ucfirst($name->name)));
+				return response()->json(
+					array(
+						'success'   => 'The friendrequest was denied',
+						'canceled'  => true
+					)
+				);
+			} else {
+				// Updates the current pending request
+				$pendingRequest->pending = 0;
+				$pendingRequest->update();
+				
+				// Creates a new entry for the user that accepts the invite
+				$friendship = new Friend;
+				$friendship->user_id = Auth::id();
+				$friendship->friends_with = $id;
+				$friendship->pending = 0;
+
+				$notify = new Notification;
+				$notify->user_id = $id;
+				$notify->content = ucfirst($accepter->name) . " has accepted you as a friend. How nice!";
+				$notify->icon = 'insert_emoticon';
+				$notify->url = '/dashboard/friends';
+
+				if ($friendship->save() && $notify->save()) {
+					return response()->json(array('success' => 'You are now friends with ' . ucfirst($name->name)));
+				}
+
+				return response()->json(array('error' => 'Something went wrong. Please try again or contact an admin.'));
 			}
-
-			return response()->json(array('error' => 'Something went wrong. Please try again or contact an admin.'));
-
 		}
 		else {
 			return response()->json(array('error' => 'You are already friends with ' . ucfirst($name->name)));

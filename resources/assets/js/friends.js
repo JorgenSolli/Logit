@@ -87,11 +87,14 @@ $(document).ready(function() {
 				        }
 				    });
 				} else {
-					swal(
-						'Done!',
-						data.success,
-						'success'
-					)
+					swal({
+						title: 'Done!',
+						text: data.success,
+						type: 'success',
+						confirmButtonText: 'Sweet',
+						confirmButtonClass: 'btn btn-success',
+						buttonsStyling: false
+					}).done();
 
 					obj.removeClass('disabled addfriend');
         			obj.html('<span class="fal fa-check"></span> Request sent!');
@@ -103,6 +106,12 @@ $(document).ready(function() {
 	$(document).on('click', '.respondRequest', function() {
 		var id = $(this).attr('id')
 		var obj = $(this);
+		var declineRequest = false;
+		
+		if ($(this).hasClass('declineRequest')) {
+			declineRequest = true;
+		}
+
 		obj.addClass('disabled');
 
 		$.ajax({
@@ -112,14 +121,14 @@ $(document).ready(function() {
 			method: 'GET',
 			url: '/dashboard/friends/respondRequest',
 			data: {
-				id: id
+				id: id,
+				decline: declineRequest
 			},
 			success: function(data){
 				if (data.error) {
 					$.notify({
         				icon: "add_alert",
 				        message: data.error
-
 				    },{
 				        type: 'danger',
 				        timer: 4000,
@@ -129,14 +138,29 @@ $(document).ready(function() {
 				        }
 				    });
 				} else {
-					swal({
-						title: 'Done!',
-						text: data.success,
-						type: 'success',
-						confirmButtonText: 'Fuck yeah!'
-					}).then(function () {
-						return location.reload();
-					});
+					if (data.canceled) {
+						swal({
+							title: 'Done!',
+							text: data.success,
+							type: 'info',
+							confirmButtonText: 'Alright',
+							confirmButtonClass: 'btn btn-success',
+							buttonsStyling: false
+						}).then(function () {
+							return location.reload();
+						}).done();
+					} else {
+						swal({
+							title: 'Done!',
+							text: data.success,
+							type: 'success',
+							confirmButtonText: 'Fuck yeah!',
+							confirmButtonClass: 'btn btn-success',
+							buttonsStyling: false
+						}).then(function () {
+							return location.reload();
+						}).done();
+					}
 				}
 			}
 		})

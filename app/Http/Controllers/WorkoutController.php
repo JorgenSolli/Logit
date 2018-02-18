@@ -341,7 +341,7 @@ class WorkoutController extends Controller
             $workout = new Workout;
             $workout->routine_id = $routine_id;
             $workout->user_id = $user_id;
-            $workouts->date_started = $session_started;
+            $workout->date_started = $session_started;
             $workout->duration_minutes = $duration;
             $workout->save();
 

@@ -318,8 +318,7 @@ $(document).ready(function() {
     });
 
 	$(document).on('click', '#removeFriend', function() {
-		var obj = $(this);
-		var id = obj.attr('id');
+		var id = $("#user_id").val();
 		var name = $("#name").text();
 
 		swal({
@@ -327,27 +326,22 @@ $(document).ready(function() {
 			text: name + " will be removed from your friendslist!",
 			type: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, remove him/her!'
+            confirmButtonClass: 'btn btn-danger',
+            cancelButtonClass: 'btn btn-primary',
+			confirmButtonText: 'Yes, remove him/her!',
+            buttonsStyling: false
 		}).then(function () {
-			swal(
-				'Removed!',
-				'You just lost a friend ;(',
-				'success'
-			)
-			removeFriend(id, obj);
-		})
+			removeFriend(id);
+		}).done();
 	})
 
-	var removeFriend = function(id, obj) {
-		obj.addClass('disabled');
+	var removeFriend = function(id) {
 		$.ajax({
 			headers: {
 	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	        },
 			method: 'GET',
-			url: '/api/friends/removeFriend',
+			url: '/api/friends/friend/remove',
 			data: {
 				id: id
 			},
@@ -365,17 +359,8 @@ $(document).ready(function() {
 				            align: 'right'
 				        }
 				    });
-				    // If the function throws an error, enable the button again
-				    obj.removeClass('disabled');
 				} else {
-					swal(
-						'Done!',
-						data.success,
-						'success'
-					)
-					// Removes the row (the friend)
-					obj.closest('.col-md-4').fadeOut();
-					
+					window.location.href = "/dashboard/friends";
 				}
 			}
 		})

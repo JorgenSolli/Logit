@@ -49,7 +49,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::post('/dashboard/friends/shareRoutine', 'FriendsController@shareRoutine');
 	
 	/* Friend */
-	Route::get('/api/friends/removeFriend', 'FriendController@removeFriend');
+	Route::get('/api/friends/friend/remove', 'FriendController@removeFriend');
 	Route::get('/api/friends/friend/populateExercises', 'FriendController@getExercises');
 	Route::get('/api/friends/friend/getExerciseData', 'FriendController@getExerciseData');
 	Route::get('/api/friends/friend/getSessionData', 'FriendController@getSessionData');

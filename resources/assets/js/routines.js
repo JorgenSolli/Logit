@@ -87,17 +87,20 @@ $(document).on('click', '.deleteRoutine', function() {
     text: name + " will be gone forever and all connected workouts will be lost. Please consider marking the routine as inactive instead!",
     type: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
+    confirmButtonClass: 'btn btn-danger',
+    cancelButtonClass: 'btn btn-primary',
+    confirmButtonText: 'Yes, delete it!',
+    buttonsStyling: false
   }).then(function () {
-    swal(
-      'Deleted!',
-      'Your routine has been deleted.',
-      'success'
-    )
+    swal({
+      title: 'Deleted!',
+      text: 'Your routine has been deleted.',
+      type: 'success',
+      confirmButtonClass: 'btn btn-primary',
+      buttonsStyling: false
+    }).done();
     deleteRoutine(routineId);
-  })
+  }).done();
 });
 
 var deleteRoutine = function(routineId) {

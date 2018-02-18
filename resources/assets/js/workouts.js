@@ -6,6 +6,38 @@ var setIconStatus = function() {
 	$('a[data-status="completed"').each(function(index) {
 		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fal fa-check');
 	});
+
+	checkComplete();
+}
+
+var checkComplete = function() {
+	var allComplete = true;
+	$('#exercises .list-group-item').each(function(index) {
+		if ($(this).attr('data-status') == 'incomplete') {
+			allComplete = false;
+		}
+	});
+
+	if (allComplete) {
+		href = $('#finishWorkout').attr('href');
+		swal({
+			title: "That's it!",
+			text: "Looks like you've completed your routine. Would you like to finish and save the session?",
+			type: 'success',
+			showCancelButton: true,
+			confirmButtonText: "Yes please!",
+			cancelButtonText: "No, not yet!",
+			confirmButtonClass: 'btn btn-success',
+			cancelButtonClass: 'btn btn-primary',
+			buttonsStyling: false
+		}).then(function () {
+			return window.location.href = href;
+		}, function (dismiss) {
+			if (dismiss === 'cancel') {
+				return;
+			}
+		}).done();
+	}
 }
 
 var setMediaLink = function() {
@@ -47,7 +79,6 @@ var deleteWorkout = function(id) {
 		},
 		method: 'GET',
 		success: function(data) {
-			console.log(data);
 			if (data.success) {
 				$("#workout-" + id).fadeOut();
 				$("tr.child").fadeOut();
@@ -171,11 +202,10 @@ $(document).ready(function() {
 				text: 'You need to complete at least ONE exercies before finishing',
 				type: 'error',
 				showCancelButton: false,
-				confirmButtonColor: '#3085d6',
 				confirmButtonText: "Understood!",
 				confirmButtonClass: 'btn btn-primary',
 				buttonsStyling: false
-			})
+			}).done();
 
 			return;
 		}
@@ -186,8 +216,6 @@ $(document).ready(function() {
 				text: "You haven't completed all exercises!",
 				type: 'warning',
 				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
 				confirmButtonText: "Yes, I'm done!",
 				cancelButtonText: "No, I'll finish!",
 				confirmButtonClass: 'btn btn-danger',
@@ -197,14 +225,15 @@ $(document).ready(function() {
 				return window.location.href = href;
 			}, function (dismiss) {
 				if (dismiss === 'cancel') {
-					swal(
-						'Awesome!',
-						"Let's finish this!",
-						'success'
-					)
-					return;
+					swal({
+						title: 'Awesome!',
+						text: "Let's finish this!",
+						type:'success',
+						confirmButtonText: "Fuck yeah!",
+						confirmButtonClass: 'btn btn-primary',
+					}).done();
 				}
-			})
+			}).done();
 		}
 
 		if (atLeastOne && !incompleteItems) {
@@ -244,17 +273,19 @@ $(document).ready(function() {
 			text: name + " will be gone forever!",
 			type: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
+			confirmButtonColor: '#bf5329',
+			cancelButtonColor: '#3097D1',
 			confirmButtonText: 'Yes, delete it!'
 		}).then(function () {
-			swal(
-				'Deleted!',
-				'The workout has been deleted.',
-				'success'
-			)
+			swal({
+				title: 'Deleted!',
+				text: 'The workout has been deleted.',
+				type: 'success',
+				confirmButtonColor: '#3097D1',
+				confirmButtonText: 'Sweet'
+			}).done();
 			deleteWorkout(workoutId);
-		})
+		}).done();
 	});
 
 	$(document).on('click', '.updateWorkoutRow', function() {
@@ -365,12 +396,10 @@ $(document).ready(function() {
 			text: "All data connected to this session will be lost.",
 			type: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
 			confirmButtonText: 'Yes, cancel it!',
+			confirmButtonClass: 'btn btn-danger',
 			cancelButtonText: 'No, keep going!',
-			confirmButtonClass: 'btn btn-success',
-			cancelButtonClass: 'btn btn-danger',
+			cancelButtonClass: 'btn btn-success',
 			buttonsStyling: false
 		}).then(function () {
 			window.location.href = "/clear";
@@ -378,7 +407,7 @@ $(document).ready(function() {
 			if (dismiss === 'cancel') {
 				return false;
 			}
-		})
+		}).done();
 	});
 
 	$(document).on('click', '[data-routine-preview]', function() {
@@ -417,5 +446,8 @@ $(document).ready(function() {
 		}
 	});
 
-	setIconStatus();
+	// Only call this function if we're actually in /start/routine
+	if ($("#finishWorkout").length) {
+		setIconStatus();
+	}
 });

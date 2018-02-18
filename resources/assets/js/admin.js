@@ -6,7 +6,8 @@ $(document).ready(function() {
             html: $("#message-body").val(),
             showCloseButton: true,
             showCancelButton: false,
-            confirmButtonText: $("#message-button").val()
-        });
+            confirmButtonText: $("#message-button").val(),
+            cancelButtonClass: 'btn btn-prmiary',
+        }).done();
 	});
 });
