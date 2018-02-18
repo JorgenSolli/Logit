@@ -465,12 +465,11 @@ div.alert b.alert-header {
   line-height: 5rem;
   z-index: 10;
 
-  span, i.fa {
+  span, i.fal {
     cursor: pointer;
-  }
-
-  .fa {
-    padding: 10px 25px;
+    display: block;
+    height: 50px;
+    line-height: 50px;
   }
 }
 
