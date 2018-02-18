@@ -4,6 +4,10 @@ var hasPlayedAudio = false;
 var playDing = false;
 var timer = new Timer();
 
+if (timerSettings.play_sound) {    
+    var ding = new Audio('/media/ding.wav'); 
+}
+
 $(document).ready(function() {
     var timerHtml = '<div id="timer">' +
                         '<div class="row">' +
