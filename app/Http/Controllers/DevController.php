@@ -29,7 +29,11 @@ class DevController extends Controller
     public function adminPanel ()
     {
     	if (Auth::user()->is_admin == 0) {
-    		abort(403, 'Unauthorized action.');
+            return response()
+                ->view('errors.custom', [
+                    'error' => 'You do not belong here...'],
+                    403
+            );
     	}
 
     	$topNav = [

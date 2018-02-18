@@ -67,12 +67,20 @@ class FriendsController extends Controller
 		$friend = $request->friend;
 
 		if (!Friend::where([['user_id', auth::id()], ['friends_with'], $friend])) {
-			abort(403, "You are not friends with this person!");
+			return response()
+                ->view('errors.custom', [
+                    'error' => 'You are not friends with this person!'],
+                    403
+            );
 		}
 		
 		// Make sure the user actually owns the routine!
 		if (!$routine->user_id == Auth::id()) {
-			abort(403, "You do now own this routine!");
+			return response()
+                ->view('errors.custom', [
+                    'error' => 'You do not own this routine!'],
+                    403
+            );
 		}
 
 		$junctions = RoutineJunction::where('routine_id', $routine->id)->get();

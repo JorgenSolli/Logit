@@ -69,7 +69,11 @@ class FriendController extends Controller
     	$brukerinfo = Auth::user();
 
     	if (!Friend::where([ ['user_id', Auth::id()], ['friends_with', $friendId] ])->first()) {
-    		abort(403, 'You need to be friends with the person to view this page');
+            return response()
+                ->view('errors.custom', [
+                    'error' => 'You need to be friends with the person to view this page'],
+                    403
+            );
     	}
 
     	$friend = User::where('id', $friendId)->first();

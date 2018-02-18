@@ -27,7 +27,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group label-floating">
-                                    <select id="country" class="selectpicker" name="unit" data-style="btn btn-primary" title="Prefered Unit">
+                                    <select id="units" class="selectpicker" name="unit" data-style="btn btn-primary" title="Prefered Unit">
                                         <option disabled selected> Prefered units</option>
                                         @if ($settings && $settings->unit)
                                             @if ($settings->unit == 'Imperial')

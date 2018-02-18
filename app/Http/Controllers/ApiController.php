@@ -93,6 +93,10 @@ class ApiController extends Controller
             return;
         }
 
-        abort(403, 'Not your message!');
+        return response()
+            ->view('errors.custom', [
+                'error' => 'Not your message!'],
+                403
+        );
     }
 }

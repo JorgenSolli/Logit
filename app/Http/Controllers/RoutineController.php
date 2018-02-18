@@ -109,7 +109,11 @@ class RoutineController extends Controller
         $routine = Routine::where('id', $routineId)->firstOrFail();
 
         if (!$routine) {
-            abort(403, "You are not the owner of this routine");
+            return response()
+                ->view('errors.custom', [
+                    'error' => 'You are not the owner of this routine'],
+                    403
+            );
         }
 
         $routine->pending = 0;
