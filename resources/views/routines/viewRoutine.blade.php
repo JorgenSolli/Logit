@@ -11,8 +11,8 @@
         @else
           <button type="button" id="changeStatus" class="btn btn-default" role="button"><i class="fal fa-unlock"></i> Set active</button>
         @endif
-        <button type="submit" id="addRoutine" class="btn btn-success" role="button"><i class="fal fa-save"></i> Update</button>
         <button type="button" class="btn btn-danger routine-back"><i class="fal fa-angle-left"></i> Back</button>
+        <button type="submit" id="addRoutine" class="btn btn-success" role="button"><i class="fal fa-save"></i> Update</button>
       </div>
     </div>
   </div>
@@ -296,10 +296,10 @@
 
           <div class="row">
             <div class="col-md-6">
-              <button type="submit" id="addRoutine" class="btn btn-success btn-fullwidth" role="button"><i class="fal fa-save"></i> Update</button>
+              <button type="button" class="btn btn-danger routine-back btn-fullwidth"><i class="fal fa-angle-left"></i> Back</button>
             </div>
             <div class="col-md-6">
-              <button type="button" class="btn btn-danger routine-back btn-fullwidth"><i class="fal fa-angle-left"></i> Back</button>
+              <button type="submit" id="addRoutine" class="btn btn-success btn-fullwidth" role="button"><i class="fal fa-save"></i> Update</button>
             </div>
           </div>
         </div>
