@@ -3,7 +3,7 @@
 		<h1>You have already finished this exercise</h1>
 		<a id="cancelExercise" style="width:100%" class="btn btn-white">Go back</a>
 	@else
-		<form action="/api/exercise/{{ $routineId[0]['routine_id'] }}" method="POST">
+		<form action="/api/exercise/{{ $routineId }}/{{ $exercise_id }}" method="POST">
 			{{ csrf_field() }}
 		  	{{ method_field('PUT') }}
 			<input type="hidden" name="routine_junction_id" value="{{ $exercise->id }}">
@@ -37,7 +37,7 @@
 
 						<div class="form-group m-t-0">
 							<label for="weight">Weight Type</label>
-							<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker" 
+							<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker"
 									data-style="select-with-transition" title="Choose weight type" data-size="8">
 								<option selected value="raw">Raw Weight</option>
 								<option value="assisted">Assisted Weight</option>
@@ -50,7 +50,7 @@
 							    <label class="raw_label" for="weight">Weight</label>
 							    <label class="hidden control-label" for="weight"> | Hey don't give up! Finish all sets. You can do it!</label>
 							    @php $placeholder = "";@endphp
-							    @unless(empty($prevExercise[$i - 1])) 
+							    @unless(empty($prevExercise[$i - 1]))
 						    		@if ($prevExercise[$i - 1]['weight_type'] === "band")
 						    			@php $placeholder = "Last time you used the " . $prevExercise[$i - 1]['band_type'] . " "  .$prevExercise[$i - 1]['weight_type']; @endphp
 					    			@else
@@ -58,12 +58,12 @@
 					    			@endif
 				    			@endunless
 
-							    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]" 
+							    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]"
 							    	placeholder="Your goal is {{ $exercise->goal_weight }}. {{ $placeholder }}">
 							</div>
 							<div class="band ignore" style="display: none">
 								<label for="weight">Band Type</label>
-								<select name="exercise[{{ $i }}][band_type]" class="selectpicker" 
+								<select name="exercise[{{ $i }}][band_type]" class="selectpicker"
 										data-style="select-with-transition" title="Choose weight type" data-size="8">
 									<option selected value="black">Black</option>
 									<option value="blue">Blue</option>
@@ -77,7 +77,7 @@
 					  	<div class="form-group">
 							<label for="reps">Reps</label>
 							<label class="control-label hidden" for="weight"> | Hey don't give up! At least do ONE rep!</label>
-						    <input type="number" class="required form-control" name="exercise[{{ $i }}][reps]" 
+						    <input type="number" class="required form-control" name="exercise[{{ $i }}][reps]"
 						    	placeholder="Your goal is {{ $exercise->goal_reps }}. @unless(empty($prevExercise[$i - 1])) Last time you did {{ $prevExercise[$i - 1]['reps'] }} @endunless">
 					  	</div>
 				  	</div>
@@ -117,7 +117,7 @@
 		<h1>You have already finished this exercise</h1>
 		<a id="cancelExercise" style="width:100%" class="btn btn-white">Go back</a>
 	@else
-		<form action="/api/exercise/{{ $routineId[0]['routine_id'] }}" method="POST">
+		<form action="/api/exercise/{{ $routineId }}/{{ $exercise_id }}" method="POST">
 			{{ csrf_field() }}
 		  	{{ method_field('PUT') }}
 
@@ -156,29 +156,29 @@
 									</div>
 									<div class="card-content">
 										<input type="hidden" name="superset[{{ $j }}][{{ $i }}][set]" value="{{ $i }}">
-										
+
 										<div class="form-group m-t-0">
 											<label for="weight">Weight Type</label>
-											<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker" 
+											<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker"
 													data-style="select-with-transition" title="Choose weight type" data-size="8">
 												<option selected value="raw">Raw Weight</option>
 												<option value="assisted">Assisted Weight</option>
 												<option value="band">Resistance Band</option>
 											</select>
 										</div>
-										
+
 										<div class="form-group m-t-0">
 										    <label for="weight">Weight</label>
 
 										    <label class="hidden control-label" for="weight"> | Hey don't give up! Finish all sets. You can do it!</label>
-										    <input type="number" step="any" class="required form-control" name="superset[{{ $j }}][{{ $i }}][weight]" 
+										    <input type="number" step="any" class="required form-control" name="superset[{{ $j }}][{{ $i }}][weight]"
 										    	placeholder="Your goal is {{ $exercise[$j]->goal_weight }}. @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
 								  		</div>
 
 									  	<div class="form-group">
 											<label for="reps">Reps</label>
 											<label class="control-label hidden" for="weight"> | Hey don't give up! At least do ONE rep!</label>
-										    <input type="number" class="required form-control" name="superset[{{ $j }}][{{ $i }}][reps]" 
+										    <input type="number" class="required form-control" name="superset[{{ $j }}][{{ $i }}][reps]"
 										    	placeholder="Your goal is {{ $exercise[$j]->goal_reps }}. @unless(empty($prevExercise[$i - 1])) Last time you did {{ $prevExercise[$i - 1]['reps'] }} @endunless">
 									  	</div>
 								  	</div>

@@ -20,6 +20,7 @@ class Settings extends Model
         'accept_friends',
         'strict_previous_exercise',
         'count_warmup_in_stats',
+        'strict_notes',
         'use_timer',
         'timer_play_sound',
         'timer_direction',

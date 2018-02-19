@@ -25,9 +25,10 @@ class CreateNotesTable extends Migration
             $table->foreign('routine_junction_id')
                 ->references('id')->on('routine_junctions')
                 ->onDelete('cascade');
-                
+
+            $table->string('exercise_name')->nullable();
             $table->text('note')->nullable();
-            
+
             $table->string('label')
                 ->default('alert-info')
                 ->nullable();

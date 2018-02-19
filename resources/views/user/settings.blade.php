@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @include('notifications')
-    
+
     <div class="row">
         <div class="col-md-7">
             <form action="/user/settings/edit" method="post">
@@ -109,10 +109,10 @@
                                             @else
                                                 <input name="strict_previous_exercise" type="checkbox">
                                             @endif
-                                            Strict "Previously lifted" data 
-                                            <i class="m-l-10 material-icons material-icons-sm pointer" 
-                                                rel="tooltip" 
-                                                data-placement="top" 
+                                            Strict "Previously lifted" data
+                                            <i class="m-l-10 material-icons material-icons-sm pointer"
+                                                rel="tooltip"
+                                                data-placement="top"
                                                 title="When doing an exercise, we fetch last completed exercise and let you know how much you lifted last time. Would you like us to look for the exercise strictly in your current routine, or in all routines?">
                                                 help
                                             </i>
@@ -133,10 +133,33 @@
                                                 <input name="count_warmup_in_stats" type="checkbox">
                                             @endif
                                             Let warmup sets influence your statistics
-                                            <i class="m-l-10 material-icons material-icons-sm pointer" 
-                                                rel="tooltip" 
-                                                data-placement="top" 
+                                            <i class="m-l-10 material-icons material-icons-sm pointer"
+                                                rel="tooltip"
+                                                data-placement="top"
                                                 title="If you have dedicated sets to warming up, allowing this will heavily influence your 'Musclegroups worked out' and other statistics">
+                                                help
+                                            </i>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group label-floating">
+                                    <div class="togglebutton">
+                                        <label>
+                                            @if ($settings)
+                                                @if ($settings->strict_notes === 1)
+                                                    <input name="strict_notes" type="checkbox" checked="">
+                                                @else
+                                                    <input name="strict_notes" type="checkbox">
+                                                @endif
+                                            @else
+                                                <input name="strict_notes" type="checkbox">
+                                            @endif
+                                            Show notes based on routine
+                                            <i class="m-l-10 material-icons material-icons-sm pointer"
+                                                rel="tooltip"
+                                                data-placement="top"
+                                                title="If on, a note will only appear on the same routine as it was set.">
                                                 help
                                             </i>
                                         </label>
@@ -207,7 +230,7 @@
                 </div>
                 <div class="card-content">
                     <h4 class="card-title">Awesome Logit functions</h4>
-                    
+
                     <h5 class="card-title">Rename an exercise</h5>
                     <form action="/user/settings/renameExercise" method="post">
                         {{ csrf_field() }}
@@ -219,11 +242,11 @@
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <div class="col-sm-5">
                                 <input type="text" name="new_name" placeholder="New name" class="form-control" />
                             </div>
-                            
+
                             <div class="col-sm-2">
                                 <input type="submit" class="btn btn-rose" value="Do it!" />
                             </div>
@@ -241,7 +264,7 @@
                     <h4 class="card-title">Timer settings</h4>
                     <form action="/user/settings/edit/timer" method="post">
                         {{ csrf_field() }}
-                        
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group label-floating clearfix">
@@ -281,9 +304,9 @@
                             </div>
                         </div>
 
-                        <select class="selectpicker sp-added-height" 
-                                name="timer_direction" 
-                                data-style="btn btn-primary" 
+                        <select class="selectpicker sp-added-height"
+                                name="timer_direction"
+                                data-style="btn btn-primary"
                                 title="Timer type">
                             @if ($settings->timer_direction == "default")
                                 <option value="default" selected>Default timer</option>
@@ -302,7 +325,7 @@
                             <div class="col-md-6">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Target minutes</label>
-                                    <input type="number" class="form-control" 
+                                    <input type="number" class="form-control"
                                            name="timer_minutes"
                                            value="@if ($settings && $settings->timer_minutes){{ $settings->timer_minutes }}@endif">
                                 </div>
@@ -310,10 +333,10 @@
                             <div class="col-md-6">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Target seconds</label>
-                                    <input type="number" class="form-control" 
+                                    <input type="number" class="form-control"
                                            name="timer_seconds"
                                            value="@if ($settings && $settings->timer_seconds){{ $settings->timer_seconds }}@endif">
-                                </div> 
+                                </div>
                             </div>
                         </div>
 

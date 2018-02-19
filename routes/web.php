@@ -47,14 +47,14 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::get('/dashboard/friends/sendRequest', 'FriendsController@sendRequest');
 	Route::get('/dashboard/friends/respondRequest', 'FriendsController@respondRequest');
 	Route::post('/dashboard/friends/shareRoutine', 'FriendsController@shareRoutine');
-	
+
 	/* Friend */
 	Route::get('/api/friends/friend/remove', 'FriendController@removeFriend');
 	Route::get('/api/friends/friend/populateExercises', 'FriendController@getExercises');
 	Route::get('/api/friends/friend/getExerciseData', 'FriendController@getExerciseData');
 	Route::get('/api/friends/friend/getSessionData', 'FriendController@getSessionData');
 	Route::get('/dashboard/friends/friend/{friendId}', 'FriendController@viewFriend');
-	
+
 
 	/* Routines */
 	Route::get('/dashboard/my_routines', 'RoutineController@routines');
@@ -94,7 +94,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 
 	/* Exercises */
 	Route::get('/api/exercise/{exerciseId}', 'ExerciseController@getExercise');
-	Route::put('/api/exercise/{routineId}', 'ExerciseController@addExercise');
+	Route::put('/api/exercise/{routineId}/{exerciseId}', 'ExerciseController@addExercise');
 
 	/* API routes */
 	Route::get('/clear', 'ApiController@flushSessions');

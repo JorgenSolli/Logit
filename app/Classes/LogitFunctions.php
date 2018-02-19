@@ -5,11 +5,14 @@ namespace Logit\Classes;
 use DB;
 use Carbon;
 
-use Logit\Workout;
+use Logit\User;
+use Logit\Note;
 use Logit\Friend;
+use Logit\Workout;
 use Logit\Settings;
 use Logit\WorkoutJunction;
-use Logit\User;
+use Logit\RoutineJunction;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -148,8 +151,8 @@ class LogitFunctions {
                     ]);
                 }])
             ->get();
-        }   
-        
+        }
+
         foreach ($workouts as $workout) {
             if ($workout->junction) {
                 foreach ($workout->junction as $junction) {
@@ -173,7 +176,7 @@ class LogitFunctions {
             foreach ($series as $value) {
                 if ($value > $max - 1) {
                     $max = $value + 10;
-                }  
+                }
             }
         }
 
@@ -185,7 +188,7 @@ class LogitFunctions {
         else {
             $result['success'] = false;
         }
-        return $result; 
+        return $result;
     }
 
     public static function fetchSessionData ($type, $month, $year, $userId)
@@ -220,7 +223,7 @@ class LogitFunctions {
             );
 
             # Populates the series index with months in the year
-            for ($i=0; $i < 12; $i++) { 
+            for ($i=0; $i < 12; $i++) {
                 array_push($result['series'], 0);
             }
 
@@ -234,7 +237,7 @@ class LogitFunctions {
 
             # Finds the max value and appends 1 (for cosmetic reason)
             $result['max'] = max($result['series']) + 1;
-        } 
+        }
         elseif ($type == "months") {
             # Makes sure the month we get from out request is formated correctly
             $selectedMonth = ucfirst($month);
@@ -252,7 +255,7 @@ class LogitFunctions {
             );
 
             # Populates the outputArray with data specific for the specific month
-            for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
+            for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) {
                 array_push($result['labels'], $i);
                 array_push($result['series'], 0);
                 array_push($result['meta'], "");
@@ -269,7 +272,7 @@ class LogitFunctions {
             # Iterates over the result
             foreach ($data as $value) {
                 $day = $value->created_at->format('d');
-                
+
                 # Removes a zero in front of the int. 04 becomes 4 and so on. This is so we can corretctly match indexes in our result array
                 if ($day > 0 && $day < 10) {
                     $day = ltrim($day, 0);
@@ -292,7 +295,7 @@ class LogitFunctions {
             foreach ($result['series'] as $value) {
                 if ($value > $max - 1) {
                     $max = $value + 0.1;
-                }  
+                }
             }
 
             $result['max'] = $max;
@@ -358,24 +361,24 @@ class LogitFunctions {
      *
      * @return \Illuminate\Http\Response
      */
-    public static function getExercises ($type, $year, $month, $activeExercises, $isTopTen, $userId) 
-    {           
-            
+    public static function getExercises ($type, $year, $month, $activeExercises, $isTopTen, $userId)
+    {
+
         $limit = $isTopTen ? 10 : 9999;
         $show_active_exercises = $activeExercises ? ['routines.active', 1] : ['routines.active', '>=', 0];
 
-        LogitFunctions::canView($userId);        
+        LogitFunctions::canView($userId);
 
         $settings = Settings::where('user_id', $userId)->first();
         $brukerinfo = User::where('id', $userId)->first();
-     
+
         if ($type == "year") {
             if ($settings->count_warmup_in_stats == 1) {
                 $where = [
                     ['workout_junctions.user_id', $userId],
                     [DB::raw('YEAR(workout_junctions.created_at)'), '=', date($year)],
                 ];
-            } 
+            }
             else {
                 $where = [
                     ['workout_junctions.user_id', $userId],
@@ -404,7 +407,7 @@ class LogitFunctions {
                 ];
             }
         }
-        
+
         $topExercises = WorkoutJunction::select(DB::raw('workout_junctions.id, workout_junctions.exercise_name, count(*) as count'))
             ->join('routines', 'workout_junctions.routine_id', '=', 'routines.id')
             ->where($where)
@@ -413,7 +416,42 @@ class LogitFunctions {
             ->orderBy('count', 'DESC')
             ->limit($limit)
             ->get();
-        
+
         return $topExercises;
+    }
+
+    public static function getNote ($exerciseId, $markSeen)
+    {
+        $userId = Auth::id();
+        $settings = Settings::where('user_id', Auth::id())->first();
+
+        $routine = RoutineJunction::where('id', $exerciseId)
+            ->where('user_id', $userId)
+            ->select('type', 'exercise_name')
+            ->first();
+
+        $note = false;
+
+        if ($settings->strict_notes) {
+            $note = Note::where('routine_junction_id', $exerciseId)
+                ->where('user_id', $userId)
+                ->orderBy('created_at', 'DESC')
+                ->first();
+        } else {
+            $note = Note::where([
+                    ['user_id', $userId],
+                    ['exercise_name', $routine->exercise_name],
+                ])
+                ->orderBy('created_at', 'DESC')
+                ->first();
+        }
+
+        if ($markSeen) {
+            $note->is_seen = 1;
+            return $note->save();
+
+        } else {
+            return $note;
+        }
     }
 }

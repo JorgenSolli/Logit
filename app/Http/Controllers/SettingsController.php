@@ -15,14 +15,14 @@ class SettingsController extends Controller
         $this->middleware('auth');
         $this->middleware('timezone');
     }
-    
+
     public function settings ()
     {
 		$brukerinfo = Auth::user();
 
         $settings = Settings::where('user_id', Auth::id())
             ->first();
-            
+
         $exercises = WorkoutJunction::select('exercise_name')
             ->where('user_id', $brukerinfo->id)
             ->orderBy('exercise_name')
@@ -90,6 +90,12 @@ class SettingsController extends Controller
             $settings->count_warmup_in_stats = 1;
         }
 
+        if (!array_key_exists('strict_notes', $data)) {
+            $settings->strict_notes = 0;
+        } else {
+            $settings->strict_notes = 1;
+        }
+
         if ($settings->save()) {
             return back()->with('script_success', 'Settings updated.');
         }
@@ -98,7 +104,7 @@ class SettingsController extends Controller
     }
 
     public function timerSettings (Request $request)
-    {   
+    {
         $data = $request->all();
 
         $settings = Settings::where('user_id', Auth::id())
@@ -126,7 +132,7 @@ class SettingsController extends Controller
         if ($request->timer_minutes > 60) {
             return back()->with('script_danger', 'Seconds cannot be more then 60');
         }
-        
+
         if ($request->timer_seconds > 60) {
             return back()->with('script_danger', 'Minutes cannot be more then 60');
         }

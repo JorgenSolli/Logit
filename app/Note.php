@@ -14,6 +14,7 @@ class Note extends Model
     protected $fillable = [
         'user_id',
         'workout_junction_id',
+        'exercise_name',
         'note',
         'label',
     ];

@@ -8,6 +8,7 @@ use Logit\Note;
 use Logit\Settings;
 use Logit\RoutineJunction;
 use Logit\WorkoutJunction;
+use Logit\Classes\LogitFunctions;
 
 class ExerciseController extends Controller
 {
@@ -22,21 +23,12 @@ class ExerciseController extends Controller
         $userId = Auth::id();
         $settings = Settings::where('user_id', Auth::id())->first();
 
-        $type = RoutineJunction::where('id', $exerciseId)
-            ->where('user_id', $userId)
-            ->select('type')
-            ->first();
-        $type = $type->type;
+        $note = LogitFunctions::getNote($exerciseId, false);
 
-        $note = Note::where('routine_junction_id', $exerciseId)
+        $routine = RoutineJunction::where('id', $exerciseId)
             ->where('user_id', $userId)
-            ->orderBy('created_at', 'DESC')
+            ->select('type', 'routine_id')
             ->first();
-            
-        $routineId = RoutineJunction::where('id', $exerciseId)
-            ->where('user_id', $userId)
-            ->select('routine_id')
-            ->get();
 
     	$exercise = RoutineJunction::where([
                 ['id', $exerciseId],
@@ -44,20 +36,20 @@ class ExerciseController extends Controller
             ])
     		->firstOrFail();
 
-        if ($type === 'superset') {
+        if ($routine->type === 'superset') {
             $ssName = $exercise->superset_name;
-            $ri = $exercise->routine_id; 
-            
+            $ri = $exercise->routine_id;
+
             $exercise = RoutineJunction::where([
                 ['user_id', Auth::id()],
                 ['routine_id', $ri],
                 ['type', 'superset'],
                 ['superset_name', $ssName]
             ])->get();
-            
+
             $supersetsCount = $exercise->count();
             $nrOfSets = $exercise[0]->goal_sets;
-        } 
+        }
         else {
             $supersetsCount = 0;
             $nrOfSets = $exercise->goal_sets;
@@ -65,7 +57,7 @@ class ExerciseController extends Controller
 
 
 
-        if ($type === 'superset') {
+        if ($routine->type === 'superset') {
             $previousExercise = null;
         }
         else {
@@ -89,18 +81,19 @@ class ExerciseController extends Controller
         }
 
 		$returnHTML = view('workouts.exercise')
-            ->with('type', $type)
+            ->with('type', $routine->type)
 			->with('exercise', $exercise)
             ->with('supersetsCount', $supersetsCount)
             ->with('prevExercise', $previousExercise)
 			->with('nrOfSets', $nrOfSets)
-            ->with('routineId', $routineId)
+            ->with('routineId', $routine->routine_id)
+            ->with('exercise_id', $exerciseId)
             ->with('note', $note)
 			->render();
 
 		return response()->json(array('success' => true, 'data'=>$returnHTML));
     }
-    
+
     /**
      * Adds an exercise to the session
      *
@@ -108,15 +101,19 @@ class ExerciseController extends Controller
      * @param  Request
      * @return \Illuminate\Http\Response
      */
-    public function addExercise ($routine_id, Request $request)
-    {   
+    public function addExercise ($routine_id, $exerciseId, Request $request)
+    {
+        #return response()->json($routine_id);
+
+        LogitFunctions::getNote($exerciseId, true);
+
         if ($request->type === 'regular') {
             $junction = $request->routine_junction_id;
 
             session()->forget($request->exercise_name);
 
             session()->push('exercises', [
-                'exercise_name' => $request->exercise_name, 
+                'exercise_name' => $request->exercise_name,
                 'note' => ([
                     'text' => $request->note,
                     'labelType' => $request->labelType
@@ -138,7 +135,7 @@ class ExerciseController extends Controller
 
             foreach ($request->superset as $set) {
                 session()->push('supersets', [
-                    'superset_name' => $name, 
+                    'superset_name' => $name,
                     'note' => ([
                         'text' => $note,
                         'labelType' => $labelType
@@ -155,7 +152,7 @@ class ExerciseController extends Controller
         $response = [
             'success' => true,
             'message' => 'Exercise saved. Good job!',
-            'id'      => $junction, 
+            'id'      => $junction,
         ];
         return $response;
     }
