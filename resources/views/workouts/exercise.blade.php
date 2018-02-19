@@ -143,6 +143,8 @@
                 </div>
 			@endif
 
+			@php $exerciseNr = 0; @endphp
+			
 			@for ($i = 1; $i <= $nrOfSets; $i++)
 				<div class="thisExercise">
 					<div class="exercise-card card m-b-10 m-t-10 card-transparent">
@@ -172,14 +174,14 @@
 
 										    <label class="hidden control-label" for="weight"> | Hey don't give up! Finish all sets. You can do it!</label>
 										    <input type="number" step="any" class="required form-control" name="superset[{{ $j }}][{{ $i }}][weight]"
-										    	placeholder="Your goal is {{ $exercise[$j]->goal_weight }}. @unless(empty($prevExercise[$i - 1])) Last time you lifted {{ $prevExercise[$i - 1]['weight'] }} @endunless">
+										    	placeholder="Your goal is {{ $exercise[$j]->goal_weight }}. @unless(empty($prevExercise[$j][$exerciseNr])) Last time you lifted {{ $prevExercise[$j][$exerciseNr]['weight'] }} @endunless">
 								  		</div>
 
 									  	<div class="form-group">
 											<label for="reps">Reps</label>
 											<label class="control-label hidden" for="weight"> | Hey don't give up! At least do ONE rep!</label>
 										    <input type="number" class="required form-control" name="superset[{{ $j }}][{{ $i }}][reps]"
-										    	placeholder="Your goal is {{ $exercise[$j]->goal_reps }}. @unless(empty($prevExercise[$i - 1])) Last time you did {{ $prevExercise[$i - 1]['reps'] }} @endunless">
+										    	placeholder="Your goal is {{ $exercise[$j]->goal_reps }}. @unless(empty($prevExercise[$j][$exerciseNr])) Last time you did {{ $prevExercise[$j][$exerciseNr]['reps'] }} @endunless">
 									  	</div>
 								  	</div>
 							  	</div>
@@ -187,6 +189,7 @@
 						</div>
 					</div>
 				</div>
+			  	@php $exerciseNr ++; @endphp
 			@endfor
 			<div class="card">
 				<div class="card-content">

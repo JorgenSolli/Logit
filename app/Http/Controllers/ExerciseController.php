@@ -54,30 +54,38 @@ class ExerciseController extends Controller
             $supersetsCount = 0;
             $nrOfSets = $exercise->goal_sets;
         }
-
-
+        
+        if ($settings->strict_previous_exercise == 1) {
+            $where = [
+                ['exercise_name', $exercise->exercise_name],
+                ['user_id', Auth::id()]
+            ];
+        } else {
+            $where = [
+                ['user_id', Auth::id()]
+            ];
+        }
 
         if ($routine->type === 'superset') {
-            $previousExercise = null;
+            $exercises = [];
+            foreach ($exercise as $e) { 
+                $previousExercise = WorkoutJunction::where('exercise_name', $e->exercise_name)
+                    ->limit($nrOfSets)
+                    ->orderBy('id', 'DESC')
+                    ->get();
+
+                array_push($exercises, array_reverse($previousExercise->toArray()));
+            }
+
+            $previousExercise = $exercises;
         }
         else {
-            if ($settings->strict_previous_exercise == 1) {
-
-                $previousExercise = WorkoutJunction::where('routine_id', $exercise->routine_id)
-                    ->where('exercise_name', $exercise->exercise_name)
-                    ->where('user_id', Auth::id())
-                    ->limit($nrOfSets)
-                    ->orderBy('created_at', 'DESC')
-                    ->orderBy('set_nr', 'ASC')
-                    ->get();
-            } else {
-                $previousExercise = WorkoutJunction::where('exercise_name', $exercise->exercise_name)
-                    ->where('user_id', Auth::id())
-                    ->limit($nrOfSets)
-                    ->orderBy('created_at', 'DESC')
-                    ->orderBy('set_nr', 'ASC')
-                    ->get();
-            }
+            $previousExercise = WorkoutJunction::where('exercise_name', $exercise->exercise_name)
+                ->where($where)
+                ->limit($nrOfSets)
+                ->orderBy('created_at', 'DESC')
+                ->orderBy('set_nr', 'ASC')
+                ->get();
         }
 
 		$returnHTML = view('workouts.exercise')

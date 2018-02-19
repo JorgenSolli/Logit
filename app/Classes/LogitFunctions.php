@@ -446,7 +446,7 @@ class LogitFunctions {
                 ->first();
         }
 
-        if ($markSeen) {
+        if ($markSeen && $note) {
             $note->is_seen = 1;
             return $note->save();
 
