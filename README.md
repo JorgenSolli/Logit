@@ -6,8 +6,8 @@ This document is by no means completed. It is still under active 'development' a
 ## TechSpec
 ### Developing
 #### Backend 
-* [PHP v5.7](https://secure.php.net/)
-* [Laravel v5.4](https://laravel.com/)
+* [PHP v7.0.*](https://secure.php.net/)
+* [Laravel v5.6.*](https://laravel.com/)
 * MySQL
 
 #### Frontend
