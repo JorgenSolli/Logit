@@ -251,6 +251,7 @@ class WorkoutController extends Controller
         ];
 
         // If gymming is in progres, do not reset sessions
+        // Otherwise load everything up!
         if (session('gymming') != $routine->id) {
             session()->forget('exercises');
             session()->forget('gymming');
@@ -272,6 +273,9 @@ class WorkoutController extends Controller
             }
             session(['gymming' => $routine->id]);
             session(['started_gymming' => $dateTime]);
+
+            $activity = 'Just started the routine ' . $routine->routine_name;
+            LogitFunctions::setActivity('routine', $activity);
         }
         
         return view('workouts.startWorkout', [
@@ -407,6 +411,9 @@ class WorkoutController extends Controller
                 }
             }
 
+            $routine = Routine::where('id', $routine_id)->first();
+            $activity = 'Just finished a workout! (Routine: ' . $routine->routine_name . ")";
+            LogitFunctions::setActivity('routine', $activity);
 
             if ($settings->recap == 1) {
                 return redirect('/dashboard/workout/recap/' . $workout->id)->with('success', 'Workout saved. Good job! Here is your recap');
