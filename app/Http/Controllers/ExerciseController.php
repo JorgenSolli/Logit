@@ -80,7 +80,6 @@ class ExerciseController extends Controller
                 array_push($exercises, array_reverse($previousExercise->toArray()));
             }
             $previousExercise = $exercises;
-            dd($previousExercise);
         }
         else {
             $previousExercise = WorkoutJunction::where('exercise_name', $exercise->exercise_name)
