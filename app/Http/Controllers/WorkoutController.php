@@ -274,7 +274,7 @@ class WorkoutController extends Controller
             session(['gymming' => $routine->id]);
             session(['started_gymming' => $dateTime]);
 
-            $activity = 'Just started the routine ' . $routine->routine_name;
+            $activity = 'Started the routine ' . $routine->routine_name;
             LogitFunctions::setActivity('routine', $activity);
         }
         
@@ -412,7 +412,7 @@ class WorkoutController extends Controller
             }
 
             $routine = Routine::where('id', $routine_id)->first();
-            $activity = 'Just finished a workout! (Routine: ' . $routine->routine_name . ")";
+            $activity = 'Finished a workout! (Routine: ' . $routine->routine_name . ")";
             LogitFunctions::setActivity('routine', $activity);
 
             if ($settings->recap == 1) {
