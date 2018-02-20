@@ -17,5 +17,6 @@ class Note extends Model
         'exercise_name',
         'note',
         'label',
+        'is_seen',
     ];
 }

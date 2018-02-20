@@ -14,7 +14,9 @@ class Routine extends Model
     protected $fillable = [
         'user_id',
         'routine_name',
-        'status',
+        'active',
+        'pending',
+        'sharer',
     ];
 
     /**

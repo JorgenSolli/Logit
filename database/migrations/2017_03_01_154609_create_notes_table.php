@@ -32,6 +32,7 @@ class CreateNotesTable extends Migration
             $table->string('label')
                 ->default('alert-info')
                 ->nullable();
+            $table->boolean('is_seen')->nullable();
             $table->timestamps();
         });
     }

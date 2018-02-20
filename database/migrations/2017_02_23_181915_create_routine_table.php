@@ -15,9 +15,16 @@ class CreateRoutineTable extends Migration
     {
         Schema::create('routines', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
             $table->string('routine_name');
             $table->boolean('active')->default(1);
+            $table->boolean('pending')->default(0);
+            $table->integer('sharer')->nullable();
             $table->timestamps();
         });
     }
