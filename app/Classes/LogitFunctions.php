@@ -10,6 +10,7 @@ use Logit\Note;
 use Logit\Friend;
 use Logit\Workout;
 use Logit\Settings;
+use Logit\LatestActivity;
 use Logit\WorkoutJunction;
 use Logit\RoutineJunction;
 
@@ -305,14 +306,16 @@ class LogitFunctions {
         return $result;
     }
 
-    public static function is_leap_year ($year) {
+    public static function is_leap_year ($year)
+    {
         if ((($year % 4) == 0) && ((($year % 100) != 0) || (($year % 400) == 0))) {
             return 29;
         }
         return 28;
     }
 
-    public static function parseMinutes ($minutes, $format = '%02d:%02d') {
+    public static function parseMinutes ($minutes, $format = '%02d:%02d')
+    {
         if ($minutes < 1) {
             return;
         }
@@ -322,7 +325,8 @@ class LogitFunctions {
         return sprintf($format, $hours, $minutes);
     }
 
-    public static function parseRestTime ($time, $format = '%02d:%02d') {
+    public static function parseRestTime ($time, $format = '%02d:%02d')
+    {
         $minutes = floor($time);
         $seconds = round(60*($time-$minutes));
 
@@ -453,5 +457,14 @@ class LogitFunctions {
         } else {
             return $note;
         }
+    }
+
+    public static function setActivity ($activityType, $activity)
+    {
+        $la = new LatestActivity;
+        $la->user_id = Auth::id();
+        $la->activity_type = $activityType;
+        $la->activity = $activity;
+        $la->save();
     }
 }
