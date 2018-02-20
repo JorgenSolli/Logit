@@ -7,14 +7,22 @@ use Logit\Friend;
 use Logit\Routine;
 use Logit\Settings;
 use Logit\Notification;
+use Logit\LatestActivity;
 use Logit\WorkoutJunction;
 use Logit\Classes\LogitFunctions;
+
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FriendController extends Controller
-{
+{   
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('timezone');
+    }
 
 	/**
      * Removes a friend from your friendslist
@@ -75,7 +83,10 @@ class FriendController extends Controller
     	}
 
     	$friend = User::where('id', $friendId)->first();
-
+        $latestActivity = LatestActivity::where('user_id', $friendId)
+            ->orderBy('created_at', 'DESC')
+            ->first();
+            
     	$routines = Routine::where('user_id', Auth::id())->get();
 
     	$topNav = [
@@ -90,10 +101,11 @@ class FriendController extends Controller
         ];
 
     	return view('friends.friend', [
-    		'brukerinfo' => $brukerinfo,
-    		'routines'	 => $routines,
-    		'topNav'	 => $topNav,
-    		'friend' 	 => $friend,
+    		'brukerinfo'     => $brukerinfo,
+            'latestActivity' => $latestActivity,
+    		'routines'	     => $routines,
+    		'topNav'	     => $topNav,
+    		'friend' 	     => $friend,
     	]);
     }
 

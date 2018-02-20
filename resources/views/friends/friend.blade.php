@@ -9,6 +9,16 @@
                 </div>
                 <div class="card-content">
                     <h4 class="card-title">Friendship with <span id="name">{{ $friend->name }}</span></h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Friends since {{ Carbon\Carbon::parse($friend->created_at)->format('d M Y') }}
+                        </div>
+                        <div class="col-md-6">
+                            @if ($latestActivity)
+                                Latest activity: {{ $latestActivity->activity }} ({{ Carbon\Carbon::parse($latestActivity->created_at)->diffForHumans() }})
+                            @endif
+                        </div>
+                    </div>
                     <a id="removeFriend" class="btn btn-danger">
                         <i class="material-icons">close</i> Remove friend
                     </a>
