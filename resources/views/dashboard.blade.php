@@ -99,14 +99,42 @@
 
                 <div class="card-footer">
                     <h6>Legend</h6>
-                    <i class="fas fa-circle ct-legend-a"></i> Back <span id="0-percent"></span>
-                    <i class="fas fa-circle ct-legend-b"></i> Biceps <span id="1-percent"></span>
-                    <i class="fas fa-circle ct-legend-c"></i> Triceps <span id="2-percent"></span>
-                    <i class="fas fa-circle ct-legend-h"></i> Forearms <span id="7-percent"></span>
-                    <i class="fas fa-circle ct-legend-d"></i> Abs <span id="3-percent"></span>
-                    <i class="fas fa-circle ct-legend-e"></i> Shoulders <span id="4-percent"></span>
-                    <i class="fas fa-circle ct-legend-f"></i> Legs <span id="5-percent"></span>
-                    <i class="fas fa-circle ct-legend-g"></i> Chest <span id="6-percent"></span>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>
+                                <i class="fas fa-circle ct-legend-a"></i>
+                                 Back <span id="0-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-b"></i>
+                                 Biceps <span id="1-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-c"></i>
+                                 Triceps <span id="2-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-d"></i>
+                                 Forearms <span id="3-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-e"></i>
+                                 Abs <span id="4-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-f"></i>
+                                 Shoulders <span id="5-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-g"></i>
+                                 Legs <span id="6-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-h"></i>
+                                 Chest <span id="7-percent"></span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
