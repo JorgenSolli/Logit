@@ -57,7 +57,7 @@ $(document).ready(function() {
                 },
                 url: '/api/friends/friend/populateExercises',
                 data: {
-                	friend_id: friend_id, 
+                	friend_id: friend_id,
                     year: year,
                     month: month,
                     type: type
@@ -203,7 +203,7 @@ $(document).ready(function() {
 			        year:  $("#statistics-year").val(),
 			        month: $("#statistics-month").val()
                 },
-                success: function(data) {                	
+                success: function(data) {
 
                 	if (user == "auth") {
 	                    if ($("#your_exercise").html().length == 0) {
@@ -222,9 +222,9 @@ $(document).ready(function() {
                             friend_chart.destroy();
                         }
                         chartOwner = "friend";
-                	}                    
+                	}
 
-                    if (data.success) {                        
+                    if (data.success) {
                         FriendFunctions.compareExerciseChart(data.labels, data.series, data.exercise, data.max, chartId, chartOwner);
                     }
                     else {
@@ -234,7 +234,7 @@ $(document).ready(function() {
             });
         },
 
-        compareExerciseChart: function(labels, series, exercise, max, canvas, chartName) {            
+        compareExerciseChart: function(labels, series, exercise, max, canvas, chartName) {
             var ctx = $(canvas);
             var data = {
                 type: 'line',
@@ -289,8 +289,8 @@ $(document).ready(function() {
                     responsiveAnimationDuration: 100
                 }
             }
-            
-            if (chartName == "user"){                
+
+            if (chartName == "user"){
                 your_chart = new Chart(ctx, data);
             } else {
                 friend_chart = new Chart(ctx, data);

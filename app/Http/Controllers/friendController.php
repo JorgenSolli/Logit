@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FriendController extends Controller
-{   
+{
     public function __construct()
     {
         $this->middleware('auth');
@@ -37,13 +37,13 @@ class FriendController extends Controller
     		$id = $user->id;
 
             $youAndHim = Friend::where([
-                ['user_id', Auth::id()], 
+                ['user_id', Auth::id()],
                 ['friends_with', $id],
                 ['pending', 0]
             ])->first();
 
             $himAndYou = Friend::where([
-                ['user_id', $id], 
+                ['user_id', $id],
                 ['friends_with', Auth::id()],
                 ['pending', 0]
             ])->first();
@@ -58,7 +58,7 @@ class FriendController extends Controller
 
 			}
 			else {
-				return response()->json(array('error' => "You can't remove " + ucfirst($user->name) + " because the person is not your friend."));		
+				return response()->json(array('error' => "You can't remove " + ucfirst($user->name) + " because the person is not your friend."));
 			}
     	}
 
@@ -86,7 +86,7 @@ class FriendController extends Controller
         $latestActivity = LatestActivity::where('user_id', $friendId)
             ->orderBy('created_at', 'DESC')
             ->first();
-            
+
     	$routines = Routine::where('user_id', Auth::id())->get();
 
     	$topNav = [
@@ -121,14 +121,14 @@ class FriendController extends Controller
 		$friend = User::where('id', $request->friend_id)->firstOrFail();
 
 		$exercises = [
-			'you' => [], 
+			'you' => [],
 			'friend' => []
 		];
 
         $your_exercises = LogitFunctions::getExercises($request->type, $request->year, $request->month, true, false, Auth::id());
 
         array_push($exercises['you'], $your_exercises);
-        
+
 		$friend_exercises = LogitFunctions::getExercises($request->type, $request->year, $request->month, true, false, $friend->id);
 
         array_push($exercises['friend'], $friend_exercises);
@@ -149,8 +149,10 @@ class FriendController extends Controller
 		$year = $request->year;
 		$userId = $request->user_id;
 
-		$friendData = LogitFunctions::fetchSessionData($type, $month, $year, $userId);
-		$yourData  = LogitFunctions::fetchSessionData($type, $month, $year, Auth::id());
+		$friendData = LogitFunctions::fetchSessionData($type, $month, $year, $userId, true);
+		$yourData  = LogitFunctions::fetchSessionData($type, $month, $year, Auth::id(), true);
+
+        #dd($friendData);
 
 		$result = array(
             'labels' => [],
@@ -167,7 +169,19 @@ class FriendController extends Controller
 		$result['series']['yours'] = $yourData['series'];
 		$result['series']['friends'] = $friendData['series'];
 
-		return $result;
+        foreach ($yourData['meta'] as $key => $metaData) {
+
+            if ($metaData !== "") {
+                if ($friendData['meta'][$key] !== "") {
+                    $friendData['meta'][$key] .= ", " . $metaData;
+                } else {
+                    $friendData['meta'][$key] .= $metaData;
+                }
+            }
+        }
+        $result['meta'] = $friendData['meta'];
+
+        return $result;
 	}
 
 	/**
@@ -177,7 +191,7 @@ class FriendController extends Controller
      * @return \Illuminate\Http\Response
      */
 	public function getExerciseData (Request $request)
-	{	
+	{
 		$type = $request->type;
 		$month = $request->month;
 		$year = $request->year;
