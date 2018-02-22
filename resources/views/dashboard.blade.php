@@ -48,9 +48,10 @@
                                 <h4 class="card-title pull-left">Average workout time</h4>
                             </div>
                             <div class="data-text text-center">
-                                <h1 id="avg_hour" class="m-b-0 m-t-0">
-                                    <span id="avg_hr"></span><small id="avg_hr_label"></small> <span id="avg_min"></span><small id="avg_min_label"></small>
-                                </h1>
+                                <h2 id="avg_hour" class="m-b-0 m-t-0">
+                                    <span id="avg_hr"></span><small id="avg_hr_label"></small>
+                                    <span id="avg_min"></span><small id="avg_min_label"></small>
+                                </h2>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -141,17 +142,15 @@
         <div class="card-content">
             <h4 class="card-title">Exercise progress</h4>
             <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <select id="exercise_name" data-style="btn btn-primary" title="Select exercise" data-live-search="true">
-                    </select>
-                </div>
-                <div class="col-sm-2 col-xs-4">
+                <div class="col-xs-12">
                     <div class="checkbox">
                         <label>
                             <input id="show_active_exercises" type="checkbox" name="optionsCheckboxes" checked="">
                             Only show active exercises
                         </label>
                     </div>
+                    <select id="exercise_name" data-style="btn btn-primary" title="Select exercise" data-live-search="true">
+                    </select>
                 </div>
             </div>
         </div>
