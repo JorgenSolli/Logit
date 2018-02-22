@@ -43,6 +43,10 @@
   width: 90%;
 }
 
+.modal.modal-long .modal-dialog {
+  margin-top: 30px !important;
+}
+
 .alert.alert-info {
    background-color: #00bcd4 !important;
 }
@@ -81,6 +85,23 @@
     float: left;
     margin-bottom: 2px;
     margin-right: 5px;
+  }
+}
+
+.card-profile {
+  .card-avatar {
+    height: 130px;
+    width: 130px;
+    background-color: #fff;
+
+    .user-icon {
+      font-size: 130px;
+      color: $brand-primary;
+    }
+  }
+
+  .card-content {
+    margin-top: 0 !important;
   }
 }
 

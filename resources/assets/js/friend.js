@@ -296,6 +296,37 @@ $(document).ready(function() {
                 friend_chart = new Chart(ctx, data);
             }
         },
+
+        removeFriend: function(id) {
+            $.ajax({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: 'GET',
+                url: '/api/friends/friend/remove',
+                data: {
+                    id: id
+                },
+                success: function(data){
+                    if (data.error) {
+                        $.notify({
+                            icon: "add_alert",
+                            message: data.error
+
+                        },{
+                            type: 'danger',
+                            timer: 4000,
+                            placement: {
+                                from: 'top',
+                                align: 'right'
+                            }
+                        });
+                    } else {
+                        window.location.href = "/dashboard/friends";
+                    }
+                }
+            });
+        }
 	}
 
 	FriendFunctions.initSelects();
@@ -343,38 +374,24 @@ $(document).ready(function() {
 			confirmButtonText: 'Yes, remove him/her!',
             buttonsStyling: false
 		}).then(function () {
-			removeFriend(id);
+			FriendFunctions.removeFriend(id);
 		}).done();
-	})
+	});
 
-	var removeFriend = function(id) {
-		$.ajax({
-			headers: {
-	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        },
-			method: 'GET',
-			url: '/api/friends/friend/remove',
-			data: {
-				id: id
-			},
-			success: function(data){
-				if (data.error) {
-					$.notify({
-        				icon: "add_alert",
-				        message: data.error
+    $(document).on('change', '#routine', function() {
+        var routineId = $(this).val();
 
-				    },{
-				        type: 'danger',
-				        timer: 4000,
-				        placement: {
-				            from: 'top',
-				            align: 'right'
-				        }
-				    });
-				} else {
-					window.location.href = "/dashboard/friends";
-				}
-			}
-		})
-	}
+        $.ajax({
+            url: '/api/routines/preview',
+            data: {
+                routine: routineId,
+                user_id: friend_id
+            },
+            success: function(response) {
+                $("#previewModal").html(response.data);
+                $("#routinePreview").modal('show');
+            }
+        });
+    });
+
 });

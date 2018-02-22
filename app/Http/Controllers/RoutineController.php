@@ -4,9 +4,12 @@ namespace Logit\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use Logit\Workout;
 use Logit\Routine;
 use Logit\RoutineJunction;
+use Logit\Classes\LogitFunctions;
+
 use Carbon;
 
 class RoutineController extends Controller
@@ -97,7 +100,7 @@ class RoutineController extends Controller
             ]
         ];
         $brukerinfo = Auth::user();
-        
+
         return view('routines.addRoutine', [
             'topNav'     => $topNav,
             'brukerinfo' => $brukerinfo,
@@ -123,7 +126,7 @@ class RoutineController extends Controller
     }
 
     public function insertRoutine (Request $request)
-    {   
+    {
         $routine = new Routine;
         $routine->user_id = Auth::id();
         $routine->routine_name = $request->routine_name;
@@ -162,7 +165,7 @@ class RoutineController extends Controller
                 // Grabs the name because that's acceable here.
                 $superset_name = $superset['superset_name'];
                 $order_nr      = $superset['order_nr'];
-                
+
                 // Removes first two datapoints in array, as this is the superset name and order. We already have this in out memory.
                 foreach(array_slice($superset,2) as $exercise) {
                     $junction = new RoutineJunction;
@@ -183,7 +186,7 @@ class RoutineController extends Controller
                     } else {
                         $junction->is_warmup = 1;
                     }
-                    
+
                     $junction->save();
                 }
 
@@ -272,7 +275,7 @@ class RoutineController extends Controller
                     // Grabs the name because that's acceable here.
                     $superset_name = $superset['superset_name'];
                     $order_nr      = $superset['order_nr'];
-                    
+
                     // Removes first two datapoints in array, as this is the superset name and order. We already have this in out memory.
                     foreach(array_slice($superset,2) as $exercise) {
                         $junction = new RoutineJunction;
@@ -298,7 +301,7 @@ class RoutineController extends Controller
                         } else {
                             $junction->media = null;
                         }
-                        
+
                         $junction->save();
                     }
                 }
@@ -317,7 +320,7 @@ class RoutineController extends Controller
                 $routine->active = 1;
                 $routine->save();
                 return response()->json(array('success' => true, 'status' => 'Now active'));
-            } 
+            }
 
             // Status 1 = Going from active to inactive
             else {
@@ -331,15 +334,24 @@ class RoutineController extends Controller
 
     public function previewRoutine (Request $request)
     {
-        $routine = $request->routine;
-        $routines = RoutineJunction::where([
-                ['routine_id', $routine],
-                ['user_id', Auth::id()]
+        $routineId = $request->routine;
+        $userId = null;
+
+        if ($request->user_id) {
+            $userId = $request->user_id;
+            LogitFunctions::canView($request->user_id);
+        } else {
+            $userId = Auth::id();
+        }
+
+        $routine = RoutineJunction::where([
+                ['routine_id', $routineId],
+                ['user_id', $userId]
             ])
             ->get();
 
         $returnHTML = view('routines.previewRoutine')
-            ->with('routines', $routines)
+            ->with('routine', $routine)
             ->render();
 
         return response()->json(array('success' => true, 'data'=>$returnHTML));

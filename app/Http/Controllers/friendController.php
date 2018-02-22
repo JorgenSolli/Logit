@@ -24,6 +24,46 @@ class FriendController extends Controller
         $this->middleware('timezone');
     }
 
+    /**
+     * Grab all friends connected to Authed user
+     * @param Int $friendId the friend to view
+     * @return \Illuminate\Http\Response
+     */
+    public function viewFriend ($friendId)
+    {
+        $brukerinfo = Auth::user();
+
+        LogitFunctions::canView($friendId);
+
+        $friend = User::where('id', $friendId)->first();
+        $latestActivity = LatestActivity::where('user_id', $friendId)
+            ->orderBy('created_at', 'DESC')
+            ->first();
+
+        $myRoutines = Routine::where('user_id', Auth::id())->get();
+        $routines = Routine::where('user_id', $friendId)->get();
+
+        $topNav = [
+            0 => [
+                'url'  => '/dashboard/friends/',
+                'name' => 'Friends'
+            ],
+            1 => [
+                'url'  => '/dashboard/friends/friend/' + $friendId,
+                'name' => $friend->name
+            ]
+        ];
+
+        return view('friends.friend', [
+            'brukerinfo'     => $brukerinfo,
+            'latestActivity' => $latestActivity,
+            'myRoutines'     => $myRoutines,
+            'routines'       => $routines,
+            'topNav'         => $topNav,
+            'friend'         => $friend,
+        ]);
+    }
+
 	/**
      * Removes a friend from your friendslist
      *
@@ -63,50 +103,6 @@ class FriendController extends Controller
     	}
 
     	return response()->json(array('error' => "That user does not exist."));
-    }
-
-    /**
-     * Grab all friends connected to Authed user
-     * @param Int $friendId the friend to view
-     * @return \Illuminate\Http\Response
-     */
-    public function viewFriend ($friendId)
-    {
-    	$brukerinfo = Auth::user();
-
-    	if (!Friend::where([ ['user_id', Auth::id()], ['friends_with', $friendId] ])->first()) {
-            return response()
-                ->view('errors.custom', [
-                    'error' => 'You need to be friends with the person to view this page'],
-                    403
-            );
-    	}
-
-    	$friend = User::where('id', $friendId)->first();
-        $latestActivity = LatestActivity::where('user_id', $friendId)
-            ->orderBy('created_at', 'DESC')
-            ->first();
-
-    	$routines = Routine::where('user_id', Auth::id())->get();
-
-    	$topNav = [
-            0 => [
-                'url'  => '/dashboard/friends/',
-                'name' => 'Friends'
-            ],
-            1 => [
-            	'url'  => '/dashboard/friends/friend/' + $friendId,
-                'name' => $friend->name
-            ]
-        ];
-
-    	return view('friends.friend', [
-    		'brukerinfo'     => $brukerinfo,
-            'latestActivity' => $latestActivity,
-    		'routines'	     => $routines,
-    		'topNav'	     => $topNav,
-    		'friend' 	     => $friend,
-    	]);
     }
 
     /**
