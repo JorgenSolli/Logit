@@ -12,9 +12,9 @@
 				            <h2 class="title">
 				            	<i class="far fa-exclamation-triangle"></i> Whops!
 				            </h2>
-				            
+
 				            <h5 class="description">
-				            	{{ $error }}
+			            		{{ $exception->getMessage() }}
 				            </h5>
 				        </div>
 				    </div>

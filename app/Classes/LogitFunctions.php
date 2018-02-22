@@ -344,18 +344,15 @@ class LogitFunctions {
     public static function canView ($userId)
     {
         if ($userId !== Auth::id()) {
-            $areWeFriends = Friend::where([
+            $friends = Friend::where([
                 ['user_id', Auth::id()],
                 ['friends_with', $userId],
                 ['pending', 0]
             ])->first();
 
-            if (!$areWeFriends) {
-                return response()
-                    ->view('errors.custom', [
-                        'error' => "You don't have permission to view this page"],
-                        403
-                    );
+
+            if (!$friends) {
+                abort(403, "You don't have permission to view this page");
             }
         }
 
