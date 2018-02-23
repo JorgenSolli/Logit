@@ -192,7 +192,7 @@ class LogitFunctions {
         return $result;
     }
 
-    public static function fetchSessionData ($type, $month, $year, $userId)
+    public static function fetchSessionData ($type, $month, $year, $userId, $metaUser = false)
     {
         LogitFunctions::canView($userId);
 
@@ -282,7 +282,15 @@ class LogitFunctions {
                 # Subtracts 1 on the index for day, as this is naturally offset by this amount. Index starts at 0, day starts at 1
                 $result['series'][(int)$day - 1] = $result['series'][(int)$day - 1] + 1;
 
-                $string = $value->routine_name;
+                $user = "";
+                if ($metaUser) {
+                    $user = "You: ";
+                    if ($userId !== Auth::id()) {
+                        $user = User::where('id', $userId)->first()->name . ": ";
+                    }
+                }
+
+                $string = $user . $value->routine_name;
                 if ($result['meta'][(int)$day - 1] != "") {
                     $comma = ", ";
                     $string = $result['meta'][(int)$day - 1] .= $comma .= $string;
@@ -336,18 +344,15 @@ class LogitFunctions {
     public static function canView ($userId)
     {
         if ($userId !== Auth::id()) {
-            $areWeFriends = Friend::where([
+            $friends = Friend::where([
                 ['user_id', Auth::id()],
                 ['friends_with', $userId],
                 ['pending', 0]
             ])->first();
 
-            if (!$areWeFriends) {
-                return response()
-                    ->view('errors.custom', [
-                        'error' => "You don't have permission to view this page"],
-                        403
-                    );
+
+            if (!$friends) {
+                abort(403, "You don't have permission to view this page");
             }
         }
 

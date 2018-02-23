@@ -57,7 +57,7 @@ $(document).ready(function() {
                 },
                 url: '/api/friends/friend/populateExercises',
                 data: {
-                	friend_id: friend_id, 
+                	friend_id: friend_id,
                     year: year,
                     month: month,
                     type: type
@@ -203,7 +203,7 @@ $(document).ready(function() {
 			        year:  $("#statistics-year").val(),
 			        month: $("#statistics-month").val()
                 },
-                success: function(data) {                	
+                success: function(data) {
 
                 	if (user == "auth") {
 	                    if ($("#your_exercise").html().length == 0) {
@@ -222,9 +222,9 @@ $(document).ready(function() {
                             friend_chart.destroy();
                         }
                         chartOwner = "friend";
-                	}                    
+                	}
 
-                    if (data.success) {                        
+                    if (data.success) {
                         FriendFunctions.compareExerciseChart(data.labels, data.series, data.exercise, data.max, chartId, chartOwner);
                     }
                     else {
@@ -234,7 +234,7 @@ $(document).ready(function() {
             });
         },
 
-        compareExerciseChart: function(labels, series, exercise, max, canvas, chartName) {            
+        compareExerciseChart: function(labels, series, exercise, max, canvas, chartName) {
             var ctx = $(canvas);
             var data = {
                 type: 'line',
@@ -289,13 +289,44 @@ $(document).ready(function() {
                     responsiveAnimationDuration: 100
                 }
             }
-            
-            if (chartName == "user"){                
+
+            if (chartName == "user"){
                 your_chart = new Chart(ctx, data);
             } else {
                 friend_chart = new Chart(ctx, data);
             }
         },
+
+        removeFriend: function(id) {
+            $.ajax({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method: 'GET',
+                url: '/api/friends/friend/remove',
+                data: {
+                    id: id
+                },
+                success: function(data){
+                    if (data.error) {
+                        $.notify({
+                            icon: "add_alert",
+                            message: data.error
+
+                        },{
+                            type: 'danger',
+                            timer: 4000,
+                            placement: {
+                                from: 'top',
+                                align: 'right'
+                            }
+                        });
+                    } else {
+                        window.location.href = "/dashboard/friends";
+                    }
+                }
+            });
+        }
 	}
 
 	FriendFunctions.initSelects();
@@ -343,38 +374,24 @@ $(document).ready(function() {
 			confirmButtonText: 'Yes, remove him/her!',
             buttonsStyling: false
 		}).then(function () {
-			removeFriend(id);
+			FriendFunctions.removeFriend(id);
 		}).done();
-	})
+	});
 
-	var removeFriend = function(id) {
-		$.ajax({
-			headers: {
-	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        },
-			method: 'GET',
-			url: '/api/friends/friend/remove',
-			data: {
-				id: id
-			},
-			success: function(data){
-				if (data.error) {
-					$.notify({
-        				icon: "add_alert",
-				        message: data.error
+    $(document).on('change', '#routine', function() {
+        var routineId = $(this).val();
 
-				    },{
-				        type: 'danger',
-				        timer: 4000,
-				        placement: {
-				            from: 'top',
-				            align: 'right'
-				        }
-				    });
-				} else {
-					window.location.href = "/dashboard/friends";
-				}
-			}
-		})
-	}
+        $.ajax({
+            url: '/api/routines/preview',
+            data: {
+                routine: routineId,
+                user_id: friend_id
+            },
+            success: function(response) {
+                $("#previewModal").html(response.data);
+                $("#routinePreview").modal('show');
+            }
+        });
+    });
+
 });

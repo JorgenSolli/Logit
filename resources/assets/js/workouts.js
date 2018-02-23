@@ -56,7 +56,7 @@ var setMediaLink = function() {
 				var element = '<a class="label label-primary" target="_blank" href="' + link + '">' + icon + data.name + '</a> ';
 				$("#media").append(element);
 			});
-		} 
+		}
 		else {
 			var link = $('input[name="media"').val();
 			var icon = '<i class="fal fa-external-link"></i>';
@@ -64,7 +64,7 @@ var setMediaLink = function() {
 			if (link.search('youtube.com/watch?') !== -1 || link.search('youtu.be/') !== -1) {
 				icon = '<i class="fab fa-youtube"></i>';
 			}
-			
+
 			var element = '<a target="_blank" href="' + link + '">' + icon + '</a>';
 			$("#exercise_name").append(element);
 		}
@@ -160,7 +160,7 @@ $(document).ready(function() {
 	$(document).on('change', '#weight_type', function() {
 		var val = $(this).val();
 		var weight_type = $(this).closest(".card-content").find(".weight_type");
-		
+
 		if (val == "band") {
 			weight_type.find('.band').show().removeClass("ignore");
 			weight_type.find('.raw').hide().addClass("ignore");

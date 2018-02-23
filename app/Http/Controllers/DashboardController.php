@@ -35,7 +35,7 @@ class DashboardController extends Controller
      */
     public function dashboard()
     {
-        
+
         $brukerinfo = Auth::user();
         $firstTime = false;
         $newMessage = NewMessage::where([
@@ -83,7 +83,7 @@ class DashboardController extends Controller
                 'name' => 'Dashboard'
             ]
         ];
-            
+
         return view('dashboard', [
             'topNav'          => $topNav,
             'brukerinfo'      => $brukerinfo,
@@ -103,115 +103,8 @@ class DashboardController extends Controller
      */
     public function getTotalWorkouts ($type, $year, $month)
     {
-
-        if ($type === "year") {
-            $data = Workout::where('user_id', Auth::id())
-                ->where( DB::raw('YEAR(created_at)'), '=', date($year) )
-                ->get();
-
-            $getMonth = LogitFunctions::parseDate($type, $year, $month);
-
-            $result = array(
-                'labels' => [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                'series' => [],
-                'max' => 0,
-                'stepSize' => 5,
-            );
-
-            # Populates the series index with months in the year
-            for ($i=0; $i < 12; $i++) { 
-                array_push($result['series'], 0);
-            }
-
-            # Iterates over our results and pushes the data into our array
-            for ($i=0; $i < count($data); $i++) {
-                // Gets the month of the current results and formats in the format specified in our getMonth array so we can match the results
-                $month = $data[$i]->created_at->format('M');
-                // Populates the series array. Using getMonth to get the correct index for the month
-                $result['series'][$getMonth[$month]] = $result['series'][$getMonth[$month]] + 1;
-            }
-
-            # Finds the max value and appends 1 (for cosmetic reason)
-            $result['max'] = max($result['series']) + 1;
-        } 
-        elseif ($type == "months") {
-            # Makes sure the month we get from out request is formated correctly
-            $selectedMonth = ucfirst($month);
-
-            # Sets up the expected dataformat
-            $monthData = LogitFunctions::parseDate($type, $year, $month);
-
-            # Initialized our output
-            $result = array(
-                'labels' => [],
-                'series' => [],
-                'meta' => [],
-                'max' => 0,
-                'stepSize' => 1,
-            );
-
-            # Populates the outputArray with data specific for the specific month
-            for ($i=1; $i <= $monthData[$selectedMonth]['days']; $i++) { 
-                array_push($result['labels'], $i);
-                array_push($result['series'], 0);
-                array_push($result['meta'], "");
-            }
-
-            # Grabs the data relevant
-            $data = Workout::where('workouts.user_id', Auth::id())
-                ->where(DB::raw('MONTH(workouts.created_at)'), '=', date($monthData[$selectedMonth]['int']))
-                ->where(DB::raw('YEAR(workouts.created_at)'), '=', date($year))
-                ->join('routines', 'workouts.routine_id', '=', 'routines.id')
-                ->orderBy('workouts.created_at', 'ASC')
-                ->select('workouts.created_at', 'routines.routine_name')
-                ->get();
-            # Iterates over the result
-            foreach ($data as $value) {
-                $day = $value->created_at->format('d');
-                
-                # Removes a zero in front of the int. 04 becomes 4 and so on. This is so we can corretctly match indexes in our result array
-                if ($day > 0 && $day < 10) {
-                    $day = ltrim($day, 0);
-                }
-
-                # Subtracts 1 on the index for day, as this is naturally offset by this amount. Index starts at 0, day starts at 1
-                $result['series'][(int)$day - 1] = $result['series'][(int)$day - 1] + 1;
-
-                $string = $value->routine_name;
-                if ($result['meta'][(int)$day - 1] != "") {
-                    $comma = ", ";
-                    $string = $result['meta'][(int)$day - 1] .= $comma .= $string;
-                }
-
-                $result['meta'][(int)$day - 1] = $string;
-            }
-
-            # Finds the max value and appends 1 (for cosmetic reason)
-            $max = 0;
-            foreach ($result['series'] as $value) {
-                if ($value > $max - 1) {
-                    $max = $value + 0.1;
-                }  
-            }
-
-            $result['max'] = $max;
-        }
-
         # Returns the result as an json array
-        return $result;
+        return LogitFunctions::fetchSessionData($type, $month, $year, Auth::id());
     }
 
     /**
@@ -223,7 +116,7 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getAvgGymTime ($type, $year, $month)
-    {   
+    {
 
         if ($type == "year") {
             # Grabs the data for the specified year
@@ -245,13 +138,13 @@ class DashboardController extends Controller
                 # Formats the results. Any hours below 10 will have a zero appended in front. So 03, not 3. Looks better
                 $minutes = sprintf("%02d", $minutes);
             }
-        } 
+        }
         elseif ($type == "months") {
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
 
             $monthData = LogitFunctions::parseDate($type, $year, $month);
-            
+
             $data = Workout::where('user_id', Auth::id())
                 ->where(DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int']))
                 ->where(DB::raw('YEAR(created_at)'), '=', date($year))
@@ -290,13 +183,13 @@ class DashboardController extends Controller
         $settings = Settings::where('user_id', Auth::id())->first();
 
         $musclegroups = [
-            'back' => 0, 
-            'biceps' => 0, 
-            'triceps' => 0, 
+            'back' => 0,
+            'biceps' => 0,
+            'triceps' => 0,
             'forearms' => 0,
-            'abs' => 0, 
-            'shoulders' => 0, 
-            'legs' => 0, 
+            'abs' => 0,
+            'shoulders' => 0,
+            'legs' => 0,
             'chest' => 0
         ];
 
@@ -367,7 +260,7 @@ class DashboardController extends Controller
                     $result['series'][$index] = (int)$percent;
                 }
             }
-        } 
+        }
         elseif ($type == "months") {
             $selectedMonth = ucfirst($month);
             $isLeapYear = false;
@@ -432,8 +325,8 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getTopExercises ($type, $year, $month, Request $request)
-    {      
-        $isTopTen = ($request->limit == 10) ? true : false;        
+    {
+        $isTopTen = ($request->limit == 10) ? true : false;
         return LogitFunctions::getExercises($type, $year, $month, $request->show_active_exercises, $isTopTen, Auth::id());
     }
 
@@ -509,7 +402,7 @@ class DashboardController extends Controller
             ];
         }
 
-        
+
 
         return $result;
     }

@@ -3,7 +3,7 @@
         <nav class="pull-left">
             <ul>
                 <li>
-                    <a href="/">Logit v0.4.1</a>
+                    <a href="/">Logit v0.5.0</a>
                 </li>
                 <li>
                     <a href="https://jorgensolli.no/?lang=en">By Jørgen Solli</a>

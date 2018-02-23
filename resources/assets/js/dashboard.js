@@ -121,9 +121,8 @@ $(function() {
                         if (musclegroupsPiechart) {
                             musclegroupsPiechart.destroy();
                         }
-                        
                         Dashboard.initMusclegroupsPiechart(data.labels, data.series);
-                        
+
                         for (var i = 0; i < data.labels.length; i++) {
                             var percent = Math.trunc(data.series[i]);
                             $("#" + i + "-percent").text("(" + percent + "%)")
@@ -175,9 +174,9 @@ $(function() {
                     }
 
                     $.each(data, function(key) {
-                        $("#topTenExercises").append('<tr>' + 
-                            '<td>' + data[key].exercise_name + '</td>' + 
-                            '<td>' + data[key].count + '</td>' + 
+                        $("#topTenExercises").append('<tr>' +
+                            '<td>' + data[key].exercise_name + '</td>' +
+                            '<td>' + data[key].count + '</td>' +
                         '</tr>');
                     });
                 }
@@ -210,7 +209,7 @@ $(function() {
                         }
 
                         $("#completion_rate_bar").html(
-                            '<div class="progress-bar ' + status + '" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ' + data.ratio + '%;">' + 
+                            '<div class="progress-bar ' + status + '" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ' + data.ratio + '%;">' +
                                 '<span class="sr-only">' + data.ratio + '%</span>' +
                             '</div>'
                         );
@@ -291,7 +290,7 @@ $(function() {
                         label: 'Musclegroup',
                         data: series,
                         pointStyle: 'rectRot',
-                        backgroundColor: ['#2c9526','#00562e','#007ccf','#1e3a64','#8737ca','#cb257f','#e83400'],
+                        backgroundColor: ['#2c9526','#00562e','#007ccf','#1e3a64','#8737ca','#cb257f','#e83400', '#c12b00'],
                     }],
 
                 },
@@ -411,7 +410,7 @@ $(function() {
     });
 
     $(".bs-searchbox input.form-control").attr('placeholder', 'Search for an exercise');
-    
+
     $(document).on('click', '#show_active_exercises', function() {
         show_active_exercises = show_active_exercises ? false : true;
         Dashboard.populateCompareExercises();

@@ -1,4 +1,4 @@
-<div id="routinePreview" class="modal fade" tabindex="-1" role="dialog">
+<div id="routinePreview" class="modal modal-long fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,22 +9,22 @@
             </div>
             <div class="modal-body">
                 <ul class="timeline timeline-simple">
-                    @foreach ($routines as $routine)
+                    @foreach ($routine as $exercise)
                         <li class="timeline-inverted">
-                            <div class="timeline-badge @if ($routine->is_warmup == 1) info @else success @endif">
-                                <img src="/images/icons/muscle_groups/{{ $routine->muscle_group }}.svg">
+                            <div class="timeline-badge @if ($exercise->is_warmup == 1) info @else success @endif">
+                                <img src="/images/icons/muscle_groups/{{ $exercise->muscle_group }}.svg">
                             </div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <span class="label @if ($routine->is_warmup == 1) label-info @else label-success @endif">{{ $routine->exercise_name }} @if ($routine->is_warmup == 1) (warmup) @endif</span>
+                                    <span class="label @if ($exercise->is_warmup == 1) label-info @else label-success @endif">{{ $exercise->exercise_name }} @if ($exercise->is_warmup == 1) (warmup) @endif</span>
                                 </div>
                                 <div class="timeline-body">
                                     <p></p>
                                 </div>
                                 <h6>
-                                    Rep Sets: {{ $routine->goal_sets }}&nbsp;&nbsp;·&nbsp;&nbsp;
-                                    Rep Goal: {{ $routine->goal_reps }}&nbsp;&nbsp;·&nbsp;&nbsp;
-                                    Weight Goal: {{ $routine->goal_weight }}
+                                    Rep Sets: {{ $exercise->goal_sets }}&nbsp;&nbsp;·&nbsp;&nbsp;
+                                    Rep Goal: {{ $exercise->goal_reps }}&nbsp;&nbsp;·&nbsp;&nbsp;
+                                    Weight Goal: {{ $exercise->goal_weight }}
                                 </h6>
                             </div>
                         </li>

@@ -48,9 +48,10 @@
                                 <h4 class="card-title pull-left">Average workout time</h4>
                             </div>
                             <div class="data-text text-center">
-                                <h1 id="avg_hour" class="m-b-0 m-t-0">
-                                    <span id="avg_hr"></span><small id="avg_hr_label"></small> <span id="avg_min"></span><small id="avg_min_label"></small>
-                                </h1>
+                                <h2 id="avg_hour" class="m-b-0 m-t-0">
+                                    <span id="avg_hr"></span><small id="avg_hr_label"></small>
+                                    <span id="avg_min"></span><small id="avg_min_label"></small>
+                                </h2>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -98,14 +99,42 @@
 
                 <div class="card-footer">
                     <h6>Legend</h6>
-                    <i class="fas fa-circle ct-legend-a"></i> Back <span id="0-percent"></span>
-                    <i class="fas fa-circle ct-legend-b"></i> Biceps <span id="1-percent"></span>
-                    <i class="fas fa-circle ct-legend-c"></i> Triceps <span id="2-percent"></span>
-                    <i class="fas fa-circle ct-legend-h"></i> Forearms <span id="7-percent"></span>
-                    <i class="fas fa-circle ct-legend-d"></i> Abs <span id="3-percent"></span>
-                    <i class="fas fa-circle ct-legend-e"></i> Shoulders <span id="4-percent"></span>
-                    <i class="fas fa-circle ct-legend-f"></i> Legs <span id="5-percent"></span>
-                    <i class="fas fa-circle ct-legend-g"></i> Chest <span id="6-percent"></span>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>
+                                <i class="fas fa-circle ct-legend-a"></i>
+                                 Back <span id="0-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-b"></i>
+                                 Biceps <span id="1-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-c"></i>
+                                 Triceps <span id="2-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-d"></i>
+                                 Forearms <span id="3-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-e"></i>
+                                 Abs <span id="4-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-f"></i>
+                                 Shoulders <span id="5-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-g"></i>
+                                 Legs <span id="6-percent"></span>
+                            </p>
+                            <p>
+                                <i class="fas fa-circle ct-legend-h"></i>
+                                 Chest <span id="7-percent"></span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,17 +170,15 @@
         <div class="card-content">
             <h4 class="card-title">Exercise progress</h4>
             <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <select id="exercise_name" data-style="btn btn-primary" title="Select exercise" data-live-search="true">
-                    </select>
-                </div>
-                <div class="col-sm-2 col-xs-4">
+                <div class="col-xs-12">
                     <div class="checkbox">
                         <label>
                             <input id="show_active_exercises" type="checkbox" name="optionsCheckboxes" checked="">
                             Only show active exercises
                         </label>
                     </div>
+                    <select id="exercise_name" data-style="btn btn-primary" title="Select exercise" data-live-search="true">
+                    </select>
                 </div>
             </div>
         </div>
