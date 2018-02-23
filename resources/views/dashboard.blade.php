@@ -9,7 +9,9 @@
         <div class="card-content">
             <p>But not without any data. Once you complete one workout, this page will be populated with data in all its glory.</p>
 
+            {{-- Enable this when hints are actually added (merged from feature/intro-guide)  
             <p>Need help getting started? <button id="init-hints" class="btn btn-xs btn-primary">Show hints</button></p>
+            --}}
         </div>
     </div>
 </span>
