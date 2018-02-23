@@ -381,6 +381,10 @@ class LogitFunctions {
         $settings = Settings::where('user_id', $userId)->first();
         $brukerinfo = User::where('id', $userId)->first();
 
+        if (!LogitFunctions::hasWorkoutData($userId)) {
+            return null;
+        }
+
         if ($type == "year") {
             if ($settings->count_warmup_in_stats == 1) {
                 $where = [
@@ -471,5 +475,10 @@ class LogitFunctions {
         $la->activity_type = $activityType;
         $la->activity = $activity;
         $la->save();
+    }
+
+    public static function hasWorkoutData ($userId)
+    {
+        return (bool) Workout::where('user_id', $userId)->first();
     }
 }

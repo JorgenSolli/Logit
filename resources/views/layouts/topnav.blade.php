@@ -35,9 +35,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/user">
+                    <a href="{{ route('user') }}">
                         <i class="material-icons">person</i>
                         <p class="hidden-lg hidden-md">Profile</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('settings') }}">
+                        <i class="material-icons">settings</i>
+                        <p class="hidden-lg hidden-md">Settings</p>
                     </a>
                 </li>
                 <li class="separator hidden-lg hidden-md"></li>

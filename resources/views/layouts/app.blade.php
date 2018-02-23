@@ -21,16 +21,16 @@
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            {{ $brukerinfo->name }}
+                            {{ $user->name }}
                             <b class="caret"></b>
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
                                 <li>
-                                    <a href="/user">My Profile</a>
+                                    <a href="{{ route('user') }}">My Profile</a>
                                 </li>
                                 <li>
-                                    <a href="/user/settings">Settings</a>
+                                    <a href="{{ route('settings') }}">Settings</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -46,37 +46,37 @@
                 </div>
                 <ul class="nav">
                     <li class="{{ (Request::is('dashboard') ? 'active' : '') }}">
-                        <a href="/dashboard">
+                        <a href="{{ route('dashboard') }}">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li class="{{ (Request::is('dashboard/start') ? 'active' : '') }}">
-                        <a href="/dashboard/start">
+                        <a href="{{ route('startWorkout') }}">
                             <i class="material-icons">play_circle_outline</i>
                             <p>Start Workout</p>
                         </a>
                     </li>
                     <li class="{{ (Request::is('dashboard/my_routines') ? 'active' : '') }}">
-                        <a href="/dashboard/my_routines">
+                        <a href="{{ route('myRoutines') }}">
                             <i class="material-icons">accessibility</i>
                             <p>My Routines</p>
                         </a>
                     </li>
                     <li class="{{ (Request::is('dashboard/workouts') ? 'active' : '') }}">
-                        <a href="/dashboard/workouts">
+                        <a href="{{ route('workouts') }}">
                             <i class="material-icons">view_list</i>
                             <p>My Workouts</p>
                         </a>
                     </li>
                     <li class="{{ (Request::is('dashboard/measurements') ? 'active' : '') }}">
-                        <a href="/dashboard/measurements">
+                        <a href="{{ route('measurements') }}">
                             <i class="material-icons">pregnant_woman</i>
                             <p>Measurements</p>
                         </a>
                     </li>
                     <li class="{{ (Request::is('dashboard/friends') ? 'active' : '') }}">
-                        <a href="/dashboard/friends">
+                        <a href="{{ route('friends') }}">
                             <i class="material-icons">people</i>
                             <p>Friends</p>
                         </a>

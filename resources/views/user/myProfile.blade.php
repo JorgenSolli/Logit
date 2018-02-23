@@ -17,13 +17,13 @@
                             <div class="col-md-8">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Name</label>
-                                    <input type="text" class="form-control" name="name" value="{{ $brukerinfo->name }}">
+                                    <input type="text" class="form-control" name="name" value="{{ $user->name }}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Year of birth</label>
-                                    <input type="number" name="yob" class="form-control" value="{{ $brukerinfo->yob }}">
+                                    <input type="number" name="yob" class="form-control" value="{{ $user->yob }}">
                                 </div>
                             </div>
                         </div>
@@ -31,16 +31,16 @@
                             <div class="col-md-12">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Email</label>
-                                    <input type="email" name="email" class="form-control" value="{{ $brukerinfo->email }}">
+                                    <input type="email" name="email" class="form-control" value="{{ $user->email }}">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-5">
                                 <select id="country" class="form-control" name="country" title="Single Select">
-                                    @if ($brukerinfo->country)
+                                    @if ($user->country)
                                         <option disabled selected> Where do you live?</option>
-                                        <option value="{{ $brukerinfo->country }}" selected> {{ $brukerinfo->country }}</option>
+                                        <option value="{{ $user->country }}" selected> {{ $user->country }}</option>
                                     @else
                                         <option disabled selected> Where do you live?</option>
                                     @endif
@@ -48,55 +48,55 @@
                             </div>
                             <div class="col-md-3">
                                 <select class="selectpicker" name="gender" data-style="btn btn-primary" title="Single Select">
-                                    @if ($brukerinfo->gender)
+                                    @if ($user->gender)
                                         <option disabled selected> Gender</option>
-                                        <option value="{{ $brukerinfo->gender }}" selected> {{ $brukerinfo->gender }}</option>
+                                        <option value="{{ $user->gender }}" selected> {{ $user->gender }}</option>
                                     @else
                                         <option disabled selected> Gender</option>
                                     @endif
 
-                                    @unless ($brukerinfo->gender == 'Male') 
+                                    @unless ($user->gender == 'Male') 
                                         <option value="Male"> Male</option> 
                                     @endunless
 
-                                    @unless ($brukerinfo->gender == 'Female') 
+                                    @unless ($user->gender == 'Female') 
                                         <option value="Female"> Female</option> 
                                     @endunless
 
-                                    @unless ($brukerinfo->gender == 'Other') 
+                                    @unless ($user->gender == 'Other') 
                                         <option value="Other"> Other</option> 
                                     @endunless
 
-                                    @unless ($brukerinfo->gender == 'secret') 
+                                    @unless ($user->gender == 'secret') 
                                         <option value="secret"> I'd rather not say</option> 
                                     @endunless
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <select class="selectpicker" name="goal" data-style="btn btn-primary" title="Single Select">
-                                    @if ($brukerinfo->goal)
+                                    @if ($user->goal)
                                         <option disabled selected> Goal</option>
-                                        <option value="{{ $brukerinfo->goal }}" selected> {{ $brukerinfo->goal }}</option>
+                                        <option value="{{ $user->goal }}" selected> {{ $user->goal }}</option>
                                     @else
                                         <option disabled selected> Goal</option>
                                     @endif
-                                    @unless ($brukerinfo->goal == 'Stay in shape') 
+                                    @unless ($user->goal == 'Stay in shape') 
                                         <option value="Stay in shape"> Stay in shape</option>  
                                     @endunless
                                     
-                                    @unless ($brukerinfo->goal == 'Get lean') 
+                                    @unless ($user->goal == 'Get lean') 
                                         <option value="Get lean"> Get in shape</option>  
                                     @endunless
                                     
-                                    @unless ($brukerinfo->goal == 'Loose weight') 
+                                    @unless ($user->goal == 'Loose weight') 
                                         <option value="Loose weight"> Loose weight</option>  
                                     @endunless
 
-                                    @unless ($brukerinfo->goal == 'Loose weight') 
+                                    @unless ($user->goal == 'Loose weight') 
                                         <option value="Loose weight"> Improve cardio</option>  
                                     @endunless
                                     
-                                    @unless ($brukerinfo->goal == 'Increase self esteem') 
+                                    @unless ($user->goal == 'Increase self esteem') 
                                         <option value="Increase self esteem"> Increase self esteem</option>  
                                     @endunless
                                 </select>
@@ -115,16 +115,8 @@
                     <img class="img" src="/img/avatar.png" />
                 </div>
                 <div class="card-content">
-                    <h6 class="category text-gray">{{-- $brukerifo->title --}}</h6>
-                    <h4 class="card-title">{{ $brukerinfo->name }}</h4>
-
-                    <h7>Your random quote:</h7>
-                    <p class="description">
-                        <span id="quoteText"></span>
-                        <br>
-                        - <span id="quoteAuthor"></span>
-                    </p>
-                    <a id="newQuote" class="btn btn-rose btn-round">New Quote</a>
+                    <h6 class="category text-gray">Master of the gym</h6>
+                    <h4 class="card-title">{{ $user->name }}</h4>
                 </div>
             </div>
         </div>

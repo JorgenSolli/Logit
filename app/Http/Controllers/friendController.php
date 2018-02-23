@@ -31,7 +31,7 @@ class FriendController extends Controller
      */
     public function viewFriend ($friendId)
     {
-        $brukerinfo = Auth::user();
+        $user = Auth::user();
 
         LogitFunctions::canView($friendId);
 
@@ -55,7 +55,7 @@ class FriendController extends Controller
         ];
 
         return view('friends.friend', [
-            'brukerinfo'     => $brukerinfo,
+            'user'           => $user,
             'latestActivity' => $latestActivity,
             'myRoutines'     => $myRoutines,
             'routines'       => $routines,

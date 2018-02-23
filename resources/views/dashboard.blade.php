@@ -1,6 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+<span class="no-data-text">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">This dashboard is awesome!</h4>
+        </div>
+        <div class="card-content">
+            <p>But not without any data. Once you complete one workout, this page will be populated with data in all its glory.</p>
+
+            <p>Need help getting started? <button id="init-hints" class="btn btn-xs btn-primary">Show hints</button></p>
+        </div>
+    </div>
+</span>
+
+<div id="dashboard" class="{{ $hasWorkouts ? "" : "dashboard-no-data"}}">
     <div class="row">
         <div class="col-xs-12">
             <h4 class="p-l-md">Show statistics for</h4>
@@ -30,7 +44,7 @@
         <div class="card-content">
             <h4 class="card-title">Workout Activity</h4>
         </div>
-        <div style="position: relative; width: 100%; height: 200px">
+        <div style="position: relative; width: 100%; height: 200px" class="{{ $hasWorkouts ? "" : "dashboard-no-data"}}">
             <canvas id="workoutActivityChart"></canvas>
         </div>
     </div>
@@ -47,7 +61,7 @@
                             <div class="clearfix">
                                 <h4 class="card-title pull-left">Average workout time</h4>
                             </div>
-                            <div class="data-text text-center">
+                            <div class="data-text text-center {{ $hasWorkouts ? "" : "dashboard-no-data"}}">
                                 <h2 id="avg_hour" class="m-b-0 m-t-0">
                                     <span id="avg_hr"></span><small id="avg_hr_label"></small>
                                     <span id="avg_min"></span><small id="avg_min_label"></small>
@@ -69,7 +83,7 @@
                             <div class="clearfix">
                                 <h4 class="card-title pull-left">Session Completion Ratio</h4>
                             </div>
-                            <div class="data-text text-center">
+                            <div class="data-text text-center {{ $hasWorkouts ? "" : "dashboard-no-data"}}">
                                 <h1 class="m-b-0 m-t-0">
                                     <span id="completion_rate"></span><span id="completion_rate_label">%</span>
                                 </h1>
@@ -90,14 +104,14 @@
                 </div>
 
 
-                <div class="card-content">
+                <div class="card-content {{ $hasWorkouts ? "" : "dashboard-no-data"}}">
                     <h4 class="card-title">Musclegroups worked out (in percent)</h4>
                     <div style="position: relative; width: 100%; height: 205px">
                         <canvas id="musclegroupsPiechart"></canvas>
                     </div>
                 </div>
 
-                <div class="card-footer">
+                <div class="card-footer {{ $hasWorkouts ? "" : "dashboard-no-data"}}">
                     <h6>Legend</h6>
                     <div class="row">
                         <div class="col-xs-12">
@@ -155,6 +169,66 @@
                                 </tr>
                             </thead>
                             <tbody id="topTenExercises">
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 91%"></span>
+                                    </td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 8%"></span>
+                                    </td>
+                                    <td>21</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 55%"></span>
+                                    </td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 30%"></span>
+                                    </td>
+                                    <td>17</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 32%"></span>
+                                    </td>
+                                    <td>14</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 59%"></span>
+                                    </td>
+                                    <td>11</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 95%"></span>
+                                    </td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 42%"></span>
+                                    </td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 68%"></span>
+                                    </td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-placeholder" style="width: 36%"></span>
+                                    </td>
+                                    <td>3</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -186,10 +260,10 @@
             <canvas id="compareExerciseChart"></canvas>
         </div>
     </div>
+</div>
 @endsection
 
 @section('script')
-
     <script src="{{ mix('/js/dashboard.min.js') }}"></script>
 
     @if ($firstTime)

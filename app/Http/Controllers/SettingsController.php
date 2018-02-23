@@ -18,13 +18,13 @@ class SettingsController extends Controller
 
     public function settings ()
     {
-		$brukerinfo = Auth::user();
+		$user = Auth::user();
 
         $settings = Settings::where('user_id', Auth::id())
             ->first();
 
         $exercises = WorkoutJunction::select('exercise_name')
-            ->where('user_id', $brukerinfo->id)
+            ->where('user_id', $user->id)
             ->orderBy('exercise_name')
             ->distinct()
             ->get();
@@ -40,7 +40,7 @@ class SettingsController extends Controller
             'topNav'     => $topNav,
             'settings'   => $settings,
             'exercises'  => $exercises,
-            'brukerinfo' => $brukerinfo
+            'user' => $user
         ]);
     }
 

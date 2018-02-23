@@ -13,18 +13,18 @@
 	            <ul class="nav navbar-nav navbar-right">
 	            	@guest
 		                <li class="{{ (Request::is('login') ? 'active' : '') }}">
-		                    <a href="/login">
+		                    <a href="{{ route('login') }}">
 		                        <i class="material-icons">fingerprint</i> Login
 		                    </a>
 		                </li>
 		                <li class="{{ (Request::is('register') ? 'active' : '') }}">
-		                    <a href="/register">
+		                    <a href="{{ route('register') }}">
 		                        <i class="material-icons">person_add</i> Register
 		                    </a>
 		                </li>
 	            	@else
 		                <li>
-		                    <a href="/dashboard">
+		                    <a href="{{ route('dashboard') }}">
 		                        <i class="material-icons">home</i> Launch Logit
 		                    </a>
 		                </li>

@@ -28,9 +28,9 @@ class MeasurementController extends Controller
      */
     public function measurements ()
     {
-		$brukerinfo = Auth::user();
+		$user = Auth::user();
         $dateNow = Carbon::now();
-        $settings = Settings::where('user_id', $brukerinfo->id)->first();
+        $settings = Settings::where('user_id', $user->id)->first();
 
         if ($settings) {
             $unit_distance = ($settings->unit === "Metric") ? "cm" : "in";
@@ -40,7 +40,7 @@ class MeasurementController extends Controller
             $unit_weight = "kg";
         }
 
-        $lastInput = Measurement::where('user_id', $brukerinfo->id)
+        $lastInput = Measurement::where('user_id', $user->id)
             ->orderBy('date', 'DESC')
             ->first();
 
@@ -48,7 +48,7 @@ class MeasurementController extends Controller
             $lastInput = null;
         }
 
-        $measurements =  Measurement::where('user_id', $brukerinfo->id)
+        $measurements =  Measurement::where('user_id', $user->id)
             ->orderBy('date', 'DESC')
             ->get();
             
@@ -60,7 +60,7 @@ class MeasurementController extends Controller
         ];
 
     	return view('measurements', [
-    		'brukerinfo'    => $brukerinfo,
+    		'user'          => $user,
             'dateNow'       => $dateNow,
             'lastInput'     => $lastInput,
             'measurements'  => $measurements,

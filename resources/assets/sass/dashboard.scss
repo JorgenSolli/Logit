@@ -114,6 +114,25 @@
 }
 
 /* Dashbaord */
+
+#dashboard.dashboard-no-data {
+  opacity: .5;
+}
+
+.no-data-text {
+  position: absolute;
+  width: 100%;
+  max-width: 550px;
+  padding: 0 15px;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+
+/* Not doing anything with this -- yet */
+.dashboard-no-data {}
+
 .ct-chart-rotate-labels .ct-label.ct-horizontal {
   transform: rotate(20deg);
   /*position: relative;
@@ -479,6 +498,14 @@
 div.alert b.alert-header {
   display: inline-block;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.text-placeholder {
+  background: linear-gradient(60deg, #26c6da, #00acc1);
+  min-width: 30%;
+  height: 15px;
+  display: block;
+  border-radius: 20px;
 }
 
 /* Settings */

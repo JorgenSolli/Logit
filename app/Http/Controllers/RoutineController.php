@@ -27,7 +27,7 @@ class RoutineController extends Controller
 
     public function routines ()
     {
-        $brukerinfo = Auth::user();
+        $user = Auth::user();
         $routines = Routine::where([
                 ['user_id', Auth::id()],
                 ['pending', 0],
@@ -81,7 +81,7 @@ class RoutineController extends Controller
 
         return view('routines.routines', [
             'topNav'     => $topNav,
-            'brukerinfo' => $brukerinfo,
+            'user'       => $user,
             'routines'   => $routines,
             'pending'    => $pending,
         ]);
@@ -99,11 +99,11 @@ class RoutineController extends Controller
                 'name' => 'Add Routine'
             ]
         ];
-        $brukerinfo = Auth::user();
+        $user = Auth::user();
 
         return view('routines.addRoutine', [
-            'topNav'     => $topNav,
-            'brukerinfo' => $brukerinfo,
+            'topNav' => $topNav,
+            'user'   => $user,
         ]);
     }
 

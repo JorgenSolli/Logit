@@ -43,9 +43,6 @@ $(function() {
                             }
                             Dashboard.compareExerciseChart(data.labels, data.series, data.exercise, data.max);
                         }
-                        else {
-                            $("#compareExerciseChart").html("<h3 style='margin: 0 0 10px 20px;'>No data for this exercise!</h3>");
-                        }
                     }
                 });
             }
@@ -169,16 +166,18 @@ $(function() {
                     limit: 10
                 },
                 success: function(data) {
-                    if ($("#topTenExercises tr").length > 0) {
-                        $("#topTenExercises").empty();
-                    }
+                    if (data) {
+                        if ($("#topTenExercises tr").length > 0) {
+                            $("#topTenExercises").empty();
+                        }
 
-                    $.each(data, function(key) {
-                        $("#topTenExercises").append('<tr>' +
-                            '<td>' + data[key].exercise_name + '</td>' +
-                            '<td>' + data[key].count + '</td>' +
-                        '</tr>');
-                    });
+                        $.each(data, function(key) {
+                            $("#topTenExercises").append('<tr>' +
+                                '<td>' + data[key].exercise_name + '</td>' +
+                                '<td>' + data[key].count + '</td>' +
+                            '</tr>');
+                        });
+                    }
                 }
             });
         },
@@ -214,9 +213,13 @@ $(function() {
                             '</div>'
                         );
                     } else {
-                        $("#completion_rate").text(data.msg);
-                        $("#completion_rate_label").empty();
-                        $("#completion_rate_bar").empty();
+                        /* Test data */
+                        $("#completion_rate").text(100);
+                        $("#completion_rate_bar").html(
+                            '<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">' +
+                                '<span class="sr-only">100%</span>' +
+                            '</div>'
+                        );
                     }
                 }
             });

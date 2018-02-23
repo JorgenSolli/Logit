@@ -23,7 +23,7 @@ class FriendsController extends Controller
      */
     public function viewFriends ()
     {
-		$brukerinfo = Auth::user();
+		$user = Auth::user();
 		$friends = Friend::where([
 				['friends_with', Auth::id()],
 				['pending', 0]
@@ -48,7 +48,7 @@ class FriendsController extends Controller
         ];
 
     	return view('friends.friends', [
-    		'brukerinfo' => $brukerinfo,
+    		'user'       => $user,
     		'topNav'	 => $topNav,
     		'friends' 	 => $friends,
     		'pending' 	 => $pending,

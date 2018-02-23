@@ -36,15 +36,15 @@ class DashboardController extends Controller
     public function dashboard()
     {
 
-        $brukerinfo = Auth::user();
+        $user = Auth::user();
         $firstTime = false;
         $newMessage = NewMessage::where([
-                ['user_id', $brukerinfo->id],
+                ['user_id', $user->id],
                 ['is_new', 1]
             ])->first();
 
         /* Checks if this is the users first time visiting */
-        if ($brukerinfo->first_time === 1) {
+        if ($user->first_time === 1) {
             /* Setting some standard settings */
             Settings::create([
                 'user_id'        => Auth::id(),
@@ -57,19 +57,20 @@ class DashboardController extends Controller
 
             /* Letting the user know about some stuff */
             $firstTime = true;
-            $brukerinfo->update(['first_time'=> 0]);
+            $user->update(['first_time'=> 0]);
         }
 
-        $settings = Settings::where('user_id', $brukerinfo->id)->first();
+        $settings = Settings::where('user_id', $user->id)->first();
+        $hasWorkouts = (bool) Workout::where('user_id', $user->id)->first();
 
         if ($settings->count_warmup_in_stats == 1) {
-            $exercises = RoutineJunction::where('user_id', $brukerinfo->id)
+            $exercises = RoutineJunction::where('user_id', $user->id)
                 ->orderBy('exercise_name', 'ASC')
                 ->get()
                 ->unique('exercise_name');
         } else {
             $exercises = RoutineJunction::where([
-                    'user_id' => $brukerinfo->id,
+                    'user_id' => $user->id,
                     'is_warmup' => 0,
                 ])
                 ->orderBy('exercise_name', 'ASC')
@@ -85,11 +86,12 @@ class DashboardController extends Controller
         ];
 
         return view('dashboard', [
-            'topNav'          => $topNav,
-            'brukerinfo'      => $brukerinfo,
-            'exercises'       => $exercises,
-            'firstTime'       => $firstTime,
-            'newMessage'      => $newMessage,
+            'topNav'      => $topNav,
+            'user'        => $user,
+            'exercises'   => $exercises,
+            'firstTime'   => $firstTime,
+            'hasWorkouts' => $hasWorkouts,
+            'newMessage'  => $newMessage,
         ]);
     }
 
@@ -181,6 +183,32 @@ class DashboardController extends Controller
     public function getMusclegroups ($type, $year, $month)
     {
         $settings = Settings::where('user_id', Auth::id())->first();
+
+        if (!Workout::where('user_id', Auth::id())->first()) {
+            // Returns test-data if user has none
+            return $result = array(
+                'labels' => [
+                    'back',
+                    'biceps',
+                    'triceps',
+                    'forearms',
+                    'abs',
+                    'shoulders',
+                    'legs',
+                    'chest',
+                ],
+                'series' => [
+                    12,  // back
+                    12,  // biceps
+                    12,  // triceps
+                    12,  // forearms
+                    12,  // abs
+                    12,  // shoulders
+                    12,  // legs
+                    12   // chest
+                ],
+            );
+        }
 
         $musclegroups = [
             'back' => 0,

@@ -123,7 +123,7 @@ class WorkoutController extends Controller
             ])
             ->count();
 
-        $brukerinfo = Auth::user();
+        $user = Auth::user();
 
         $topNav = [
             0 => [
@@ -137,7 +137,7 @@ class WorkoutController extends Controller
             'routines'       => $routines,
             'topMuscleGroup' => $topMuscleGroup,
             'nrInactive'     => $nrInactive,
-            'brukerinfo'     => $brukerinfo
+            'user'           => $user
 		]);
     }
 
@@ -229,9 +229,9 @@ class WorkoutController extends Controller
             ->orderBy('order_nr', 'ASC')
             ->get();
 
-        $brukerinfo = Auth::user();
+        $user = Auth::user();
 
-        $settings = Settings::where('user_id', $brukerinfo->id)->first();
+        $settings = Settings::where('user_id', $user->id)->first();
         $timerSettings = array(
             'direction' => $settings->timer_direction,
             'play_sound' => $settings->timer_play_sound,
@@ -282,7 +282,7 @@ class WorkoutController extends Controller
             'topNav'        => $topNav,
             'exercises'     => $allExercises,
             'routine_id'    => $routine->id,
-            'brukerinfo'    => $brukerinfo,
+            'user'          => $user,
             'settings'      => $settings,
             'timerSettings' => $timerSettings,
         ]);
@@ -295,7 +295,7 @@ class WorkoutController extends Controller
      */
     public function viewWorkouts ()
     {
-        $brukerinfo = Auth::user();
+        $user = Auth::user();
         $workouts = Workout::where('workouts.user_id', Auth::id())
             ->join('routines', 'workouts.routine_id', '=', 'routines.id')
             ->select('workouts.id AS workout_id', 'workouts.routine_id', 'workouts.created_at', 'workouts.updated_at', 'routines.routine_name')
@@ -312,7 +312,7 @@ class WorkoutController extends Controller
         return view('workouts.myWorkouts', [
             'topNav'     => $topNav,
             'workouts'   => $workouts,
-            'brukerinfo' => $brukerinfo
+            'user'       => $user
         ]);
     }
 
@@ -440,7 +440,7 @@ class WorkoutController extends Controller
             ->offset(1)
             ->first();
 
-        $brukerinfo = Auth::user();
+        $user = Auth::user();
         $workoutName = Routine::where('id', $workout->routine_id)
             ->first();
         $minutes = $workout->duration_minutes;
@@ -513,7 +513,7 @@ class WorkoutController extends Controller
         ];
 
         return view('workouts.recap', [
-            'brukerinfo'         => $brukerinfo,
+            'user'               => $user,
             'topNav'             => $topNav,
             'workout'            => $workout,
             'previousWorkout'    => $previousWorkout,

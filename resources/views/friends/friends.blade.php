@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="card">
-        <div class="card-header card-header-tabs" data-background-color="rose">
+        <div class="card-header card-header-tabs" data-background-color="red">
           <div class="nav-tabs-navigation">
             <div class="nav-tabs-wrapper">
               <ul class="nav nav-tabs" data-tabs="tabs">
@@ -53,7 +53,7 @@
                               Friends since {{ Carbon\Carbon::parse($friend->created_at)->format('d M Y') }}
                           </p>
                           <a href="/dashboard/friends/friend/{{ $friend->user_id }}" class="btn btn-sm btn-primary">
-                            Details
+                            View profile
                           </a>
                         </div>
                       </div>

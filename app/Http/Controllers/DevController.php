@@ -45,7 +45,7 @@ class DevController extends Controller
 
     	return view('adminPanel', [
             'topNav'          => $topNav,
-            'brukerinfo'      => Auth::user(),
+            'user'      => Auth::user(),
         ]);
     }
 

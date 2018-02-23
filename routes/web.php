@@ -24,7 +24,7 @@ Route::get('/email-verification/check/{token}', 'Auth\RegisterController@getVeri
 
 Route::group(['middleware' => ['isVerified']], function () {
 	/* Dashboard */
-	Route::get('/dashboard', 'DashboardController@dashboard');
+	Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
 	Route::get('/api/getSessions/{type}/{year}/{month}', 'DashboardController@getTotalWorkouts');
 	Route::get('/api/getAvgGymTime/{type}/{year}/{month}', 'DashboardController@getAvgGymTime');
 	Route::get('/api/getMusclegroups/{type}/{year}/{month}', 'DashboardController@getMusclegroups');
@@ -33,16 +33,16 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::get('/api/getCompletionRatio/{type}/{year}/{month}', 'DashboardController@getCompletionRatio');
 
 	/* User/Settings */
-	Route::get('/user', 'UserController@myProfile');
+	Route::get('/user', 'UserController@myProfile')->name('user');
 	Route::post('/user/edit', 'UserController@editProfile');
-	Route::get('/user/settings', 'SettingsController@settings');
+	Route::get('/user/settings', 'SettingsController@settings')->name('settings');
 	Route::post('/user/settings/edit', 'SettingsController@editSettings');
 	Route::post('/user/settings/edit/timer', 'SettingsController@timerSettings');
 	Route::post('/user/settings/renameExercise', 'SettingsController@renameExercise');
 	Route::get('/user/settings/get', 'SettingsController@getSettings');
 
 	/* Friends */
-	Route::get('/dashboard/friends', 'FriendsController@viewFriends');
+	Route::get('/dashboard/friends', 'FriendsController@viewFriends')->name('friends');
 	Route::get('/dashboard/friends/findFriends', 'FriendsController@findFriends');
 	Route::get('/dashboard/friends/sendRequest', 'FriendsController@sendRequest');
 	Route::get('/dashboard/friends/respondRequest', 'FriendsController@respondRequest');
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 
 
 	/* Routines */
-	Route::get('/dashboard/my_routines', 'RoutineController@routines');
+	Route::get('/dashboard/my_routines', 'RoutineController@routines')->name('myRoutines');
 	Route::get('/dashboard/my_routines/add_routine', 'RoutineController@addRoutine');
 	Route::get('/dashboard/my_routines/accept_routine/{routine}', 'RoutineController@acceptRoutine');
 	Route::get('/api/routines/preview', 'RoutineController@previewRoutine');
@@ -68,26 +68,26 @@ Route::group(['middleware' => ['isVerified']], function () {
 	Route::get('/dashboard/my_routines/view/{routine}', 'RoutineController@viewRoutine');
 	// Update
 	Route::post('/dashboard/my_routines/edit/{routine}', 'RoutineController@updateRoutine');
-	// Status
-	Route::post('/dashboard/my_routines/edit/status/{routine}', 'RoutineController@changeStatus');
 	// Delete
 	Route::get('/dashboard/my_routines/delete/{routine}', 'RoutineController@deleteRoutine');
+	// Status
+	Route::post('/dashboard/my_routines/edit/status/{routine}', 'RoutineController@changeStatus');
 
 	/* Settings */
 	Route::get('/dashboard/settings', 'SettingsController@viewSettings');
 
 	/* Measurements */
-	Route::get('/dashboard/measurements', 'MeasurementController@measurements');
+	Route::get('/dashboard/measurements', 'MeasurementController@measurements')->name('measurements');
 	Route::post('/dashboard/measurements/save', 'MeasurementController@saveMeasurements');
 	Route::post('/dashboard/measurements/delete', 'MeasurementController@deleteMeasurement');
 	Route::get('/dashboard/measurements/get_measurements', 'MeasurementController@getMeasurements');
 
 	/* Workouts */
-	Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts');
+	Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts')->name('workouts');
 	Route::get('/api/get_workout/view/{workoutId}', 'WorkoutController@getWorkout');
 	Route::get('/api/delete_workout/{workout}', 'WorkoutController@deleteWorkout');
 	Route::get('/api/update_workout/{workout}', 'WorkoutController@updateWorkout');
-	Route::get('/dashboard/start', 'WorkoutController@selectWorkout');
+	Route::get('/dashboard/start', 'WorkoutController@selectWorkout')->name('startWorkout');
 	Route::get('/dashboard/start/{routine}', 'WorkoutController@startWorkout');
 	Route::get('/dashboard/workout/finish/{routine_id}', 'WorkoutController@finishWorkout');
 	Route::get('/dashboard/workout/recap/{workout}', 'WorkoutController@recap');
