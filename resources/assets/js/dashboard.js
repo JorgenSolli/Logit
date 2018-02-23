@@ -60,20 +60,22 @@ $(function() {
                     show_active_exercises: show_active_exercises
                 },
                 success: function(data) {
-                    var refresh = false;
-                    if ($("#exercise_name option").length > 0) {
-                        $("#exercise_name").empty();
-                        refresh = true;
-                    }
-                    $.each(data, function(key) {
-                        $("#exercise_name").append('<option value="' + data[key].exercise_name + '">' + data[key].exercise_name + '</option>');
-                    });
+                    if (data) {
+                        var refresh = false;
+                        if ($("#exercise_name option").length > 0) {
+                            $("#exercise_name").empty();
+                            refresh = true;
+                        }
+                        $.each(data, function(key) {
+                            $("#exercise_name").append('<option value="' + data[key].exercise_name + '">' + data[key].exercise_name + '</option>');
+                        });
 
-                    if (refresh) {
-                        $('#exercise_name').selectpicker('refresh');
-                    }
-                    else {
-                        $('#exercise_name').selectpicker({});
+                        if (refresh) {
+                            $('#exercise_name').selectpicker('refresh');
+                        }
+                        else {
+                            $('#exercise_name').selectpicker({});
+                        }
                     }
                 }
             });
@@ -369,21 +371,36 @@ $(function() {
             });
         },
 
-        initSelects: function() {
-            for (var i = thisYear; i >= APP_CREATED_AT; i--) {
-                if (i == thisYear) {
-                  yearDiv.append('<option value="' + i + '" selected>' + i + '</option>');
-                } else {
-                  yearDiv.append('<option value="' + i + '">' + i + '</option>');
+        initSelects: function(onlyMonth) {
+            if (!onlyMonth) {
+                for (var i = thisYear; i >= APP_CREATED_AT; i--) {
+                    if (i == thisYear) {
+                      yearDiv.append('<option value="' + i + '" selected>' + i + '</option>');
+                    } else {
+                      yearDiv.append('<option value="' + i + '">' + i + '</option>');
+                    }
                 }
             }
 
+            $('#statistics-month').selectpicker('destroy');
+            monthDiv.empty();
+            
             for (var i = 0; i < monthsShort.length; i++) {
-              if (currMonth == monthsShort[i]) {
-                monthDiv.append('<option value="' + monthsShort[i] + '" selected>' + monthsLong[i] + '</option>')
-              } else {
-                monthDiv.append('<option value="' + monthsShort[i] + '">' + monthsLong[i] + '</option>')
-              }
+                var foundMonth = false;
+                if (currMonth == monthsShort[i]) {
+
+                    if (yearDiv.val() == thisYear) {
+                        foundMonth = true;
+                    }
+                    monthDiv.append('<option value="' + monthsShort[i] + '" selected>' + monthsLong[i] + '</option>');
+                    
+                    if (foundMonth) {
+                    console.log("dounf monasd");
+                        break;
+                    }
+                } else {
+                    monthDiv.append('<option value="' + monthsShort[i] + '">' + monthsLong[i] + '</option>')
+                }
             }
 
             // Waits for information to be appended before invoking the selectpicker
@@ -402,6 +419,10 @@ $(function() {
         } else {
             $("#statistics-month").parent().hide();
         }
+    });
+
+    $(yearDiv).on('change', function() {
+        Dashboard.initSelects(true);
     });
 
     $("#statistics-type, #statistics-year, #statistics-month").on('change', function() {

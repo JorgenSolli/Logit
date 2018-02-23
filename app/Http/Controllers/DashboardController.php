@@ -147,6 +147,10 @@ class DashboardController extends Controller
 
             $monthData = LogitFunctions::parseDate($type, $year, $month);
 
+            if (!array_key_exists( $selectedMonth, $monthData)) {
+                return null;
+            }
+
             $data = Workout::where('user_id', Auth::id())
                 ->where(DB::raw('MONTH(created_at)'), '=', date($monthData[$selectedMonth]['int']))
                 ->where(DB::raw('YEAR(created_at)'), '=', date($year))
@@ -294,6 +298,10 @@ class DashboardController extends Controller
             $isLeapYear = false;
             $monthData = LogitFunctions::parseDate($type, $year, $month);
 
+            if (!array_key_exists( $selectedMonth, $monthData)) {
+                return null;
+            }
+
             if ($settings->count_warmup_in_stats == 1) {
 
                 $data = WorkoutJunction::where([
@@ -395,6 +403,10 @@ class DashboardController extends Controller
             # Sets up the expected dataformat
             $monthData = LogitFunctions::parseDate($type, $year, $month);
 
+            if (!array_key_exists( $selectedMonth, $monthData)) {
+                return null;
+            }
+            
             # Gets all sessions completed in timeframe
             $workouts = Workout::where('workouts.user_id', Auth::id())
                 ->where(DB::raw('MONTH(workouts.created_at)'), '=', date($monthData[$selectedMonth]['int']))

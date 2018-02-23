@@ -3,7 +3,7 @@
 namespace Logit\Classes;
 
 use DB;
-use Carbon;
+use Carbon\Carbon;
 
 use Logit\User;
 use Logit\Note;
@@ -29,6 +29,9 @@ class LogitFunctions {
      */
     public static function parseDate ($type, $year, $month)
     {
+        $date = new Carbon();
+        $currYear = $date->year;
+
         if ($type === "year") {
             $getMonth = [
                 'Jan' => 0,
@@ -48,8 +51,11 @@ class LogitFunctions {
             return $getMonth;
         }
         else {
+            $currMonth = $date->formatLocalized('%b');
+            $currDay = $date->day;
+
             # Sets up the expected dataformat
-            $monthData = collect([
+            $monthData = [
                 'Jan' => [
                     'int' => 1,
                     'days' => 31
@@ -98,8 +104,26 @@ class LogitFunctions {
                     'int' => 12,
                     'days' => 31
                 ]
-            ]);
+            ];
 
+
+            if ($year == $currYear) {
+                $monthData[$currMonth]['days'] = $currDay;
+
+                $foundMonth = false;
+
+                // Loops through all months. When we arrive at current month, remove all after
+                foreach ($monthData as $key => $md) {
+                    if ($key == $currMonth) {
+                        $foundMonth = true;
+                        continue;
+                    }
+
+                    if ($foundMonth) {
+                        unset($monthData[$key]);
+                    }
+                }
+            }
             return $monthData;
         }
     }
@@ -157,7 +181,7 @@ class LogitFunctions {
         foreach ($workouts as $workout) {
             if ($workout->junction) {
                 foreach ($workout->junction as $junction) {
-                    array_push($result['labels'], Carbon\Carbon::parse($junction->created_at)->format('d/m'));
+                    array_push($result['labels'], Carbon::parse($junction->created_at)->format('d/m'));
 
                     $weight = 0;
                     if ($junction->weight_type === "assisted") {
@@ -246,6 +270,10 @@ class LogitFunctions {
             # Sets up the expected dataformat
             $monthData = LogitFunctions::parseDate($type, $year, $month);
 
+            if (!array_key_exists( $selectedMonth, $monthData)) {
+                return null;
+            }
+            
             # Initialized our output
             $result = array(
                 'labels' => [],
@@ -403,6 +431,10 @@ class LogitFunctions {
         else {
             $selectedMonth = ucfirst($month);
             $monthData = LogitFunctions::parseDate($type, $year, $month);
+
+            if (!array_key_exists( $selectedMonth, $monthData)) {
+                return null;
+            }
 
             if ($settings->count_warmup_in_stats == 1) {
                 $where = [
