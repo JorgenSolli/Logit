@@ -55,18 +55,18 @@ class ExerciseController extends Controller
             $nrOfSets = $exercise->goal_sets;
         }
 
-        if ($settings->strict_previous_exercise == 1) {
-            $where = [
-                ['routine_id', $exercise[0]->routine_id],
-                ['user_id', Auth::id()]
-            ];
-        } else {
-            $where = [
-                ['user_id', Auth::id()]
-            ];
-        }
-
         if ($routine->type === 'superset') {
+            if ($settings->strict_previous_exercise == 1) {
+                $where = [
+                    ['routine_id', $exercise[0]->routine_id],
+                    ['user_id', Auth::id()]
+                ];
+            } else {
+                $where = [
+                    ['user_id', Auth::id()]
+                ];
+            }
+
             $exercises = [];
             foreach ($exercise as $e) { 
                 $previousExercise = WorkoutJunction::where([
@@ -83,6 +83,17 @@ class ExerciseController extends Controller
             $previousExercise = $exercises;
         }
         else {
+            if ($settings->strict_previous_exercise == 1) {
+                $where = [
+                    ['routine_id', $exercise->routine_id],
+                    ['user_id', Auth::id()]
+                ];
+            } else {
+                $where = [
+                    ['user_id', Auth::id()]
+                ];
+            }
+
             $previousExercise = WorkoutJunction::where('exercise_name', $exercise->exercise_name)
                 ->where($where)
                 ->limit($nrOfSets)
