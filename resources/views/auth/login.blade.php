@@ -9,13 +9,28 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                            <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                                {{ csrf_field() }}
+                            <div class="card card-login card-hidden">
+                                <div class="card-header text-center" data-background-color="blue">
+                                    <h4 class="card-title">Login</h4>
+                                    <div class="social-line">
+                                        <a href="{{ url('/auth/google') }}" class="btn btn-just-icon btn-simple">
+                                            <i class="fab fa-google"></i>
+                                        </a>
 
-                                <div class="card card-login card-hidden">
-                                    <div class="text-center">
-                                        <h3 class="card-title">Login to Logit</h3>
+                                        <a class="btn btn-just-icon btn-simple disabled">
+                                            <i class="fab fa-facebook-square"></i>
+                                        </a>
+
+                                        <a class="btn btn-just-icon btn-simple disabled">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
                                     </div>
+                                </div>
+                                <p class="category text-center">
+                                    Or Be Classical
+                                </p>
+                                <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+                                    {{ csrf_field() }}
                                     <div class="card-content">
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -55,8 +70,8 @@
                                         <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg">Let's go</button>
                                         <a href="/password/reset" class="btn btn-sm btn-simple btn-primary m-t-0 m-b-0">Forgot your password?</a>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

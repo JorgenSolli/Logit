@@ -36,9 +36,36 @@
                                                 </p>
                                             </div>
                                         </div>
+                                        <div class="info info-horizontal">
+                                            <div class="icon icon-primary">
+                                                <i class="material-icons">person_add</i>
+                                            </div>
+                                            <div class="description">
+                                                <h4 class="info-title">Connect with others</h4>
+                                                <p class="description">
+                                                    Connect with friends! Compare data and set challenges (comming)
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
+                                    <div class="social text-center">
+                                        <a href="{{ url('/auth/google') }}" class="btn btn-just-icon btn-round btn-google">
+                                            <i class="fab fa-google"></i>
+                                        </a>
+                                        
+                                        <a class="btn btn-just-icon btn-round btn-twitter disabled">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        
+                                        <a class="btn btn-just-icon btn-round btn-facebook disabled">
+                                            <i class="fab fa-facebook-f"> </i>
+                                        </a>
+                                        
+                                        <h4> or be classical </h4>
+                                    </div>
+
                                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                                         {{ csrf_field() }}
                                         <div class="card-content">

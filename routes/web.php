@@ -15,7 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/about/privacy_policy', function() {
+	return view('about.privacyPolicy');
+});
+Route::get('/about/tos', function() {
+	return view('about.tos');
+});
+
 Auth::routes();
+
+// OAuth Routes
+Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
 Route::get('/register/success', 'Auth\RegisterController@checkEmail');
 Route::post('/register/resend', 'Auth\RegisterController@resend');

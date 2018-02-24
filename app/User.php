@@ -15,13 +15,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'provider',
+        'provider_id',
         'name', 
         'first_time',
         'email', 
         'gender',
         'password', 
+        'verified',
         'yob', 
         'goal', 
+        'avatar',
         'country',
         'timezone',
         'is_admin',
