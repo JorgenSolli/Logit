@@ -9,12 +9,15 @@ use Logit\Settings;
 use Logit\Notification;
 use Logit\LatestActivity;
 use Logit\WorkoutJunction;
+use Logit\RoutineJunction;
+use Logit\Mail\ShareRoutine;
 use Logit\Classes\LogitFunctions;
 
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class FriendController extends Controller
 {
@@ -201,4 +204,64 @@ class FriendController extends Controller
 
 		return $result;
 	}
+
+    /**
+     * Shared a routine with another user
+     *
+     * @param  Request
+     * @return \Illuminate\Http\Response
+     */
+    public function shareRoutine (Request $request)
+    {
+
+        $routine = Routine::where('id', $request->routineId)->firstOrFail();
+        $friend = $request->friend;
+
+        LogitFunctions::canView($friend);
+        
+        // Make sure the user actually owns the routine!
+        if (!$routine->user_id == Auth::id()) {
+            return response()
+                ->view('errors.custom', [
+                    'error' => 'You do not own this routine!'],
+                    403
+            );
+        }
+
+        $junctions = RoutineJunction::where('routine_id', $routine->id)->get();
+
+        $shareRoutine = $routine->replicate();
+        $shareRoutine->user_id = $friend;
+        $shareRoutine->sharer = Auth::id();
+        $shareRoutine->pending = 1;
+        $shareRoutine->save();
+
+        $routineId = $shareRoutine->id;
+
+        foreach ($junctions as $junction) {
+            $shareRoutineJunction = $junction->replicate();
+            $shareRoutineJunction->user_id = $friend;
+            $shareRoutineJunction->routine_id = $routineId;
+            $shareRoutineJunction->save();
+        }
+
+        $notify = new Notification;
+        $notify->user_id = $friend;
+        $notify->content = Auth::user()->name . " has shared a routine with you!";
+        $notify->icon = 'accessibility';
+        $notify->url = '/dashboard/my_routines';
+
+        Mail::to(User::where('id', $friend)->firstOrFail())
+            ->send(new ShareRoutine(
+                $shareRoutine, 
+                Auth::user(),
+                User::where('id', $friend)->firstOrFail())
+            );
+
+        if ($notify->save()) {
+            return back()->with('script_success', 'Routine successfully shared.');
+        } else {
+            return back()->with('script_danger', 'Something went wrong. Please try again.');
+        }
+    }
 }

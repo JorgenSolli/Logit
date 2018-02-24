@@ -36,11 +36,11 @@
                 <div class="card-content">
                     <h4 class="card-title">Share your routines with {{ $friend->name }}</h4>
 
-                    <form action="/dashboard/friends/shareRoutine" method="POST">
+                    <form action="/api/friends/friends/shareRoutine" method="GET">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-md-6 col-xs-6">
-                                <select id="myRoutine" name="myRoutine" class="selectpicker" data-style="btn btn-primary" title="Select a routine" data-size="7">
+                                <select id="myRoutine" name="routineId" class="selectpicker" data-style="btn btn-primary" title="Select a routine" data-size="7">
                                     @foreach ($myRoutines as $routine)
                                         <option value="{{ $routine->id }}">{{ $routine->routine_name }}</option>
                                     @endforeach
