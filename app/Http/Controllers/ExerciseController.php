@@ -54,10 +54,10 @@ class ExerciseController extends Controller
             $supersetsCount = 0;
             $nrOfSets = $exercise->goal_sets;
         }
-        
+
         if ($settings->strict_previous_exercise == 1) {
             $where = [
-                ['exercise_name', $exercise->exercise_name],
+                ['routine_id', $exercise[0]->routine_id],
                 ['user_id', Auth::id()]
             ];
         } else {
@@ -73,6 +73,7 @@ class ExerciseController extends Controller
                         ['exercise_name', $e->exercise_name],
                         ['user_id', Auth::id()],
                     ])
+                    ->where($where)
                     ->limit($nrOfSets)
                     ->orderBy('id', 'DESC')
                     ->get();
