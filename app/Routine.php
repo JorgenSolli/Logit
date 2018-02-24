@@ -15,6 +15,7 @@ class Routine extends Model
         'user_id',
         'routine_name',
         'active',
+        'deleted',
         'pending',
         'sharer',
     ];

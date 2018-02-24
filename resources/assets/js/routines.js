@@ -84,7 +84,7 @@ $(document).on('click', '.deleteRoutine', function() {
 
   swal({
     title: 'Are you sure?',
-    text: name + " will be gone forever and all connected workouts will be lost. Please consider marking the routine as inactive instead!",
+    text: name + " will be removed from your routines. However all connected workouts will not be deleted. You could also set the routine as inactive.",
     type: 'warning',
     showCancelButton: true,
     confirmButtonClass: 'btn btn-danger',

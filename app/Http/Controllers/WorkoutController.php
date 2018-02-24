@@ -33,6 +33,7 @@ class WorkoutController extends Controller
                 ['user_id', '=', Auth::id()],
                 ['active', '=', 1],
                 ['pending', 0],
+                ['deleted', 0],
             ])
             ->orderBy('routine_name', 'ASC')
     	 	->get();

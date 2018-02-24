@@ -31,6 +31,7 @@ class RoutineController extends Controller
         $routines = Routine::where([
                 ['user_id', Auth::id()],
                 ['pending', 0],
+                ['deleted', 0],
             ])
             ->orderBy('routines.routine_name', 'asc')
             ->get();
@@ -199,9 +200,11 @@ class RoutineController extends Controller
     public function deleteRoutine (Routine $routine)
     {
     	if ($routine->user_id == Auth::id()) {
-	    	RoutineJunction::where('routine_id', $routine->id)
-	    		->delete();
-			$routine->delete();
+	    	
+            #RoutineJunction::where('routine_id', $routine->id)->first();
+
+			$routine->deleted = 1;
+            $routine->save();
 
 			return back()->with('success', 'Routine deleted.');
 		}

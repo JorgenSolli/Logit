@@ -22,6 +22,7 @@ class CreateRoutineTable extends Migration
                 ->onDelete('cascade');
 
             $table->string('routine_name');
+            $table->boolean('deleted')->default(0);
             $table->boolean('active')->default(1);
             $table->boolean('pending')->default(0);
             $table->integer('sharer')->nullable();
