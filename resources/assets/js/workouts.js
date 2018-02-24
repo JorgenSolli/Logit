@@ -248,20 +248,36 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.viewWorkout', function() {
-	  var workoutId = $(this).children('input').val();
+  		var workoutId = $(this).children('input').val();
 
-	  $.ajax({
-	    url: '/api/get_workout/view/' + workoutId,
-	    headers: {
-        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-	    method: 'GET',
-	    success: function(data) {
-      		$("#workouts").hide();
-	  		$("#viewWorkout").html(data['data']).show();
-      		$('.selectpicker').selectpicker({});
-	    },
-	  })
+		$.ajax({
+		    url: '/api/get_workout/view/' + workoutId,
+		    headers: {
+	        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        },
+		    method: 'GET',
+		    success: function(data) {
+	      		$("#workouts").hide();
+		  		$("#viewWorkout").html(data['data']).show();
+	      		$('.selectpicker').selectpicker({});
+	  			$('.datetimepicker').datetimepicker({
+	  				format : 'YYYY-MM-DD HH:mm', // Proper ISO 8601 date!
+	  				maxDate: moment(),
+	  				useCurrent: false,
+				    icons: {
+				        time: "fal fa-clock",
+				        date: "fal fa-calendar-alt",
+				        up: "fal fa-chevron-up",
+				        down: "fal fa-chevron-down",
+				        previous: 'fal fa-chevron-left',
+				        next: 'fal fa-chevron-right',
+				        today: 'fal fa-desktop',
+				        clear: 'fal fa-trash',
+				        close: 'fal fa-times'
+				    }
+				});
+		    },
+  		});
 	});
 
 	$(document).on('click', '.deleteWorkout', function() {
@@ -330,6 +346,55 @@ $(document).ready(function() {
 					$.notify({
         				icon: "add_alert",
 				        message: "Something went wrong. Try again or contact support."
+
+				    },{
+				        type: 'danger',
+				        timer: 3000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				}
+			},
+		})
+	});
+
+	$(document).on('click', '.updateTimestamps', function() {
+		var workoutId = $('#workout_id').val();
+		var timeStarted = $("#timeStarted").data('DateTimePicker').date();
+		var timeFinished = $("#timeFinished").data('DateTimePicker').date();
+
+		$.ajax({
+			url: '/api/update_workout/' + workoutId,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			method: 'GET',
+			data: {
+				date_started: timeStarted.format(),
+				created_at: timeFinished.format(),
+				setTime: true,
+			},
+			success: function(data) {
+				if (data.success) {
+					$.notify({
+        				icon: "add_alert",
+				        message: "The date was successfully updated."
+
+				    },{
+				        type: 'success',
+				        timer: 2000,
+				        placement: {
+				            from: 'top',
+				            align: 'right'
+				        }
+				    });
+				}
+				else {
+					$.notify({
+        				icon: "add_alert",
+				        message: "Something went wrong. Make sure 'Time started' is BEFORE 'Time Finished'."
 
 				    },{
 				        type: 'danger',

@@ -150,12 +150,15 @@ class WorkoutController extends Controller
      */
     public function getWorkout ($workoutId)
     {
-        $workout = WorkoutJunction::where('workout_id', $workoutId)
+        $workoutJunction = WorkoutJunction::where('workout_id', $workoutId)
             ->where('user_id', Auth::id())
             ->get();
 
+        $workout = workout::where('id', $workoutJunction->first()->workout_id)->first();
+
         $returnHTML = view('workouts.viewWorkout')
             ->with('workout', $workout)
+            ->with('workoutJunction', $workoutJunction)
             ->with('workoutId', $workoutId)
             ->render();
         return response()->json(array('success' => true, 'data'=>$returnHTML));
@@ -189,16 +192,33 @@ class WorkoutController extends Controller
     {
         if ($workout->user_id == Auth::id()) {
 
-            WorkoutJunction::where([
-                    ['user_id', '=', Auth::id()],
-                    ['id', '=', $request->junction_id]
-                ])
-                ->update([
-                    'weight' => $request->weight,
-                    'weight_type' => $request->weight_type,
-                    'band_type' => $request->band_type,
-                    'reps' => $request->reps
-                ]);
+            if ($request->setTime) {
+                $date_started = Carbon::parse($request->date_started);
+                $created_at = Carbon::parse($request->created_at);
+                $duration_minutes = $date_started->diffInMinutes($created_at);
+
+                $workout->date_started = $date_started;
+                $workout->created_at = $created_at;
+                $workout->duration_minutes = $duration_minutes;
+
+                if ($date_started > $created_at) {
+                    return response()->json(array('success' => false));
+                }
+
+                $workout->save();
+
+            } else {
+                WorkoutJunction::where([
+                        ['user_id', '=', Auth::id()],
+                        ['id', '=', $request->junction_id]
+                    ])
+                    ->update([
+                        'weight' => $request->weight,
+                        'weight_type' => $request->weight_type,
+                        'band_type' => $request->band_type,
+                        'reps' => $request->reps
+                    ]);
+            }
 
             return response()->json(array('success' => true));
         }

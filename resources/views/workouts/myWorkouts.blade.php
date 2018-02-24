@@ -19,8 +19,9 @@
             <tr>
               <th>Date</th>
               <th>Routine Name</th>
-              <th class="text-center disabled-sorting">Delete</th>
+              <th class="text-center disabled-sorting">Recap</th>
               <th class="text-center disabled-sorting">View/Edit</th>
+              <th class="text-center disabled-sorting">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -32,14 +33,19 @@
                 </td>
                 <td class="name">{{ $workout->routine_name }}</td>
                 <td class="text-center">
-                  <a id="{{ $workout->workout_id }}" class="pointer deleteWorkout">
-                    <span class="fal fa-trash fa-lg danger-color"></span>
+                  <a href="{{ url('/dashboard/workout/recap/') }}/{{ $workout->workout_id }}" class="pointer deleteWorkout">
+                    <span class="fal fa-flag-checkered fa-lg primary-color"></span>
                   </a>
                 </td>
                 <td class="text-center">
                   <a class="viewWorkout pointer">
                     <input type="hidden" value="{{ $workout->workout_id }}">
                     <span class="fal fa-pencil fa-lg success-color"></span>
+                  </a>
+                </td>
+                <td class="text-center">
+                  <a id="{{ $workout->workout_id }}" class="pointer deleteWorkout">
+                    <span class="fal fa-trash fa-lg danger-color"></span>
                   </a>
                 </td>
               </tr>
@@ -54,5 +60,4 @@
 
 @section('script')
   <script src="{{ mix('/js/workouts.min.js') }}"></script>
-
 @endsection

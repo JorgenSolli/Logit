@@ -37,12 +37,13 @@ mix.combine([
 	'node_modules/chartist-plugin-threshold/dist/chartist-plugin-threshold.js',
 	'node_modules/easytimer.js/dist/easytimer.js',
 	'node_modules/intro.js/minified/intro.min.js',
+	'node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
 	// Version from bower fucked shit up.. Reverting to the included one.
 	'resources/assets/js/jquery.datatables.js',
 	// Extracted spesific version from local. New from bower did not work well.
 	'resources/assets/js/material.min.js',
 	// Creative Tim has his modded version
-	'resources/assets/js/bootstrap-notify.min.js'
+	'resources/assets/js/bootstrap-notify.min.js',
 ], 'public/js/logit.min.js')
 
 mix.combine(['resources/assets/js/material-dashboard.js'], 'public/js/material-dashboard.min.js').version();
