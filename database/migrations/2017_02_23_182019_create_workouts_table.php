@@ -22,7 +22,7 @@ class CreateWorkoutsTable extends Migration
                 ->onDelete('cascade');
                 
             $table->integer('routine_id');
-            $table->date('date_started');
+            $table->dateTime('date_started');
             $table->integer('duration_minutes');
             $table->timestamps();
         });
