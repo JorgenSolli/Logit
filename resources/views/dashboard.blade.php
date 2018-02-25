@@ -120,35 +120,35 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <p>
-                                <i class="fas fa-circle ct-legend-a"></i>
+                                <i class="far fa-circle ct-legend-a"></i>
                                  Back <span id="0-percent"></span>
                             </p>
                             <p>
-                                <i class="fas fa-circle ct-legend-b"></i>
+                                <i class="far fa-circle ct-legend-b"></i>
                                  Biceps <span id="1-percent"></span>
                             </p>
                             <p>
-                                <i class="fas fa-circle ct-legend-c"></i>
+                                <i class="far fa-circle ct-legend-c"></i>
                                  Triceps <span id="2-percent"></span>
                             </p>
                             <p>
-                                <i class="fas fa-circle ct-legend-d"></i>
+                                <i class="far fa-circle ct-legend-d"></i>
                                  Forearms <span id="3-percent"></span>
                             </p>
                             <p>
-                                <i class="fas fa-circle ct-legend-e"></i>
+                                <i class="far fa-circle ct-legend-e"></i>
                                  Abs <span id="4-percent"></span>
                             </p>
                             <p>
-                                <i class="fas fa-circle ct-legend-f"></i>
+                                <i class="far fa-circle ct-legend-f"></i>
                                  Shoulders <span id="5-percent"></span>
                             </p>
                             <p>
-                                <i class="fas fa-circle ct-legend-g"></i>
+                                <i class="far fa-circle ct-legend-g"></i>
                                  Legs <span id="6-percent"></span>
                             </p>
                             <p>
-                                <i class="fas fa-circle ct-legend-h"></i>
+                                <i class="far fa-circle ct-legend-h"></i>
                                  Chest <span id="7-percent"></span>
                             </p>
                         </div>
