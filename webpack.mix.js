@@ -12,7 +12,6 @@ const { mix } = require('laravel-mix');
  */
 
 mix.sass('resources/assets/sass/app.scss', 'public/css').sourceMaps();
-mix.sass('resources/assets/sass/fontawesome/fontawesome.scss', 'public/css');
 
 mix.combine([
 	'node_modules/jquery/dist/jquery.min.js',

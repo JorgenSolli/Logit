@@ -305,7 +305,6 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.updateWorkoutRow', function() {
-		// var setNr = parent.find('.set_nr').html().trim();
 		var workoutId = $('#workout_id').val();
 		var parent = $(this).parent().parent();
 		var reps = parent.find('.reps').val();

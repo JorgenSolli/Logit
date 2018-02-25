@@ -10,7 +10,6 @@
     
     <!-- Styles -->
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-    <link href="{{ mix('/css/fontawesome.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Favicons -->
@@ -22,10 +21,6 @@
     <link rel="shortcut icon" href="/img/favicon/favicon.ico">
     <meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#eeeeee">
-
-    <!-- Scripts -->
-    <script defer src="/js/fontawesome/regular.js"></script>
-    <script defer src="/js//fontawesome/fontawesome.js"></script>
 
     <script>
         window.Laravel = {!! json_encode([

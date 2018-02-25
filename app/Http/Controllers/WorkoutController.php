@@ -462,6 +462,13 @@ class WorkoutController extends Controller
             ->first();
 
         $user = Auth::user();
+        $settings = Settings::where('user_id', $user->id)->first();
+        
+        $units = "pounds";
+        if ($settings->unit === "Metric") {
+            $units = "kg";
+        }
+
         $workoutName = Routine::where('id', $workout->routine_id)
             ->first();
         $minutes = $workout->duration_minutes;
@@ -471,7 +478,6 @@ class WorkoutController extends Controller
             ->get()
             ->count();
 
-
         $totalExercises = WorkoutJunction::where([
                 ['workout_id', $workout->id],
                 ['set_nr', 1],
@@ -480,6 +486,12 @@ class WorkoutController extends Controller
             ->get()
             ->count();
 
+        $totalLifted = 0;
+        foreach (WorkoutJunction::where('workout_id', $workout->id)->get() as $e) {
+            if ($e->weight_type === "raw") {
+                $totalLifted += $e->weight * $e->reps;
+            }
+        }
 
         $time = LogitFunctions::parseMinutes($minutes);
 
@@ -487,7 +499,7 @@ class WorkoutController extends Controller
 
         $previousTotalSets = $lastTotalExercises = $lastAvgRestTime = $avgRestTimeLess = $lastTime = $timeLess = $totalExercisesLess = $hasPrevious = null;
 
-        // PREVIOUS DATA //
+        /* PREVIOUS DATA */
         if ($previousWorkout) {
             $hasPrevious = true;
             $previousTotalSets = WorkoutJunction::where('workout_id', $previousWorkout->id)
@@ -502,6 +514,13 @@ class WorkoutController extends Controller
                 ->get()
                 ->count();
             
+            $lastTotalLifted = 0;
+            foreach (WorkoutJunction::where('workout_id', $previousWorkout->id)->get() as $e) {
+                if ($e->weight_type === "raw") {
+                    $lastTotalLifted += $e->weight * $e->reps;
+                }
+            }
+
             // Session rest-time previous session
             $lastAvgRestTime = LogitFunctions::parseRestTime($previousWorkout->duration_minutes / $previousTotalSets);
             
@@ -547,7 +566,10 @@ class WorkoutController extends Controller
             'totalExercises'     => $totalExercises,
             'lastTotalExercises' => $lastTotalExercises,
             'totalExercisesLess' => $totalExercisesLess,
+            'totalLifted'        => $totalLifted,
+            'lastTotalLifted'    => $lastTotalLifted,
             'hasPrevious'        => $hasPrevious,
+            'units'              => $units,
         ]);
     }
 }

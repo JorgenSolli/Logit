@@ -33,7 +33,7 @@
                 </td>
                 <td class="name">{{ $workout->routine_name }}</td>
                 <td class="text-center">
-                  <a href="{{ url('/dashboard/workout/recap/') }}/{{ $workout->workout_id }}" class="pointer deleteWorkout">
+                  <a href="{{ url('/dashboard/workout/recap/') }}/{{ $workout->workout_id }}" class="pointer">
                     <span class="fal fa-flag-checkered fa-lg primary-color"></span>
                   </a>
                 </td>

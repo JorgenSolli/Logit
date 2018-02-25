@@ -1,5 +1,7 @@
 {
+    "short_name": "Logit",
     "name": "Logit",
+    "description": "Log your workouts with Logit",
     "icons": [
         {
             "src": "/img/favicon/android-chrome-192x192.png",
@@ -14,5 +16,6 @@
     ],
     "theme_color": "#eeeeee",
     "background_color": "#eeeeee",
-    "display": "standalone"
+    "display": "standalone",
+    "orientation": "portrait",
 }

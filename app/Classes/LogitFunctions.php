@@ -353,7 +353,7 @@ class LogitFunctions {
     public static function parseMinutes ($minutes, $format = '%02d:%02d')
     {
         if ($minutes < 1) {
-            return;
+            return $minutes;
         }
         $hours = floor($minutes / 60);
         $minutes = ($minutes % 60);
