@@ -35,7 +35,6 @@ class FriendController extends Controller
     public function viewFriend ($friendId)
     {
         $user = Auth::user();
-
         LogitFunctions::canView($friendId);
 
         $friend = User::where('id', $friendId)->first();
@@ -52,7 +51,7 @@ class FriendController extends Controller
                 'name' => 'Friends'
             ],
             1 => [
-                'url'  => '/dashboard/friends/friend/' + $friendId,
+                'url'  => '/dashboard/friends/friend/' . $friendId,
                 'name' => $friend->name
             ]
         ];
