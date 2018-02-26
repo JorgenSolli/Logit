@@ -51,31 +51,34 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="{{ (Request::is('dashboard/start') ? 'active' : '') }}">
+                    <li class="{{ (Request::segment(2) == 'start' ? 'active' : '') }}">
                         <a href="{{ route('startWorkout') }}">
                             <i class="material-icons">play_circle_outline</i>
                             <p>Start Workout</p>
                         </a>
                     </li>
-                    <li class="{{ (Request::is('dashboard/my_routines') ? 'active' : '') }}">
+                    <li class="{{ (Request::segment(2) == 'my_routines' ? 'active' : '') }}">
                         <a href="{{ route('myRoutines') }}">
                             <i class="material-icons">accessibility</i>
                             <p>My Routines</p>
                         </a>
                     </li>
-                    <li class="{{ (Request::is('dashboard/workouts') ? 'active' : '') }}">
+                    <li class="
+                        {{ (Request::segment(2) == 'workouts' ? 'active' : '') }} 
+                        {{ (Request::segment(2) == 'workout' ? 'active' : '') }}
+                    ">
                         <a href="{{ route('workouts') }}">
                             <i class="material-icons">view_list</i>
                             <p>My Workouts</p>
                         </a>
                     </li>
-                    <li class="{{ (Request::is('dashboard/measurements') ? 'active' : '') }}">
+                    <li class="{{ (Request::segment(2) == 'measurements' ? 'active' : '') }}">
                         <a href="{{ route('measurements') }}">
                             <i class="material-icons">pregnant_woman</i>
                             <p>Measurements</p>
                         </a>
                     </li>
-                    <li class="{{ (Request::is('dashboard/friends') ? 'active' : '') }}">
+                    <li class="{{ (Request::segment(2) == 'friends' ? 'active' : '') }}">
                         <a href="{{ route('friends') }}">
                             <i class="material-icons">people</i>
                             <p>Friends</p>
