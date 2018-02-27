@@ -17,7 +17,7 @@
                         <h7>Latest activity</h7>
                         <p class="description">
                             {{ $latestActivity->activity }}
-                            - {{ Carbon\Carbon::parse($latestActivity->created_at)->diffForHumans() }}
+                            - {{ Carbon\Carbon::parse($latestActivity->created_at)->diffForHumans(null, false, false, 2) }}
                         </p>
                     @endif
 

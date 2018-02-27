@@ -49,19 +49,13 @@ class WorkoutController extends Controller
 
             if ($last_used) {
                 $routines[$key] = collect([
-                    'last_used' => Carbon::parse($last_used->created_at)->diffForHumans()
-                    ])->merge($routines[$key]);
-
-                $routines[$key] = collect([
-                    'last_used_sortdate' => Carbon::parse($last_used->created_at)->diffForHumans()
+                    'last_used' => Carbon::parse($last_used->created_at)->diffForHumans(null, false, false, 2)
                     ])->merge($routines[$key]);
             }
             else {
                 $routines[$key] = collect(['last_used' => 'N/A'])->merge($routines[$key]);
-                $routines[$key] = collect(['last_used_sortdate' => '0'])->merge($routines[$key]);
             }
         }
-
 
         $muscleGroups = Routine::where([
                 ['routines.user_id', '=', Auth::id()],
