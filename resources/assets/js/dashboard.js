@@ -382,24 +382,26 @@ $(function() {
                 }
             }
 
-            $('#statistics-month').selectpicker('destroy');
-            monthDiv.empty();
-            
-            for (var i = 0; i < monthsShort.length; i++) {
-                var foundMonth = false;
-                if (currMonth == monthsShort[i]) {
+            if ($("#statistics-type").val() !== "year") {
+                $('#statistics-month').selectpicker('destroy');
+                monthDiv.empty();
+                
+                for (var i = 0; i < monthsShort.length; i++) {
+                    var foundMonth = false;
+                    if (currMonth == monthsShort[i]) {
 
-                    if (yearDiv.val() == thisYear) {
-                        foundMonth = true;
+                        if (yearDiv.val() == thisYear) {
+                            foundMonth = true;
+                        }
+                        monthDiv.append('<option value="' + monthsShort[i] + '" selected>' + monthsLong[i] + '</option>');
+                        
+                        if (foundMonth) {
+                        console.log("dounf monasd");
+                            break;
+                        }
+                    } else {
+                        monthDiv.append('<option value="' + monthsShort[i] + '">' + monthsLong[i] + '</option>')
                     }
-                    monthDiv.append('<option value="' + monthsShort[i] + '" selected>' + monthsLong[i] + '</option>');
-                    
-                    if (foundMonth) {
-                    console.log("dounf monasd");
-                        break;
-                    }
-                } else {
-                    monthDiv.append('<option value="' + monthsShort[i] + '">' + monthsLong[i] + '</option>')
                 }
             }
 
