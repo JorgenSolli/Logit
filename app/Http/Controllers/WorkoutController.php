@@ -449,12 +449,12 @@ class WorkoutController extends Controller
     {
         $previousWorkout = Workout::where([
                 ['routine_id', $workout->routine_id],
-                ['user_id', Auth::id()]
+                ['user_id', Auth::id()],
+                ['created_at', '<', $workout->created_at]
             ])
-            ->latest()
-            ->offset(1)
+            ->orderBy('created_at', 'DESC')
             ->first();
-
+        
         $user = Auth::user();
         $settings = Settings::where('user_id', $user->id)->first();
         
