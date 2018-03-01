@@ -67,6 +67,7 @@
 										data-style="select-with-transition" title="Choose weight type" data-size="8">
 									<option selected value="black">Black</option>
 									<option value="blue">Blue</option>
+									<option value="purple">Purple</option>
 									<option value="green">Green</option>
 									<option value="red">Red</option>
 									<option value="yellow">Yellow</option>

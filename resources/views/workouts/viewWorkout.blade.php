@@ -92,6 +92,7 @@
 										data-style="select-with-transition" title="Choose weight type" data-size="8">
 							<option @if ($workoutJunction[$i]['band_type'] === "black") selected @endif value="black">Black</option>
 							<option @if ($workoutJunction[$i]['band_type'] === "blue") selected @endif value="blue">Blue</option>
+							<option @if ($workoutJunction[$i]['band_type'] === "purple") selected @endif value="purple">Blue</option>
 							<option @if ($workoutJunction[$i]['band_type'] === "green") selected @endif value="green">Green</option>
 							<option @if ($workoutJunction[$i]['band_type'] === "red") selected @endif value="red">Red</option>
 							<option @if ($workoutJunction[$i]['band_type'] === "yellow") selected @endif value="yellow">Yellow</option>
