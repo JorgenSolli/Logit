@@ -494,6 +494,7 @@ class WorkoutController extends Controller
         $previousTotalSets = $lastTotalExercises = $lastAvgRestTime = $avgRestTimeLess = $lastTime = $timeLess = $totalExercisesLess = $hasPrevious = null;
 
         /* PREVIOUS DATA */
+        $lastTotalLifted = null;
         if ($previousWorkout) {
             $hasPrevious = true;
             $previousTotalSets = WorkoutJunction::where('workout_id', $previousWorkout->id)
