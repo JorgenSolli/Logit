@@ -1,19 +1,15 @@
 <?php
+
 namespace Logit\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use DB;
-use Logit\Note;
-use Logit\Workout;
-use Logit\Settings;
+
 use Logit\NewMessage;
 use Logit\Notification;
-use Logit\RoutineJunction;
-use Logit\WorkoutJunction;
 
-class ApiController extends Controller
+class SocialController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *
@@ -25,18 +21,6 @@ class ApiController extends Controller
         $this->middleware('timezone');
     }
     
-    /**
-     * Flushes sessions connected to gymming and exercises
-     *
-     * @return Redirect with Response
-     */
-    public function flushSessions ()
-    {
-        session()->forget('exercises');
-        session()->forget('gymming');
-        return redirect('/dashboard/start/')->with('script_success', 'Workout successfully stopped');
-    }
-
     /**
      * Gets the notifications for Authed user
      *

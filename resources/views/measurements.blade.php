@@ -9,7 +9,7 @@
 			<div class="card-content">
 				<h4 class="card-title">My Measurements</h4>
 				<div class="toolbar"></div>
-				<form action="/dashboard/measurements/save" method="post">
+				<form action="/measurements/save" method="post">
 					{{ csrf_field() }}
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">

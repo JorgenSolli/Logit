@@ -52,11 +52,11 @@ $(document).ready(function() {
     });
 
     $.ajax({
-        method: 'GET',
+        method: 'POST',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: '/dashboard/measurements/get_measurements',
+        url: '/measurements/get_measurements',
         success: function(data) {
             viewProgress(data.labels, data.series);
         }
@@ -69,7 +69,7 @@ var deleteMeasurement = function(id, obj) {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        url: '/dashboard/measurements/delete',
+        url: '/measurements/delete',
         data: {
             id: id,
         },

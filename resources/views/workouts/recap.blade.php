@@ -164,10 +164,10 @@
 
     <div class="row">
         <div class="col-sm-6">
-            <a href="/dashboard/workouts" class="btn btn-primary btn-fullwidth">Back to your Workouts</a>
+            <a href="{{ url("/workouts") }}" class="btn btn-primary btn-fullwidth">Back to your Workouts</a>
         </div>
         <div class="col-sm-6">
-            <a href="/dashboard" class="btn btn-primary btn-fullwidth">To Dashboard</a>
+            <a href="{{ url("/dashboard") }}" class="btn btn-primary btn-fullwidth">To Dashboard</a>
         </div>
     </div>
 

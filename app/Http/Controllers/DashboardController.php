@@ -33,7 +33,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dashboard()
+    public function index()
     {
 
         $user = Auth::user();

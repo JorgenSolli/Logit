@@ -55,7 +55,7 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/friends/friend/populateExercises',
+                url: '/friends/' + friend_id + '/populateExercises',
                 data: {
                 	friend_id: friend_id,
                     year: year,
@@ -101,7 +101,7 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/friends/friend/getSessionData',
+                url: '/friends/' + friend_id + '/getSessionData',
                 data: {
                 	type: type,
                 	year: year,
@@ -195,7 +195,7 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/friends/friend/getExerciseData',
+                url: '/friends/' + friend_id + '/getExerciseData',
                 data: {
                 	user_id: user,
                 	exercise: exercise,
@@ -303,7 +303,7 @@ $(document).ready(function() {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 method: 'GET',
-                url: '/api/friends/friend/remove',
+                url: '/friends/' + friend_id + '/remove',
                 data: {
                     id: id
                 },
@@ -322,7 +322,7 @@ $(document).ready(function() {
                             }
                         });
                     } else {
-                        window.location.href = "/dashboard/friends";
+                        window.location.href = "/friends";
                     }
                 }
             });
@@ -382,7 +382,7 @@ $(document).ready(function() {
         var routineId = $(this).val();
 
         $.ajax({
-            url: '/api/routines/preview',
+            url: '/routines/preview',
             data: {
                 routine: routineId,
                 user_id: friend_id

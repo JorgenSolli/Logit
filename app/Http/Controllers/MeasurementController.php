@@ -26,7 +26,7 @@ class MeasurementController extends Controller
      *
      * @return view
      */
-    public function measurements ()
+    public function index ()
     {
 		$user = Auth::user();
         $dateNow = Carbon::now();
@@ -70,7 +70,7 @@ class MeasurementController extends Controller
 		]);
     }
 
-    public function getMeasurements ()
+    public function read ()
     {
         $result = array(
             'labels' => [],
@@ -115,7 +115,7 @@ class MeasurementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function saveMeasurements (Request $request)
+    public function create (Request $request)
     {
         $measurements = new Measurement;
         
@@ -142,7 +142,7 @@ class MeasurementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function deleteMeasurement (Request $request)
+    public function delete (Request $request)
     {
         $id = $request->id;
 

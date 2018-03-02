@@ -1,5 +1,4 @@
-<form id="routines" method="POST" action="/dashboard/my_routines/edit/{{ $routine->id }}">
-
+<form id="routines" method="POST" action="/routines/{{ $routine->id }}/edit">
   <div class="card">
     <div class="card-content clearfix">
       <h4 class="modal-title pull-left">Update your routine</h4>

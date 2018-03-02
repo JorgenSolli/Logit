@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="footer text-center">
                                         <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg">Let's go</button>
-                                        <a href="/password/reset" class="btn btn-sm btn-simple btn-primary m-t-0 m-b-0">Forgot your password?</a>
+                                        <a href="{{ url("/password/reset") }}" class="btn btn-sm btn-simple btn-primary m-t-0 m-b-0">Forgot your password?</a>
                                     </div>
                                 </form>
                             </div>

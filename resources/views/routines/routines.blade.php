@@ -76,7 +76,7 @@
             </tbody>
           </table>
         </div>
-        <a class="btn btn-primary" href="my_routines/add_routine" role="button"><span class="fal fa-plus"></span> Add a routine</a>
+        <a class="btn btn-primary" href="{{ url("routines/new_routine") }}" role="button"><span class="fal fa-plus"></span> Add a routine</a>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
                       </a>
                     </td>
                     <td class="text-center">
-                      <a href="/dashboard/my_routines/accept_routine/{{ $routine['id'] }}" class="pointer">
+                      <a href="{{ url("/dashboard/my_routines/accept_routine/{$routine['id']}") }}" class="pointer">
                         <span class="fal fa-check fa-lg success-color"></span>
                       </a>
                     </td>

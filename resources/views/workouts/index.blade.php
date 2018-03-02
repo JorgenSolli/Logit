@@ -33,13 +33,12 @@
                 </td>
                 <td class="name">{{ $workout->routine_name }}</td>
                 <td class="text-center">
-                  <a href="{{ url('/dashboard/workout/recap/') }}/{{ $workout->workout_id }}" class="pointer">
+                  <a href="{{ url("/workouts/{$workout->workout_id}/recap") }}" class="pointer">
                     <span class="fal fa-flag-checkered fa-lg primary-color"></span>
                   </a>
                 </td>
                 <td class="text-center">
-                  <a class="viewWorkout pointer">
-                    <input type="hidden" value="{{ $workout->workout_id }}">
+                  <a href="{{ url("/workouts/{$workout->workout_id}") }}" class="pointer">
                     <span class="fal fa-pencil fa-lg success-color"></span>
                   </a>
                 </td>

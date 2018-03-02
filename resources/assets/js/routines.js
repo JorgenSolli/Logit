@@ -44,7 +44,7 @@ $(document).on('click', '.viewRoutine', function() {
     '</div>').show();
 
   $.ajax({
-    url: '/dashboard/my_routines/view/' + routineId,
+    url: '/routines/' + routineId,
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
@@ -105,7 +105,7 @@ $(document).on('click', '.deleteRoutine', function() {
 
 var deleteRoutine = function(routineId) {
   $.ajax({
-    url: '/dashboard/my_routines/delete/' + routineId,
+    url: '/routines/' + routineId + '/delete',
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
@@ -403,7 +403,7 @@ $(document).on('click', '#changeStatus', function() {
   var status = $("#status").val();
 
   $.ajax({
-    url: '/dashboard/my_routines/edit/status/' + routineId,
+    url: '/routines/' + routineId + 'edit/status/',
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },

@@ -25,7 +25,7 @@ class RoutineController extends Controller
         $this->middleware('timezone');
     }
 
-    public function routines ()
+    public function index ()
     {
         $user = Auth::user();
         $routines = Routine::where([
@@ -88,7 +88,7 @@ class RoutineController extends Controller
         ]);
     }
 
-    public function addRoutine ()
+    public function newRoutine ()
     {
         $topNav = [
             0 => [
@@ -126,7 +126,7 @@ class RoutineController extends Controller
         return back()->with('success', 'Routine added to your collection.');
     }
 
-    public function insertRoutine (Request $request)
+    public function createRoutine (Request $request)
     {
         $routine = new Routine;
         $routine->user_id = Auth::id();
@@ -194,7 +194,7 @@ class RoutineController extends Controller
             }
         }
 
-        return redirect('/dashboard/my_routines');
+        return redirect('/routines')->with('success', 'Routine added!');
     }
 
     public function deleteRoutine (Routine $routine)
@@ -227,7 +227,8 @@ class RoutineController extends Controller
 				->with('junctions', $junctions)
                 ->with('supersets', $supersets)
 				->render();
-			return response()->json(array('success' => true, 'data'=>$returnHTML));
+			
+            return response()->json(array('success' => true, 'data'=>$returnHTML));
 		}
 	}
 

@@ -16,7 +16,7 @@ class SettingsController extends Controller
         $this->middleware('timezone');
     }
 
-    public function settings ()
+    public function index ()
     {
 		$user = Auth::user();
 

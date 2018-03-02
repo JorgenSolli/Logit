@@ -36,7 +36,7 @@
                 <div class="card-content">
                     <h4 class="card-title">Share your routines with {{ $friend->name }}</h4>
 
-                    <form action="/api/friends/friends/shareRoutine" method="GET">
+                    <form action="/friends/{{ $friend->id }}/shareRoutine" method="POST">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-md-6 col-xs-6">

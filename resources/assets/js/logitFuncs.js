@@ -83,7 +83,7 @@ $(document).ready(function() {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         method: 'POST',
-        url: '/api/notifications/check',
+        url: '/social/notifications/check',
         success: function(data) {
             if (data.notifications.length) {
                 /* We have some data to append, so clear this first */
@@ -123,7 +123,7 @@ $(document).ready(function() {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 method: 'POST',
-                url: '/api/notifications/clear',
+                url: '/social/notifications/clear',
                 data: {
                     id: id
                 },

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <form id="routines" method="POST" action="/dashboard/my_routines">
+  <form id="routines" method="POST" action="/routines">
     <div class="card m-t-10 m-b-10">
       <div class="card-header card-header-icon" data-background-color="rose">
         <i class="material-icons">today</i>
@@ -124,9 +124,9 @@
                     <button id="addSuperset" type="button" class="btn btn-primary pull-left m-l-10 is-sm-fullwidth">Add superset group</button>
                 </div>
                 <div class="col-md-5 col-sm-12">
-                    <button type="submit" id="addRoutine" class="btn btn-success pull-right is-sm-fullwidth m-l-10" href="my_routines/add_routine" role="button"><span class="fal fa-save"></span> Add routine</button>
+                    <button type="submit" id="addRoutine" class="btn btn-success pull-right is-sm-fullwidth m-l-10" role="button"><span class="fal fa-save"></span> Save routine</button>
                     
-                    <a class="btn btn-danger pull-right is-sm-fullwidth" href="/dashboard/my_routines" role="button"><span class="fal fa-ban"></span> Cancel</a>
+                    <a class="btn btn-danger pull-right is-sm-fullwidth" href="/routines" role="button"><span class="fal fa-ban"></span> Cancel</a>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 		<h1>You have already finished this exercise</h1>
 		<a id="cancelExercise" style="width:100%" class="btn btn-white">Go back</a>
 	@else
-		<form action="/api/exercise/{{ $routineId }}/{{ $exercise_id }}" method="POST">
+		<form action="{{ url("/exercises/{$routineId}/{$exercise_id}") }}" method="POST">
 			{{ csrf_field() }}
 		  	{{ method_field('PUT') }}
 			<input type="hidden" name="routine_junction_id" value="{{ $exercise->id }}">
@@ -118,7 +118,7 @@
 		<h1>You have already finished this exercise</h1>
 		<a id="cancelExercise" style="width:100%" class="btn btn-white">Go back</a>
 	@else
-		<form action="/api/exercise/{{ $routineId }}/{{ $exercise_id }}" method="POST">
+		<form action="{{ url("/exercise/{$routineId}/{$exercise_id}") }}" method="POST">
 			{{ csrf_field() }}
 		  	{{ method_field('PUT') }}
 

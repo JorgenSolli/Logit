@@ -52,7 +52,7 @@
                           <p class="card-description">
                               Friends since {{ Carbon\Carbon::parse($friend->created_at)->format('d M Y') }}
                           </p>
-                          <a href="/dashboard/friends/friend/{{ $friend->user_id }}" class="btn btn-sm btn-primary">
+                          <a href="{{ url("/friends/{$friend->user_id}") }}" class="btn btn-sm btn-primary">
                             View profile
                           </a>
                         </div>

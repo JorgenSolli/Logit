@@ -11,17 +11,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">Loggit</a>
+                    <a class="navbar-brand" href="{{ url("/") }}">Loggit</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="/login">
+                            <a href="{{ url("/login") }}">
                                 <i class="material-icons">fingerprint</i> Login
                             </a>
                         </li>
                         <li>
-                            <a href="/register">
+                            <a href="{{ url("/register") }}">
                                 <i class="material-icons">person_add</i> Register
                             </a>
                         </li>

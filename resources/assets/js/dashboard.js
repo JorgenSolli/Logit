@@ -27,11 +27,11 @@ $(function() {
             /* Data for compare exercise chart */
             if (exercise) {
                 $.ajax({
-                    method: 'GET',
+                    method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: '/api/getExerciseProgress/' + type + '/' + year + '/' + month + '/' + exercise,
+                    url: '/dashboard/getExerciseProgress/' + type + '/' + year + '/' + month + '/' + exercise,
                     success: function(data) {
                         if ($("#compareExerciseChart").html().length == 0) {
                             $("#compareExerciseChart").parent().height(300);
@@ -50,11 +50,11 @@ $(function() {
 
         populateCompareExercises: function() {
             $.ajax({
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/getTopExercises/' + type + '/' + year + '/' + month,
+                url: '/dashboard/getTopExercises/' + type + '/' + year + '/' + month,
                 data: {
                     limit: false,
                     show_active_exercises: show_active_exercises
@@ -88,11 +88,11 @@ $(function() {
 
             /* Data for session chart */
             $.ajax({
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/getSessions/' + type + '/' + year + '/' + month,
+                url: '/dashboard/getTotalWorkouts/' + type + '/' + year + '/' + month,
                 success: function(data) {
                     if (sessionsChart) {
                         sessionsChart.destroy();
@@ -103,11 +103,11 @@ $(function() {
 
             /* Data for musclegroup chart */
             $.ajax({
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/getMusclegroups/' + type + '/' + year + '/' + month,
+                url: '/dashboard/getMusclegroups/' + type + '/' + year + '/' + month,
                 success: function(data) {
                     var hasValue = false
                     for (var i = 0; i < data.series.length; i++) {
@@ -135,11 +135,11 @@ $(function() {
 
             /* Data for workout-time data */
             $.ajax({
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/getAvgGymTime/' + type + '/' + year + '/' + month,
+                url: '/dashboard/getAvgGymTime/' + type + '/' + year + '/' + month,
                 success: function(data) {
                     $("#avg_hr").text(data.avg_hr);
                     if (data.avg_hr == 1) {
@@ -159,11 +159,11 @@ $(function() {
 
             /* Data for top ten exercises */
             $.ajax({
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/getTopExercises/' + type + '/' + year + '/' + month,
+                url: '/dashboard/getTopExercises/' + type + '/' + year + '/' + month,
                 data: {
                     limit: 10
                 },
@@ -190,11 +190,11 @@ $(function() {
             var month  = $("#statistics-month").val();
 
             $.ajax({
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/api/getCompletionRatio/' + type + '/' + year + '/' + month,
+                url: '/dashboard/getCompletionRatio/' + type + '/' + year + '/' + month,
                 success: function(data) {
                     if (data.success) {
                         var status = "";

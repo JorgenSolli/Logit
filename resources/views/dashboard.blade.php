@@ -304,7 +304,7 @@
                     confirmButtonText: "{{ $newMessage->confirmButtonText }}"
                 }).then(function () {
                     $.ajax({
-                        url: '/api/message/clear/',
+                        url: '/social/message/clear/',
                         data: {
                             message_id: messageId
                         },

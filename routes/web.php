@@ -25,8 +25,10 @@ Route::get('/about/tos', function() {
 Auth::routes();
 
 // OAuth Routes
-Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
-Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+Route::prefix('auth/{provider}')->group(function() {
+	Route::get('', 'Auth\AuthController@redirectToProvider');
+	Route::get('callback', 'Auth\AuthController@handleProviderCallback');
+});
 
 Route::get('/register/success', 'Auth\RegisterController@checkEmail');
 Route::post('/register/resend', 'Auth\RegisterController@resend');
@@ -35,83 +37,101 @@ Route::get('/email-verification/check/{token}', 'Auth\RegisterController@getVeri
 
 Route::group(['middleware' => ['isVerified']], function () {
 	/* Dashboard */
-	Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
-	Route::get('/api/getSessions/{type}/{year}/{month}', 'DashboardController@getTotalWorkouts');
-	Route::get('/api/getAvgGymTime/{type}/{year}/{month}', 'DashboardController@getAvgGymTime');
-	Route::get('/api/getMusclegroups/{type}/{year}/{month}', 'DashboardController@getMusclegroups');
-	Route::get('/api/getTopExercises/{type}/{year}/{month}', 'DashboardController@getTopExercises');
-	Route::get('/api/getExerciseProgress/{type}/{year}/{month}/{exercise}', 'DashboardController@getExerciseProgress');
-	Route::get('/api/getCompletionRatio/{type}/{year}/{month}', 'DashboardController@getCompletionRatio');
+	Route::prefix('dashboard')->group(function() {
+		Route::get('', 'DashboardController@index')->name('dashboard');
+		Route::post('getTotalWorkouts/{type}/{year}/{month}', 'DashboardController@getTotalWorkouts');
+		Route::post('getAvgGymTime/{type}/{year}/{month}', 'DashboardController@getAvgGymTime');
+		Route::post('getMusclegroups/{type}/{year}/{month}', 'DashboardController@getMusclegroups');
+		Route::post('getTopExercises/{type}/{year}/{month}', 'DashboardController@getTopExercises');
+		Route::post('getExerciseProgress/{type}/{year}/{month}/{exercise}', 'DashboardController@getExerciseProgress');
+		Route::post('getCompletionRatio/{type}/{year}/{month}', 'DashboardController@getCompletionRatio');
+	});
 
 	/* User/Settings */
-	Route::get('/user', 'UserController@myProfile')->name('user');
-	Route::post('/user/edit', 'UserController@editProfile');
-	Route::get('/user/settings', 'SettingsController@settings')->name('settings');
-	Route::post('/user/settings/edit', 'SettingsController@editSettings');
-	Route::post('/user/settings/edit/timer', 'SettingsController@timerSettings');
-	Route::post('/user/settings/renameExercise', 'SettingsController@renameExercise');
-	Route::get('/user/settings/get', 'SettingsController@getSettings');
+	Route::prefix('user')->group(function() {
+		Route::get('', 'UserController@myProfile')->name('user');
+		Route::post('edit', 'UserController@editProfile');
+		Route::get('settings', 'SettingsController@index')->name('settings');
+		Route::post('settings/edit', 'SettingsController@editSettings');
+		Route::post('settings/edit/timer', 'SettingsController@timerSettings');
+		Route::post('settings/renameExercise', 'SettingsController@renameExercise');
+		Route::get('settings/get', 'SettingsController@getSettings');
+	});
 
 	/* Friends */
-	Route::get('/dashboard/friends', 'FriendsController@viewFriends')->name('friends');
-	Route::get('/dashboard/friends/findFriends', 'FriendsController@findFriends');
-	Route::get('/dashboard/friends/sendRequest', 'FriendsController@sendRequest');
-	Route::get('/dashboard/friends/respondRequest', 'FriendsController@respondRequest');
+	Route::prefix('friends')->group(function() {
+		Route::get('', 'FriendsController@viewFriends')->name('friends');
+		Route::get('findFriends', 'FriendsController@findFriends');
+		Route::get('sendRequest', 'FriendsController@sendRequest');
+		Route::get('respondRequest', 'FriendsController@respondRequest');
 
-	/* Friend */
-	Route::get('/api/friends/friend/remove', 'FriendController@removeFriend');
-	Route::get('/api/friends/friend/populateExercises', 'FriendController@getExercises');
-	Route::get('/api/friends/friend/getExerciseData', 'FriendController@getExerciseData');
-	Route::get('/api/friends/friend/getSessionData', 'FriendController@getSessionData');
-	Route::get('/api/friends/friends/shareRoutine', 'FriendController@shareRoutine');
-	Route::get('/dashboard/friends/friend/{friendId}', 'FriendController@viewFriend');
-
+		/* Friend */
+		Route::prefix('{friendId}')->group(function() {
+			Route::get('', 'FriendController@viewFriend');
+			Route::get('remove', 'FriendController@removeFriend');
+			Route::get('populateExercises', 'FriendController@getExercises');
+			Route::get('getExerciseData', 'FriendController@getExerciseData');
+			Route::get('/getSessionData', 'FriendController@getSessionData');
+			Route::post('shareRoutine', 'FriendController@shareRoutine');
+		});
+	});
 
 	/* Routines */
-	Route::get('/dashboard/my_routines', 'RoutineController@routines')->name('myRoutines');
-	Route::get('/dashboard/my_routines/add_routine', 'RoutineController@addRoutine');
-	Route::get('/dashboard/my_routines/accept_routine/{routine}', 'RoutineController@acceptRoutine');
-	Route::get('/api/routines/preview', 'RoutineController@previewRoutine');
+	Route::prefix('routines')->group(function() {
+		Route::get('', 'RoutineController@index')->name('myRoutines');
+		Route::put('', 'RoutineController@createRoutine');
+		Route::get('new_routine', 'RoutineController@newRoutine');
+		Route::get('accept_routine/{routine}', 'RoutineController@acceptRoutine');
+		Route::get('preview', 'RoutineController@previewRoutine');
 
-	// Create
-	Route::put('/dashboard/my_routines', 'RoutineController@insertRoutine');
-	// Read
-	Route::get('/dashboard/my_routines/view/{routine}', 'RoutineController@viewRoutine');
-	// Update
-	Route::post('/dashboard/my_routines/edit/{routine}', 'RoutineController@updateRoutine');
-	// Delete
-	Route::get('/dashboard/my_routines/delete/{routine}', 'RoutineController@deleteRoutine');
-	// Status
-	Route::post('/dashboard/my_routines/edit/status/{routine}', 'RoutineController@changeStatus');
-
-	/* Settings */
-	Route::get('/dashboard/settings', 'SettingsController@viewSettings');
+		/* Routine */
+		Route::prefix('{routine}')->group(function() {
+			Route::get('', 'RoutineController@viewRoutine');
+			Route::post('edit', 'RoutineController@updateRoutine');
+			Route::get('delete', 'RoutineController@deleteRoutine');
+			Route::post('edit/status', 'RoutineController@changeStatus');
+		});
+	});
 
 	/* Measurements */
-	Route::get('/dashboard/measurements', 'MeasurementController@measurements')->name('measurements');
-	Route::post('/dashboard/measurements/save', 'MeasurementController@saveMeasurements');
-	Route::post('/dashboard/measurements/delete', 'MeasurementController@deleteMeasurement');
-	Route::get('/dashboard/measurements/get_measurements', 'MeasurementController@getMeasurements');
+	Route::prefix('measurements')->group(function() {
+		Route::get('', 'MeasurementController@index')->name('measurements');
+		Route::post('save', 'MeasurementController@create');
+		Route::post('get_measurements', 'MeasurementController@read');
+		Route::post('delete', 'MeasurementController@delete');
+	});
+
+	/* Workout session*/
+	Route::prefix('start_workout')->group(function() {
+		Route::get('', 'StartWorkoutController@index')->name('startWorkout');
+		Route::get('{routine}', 'StartWorkoutController@read');
+		Route::get('{routine_id}/finish', 'StartWorkoutController@create');
+		Route::get('/session/clear', 'StartWorkoutController@clearSession');
+	});
 
 	/* Workouts */
-	Route::get('/dashboard/workouts', 'WorkoutController@viewWorkouts')->name('workouts');
-	Route::get('/api/get_workout/view/{workoutId}', 'WorkoutController@getWorkout');
-	Route::get('/api/delete_workout/{workout}', 'WorkoutController@deleteWorkout');
-	Route::get('/api/update_workout/{workout}', 'WorkoutController@updateWorkout');
-	Route::get('/dashboard/start', 'WorkoutController@selectWorkout')->name('startWorkout');
-	Route::get('/dashboard/start/{routine}', 'WorkoutController@startWorkout');
-	Route::get('/dashboard/workout/finish/{routine_id}', 'WorkoutController@finishWorkout');
-	Route::get('/dashboard/workout/recap/{workout}', 'WorkoutController@recap');
+	Route::prefix('workouts')->group(function() {
+		Route::get('', 'WorkoutController@index')->name('workouts');
+		Route::prefix('{workout}')->group(function() {
+			Route::get('', 'WorkoutController@read');
+			Route::delete('delete', 'WorkoutController@deleteWorkout');
+			Route::patch('update', 'WorkoutController@update');
+			Route::get('recap', 'WorkoutController@recap');
+		});
+	});
 
 	/* Exercises */
-	Route::get('/api/exercise/{exerciseId}', 'ExerciseController@getExercise');
-	Route::put('/api/exercise/{routineId}/{exerciseId}', 'ExerciseController@addExercise');
+	Route::prefix('exercises')->group(function() {
+		Route::get('{exerciseId}', 'ExerciseController@getExercise');
+		Route::put('{routineId}/{exerciseId}', 'ExerciseController@addExercise');
+	});
 
-	/* API routes */
-	Route::get('/clear', 'ApiController@flushSessions');
-	Route::post('/api/notifications/check', 'ApiController@checkNotifications');
-	Route::post('/api/notifications/clear', 'ApiController@clearNotification');
-	Route::get('/api/message/clear', 'ApiController@clearMessage');
+	/* Social */
+	Route::prefix('social')->group(function() {
+		Route::post('notifications/check', 'SocialController@checkNotifications');
+		Route::post('notifications/clear', 'SocialController@clearNotification');
+		Route::get('message/clear', 'SocialController@clearMessage');
+	});
 
 	/* Dev/Admin paths */
 	Route::get('/admin/showSession', 'DevController@showSession');
