@@ -18,7 +18,7 @@
 				        <div class="col-md-3">
 				            <div class="card card-pricing card-raised card-hover">
 				                <div class="card-content">
-				                    <h6 class="category">The Idiot</h6>
+				                    <h6 class="category">The Lazy</h6>
 				                    <div class="icon icon-rose">
 				                        <i class="material-icons">weekend</i>
 				                    </div>
