@@ -259,6 +259,8 @@ class LogitFunctions {
                 $month = $data[$i]->created_at->format('M');
                 // Populates the series array. Using getMonth to get the correct index for the month
                 $result['series'][$getMonth[$month]] = $result['series'][$getMonth[$month]] + 1;
+
+                # counts total sessions for selected year
                 $result['totalSessions'] = $result['totalSessions'] + 1;
             }
 
@@ -283,6 +285,7 @@ class LogitFunctions {
                 'meta' => [],
                 'max' => 0,
                 'stepSize' => 1,
+                'totalSessions' => 0,
             );
 
             # Populates the outputArray with data specific for the specific month
@@ -311,6 +314,9 @@ class LogitFunctions {
 
                 # Subtracts 1 on the index for day, as this is naturally offset by this amount. Index starts at 0, day starts at 1
                 $result['series'][(int)$day - 1] = $result['series'][(int)$day - 1] + 1;
+
+                # counts total sessions for selected month
+                $result['totalSessions'] = $result['totalSessions'] + 1;
 
                 $user = "";
                 if ($metaUser) {
