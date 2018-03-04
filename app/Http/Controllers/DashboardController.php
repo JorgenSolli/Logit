@@ -103,7 +103,7 @@ class DashboardController extends Controller
      * @param  int $month specifies the mont
      * @return \Illuminate\Http\Response
      */
-    public function getTotalWorkouts ($type, $year, $month)
+    public function getSessionData ($type, $year, $month)
     {
         # Returns the result as an json array
         return LogitFunctions::fetchSessionData($type, $month, $year, Auth::id());

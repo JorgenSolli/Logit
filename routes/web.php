@@ -39,7 +39,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	/* Dashboard */
 	Route::prefix('dashboard')->group(function() {
 		Route::get('', 'DashboardController@index')->name('dashboard');
-		Route::post('getTotalWorkouts/{type}/{year}/{month}', 'DashboardController@getTotalWorkouts');
+		Route::post('getTotalWorkouts/{type}/{year}/{month}', 'DashboardController@getSessionData');
 		Route::post('getAvgGymTime/{type}/{year}/{month}', 'DashboardController@getAvgGymTime');
 		Route::post('getMusclegroups/{type}/{year}/{month}', 'DashboardController@getMusclegroups');
 		Route::post('getTopExercises/{type}/{year}/{month}', 'DashboardController@getTopExercises');
