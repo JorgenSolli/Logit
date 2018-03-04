@@ -35,7 +35,6 @@ mix.combine([
 	'node_modules/chartist-plugin-axistitle/dist/chartist-plugin-axistitle.min.js',
 	'node_modules/chartist-plugin-threshold/dist/chartist-plugin-threshold.js',
 	'node_modules/easytimer.js/dist/easytimer.js',
-	'node_modules/intro.js/minified/intro.min.js',
 	'node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
 	// Version from bower fucked shit up.. Reverting to the included one.
 	'resources/assets/js/jquery.datatables.js',
