@@ -97,7 +97,7 @@ $(function() {
                     if (sessionsChart) {
                         sessionsChart.destroy();
                     }
-                    Dashboard.initSessionsChart(data.labels, data.series, data.meta, data.max, data.stepSize);
+                    Dashboard.initSessionsChart(data.labels, data.series, data.meta, data.max, data.stepSize, data.totalSessions);
                 }
             });
 
@@ -310,7 +310,7 @@ $(function() {
             });
         },
 
-        initSessionsChart: function(labels, series, meta, max, stepSize) {
+        initSessionsChart: function(labels, series, meta, max, stepSize, totalSessions) {
             var ctx = $("#workoutActivityChart");
             sessionsChart = new Chart(ctx, {
                 type: 'line',
@@ -328,8 +328,10 @@ $(function() {
                 },
                 options: {
                     title: {
-                        display: false,
+                        display: true,
+                        text: "Total sessions: " + totalSessions,
                         lineHeight: 1,
+                        fontSize: 20,
                     },
                     layout: {
                         padding: {

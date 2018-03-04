@@ -245,6 +245,7 @@ class LogitFunctions {
                 'series' => [],
                 'max' => 0,
                 'stepSize' => 5,
+                'totalSessions' => 0,
             );
 
             # Populates the series index with months in the year
@@ -258,6 +259,7 @@ class LogitFunctions {
                 $month = $data[$i]->created_at->format('M');
                 // Populates the series array. Using getMonth to get the correct index for the month
                 $result['series'][$getMonth[$month]] = $result['series'][$getMonth[$month]] + 1;
+                $result['totalSessions'] = $result['totalSessions'] + 1;
             }
 
             # Finds the max value and appends 1 (for cosmetic reason)
