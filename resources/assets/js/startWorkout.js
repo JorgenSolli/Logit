@@ -264,7 +264,30 @@ $(document).ready(function() {
 
 	$(document).on('click', '.startRoutine', function() {
 		var target = $(this).attr('data-href');
-		window.location=target;
+
+		// If we're gymming, and trying to start another session
+		if ($("#isGymming").length && $(this).text() === "Start") {
+			swal({
+				title: 'Oy!',
+				text: "You already have a session in progress. Starting a new one will remove all current session data!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Yes, start new session',
+				confirmButtonClass: 'btn btn-danger',
+				cancelButtonText: 'Cancel!',
+				cancelButtonClass: 'btn btn-primary',
+				buttonsStyling: false
+			}).then(function () {
+				window.location=target;
+			}, function (dismiss) {
+				if (dismiss === 'cancel') {
+					return false;
+				}
+			}).done();
+		} else {
+			window.location=target;
+		}
+
 	});
 
 	$(document).on('click', '#clearSession', function(e) {

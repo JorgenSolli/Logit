@@ -8,6 +8,9 @@
 .m-t-10 {
   margin-top: 10px !important;
 }
+.m-t-15 {
+  margin-top: 15px !important;
+}
 .m-b-0 {
   margin-bottom: 0px !important;
 }
@@ -102,6 +105,12 @@
 
   .card-content {
     margin-top: 0 !important;
+  }
+}
+
+.card-raised {
+  .icon-left {
+    padding: 17px 0 0 10px;
   }
 }
 
@@ -586,9 +595,9 @@ div.form-group input.input-fill {
 }
 
 img.muscle-icon {
-  width: 90px;
-  height: 90px;
-  background-color: #e91e63;
+  width: 60px;
+  height: 60px;
+  background-color: #3097d1;
   border-radius: 100%;
 }
 
@@ -597,4 +606,55 @@ img.muscle-icon {
   position: relative;
   top: -20px;
   font-size: 20px;
+}
+
+/* Ribbon */
+.ui.table td>.ui.ribbon.label {
+    left: calc(-.78571429em - 1.2em);
+}
+.ui.ribbon.label {
+    left: -1.2em;
+    top: 0.6em;
+    margin-right: -1.2em;
+    padding-left: calc(1rem + 1.2em);
+    padding-right: 1.2em;
+}
+.ui.ribbon.label {
+    position: absolute;
+    margin: 0;
+    min-width: -webkit-max-content;
+    min-width: -moz-max-content;
+    min-width: max-content;
+    border-radius: 0 .28571429rem .28571429rem 0;
+    border-color: rgba(0,0,0,.15);
+}
+.ui.label {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: baseline;
+    margin: 0 .14285714em;
+    background-color: #2ab27b;
+    background-image: none;
+    padding: .5833em .833em;
+    color: #fff;
+    text-transform: none;
+    font-weight: 700;
+    border: 0 solid transparent;
+    border-radius: .28571429rem;
+    -webkit-transition: background .1s ease;
+    transition: background .1s ease;
+}
+
+.ui.ribbon.label:after {
+    position: absolute;
+    content: '';
+    top: 100%;
+    left: 0;
+    background-color: transparent!important;
+    border-style: solid;
+    border-width: 0 1.2em 1.2em 0;
+    border-color: transparent;
+    border-right-color: #14734d;
+    width: 0;
+    height: 0;
 }
