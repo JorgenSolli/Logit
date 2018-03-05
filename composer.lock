@@ -640,7 +640,7 @@
                 "user activation",
                 "user verification"
             ],
-            "time": "2018-02-08 08:18:12"
+            "time": "2018-02-08T08:18:12+00:00"
         },
         {
             "name": "laravel/framework",

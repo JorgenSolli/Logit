@@ -52,8 +52,8 @@ mix.combine(['resources/assets/js/logitFuncs.js'], 'public/js/logitFuncs.min.js'
 mix.combine(['resources/assets/js/myProfile.js'], 'public/js/myProfile.min.js').version();
 mix.combine(['resources/assets/js/routines.js'], 'public/js/routines.min.js').version();
 mix.combine(['resources/assets/js/settings.js'], 'public/js/settings.min.js').version();
-mix.babel(['resources/assets/js/workouts.js'], 'public/js/workouts.min.js').version();
-mix.combine(['resources/assets/js/startWorkout.js'], 'public/js/startWorkout.min.js').version();
 mix.combine(['resources/assets/js/timer.js'], 'public/js/timer.min.js').version();
 mix.combine(['resources/assets/js/measurements.js'], 'public/js/measurements.min.js').version();
 mix.combine(['resources/assets/js/admin.js'], 'public/js/admin.min.js').version();
+mix.babel(['resources/assets/js/workouts.js'], 'public/js/workouts.min.js').version();
+mix.babel(['resources/assets/js/startWorkout.js'], 'public/js/startWorkout.min.js').version();
