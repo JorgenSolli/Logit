@@ -28,7 +28,7 @@ class FriendController extends Controller
     }
 
     /**
-     * Grab all friends connected to Authed user
+         * Grab all friends connected to Authed user
      * @param Int $friendId the friend to view
      * @return \Illuminate\Http\Response
      */
@@ -47,11 +47,11 @@ class FriendController extends Controller
 
         $topNav = [
             0 => [
-                'url'  => '/dashboard/friends/',
+                'url'  => '/friends',
                 'name' => 'Friends'
             ],
             1 => [
-                'url'  => '/dashboard/friends/friend/' . $friendId,
+                'url'  => '/friends/friend/' . $friendId,
                 'name' => $friend->name
             ]
         ];
@@ -150,8 +150,6 @@ class FriendController extends Controller
 		$friendData = LogitFunctions::fetchSessionData($type, $month, $year, $userId, true);
 		$yourData  = LogitFunctions::fetchSessionData($type, $month, $year, Auth::id(), true);
 
-        #dd($friendData);
-
 		$result = array(
             'labels' => [],
             'series' => [
@@ -167,17 +165,19 @@ class FriendController extends Controller
 		$result['series']['yours'] = $yourData['series'];
 		$result['series']['friends'] = $friendData['series'];
 
-        foreach ($yourData['meta'] as $key => $metaData) {
+        if ($request->type == "month") {
+            foreach ($yourData['meta'] as $key => $metaData) {
 
-            if ($metaData !== "") {
-                if ($friendData['meta'][$key] !== "") {
-                    $friendData['meta'][$key] .= ", " . $metaData;
-                } else {
-                    $friendData['meta'][$key] .= $metaData;
+                if ($metaData !== "") {
+                    if ($friendData['meta'][$key] !== "") {
+                        $friendData['meta'][$key] .= ", " . $metaData;
+                    } else {
+                        $friendData['meta'][$key] .= $metaData;
+                    }
                 }
             }
+            $result['meta'] = $friendData['meta'];
         }
-        $result['meta'] = $friendData['meta'];
 
         return $result;
 	}
@@ -200,7 +200,6 @@ class FriendController extends Controller
 			$userId = $request->user_id;
 		}
 		$result = LogitFunctions::fetchExerciseData($type, $month, $year, $request->exercise, $userId);
-
 		return $result;
 	}
 

@@ -152,6 +152,10 @@ class LogitFunctions {
             'max' => 0,
         );
 
+        if (!$exercise) {
+            return null;
+        }
+
         if ($type == "year") {
             $workouts = Workout::with(['junction' => function($query) use ($exercise, $year, $userId) {
                     $query->where([

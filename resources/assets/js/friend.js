@@ -18,6 +18,7 @@ $(document).ready(function() {
 		init: function() {
 			FriendFunctions.populateExercises();
 			FriendFunctions.populateCharts();
+            FriendFunctions.updateCompareExercise()
 		},
 
 		initSelects: function() {
@@ -234,6 +235,16 @@ $(document).ready(function() {
             });
         },
 
+        updateCompareExercise: function() {
+            if (your_chart) {
+                FriendFunctions.compareExercise('auth', $(your_picker).val(), '#your_exercise');
+            }
+
+            if (friend_chart) {
+                FriendFunctions.compareExercise(friend_id, $(friend_picker).val(), '#friend_exercise');
+            }
+        },
+
         compareExerciseChart: function(labels, series, exercise, max, canvas, chartName) {
             var ctx = $(canvas);
             var data = {
@@ -343,13 +354,13 @@ $(document).ready(function() {
     });
 
     $("#statistics-type").on('change', function() {
-        type = $(this).val();
-        console.log(type);
-        if (type == "months") {
+        if ($(this).val() == "months") {
             $("#statistics-month").parent().show();
         } else {
             $("#statistics-month").parent().hide();
         }
+
+        FriendFunctions.init();
     });
 
     $("#statistics-type, #statistics-year, #statistics-month").on('change', function() {
