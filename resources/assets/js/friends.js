@@ -8,7 +8,7 @@ $(document).ready(function() {
 			headers: {
 	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	        },
-			url: '/dashboard/friends/findFriends',
+			url: '/friends/findFriends',
 			data: {
 				q: string
 			},
@@ -68,7 +68,7 @@ $(document).ready(function() {
 	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	        },
 			method: 'GET',
-			url: '/dashboard/friends/sendRequest',
+			url: '/friends/sendRequest',
 			data: {
 				id: id
 			},
@@ -107,7 +107,7 @@ $(document).ready(function() {
 		var id = $(this).attr('id')
 		var obj = $(this);
 		var declineRequest = false;
-		
+
 		if ($(this).hasClass('declineRequest')) {
 			declineRequest = true;
 		}
@@ -119,7 +119,7 @@ $(document).ready(function() {
 	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	        },
 			method: 'GET',
-			url: '/dashboard/friends/respondRequest',
+			url: '/friends/respondRequest',
 			data: {
 				id: id,
 				decline: declineRequest
