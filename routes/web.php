@@ -102,7 +102,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	});
 
 	/* Workout session*/
-	Route::prefix('start_workout')->group(function() {
+	Route::prefix('start-workout')->group(function() {
 		Route::get('', 'StartWorkoutController@index')->name('startWorkout');
 		Route::get('{routine}', 'StartWorkoutController@read');
 		Route::get('{routine_id}/finish', 'StartWorkoutController@create');

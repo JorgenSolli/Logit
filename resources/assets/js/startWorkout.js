@@ -304,7 +304,7 @@ $(document).ready(function() {
 			cancelButtonClass: 'btn btn-success',
 			buttonsStyling: false
 		}).then(function () {
-			window.location.href = "/start_workout/session/clear";
+			window.location.href = "/start-workout/session/clear";
 		}, function (dismiss) {
 			if (dismiss === 'cancel') {
 				return false;

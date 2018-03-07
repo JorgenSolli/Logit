@@ -5,7 +5,7 @@
     <div class="card-content">
     	<div class="row">
     		<div class="col-md-3 col-sm-6 col-xs-12 m-b-15-xs">
-    			<a href="/start_workout" class="z-fix btn-fullwidth btn btn-lg btn-primary">
+    			<a href="/start-workout" class="z-fix btn-fullwidth btn btn-lg btn-primary">
             <span class="btn-label">
               <i class="material-icons">keyboard_arrow_left</i>
             </span>
@@ -13,7 +13,7 @@
           </a>
     		</div>
         <div class="col-md-3 col-sm-6 col-xs-12 m-b-15-xs">
-          <a href="{{ url("/start_workout/session/clear") }}" id="clearSession" class="z-fix btn-fullwidth btn btn-lg btn-danger">
+          <a href="{{ url("/start-workout/session/clear") }}" id="clearSession" class="z-fix btn-fullwidth btn btn-lg btn-danger">
             <span class="btn-label">
               <i class="material-icons">close</i>
               Cancel Workout
@@ -21,7 +21,7 @@
           </a>
         </div>
     		<div class="col-md-6 col-sm-12 m-t-15-sm clear-sm">
-    			<a id="finishWorkout" href="{{ url("/start_workout/{$routine_id}/finish") }}" class="btn-fullwidth btn btn-lg btn-success">
+    			<a id="finishWorkout" href="{{ url("/start-workout/{$routine_id}/finish") }}" class="btn-fullwidth btn btn-lg btn-success">
             <span class="btn-label">
               <i class="fal fa-trophy fa-lg"></i>
             </span>

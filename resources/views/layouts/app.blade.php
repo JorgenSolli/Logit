@@ -51,7 +51,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="{{ (Request::segment(1) == 'start_workout' ? 'active' : '') }}">
+                    <li class="{{ (Request::segment(1) == 'start-workout' ? 'active' : '') }}">
                         <a href="{{ route('startWorkout') }}">
                             <i class="material-icons">play_circle_outline</i>
                             <p>Start Workout</p>

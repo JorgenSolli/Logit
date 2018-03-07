@@ -37,9 +37,9 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 @if (session('gymming') == $routine['id'])
-                                    <button data-href="start_workout/{{ $routine['id'] }}" class="startRoutine btn btn-success btn-fullwidth">Continue</button>
+                                    <button data-href="start-workout/{{ $routine['id'] }}" class="startRoutine btn btn-success btn-fullwidth">Continue</button>
                                 @else
-                                    <button data-href="start_workout/{{ $routine['id'] }}" class="startRoutine btn btn-success btn-fullwidth">Start</button>
+                                    <button data-href="start-workout/{{ $routine['id'] }}" class="startRoutine btn btn-success btn-fullwidth">Start</button>
                                 @endif
                             </div>
                             <div class="col-xs-6">

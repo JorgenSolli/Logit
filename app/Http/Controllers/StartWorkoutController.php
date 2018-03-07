@@ -340,6 +340,6 @@ class StartWorkoutController extends Controller
     {
         session()->forget('exercises');
         session()->forget('gymming');
-        return redirect('/start_workout')->with('script_success', 'Workout successfully stopped');
+        return redirect('/start-workout')->with('script_success', 'Workout successfully stopped');
     }
 }
