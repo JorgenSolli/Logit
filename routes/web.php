@@ -121,7 +121,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 	});
 
 	/* Exercises */
-	Route::prefix('exercises')->group(function() {
+	Route::prefix('exercise')->group(function() {
 		Route::get('{exerciseId}', 'ExerciseController@getExercise');
 		Route::put('{routineId}/{exerciseId}', 'ExerciseController@addExercise');
 	});

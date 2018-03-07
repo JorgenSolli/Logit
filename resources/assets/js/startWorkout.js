@@ -123,7 +123,7 @@ $(document).ready(function() {
         $(this).html('<span class="fal fa-spin fa-circle-notch"></span> Getting exercise ...');
 
 		$.ajax({
-			url: '/exercises/' + exerciseId,
+			url: '/exercise/' + exerciseId,
 			headers: {
 	        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	        },
