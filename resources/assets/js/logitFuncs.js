@@ -72,11 +72,59 @@ logit = {
             }
          });
     },
+
+    toggleSidebar: function() {
+        var didTransition = false;
+        if ($(window).width() <= 1400 && (md.misc.sidebar_mini_active == false || !md.misc.sidebar_mini_active)) {
+            $('.sidebar .collapse').collapse('hide').on('hidden.bs.collapse',function(){
+                $(this).css('height','auto');
+            });
+
+            if(isWindows){
+                $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+            }
+
+            setTimeout(function(){
+                $('body').addClass('sidebar-mini');
+
+                $('.sidebar .collapse').css('height','auto');
+                md.misc.sidebar_mini_active = true;
+            },300);
+
+            didTransition = true;
+        } 
+        else if ($(window).width() > 1400 && md.misc.sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            md.misc.sidebar_mini_active = false;
+
+            if(isWindows){
+                $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+            }
+
+            didTransition = true;
+        }
+
+        if (didTransition) {
+            // we simulate the window Resize so the charts will get updated in realtime.
+            var simulateWindowResize = setInterval(function(){
+                window.dispatchEvent(new Event('resize'));
+            },180);
+
+            // we stop the simulation of Window Resize after the animations are completed
+            setTimeout(function(){
+                clearInterval(simulateWindowResize);
+            },1000);
+        }
+    }
 }
 
+$(window).resize(function(){
+    logit.toggleSidebar();
+});
 
 $(document).ready(function() {
-
+    logit.toggleSidebar();
+    
     // Gets notifications
     $.ajax({
         headers: {
