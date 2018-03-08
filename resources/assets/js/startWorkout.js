@@ -40,7 +40,10 @@ var checkComplete = function() {
 	}
 }
 
-var saveWorkout = function(form, data, id) {
+var saveWorkout = function(form, data, id, submitButton) {
+	submitButton.addClass('disabled');
+	submitButton.html('<span class="fal fa-spin fa-circle-notch"></span> saving ...');
+	
 	$.ajax({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -214,34 +217,34 @@ $(document).ready(function() {
 	$(document).on('click', '#saveWorkout', function() {
 		var ok = true;
 
-		$(".required").each(function(index) {
-			if ($(this).val() == "" && $(this).parent().hasClass("ignore") === false ) {
-				$(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden");
-				ok = false
-			} else {
-				$(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden");
-			}
-		});
-
-		if (ok) {
-			$(this).addClass('disabled');
-            $(this).html('<span class="fal fa-spin fa-circle-notch"></span> saving ...');
-            var form = $(this).closest('form').attr('action');
-            var data = $(this).closest('form').serialize();
-            var id = $(this).closest('input[name="routine_junction_id"]').val();
-            saveWorkout(form, data, id);
-		} else {
-			$.notify({
-				icon: "error_outline",
-				message: "One or more fields were left blank!"
-			},{
-				type: 'danger',
-				timer: 4000,
-				placement: {
-					from: 'top',
-					align: 'center'
+		if (!$(this).hasClass('disabled')) {
+			$(".required").each(function(index) {
+				if ($(this).val() == "" && $(this).parent().hasClass("ignore") === false ) {
+					$(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden");
+					ok = false
+				} else {
+					$(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden");
 				}
 			});
+
+			if (ok) {
+	            var form = $(this).closest('form').attr('action');
+	            var data = $(this).closest('form').serialize();
+	            var id = $(this).closest('input[name="routine_junction_id"]').val();
+	            saveWorkout(form, data, id, $(this));
+			} else {
+				$.notify({
+					icon: "error_outline",
+					message: "One or more fields were left blank!"
+				},{
+					type: 'danger',
+					timer: 4000,
+					placement: {
+						from: 'top',
+						align: 'center'
+					}
+				});
+			}
 		}
 
 		return ok

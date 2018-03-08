@@ -238,15 +238,15 @@ class WorkoutController extends Controller
         
         $topNav = [
             0 => [
-                'url'  => '/dashboard/workouts',
+                'url'  => '/workouts',
                 'name' => 'My Workouts'
             ],
             1 => [
-                'url'  => '/dashboard/workouts/',
+                'url'  => '/workouts',
                 'name' => $workoutName->routine_name
             ],
             2 => [
-                'url'  => '/dashboard/workouts/recap/' . $workout->id,
+                'url'  => '/workouts/recap/' . $workout->id,
                 'name' => 'Recap'
             ]
         ];
