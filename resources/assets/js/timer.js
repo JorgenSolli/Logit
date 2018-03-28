@@ -11,23 +11,19 @@ if (timerSettings.play_sound) {
 
 $(document).ready(function() {
     var loadTimerHtml = '<div id="timer">' +
-                            '<div class="row">' +
-                                '<div class="col-xs-12 text-center">' +
-                                    '<button id="loadTimer" class="btn btn-success btn-fullwidth">' +
-                                        '<i class="far fa-clock"></i> Load timer' + 
-                                    '</button>' +
-                                '</div>' +
-                            '</div>' +
+                            '<button id="loadTimer" class="btn btn-success w-100">' +
+                                '<i class="far fa-clock"></i> Load timer' + 
+                            '</button>' +
                         '</div>';
 
     var timerHtml = '<div class="row">' +
-                        '<div class="col-xs-4 text-center">' +
+                        '<div class="col-4 text-center">' +
                             '<div id="timerValues"></div>' +
                         '</div>' +
-                        '<div class="col-xs-4 text-center">' +
+                        '<div class="col-4 text-center">' +
                             '<i id="timer-play" class="fal fa-play"></i>' +
                         '</div>' +
-                        '<div class="col-xs-4 text-center">' +
+                        '<div class="col-4 text-center">' +
                             '<i id="timer-reset" class="fal fa-repeat"></i>' +
                         '</div>' +
                     '</div>';

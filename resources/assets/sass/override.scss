@@ -35,6 +35,25 @@
 	}
 }
 
+.btn-group-lg .btn, .btn-group-lg .navbar .navbar-nav>li>a.btn, .btn-group-lg>.btn, .btn.btn-lg, .navbar .navbar-nav>li.btn-group-lg>a.btn, .navbar .navbar-nav>li>a.btn.btn-lg {
+    font-size: 14px;
+    padding: 18px 36px;
+}
+
+.is-focused .bmd-label-floating, .is-filled .bmd-label-floating {
+    top: -0.5rem; /* Lowered from 1, which was way to much */
+}
+
+.material-datatables .dataTables_wrapper {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after {
+	font-family: 'Font Awesome 5 Pro';
+    font-weight: 300;
+}
+
 /* This only works with a pre-defined timeline height. As for the current content this will work fine. */
 .timeline:before {
     height: calc(100% - 100px);

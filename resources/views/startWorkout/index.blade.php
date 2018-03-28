@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h2>Glad you decided to hit the gym today!<br><small>Select a routine to get started</small></h2>
+<h3 class="h3">Glad you decided to hit the gym today! - <small class="text-muted">Select a routine to get started</small></h3>
 <div id="routines">
     @if (session('gymming'))
         <input id="isGymming" type="hidden" name="isGymming" value="true">
@@ -19,8 +19,8 @@
                     @if (session('gymming') == $routine['id'])
                         <div class="ui ribbon label">In progress</div>
                     @endif
-                    <div class="content">
-                        <div class="icon icon-rose icon-left pull-left">
+                    <div class="card-body">
+                        <div class="icon icon-rose icon-left float-left">
                             @foreach ($topMuscleGroup[$routine['id']] as $key => $value)
                                 @if ($loop->first)
                                     @php $muscleImage = $key; break; @endphp
@@ -35,14 +35,14 @@
                             Last used: {{ $routine['last_used'] }}
                         </p>
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-6">
                                 @if (session('gymming') == $routine['id'])
                                     <button data-href="start-workout/{{ $routine['id'] }}" class="startRoutine btn btn-success btn-fullwidth">Continue</button>
                                 @else
                                     <button data-href="start-workout/{{ $routine['id'] }}" class="startRoutine btn btn-success btn-fullwidth">Start</button>
                                 @endif
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-6">
                                 <button data-routine-preview="{{ $routine['id'] }}" class="btn btn-primary btn-fullwidth">Preview</button>
                             </div>
                         </div>

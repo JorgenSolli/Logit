@@ -125,13 +125,13 @@ $(document).on('click', '#addMore', function() {
   var formData = '<div class="thisExercise">' +
     '<input class="exerciseOrder" type="hidden" name="exercises[' + exerciseNr + '][order_nr]" value="">' +
     '<div class="card m-t-10 m-b-10">' +
-      '<div class="card-content">' +
+      '<div class="card-body">' +
         '<div class="sortable-content">' +
           '<div class="clearfix">' +
-            '<div class="btn-sm btn-primary sort-icon handle pull-left">' +
+            '<div class="btn-sm btn-primary sort-icon handle float-left">' +
               '<span class="fal fa-arrows-v"></span> Drag to sort' +
             '</div>' +
-            '<a class="deleteExercise btn btn-sm btn-danger pull-right m-x-0"><span class="fal fa-trash"></span></a>' +
+            '<button type="button" class="deleteExercise btn btn-sm btn-danger float-right m-x-0"><span class="fal fa-trash"></span></button>' +
           '</div>' +
           '<div class="row">' +
             '<div class="col-xs-12 col-sm-6">' +
@@ -215,14 +215,14 @@ $(document).on('click', '#addSuperset', function() {
      '<div class="thisExercise">' +
         '<input class="exerciseOrder" type="hidden" name="supersets[' + supersetNr + '][order_nr]" value="">' +
         '<div class="card card-transparent m-t-10 m-b-10">' +
-          '<div class="card-content">' +
+          '<div class="card-body">' +
             '<div class="sortable-content">' +
               '<div class="clearfix">' +
-                '<div class="btn-sm btn-primary sort-icon handle pull-left">' +
+                '<div class="btn-sm btn-primary sort-icon handle float-left">' +
                     'Drag to sort ' +
                   '<span class="fal fa-arrows-v"></span>' +
                 '</div>' +
-                '<a class="deleteExercise btn btn-sm btn-danger pull-right m-x-0"><span class="fal fa-trash"></span></a>' +
+                '<button type="button" class="deleteExercise btn btn-sm btn-danger float-right m-x-0"><span class="fal fa-trash"></span></button>' +
               '</div>' +
               '<div class="form-group label-floating">' +
                 '<label class="control-label" for="exercise_name">Superset Name</label>' +
@@ -252,14 +252,14 @@ $(document).on('click', '#addMore-superset', function() {
 
   var formData = '<div class="thisExercise">' +
     '<div class="card m-t-10 m-b-10">' +
-      '<div class="card-content">' +
+      '<div class="card-body">' +
         '<div class="sortable-content">' +
           '<div class="clearfix">' +
-            '<div class="btn-sm btn-primary sort-icon handle pull-left">' +
+            '<div class="btn-sm btn-primary sort-icon handle float-left">' +
                 'Drag to sort ' +
               '<span class="fal fa-arrows-v"></span>' +
             '</div>' +
-            '<a class="deleteExercise btn btn-sm btn-danger pull-right m-x-0"><span class="fal fa-trash"></span></a>' +
+            '<button type="button" class="deleteExercise btn btn-sm btn-danger float-right m-x-0"><span class="fal fa-trash"></span></button>' +
           '</div>' +
           '<div class="row">' +
             '<div class="col-xs-12 col-sm-6">' +
@@ -439,7 +439,6 @@ $(document).ready(function() {
           search: "_INPUT_",
           searchPlaceholder: "Search records",
       }
-
   });
 
   var table = $('#datatables').DataTable();

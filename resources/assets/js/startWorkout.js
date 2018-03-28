@@ -1,10 +1,10 @@
 var setIconStatus = function() {
-	$('a[data-status="incomplete"').each(function(index) {
-		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fal fa-clock');
+	$('.exercise[data-status="incomplete"').each(function(index) {
+		$(this).find('i[data-icon="status"]').attr('class', '').addClass('fal fa-clock mr-2');
 	});
 
-	$('a[data-status="completed"').each(function(index) {
-		$(this).find('span[data-icon="status"]').attr('class', '').addClass('fal fa-check');
+	$('.exercise[data-status="completed"').each(function(index) {
+		$(this).find('i[data-icon="status"]').attr('class', '').addClass('fal fa-check mr-2');
 	});
 
 	checkComplete();
@@ -12,7 +12,7 @@ var setIconStatus = function() {
 
 var checkComplete = function() {
 	var allComplete = true;
-	$('#exercises .list-group-item').each(function(index) {
+	$('#exercises .exercise').each(function(index) {
 		if ($(this).attr('data-status') == 'incomplete') {
 			allComplete = false;
 		}
@@ -117,7 +117,7 @@ var cancelExercise = function() {
 }
 
 $(document).ready(function() {
-	$("#exercises a").on('click', function() {
+	$("#exercises .exercise").on('click', function() {
 		var obj = $(this);
 		var exerciseId = obj.attr('id');
 
@@ -133,7 +133,7 @@ $(document).ready(function() {
 			method: 'GET',
 			success: function(data) {
 				$("#data").html(data['data'])
-				$("#exercises").slideUp();
+				$("#exercises").hide();
 				$('.selectpicker').selectpicker({});
 				obj.html(exercise).removeClass('disabled');
 			},
@@ -220,10 +220,10 @@ $(document).ready(function() {
 		if (!$(this).hasClass('disabled')) {
 			$(".required").each(function(index) {
 				if ($(this).val() == "" && $(this).parent().hasClass("ignore") === false ) {
-					$(this).closest(".form-group").addClass("has-error").find(".control-label").removeClass("hidden");
+					$(this).closest(".form-group").addClass("has-danger").find(".control-label").removeClass("hidden");
 					ok = false
 				} else {
-					$(this).closest(".form-group").removeClass("has-error").find(".control-label").addClass("hidden");
+					$(this).closest(".form-group").removeClass("has-danger").find(".control-label").addClass("hidden");
 				}
 			});
 

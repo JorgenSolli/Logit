@@ -50,7 +50,7 @@ body .fc { /* extra precedence to overcome jqui */
 }
 
 .fc-unthemed .fc-today {
-	background: $well-bg;
+	// background: $well-bg;
 }
 
 .fc-highlight { /* when user is selecting cells */
@@ -160,13 +160,11 @@ NOTE: use percentage font sizes or else old IE chokes
 	border: none;
     border-radius: $border-radius-extreme;
     position: relative;
-    padding: $padding-base-vertical $padding-base-horizontal;
+    padding: 6px 12px;
     font-weight: 400;
     letter-spacing: 0;
-
     will-change: box-shadow, transform;
-    transition: box-shadow 0.2s $mdb-animation-curve-fast-out-linear-in,
-    background-color 0.2s $mdb-animation-curve-default;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
     &::-moz-focus-inner {
     border: 0;
@@ -762,6 +760,7 @@ tr:first-child > td > .fc-day-grid-event {
 .fc-day-grid-event .fc-content { /* force events to be one-line tall */
 	white-space: nowrap;
 	overflow: hidden;
+  color: #fff;
 }
 
 .fc-day-grid-event .fc-time {
@@ -853,6 +852,10 @@ a.fc-more:hover {
 
 .fc-toolbar .fc-left {
 	float: left;
+  h2{
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 300;
+  }
 }
 
 .fc-toolbar .fc-right {
@@ -1441,13 +1444,13 @@ be a descendant of the grid when it is being dragged.
 			text-align: right;
 		}
 	}
-    .content{
+    .card-body{
         padding: 0 !important;
     }
     .fc-toolbar{
-        padding-top: $padding-default-horizontal;
-        padding-left: $padding-default-horizontal;
-        padding-right: $padding-default-horizontal;
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
     .fc td:first-child{
         border-left: 0;
@@ -1457,7 +1460,7 @@ be a descendant of the grid when it is being dragged.
     }
     .fc-basic-view td:last-child.fc-week-number span,
     .fc-basic-view td:last-child.fc-day-number{
-        padding-right: $padding-default-horizontal;
+        padding-right: 20px;
     }
     .fc .fc-day-header:last-child{
         padding-right: 15px;

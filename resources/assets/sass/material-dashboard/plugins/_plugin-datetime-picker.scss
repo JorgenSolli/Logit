@@ -1,13 +1,13 @@
 /*!
  * Datetimepicker for Bootstrap 3
- * ! version : 4.7.14
+ * ! version : 4.17.37
  * https://github.com/Eonasdan/bootstrap-datetimepicker/
  */
  $bs-datetimepicker-timepicker-font-size: 1.2em !default;
  $bs-datetimepicker-active-bg: $brand-primary !default;
  $bs-datetimepicker-active-color: $white-color !default;
  $bs-datetimepicker-border-radius: $border-radius-base;
- $bs-datetimepicker-btn-hover-bg: $gray-lighter !default;
+ $bs-datetimepicker-btn-hover-bg: #eee !default;
  $bs-datetimepicker-disabled-color: $gray-lighter !default;
  $bs-datetimepicker-alternate-color: $gray-light !default;
  $bs-datetimepicker-secondary-border-color: #ccc !default;
@@ -29,9 +29,12 @@
 
 .bootstrap-datetimepicker-widget {
     list-style: none;
-    display: block;
+
 
     a{
+        &:hover{
+            box-shadow: none !important;
+        }
         .btn{
             &:hover{
                 background-color: transparent;
@@ -44,15 +47,15 @@
         width: 19em;
 
         &.timepicker-sbs {
-            @media (min-width: $screen-sm-min) {
+            @media (min-width: 768px) {
                 width: 38em;
             }
 
-            @media (min-width: $screen-md-min) {
+            @media (min-width: 991px) {
                 width: 38em;
             }
 
-            @media (min-width: $screen-lg-min) {
+            @media (min-width: 1200px) {
                 width: 38em;
             }
         }
@@ -68,11 +71,11 @@
 
         &.top {
             margin-top: auto;
-            margin-bottom: -20px;
+            margin-bottom: 27px;
 
             &.open{
                 margin-top: auto;
-                margin-bottom: 5px;
+                margin-bottom: 27px;
             }
         }
 
@@ -185,6 +188,7 @@
     .picker-switch {
         text-align: center;
         border-radius: $bs-datetimepicker-border-radius;
+        font-size: 0.875rem;
 
         &::after {
             @extend .sr-only;
@@ -219,7 +223,8 @@
         }
 
 
-        & td, & th {
+        & td > div,
+        & th > div {
             @extend .animation-transition-fast;
             text-align: center;
 
@@ -288,49 +293,56 @@
             }
         }
 
-        & td {
-            border-radius: $bs-datetimepicker-border-radius;
+        & td{
 
-            height: 54px;
-            line-height: 54px;
-            width: 54px;
-            text-align: center;
+            > div {
+                border-radius: $bs-datetimepicker-border-radius;
 
-            &.cw {
+                height: 54px;
+                line-height: 54px;
+                width: 54px;
+                text-align: center;
+            }
+
+            &.cw > div {
                 font-size: .8em;
                 height: 20px;
                 line-height: 20px;
                 color: $bs-datetimepicker-alternate-color;
             }
 
-            &.day {
+            &.day > div {
                 height: 30px;
-                line-height: 38px;
+                line-height: 30px;
                 width: 30px;
                 text-align: center;
                 padding: 0px;
                 border-radius: 50%;
+                position: relative;
+                z-index: -1;
+                color: $black-color;
+                font-size: 0.875rem;
             }
 
-            &.minute,
-            &.hour{
+            &.minute > div,
+            &.hour > div{
                 border-radius: 50%;
             }
 
-            &.day:hover,
-            &.hour:hover,
-            &.minute:hover,
-            &.second:hover {
+            &.day:hover > div,
+            &.hour:hover > div,
+            &.minute:hover > div,
+            &.second:hover > div {
                 background: $bs-datetimepicker-btn-hover-bg;
                 cursor: pointer;
             }
 
-            &.old,
-            &.new{
+            &.old > div,
+            &.new > div{
                 color: $bs-datetimepicker-alternate-color;
             }
 
-            &.today{
+            &.today > div{
                 position: relative;
 
                 &:before {
@@ -345,19 +357,19 @@
                 }
             }
 
-            &.active,
-            &.active:hover {
+            &.active > div,
+            &.active:hover > div {
                 background-color: $bs-datetimepicker-active-bg;
                 color: $bs-datetimepicker-active-color;
-                @include shadow-big-color($brand-primary);
+                @include shadow-small-color($brand-primary);
             }
 
-            &.active.today:before{
+            &.active.today:before > div{
                 border-bottom-color: $white-color;
             }
 
-            &.disabled,
-            &.disabled:hover {
+            &.disabled > div,
+            &.disabled:hover > div {
                 background: none;
                 color: $bs-datetimepicker-disabled-color;
                 cursor: not-allowed;
@@ -429,4 +441,6 @@
 .table-condensed>thead>tr>th{
     padding: 1px;
     text-align: center;
+    z-index: 1;
+    cursor: pointer;
 }

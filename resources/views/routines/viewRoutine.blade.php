@@ -1,7 +1,7 @@
 <form id="routines" method="POST" action="/routines/{{ $routine->id }}/edit">
   <div class="card">
-    <div class="card-content clearfix">
-      <h4 class="modal-title pull-left">Update your routine</h4>
+    <div class="card-body clearfix">
+      <h4>Update your routine</h4>
       <div class="pull-right">
         <input type="hidden" value="{{ $routine->active }}" name="status" id="status">
         <input type="hidden" value="{{ $routine->id }}" name="routineId" id="routineId"> 
@@ -25,9 +25,9 @@
   @endphp
   {{-- Routine Name --}}
   <div class="card m-t-10 m-b-10">
-    <div class="card-content">
+    <div class="card-body">
       <div class="form-group">
-        <label for="routine_name">Routine Name</label>
+        <label for="routine_name" class="bmd-label-floating">Routine Name</label>
         <input type="text" class="form-control" id="routine_name" name="routine_name" value="{{ $routine->routine_name }}">
       </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="thisExercise">
           <input class="exerciseOrder" type="hidden" name="supersets[{{ $ssNr }}][order_nr]" value="{{ $junction->order_nr }}">
           <div class="card m-t-10 m-b-10" style="background: rgba(255, 255, 255, 0.8)">
-            <div class="card-content">
+            <div class="card-body">
               <div class="sortable-content">
                 <div class="clearfix">
                   <div class="btn-sm btn-primary sort-icon handle pull-left">             
@@ -49,7 +49,7 @@
                   <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
                 </div>
                 <div class="form-group label-floating">
-                  <label class="control-label">Superset Name</label>
+                  <label class="control-label bmd-label-floating">Superset Name</label>
                   <input type="text" class="required form-control exercise_name" 
                          name="supersets[{{ $ssNr }}][superset_name]" value="{{ $junction->superset_name }}">
                 </div>
@@ -60,7 +60,7 @@
                   @if ($superset->superset_name == $junction->superset_name)
                     <div class="thisExercise">
                       <div class="card m-t-10 m-b-10">
-                        <div class="card-content">
+                        <div class="card-body">
                           <div class="sortable-content">
                             <div class="clearfix">
                               <div class="btn-sm btn-primary sort-icon handle pull-left">             
@@ -73,7 +73,7 @@
                               {{-- Excersice Name --}}
                               <div class="col-xs-12 col-sm-6">
                                 <div class="form-group label-floating">
-                                  <label class="control-label" for="exercise_name">Excersice name</label>
+                                  <label class="control-label bmd-label-floating" for="exercise_name">Excersice name</label>
                                   <input type="text" class="required form-control exercise_name" id="exercise_name" 
                                          name="supersets[{{ $ssNr }}][{{ $i }}][exercise_name]" value="{{ $superset->exercise_name }}">
                                 </div>
@@ -102,7 +102,7 @@
                               {{-- Weight Goal --}}
                               <div class="col-xs-12 col-sm-4">
                                 <div class="form-group label-floating">
-                                  <label class="control-label" for="goal_weight">Weight goal</label>
+                                  <label class="control-labelbmd-label-floating " for="goal_weight">Weight goal</label>
                                   <input type="number" step="any" class="required form-control" id="goal_weight" 
                                          name="supersets[{{ $ssNr }}][{{ $i }}][goal_weight]" value="{{ $superset->goal_weight }}">
                                 </div>
@@ -110,7 +110,7 @@
                               {{-- Sets Goal --}}
                               <div class="col-xs-6 col-sm-4">
                                 <div class="form-group label-floating">
-                                  <label class="control-label" for="goal_sets">Sets goal</label>
+                                  <label class="control-label bmd-label-floating" for="goal_sets">Sets goal</label>
                                   <input type="number" class="required form-control" id="goal_sets" 
                                          name="supersets[{{ $ssNr }}][{{ $i }}][goal_sets]" value="{{ $superset->goal_sets }}">
                                 </div>
@@ -118,7 +118,7 @@
                               {{-- Reps Goal --}}
                               <div class="col-xs-6 col-sm-4">
                                 <div class="form-group label-floating">
-                                  <label class="control-label" for="goal_reps">Reps goal</label>
+                                  <label class="control-label bmd-label-floating" for="goal_reps">Reps goal</label>
                                   <input type="number" class="required form-control" id="goal_reps" 
                                          name="supersets[{{ $ssNr }}][{{ $i }}][goal_reps]" value="{{ $superset->goal_reps }}">
                                 </div>
@@ -128,7 +128,7 @@
                               {{-- Media --}}
                               <div class="col-md-8 col-xs-6">
                                 <div class="form-group label-floating">
-                                  <label class="control-label" for="media">Media</label>
+                                  <label class="control-label bmd-label-floating" for="media">Media</label>
                                   <input type="text" class="form-control" id="media" name="supersets[{{ $ssNr }}][{{ $i }}][media]" value="{{ $superset->media }}">
                                   <i class="material-icons material-icons-sm pointer is-tooltip"
                                       rel="tooltip" 
@@ -173,7 +173,7 @@
         <div class="thisExercise">
           <input class="exerciseOrder" type="hidden" name="exercises[{{ $i }}][order_nr]" value="">
           <div class="card m-b-10">
-            <div class="card-content">
+            <div class="card-body">
             {{-- Excersice Name --}}
               <div class="clearfix">
                 <div class="btn-sm btn-primary sort-icon handle pull-left">             
@@ -184,7 +184,7 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-6">
                   <div class="form-group label-floating m-t-10">
-                    <label class="control-label" for="exercise_name">Excersice name</label>
+                    <label class="control-label bmd-label-floating" for="exercise_name">Excersice name</label>
                     <input type="text" class="form-control" name="exercises[{{ $i }}][exercise_name]" value="{{ $junction->exercise_name }}">
                   </div>
                 </div>
@@ -213,7 +213,7 @@
                 {{-- Weight Goal --}}
                 <div class="col-xs-12 col-sm-4">
                   <div class="form-group label-floating m-t-10">
-                    <label class="control-label" for="goal_weight">Weight goal</label>
+                    <label class="control-label bmd-label-floating" for="goal_weight">Weight goal</label>
                     <input type="number" step="any" class="form-control" id="goal_weight" name="exercises[{{ $i }}][goal_weight]" value="{{ $junction->goal_weight }}">
                   </div>
                 </div>
@@ -221,7 +221,7 @@
                 {{-- Sets Goal --}}
                 <div class="col-xs-6 col-sm-4">
                   <div class="form-group label-floating m-t-10">
-                    <label class="control-label" for="goal_sets">Sets goal</label>
+                    <label class="control-label bmd-label-floating" for="goal_sets">Sets goal</label>
                     <input type="number" class="form-control" id="goal_sets" name="exercises[{{ $i }}][goal_sets]" value="{{ $junction->goal_sets }}">
                   </div>
                 </div>
@@ -229,7 +229,7 @@
                 {{-- Reps Goal --}}
                 <div class="col-xs-6 col-sm-4">
                   <div class="form-group label-floating m-t-10">
-                    <label class="control-label" for="goal_reps">Reps goal</label>
+                    <label class="control-label bmd-label-floating" for="goal_reps">Reps goal</label>
                     <input type="number" class="form-control" id="goal_reps" name="exercises[{{ $i }}][goal_reps]" value="{{ $junction->goal_reps }}">
                   </div>
                 </div>
@@ -239,7 +239,7 @@
                 {{-- Reps Goal --}}
                 <div class="col-md-8 col-xs-6">
                   <div class="form-group label-floating">
-                    <label class="control-label" for="media">Media</label>
+                    <label class="control-label bmd-label-floating" for="media">Media</label>
                     <input type="text" class="form-control" id="media" name="exercises[{{ $i }}][media]" value="{{ $junction->media }}">
                     <i class="material-icons material-icons-sm pointer is-tooltip" 
                         rel="tooltip" 
@@ -278,7 +278,7 @@
   <div id="formData"></div>
 
   <div class="card">
-    <div class="card-content clearfix">
+    <div class="card-body clearfix">
       <div class="row">
         <div class="col-md-7">
           <button id="addMore" type="button" class="btn btn-primary btn-fullwidth">Add another exercise!</button>

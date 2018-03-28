@@ -1,0 +1,34 @@
+@import "../core/misc";
+
+a{
+  color: $link-color;
+  &:hover,
+  &:focus{
+      color: darken($link-color, 5%);
+      text-decoration: none;
+  }
+
+  &.text-info{
+      &:hover, &:focus{
+          color: darken($brand-info, 5%);
+      }
+  }
+
+  & .material-icons {
+    vertical-align: middle;
+  }
+}
+
+a[data-toggle="collapse"][aria-expanded="true"] .caret,
+.dropdown.open .caret,
+.dropup.open .caret,
+.btn-group.bootstrap-select.open .caret{
+    @include rotate-180();
+}
+
+.caret,
+.bootstrap-tagsinput .tag,
+.sidebar a,
+.bootstrap-tagsinput [data-role="remove"] {
+    @include transition-all($fast-transition-time, $transition-ease-in);
+}

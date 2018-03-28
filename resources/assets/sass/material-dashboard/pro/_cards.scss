@@ -1,0 +1,22 @@
+//https://www.google.com/design/spec/components/cards.html#cards-content-blocks
+// Card resting elevation: 2dp
+
+@import "../core/cards";
+
+// Cards for PRO version
+
+@import "../core/cards/card-testimonials";
+@import "../core/cards/card-profile";
+@import "../core/cards/card-blog";
+@import "../core/cards/card-product";
+@import "../core/cards/card-pricing";
+@import "../core/cards/card-collapse";
+@import "../core/cards/card-signup";
+@import "../core/cards/card-form-horizontal";
+@import "../core/cards/card-background";
+@import "../core/cards/card-rotate";
+
+
+.card-raised{
+    @include shadow-big();
+}

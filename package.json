@@ -49,6 +49,7 @@
     "moment": "^2.18.1",
     "nouislider": "10.0.0",
     "perfect-scrollbar": "0.6.16",
+    "sortablejs": "^1.7.0",
     "sweetalert2": "5.3.8",
     "tether": "^1.4.0",
     "uglify-js": "2.8.28",

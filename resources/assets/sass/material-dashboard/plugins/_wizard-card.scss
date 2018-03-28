@@ -1,6 +1,11 @@
-.wizard-card{
+.card-wizard{
     min-height: 410px;
     @include shadow-16dp();
+    @include transition($general-transition-time, $transition-linear);
+
+    &.active{
+        opacity: 1;
+    }
 
     .picture-container{
         position: relative;
@@ -36,7 +41,7 @@
         font-size: 12px;
         text-transform: uppercase;
         -webkit-font-smoothing: subpixel-antialiased;
-        top:-4px;
+        top:-3px;
         left: 0px;
         border-radius: 4px;
         color: $white-color;
@@ -127,6 +132,12 @@
         text-align: center;
         cursor: pointer;
         margin-top: 20px;
+
+        &[disabled]{
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: .26;
+        }
 
         .icon{
             text-align: center;

@@ -152,6 +152,7 @@ select.selectpicker {
   // border-radius: 0;
   -webkit-box-shadow: none;
           box-shadow: none;
+  -ms-overflow-style: auto;
 }
 .bootstrap-select.btn-group .dropdown-menu li {
   position: relative;

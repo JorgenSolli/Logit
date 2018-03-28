@@ -11,7 +11,7 @@
 			<input type="hidden" name="exercise_name" value="{{ $exercise->exercise_name }}">
 			<input type="hidden" name="media" value="{{ $exercise->media }}">
 
-			<h1 id="exercise_name">{{ $exercise->exercise_name }} </h1>
+			<h2 class="h2" id="exercise_name">{{ $exercise->exercise_name }} </h2>
 
 			@if ($note && $note->note)
 				<div class="alert {{ $note->label }}" data-notify="container">
@@ -27,7 +27,7 @@
 					<div class="card-header">
 						<h4 class="card-title">Set nr {{ $i }}</h4>
 					</div>
-					<div class="card-content">
+					<div class="card-body pt-0">
 						<input type="hidden" name="exercise[{{ $i }}][set]" value="{{ $i }}">
 						@if ($exercise->is_warmup === 1)
 							<input type="hidden" name="exercise[{{ $i }}][is_warmup]" value="1">
@@ -36,8 +36,8 @@
 						@endif
 
 						<div class="form-group m-t-0">
-							<label for="weight">Weight Type</label>
-							<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker"
+							<label for="weight" class="mb-0">Weight Type</label>
+							<select id="weight_type" name="exercise[{{ $i }}][weight_type]" class="selectpicker mt-0"
 									data-style="select-with-transition" title="Choose weight type" data-size="8">
 								<option selected value="raw">Raw Weight</option>
 								<option value="assisted">Assisted Weight</option>
@@ -47,8 +47,6 @@
 
 						<div class="form-group weight_type">
 							<div class="raw assisted">
-							    <label class="raw_label" for="weight">Weight</label>
-							    <label class="hidden control-label" for="weight"> | Hey don't give up! Finish all sets. You can do it!</label>
 							    @php $placeholder = "";@endphp
 							    @unless(empty($prevExercise[$i - 1]))
 						    		@if ($prevExercise[$i - 1]['weight_type'] === "band")
@@ -58,8 +56,8 @@
 					    			@endif
 				    			@endunless
 
-							    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]"
-							    	placeholder="Your goal is {{ $exercise->goal_weight }}. {{ $placeholder }}">
+							    <label class="bmd-label-floating" for="weight">Weight - Your goal is {{ $exercise->goal_weight }}. {{ $placeholder }}</label>
+							    <input type="number" step="any" class="required form-control" name="exercise[{{ $i }}][weight]">
 							</div>
 							<div class="band ignore" style="display: none">
 								<label for="weight">Band Type</label>
@@ -76,36 +74,47 @@
 				  		</div>
 
 					  	<div class="form-group">
-							<label for="reps">Reps</label>
-							<label class="control-label hidden" for="weight"> | Hey don't give up! At least do ONE rep!</label>
-						    <input type="number" class="required form-control" name="exercise[{{ $i }}][reps]"
-						    	placeholder="Your goal is {{ $exercise->goal_reps }}. @unless(empty($prevExercise[$i - 1])) Last time you did {{ $prevExercise[$i - 1]['reps'] }} @endunless">
+							<label class="bmd-label-floating" for="reps">Reps - Your goal is {{ $exercise->goal_reps }}. @unless(empty($prevExercise[$i - 1])) Last time you did {{ $prevExercise[$i - 1]['reps'] }} @endunless</label>
+						    <input type="number" class="required form-control" name="exercise[{{ $i }}][reps]">
 					  	</div>
 				  	</div>
 			  	</div>
 			@endfor
 			<div class="card">
-				<div class="card-content">
+				<div class="card-body">
 					<div class="form-group">
 						<textarea name="note" class="form-control" placeholder="Something worth noting? You can also label the note below (if you like)"></textarea>
 					</div>
-					<div class="form-group">
-						<label class="radio-inline">
-						  <input type="radio" name="labelType" value="alert-info"> Info
+					<div class="form-check form-check-radio form-check-inline">
+						<label class="form-check-label">
+							<input class="form-check-input" type="radio" name="labelType" value="alert-info" checked=""> Info
+							<span class="circle">
+								<span class="check"></span>
+							</span>
 						</label>
-						<label class="radio-inline">
-						  <input type="radio" name="labelType" value="alert-success"> Success
+                    </div>
+                    <div class="form-check form-check-radio form-check-inline">
+						<label class="form-check-label">
+							<input class="form-check-input" type="radio" name="labelType" value="alert-success" checked=""> Success
+							<span class="circle">
+								<span class="check"></span>
+							</span>
 						</label>
-						<label class="radio-inline">
-						  <input type="radio" name="labelType" value="alert-warning"> Warning
+                    </div>
+                    <div class="form-check form-check-radio form-check-inline">
+						<label class="form-check-label">
+							<input class="form-check-input" type="radio" name="labelType" value="alert-warning" checked=""> Warning
+							<span class="circle">
+								<span class="check"></span>
+							</span>
 						</label>
-					</div>
+                    </div>
 					<hr>
 					<div class="row">
-						<div class="col-xs-5">
-							<a id="cancelExercise" style="width:100%" class="btn btn-danger">Cancel</a>
+						<div class="col-5">
+							<button id="cancelExercise" style="width:100%" class="btn btn-danger">Cancel</button>
 						</div>
-						<div class="col-xs-7">
+						<div class="col-7">
 							<button style="width:100%" type="button" id="saveWorkout" class="btn btn-success"><span class="fal fa-save"></span> Save</button>
 						</div>
 					</div>
