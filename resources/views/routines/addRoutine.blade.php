@@ -3,11 +3,13 @@
 @section('content')
     <form id="routines" method="POST" action="/routines">
         <div class="card m-t-10 m-b-10">
-            <div class="card-header card-header-icon" data-background-color="rose">
-                <i class="material-icons">today</i>
+            <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">today</i>
+                </div>
+                <h4 class="card-title">New Routine</h4>
             </div>
             <div class="card-body">
-                <h4 class="card-title">New Routine</h4>
                 <input type="hidden" id="exerciseNr" value="0">
                 <input type="hidden" id="supersetNr" value="0">
                 {{ csrf_field() }}
@@ -88,15 +90,12 @@
                                 <div class="form-group label-floating">
                                     <label class="control-label bmd-label-floating" for="media">Media</label>
                                     <input type="text" class="form-control" id="media" name="exercises[0][media]">
-                                    <i class="material-icons material-icons-sm pointer is-tooltip"
-                                        data-toggle="tooltip" 
-                                        data-placement="top" 
-                                        title="Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?">
+                                    <i class="material-icons material-icons-sm pointer is-tooltip" onclick="logit.initModal('', 'Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?', false)">
                                         help
                                     </i>
                                 </div>
                             </div>
-                            
+
                             {{-- Warmup --}}
                             <div class="col-md-4 col-xs-6">
                                 <div class="form-check mt-4">

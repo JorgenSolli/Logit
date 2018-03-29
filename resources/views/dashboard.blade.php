@@ -64,7 +64,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">timer</i>
                             </div>
-                            <h4 class="card-title pull-left">Average workout time</h4>
+                            <h4 class="card-title">Average workout time</h4>
                         </div>
                         <div class="card-body">
                             <div class="data-text text-center {{ $hasWorkouts ? "" : "dashboard-no-data"}}">
@@ -86,7 +86,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">thumbs_up_down</i>
                             </div>
-                            <h4 class="card-title pull-left">Session Completion Ratio</h4>
+                            <h4 class="card-title">Session Completion Ratio</h4>
                         </div>
                         <div class="card-body">
                             <div class="data-text text-center {{ $hasWorkouts ? "" : "dashboard-no-data"}}">

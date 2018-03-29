@@ -115,6 +115,17 @@ logit = {
                 clearInterval(simulateWindowResize);
             },1000);
         }
+    },
+
+    initModal: function(title, body, large) {
+        var $modal = large ? $("#logit-modal-large") : $("#logit-modal");
+        var $t = $modal.find('.modal-title');
+        var $b = $modal.find ('.modal-body');
+
+        $t.html(title);
+        $b.html(body);
+
+        $modal.modal('show');
     }
 }
 
@@ -181,4 +192,4 @@ $(document).ready(function() {
             })
         }
     })
-})
+});

@@ -7,7 +7,7 @@
                 <div class="card-avatar">
                     <i class="user-icon material-icons">account_circle</i>
                 </div>
-                <div class="card-content">
+                <div class="card-body">
                     <h6 class="category text-gray">{{ $friend->name }}</h6>
                     <h4 class="card-title">Friends since {{ Carbon\Carbon::parse($friend->created_at)->format('d M Y') }}</h4>
 
@@ -21,20 +21,22 @@
                         </p>
                     @endif
 
-                    <a id="removeFriend" class="btn btn-danger btn-sm btn-round">
+                    <button id="removeFriend" class="btn btn-danger btn-sm btn-round">
                         <i class="material-icons">close</i> Remove friend
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header card-header-icon" data-background-color="blue">
-                    <i class="material-icons">share</i>
-                </div>
-                <div class="card-content">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">share</i>
+                    </div>
                     <h4 class="card-title">Share your routines with {{ $friend->name }}</h4>
+                </div>
+                <div class="card-body">
 
                     <form action="/friends/{{ $friend->id }}/shareRoutine" method="POST">
                         {{ csrf_field() }}
@@ -57,12 +59,13 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-header card-header-icon" data-background-color="blue">
-                    <i class="material-icons">accessibility</i>
-                </div>
-                <div class="card-content">
+                <div class="card-header card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">accessibility</i>
+                    </div>
                     <h4 class="card-title">{{ $friend->name }}s routines</h4>
-
+                </div>
+                <div class="card-body">
                     <select id="routine" name="routine" class="selectpicker" data-style="btn btn-primary" title="Select a routine" data-size="7">
                         @foreach ($routines as $routine)
                             <option value="{{ $routine->id }}">{{ $routine->routine_name }}</option>
@@ -91,43 +94,42 @@
     </div>
 
     <div class="card">
-        <div class="card-header card-header-icon" data-background-color="blue">
-            <i class="material-icons">timeline</i>
-        </div>
-        <div class="card-content">
+        <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">timeline</i>
+            </div>
             <h4 class="card-title">Workout Activity</h4>
+        </div>
+        <div class="card-body">
         </div>
         <div style="position: relative; width: 100%; height: 200px">
             <canvas id="workoutActivityChart"></canvas>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="card">
-                <div class="card-header card-header-icon" data-background-color="blue">
-                    <i class="material-icons">compare_arrows</i>
-                </div>
-                <div class="card-content">
-                    <h4 class="card-title">Compare exercises</h4>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <select id="your_exercises" data-style="btn btn-primary" title="Your exercises" data-live-search="true"></select>
 
-                            <div style="position: relative; width: 100%; height: 0px">
-                                <canvas id="your_exercise"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <select id="friend_exercises" data-style="btn btn-primary" title="{{ $friend->name }}'s exercises" data-live-search="true"></select>
+    <div class="card">
+        <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">compare_arrows</i>
+            </div>
+            <h4 class="card-title">Compare exercises</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <select id="your_exercises" data-style="btn btn-primary" title="Your exercises" data-live-search="true"></select>
 
-                            <div style="position: relative; width: 100%; height: 0px">
-                                <canvas id="friend_exercise"></canvas>
-                            </div>
-                        </div>
+                    <div style="position: relative; width: 100%; height: 0px">
+                        <canvas id="your_exercise"></canvas>
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <select id="friend_exercises" data-style="btn btn-primary" title="{{ $friend->name }}'s exercises" data-live-search="true"></select>
 
-
+                    <div style="position: relative; width: 100%; height: 0px">
+                        <canvas id="friend_exercise"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

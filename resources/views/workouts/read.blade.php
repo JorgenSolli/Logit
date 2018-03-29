@@ -4,23 +4,23 @@
 @include('notifications')
 	<div id="viewWorkout">
 		<div class="card">
-		    <div class="card-content clearfix">
-				<h4 class="modal-title pull-left">View/Edit your workout</h4>
-				<div class="pull-right">
-					<a href="{{ url("/workouts/{$workoutId}/recap") }}" type="button" class="btn btn-primary">View Recap</a>
-					<a href="{{ url("/workouts") }}" class="btn btn-danger workout-back pull-right">Back</a>
+		    <div class="card-body clearfix">
+				<h4 class="modal-title float-left">View/Edit your workout</h4>
+				<div class="float-right">
+					<a href="{{ url("/workouts/{$workoutId}/recap") }}" class="btn btn-primary">View Recap</a>
+					<a href="{{ url("/workouts") }}" class="btn btn-danger workout-back float-right">Back</a>
 				</div>
 		    </div>
 		</div>
 		<input id="workout_id" type="hidden" value="{{ $workoutId }}">
 		<div class="card m-t-10 m-b-10">
-	      	<div class="card-content">
+	      	<div class="card-body">
 				<input class="form-control" type="hidden" id="duration" name="duration" value="">
 	      		
 	      		<div class="row">
 	      			<div class="col-xs-5 col-sm-6">
 			      		<div class="form-group">
-						    <label class="label-control">Time started</label>
+						    <label class="label-control bmd-label-floating">Time started</label>
 						    <input type="text" id="timeStarted" name="timeStarted" class="form-control datetimepicker" 
 						    	value="{{ Carbon\Carbon::parse($workout->date_started)->format('Y-m-d H:i') }}"/>
 						</div>
@@ -28,7 +28,7 @@
 
 	      			<div class="col-xs-5 col-sm-5">
 						<div class="form-group">
-						    <label class="label-control">Time finished</label>
+						    <label class="label-control bmd-label-floating">Time finished</label>
 						    <input type="text" id="timeFinished" name="timeFinished" class="form-control datetimepicker" 
 						    value="{{ Carbon\Carbon::parse($workout->created_at)->format('Y-m-d H:i') }}"/>
 						</div>
@@ -36,9 +36,9 @@
 
 	      			<div class="col-xs-2 col-sm-1">
 						<div class="form-group">
-							<a class="btn-success btn-sm pointer updateTimestamps">
+							<button class="btn btn-success btn-sm pointer updateTimestamps">
 			     				<i class="fal fa-save"></i> <span class="hidden-sm hidden-xs hidden-md">save</span>
-			     			</a>
+			     			</button>
 						</div>
 	      			</div>
 	      		</div>
@@ -48,7 +48,7 @@
 		@for ($i = 0; $i < count($workoutJunction); $i++)
 		    @if ($i == 0 || $workoutJunction[$i]['exercise_name'] != $workoutJunction[$i - 1]['exercise_name'])
 		    	<div class="card m-t-10 m-b-10">
-			      	<div class="card-content">
+			      	<div class="card-body">
 				        <h4>{{ $workoutJunction[$i]['exercise_name'] }}</h4>
 				     	<div class="row">
 					     	<div class="col-sm-1 col-xs-2">
@@ -108,15 +108,15 @@
 
 		     	<div class="col-sm-1 col-xs-2">
 		     		<div class="form-group">
-		     			<a class="btn-success btn-sm pointer updateWorkoutRow">
+		     			<button class="btn btn-success btn-sm pointer updateWorkoutRow">
 		     				<i class="fal fa-save"></i> <span class="hidden-sm hidden-xs hidden-md">save</span>
-		     			</a>
+		     			</button>
 	     			</div>
 		     	</div>
 			</div>
 
 	  		@if ($i + 1 == count($workoutJunction) || ($i + 1 < count($workoutJunction) && $workoutJunction[$i]['exercise_name'] != $workoutJunction[$i + 1]['exercise_name']))
-	  				</div> <!-- .card-content -->
+	  				</div> <!-- .card-body -->
 			    </div> <!-- .card -->
 		    @else
 				<hr class="m-t-10 m-b-10">
@@ -124,9 +124,9 @@
 		@endfor
 
 		<div class="card">
-		    <div class="card-content clearfix">
-	    		<a href="{{ url("/workouts/{$workoutId}/recap") }}" type="button" class="btn btn-primary">View Recap</a>
-				<a href="{{ url("/workouts") }}" class="btn btn-danger workout-back pull-right">Back</a>
+		    <div class="card-body clearfix">
+	    		<a href="{{ url("/workouts/{$workoutId}/recap") }}" class="btn btn-primary">View Recap</a>
+				<a href="{{ url("/workouts") }}" class="btn btn-danger workout-back float-right">Back</a>
 			</div>
 		</div>
 	</div>

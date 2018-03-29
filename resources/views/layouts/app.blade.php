@@ -106,6 +106,8 @@
                     @yield('content')
                 </div>
             </div>
+            @include('layouts.parts.modal')
+            @include('layouts.parts.modalLarge')
             @include('layouts.footer')
         </div>
     </div>

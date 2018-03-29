@@ -1,6 +1,6 @@
 <footer class="footer">
-    <div class="container-fluid">
-        <nav class="pull-left">
+    <div class="container">
+        <nav>
             <ul>
                 <li>
                     <a href="{{ url("/") }}">Logit v0.6.0</a>
@@ -13,12 +13,12 @@
                 </li>
             </ul>
         </nav>
-        <p class="copyright pull-right">
+        <div class="copyright">
             &copy;
             <script>
                 document.write(new Date().getFullYear())
             </script>
             <a href="https://www.jorgensolli.no?lang=en">Jørgen Solli</a>
-        </p>
+        </div>
     </div>
 </footer>

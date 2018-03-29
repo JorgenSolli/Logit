@@ -1,35 +1,35 @@
-	<nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+	<nav class="navbar navbar-expand-lg bg-primary navbar-transparent navbar-absolute" color-on-scroll="500">
 	    <div class="container">
-	        <div class="navbar-header">
-	            <button type="button" class="navbar-toggle" data-toggle="collapse">
-	                <span class="sr-only">Toggle navigation</span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	            </button>
-	            <a class="navbar-brand" href="{{ url("/") }}">Logit</a>
-	        </div>
-	        <div class="collapse navbar-collapse">
-	            <ul class="nav navbar-nav navbar-right">
-	            	@guest
-		                <li class="{{ (Request::is('login') ? 'active' : '') }}">
-		                    <a href="{{ route('login') }}">
+			<div class="navbar-wrapper">
+	        	<a class="navbar-brand" href="{{ url("/") }}">Logit</a>
+	      	</div>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+				<span class="navbar-toggler-icon icon-bar"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-end" id="navbar">
+				<ul class="navbar-nav">
+					@guest
+		                <li class="nav-item {{ (Request::is('login') ? 'active' : '') }}">
+		                    <a class="nav-link" href="{{ route('login') }}">
 		                        <i class="material-icons">fingerprint</i> Login
 		                    </a>
 		                </li>
-		                <li class="{{ (Request::is('register') ? 'active' : '') }}">
-		                    <a href="{{ route('register') }}">
+		                <li class="nav-item {{ (Request::is('register') ? 'active' : '') }}">
+		                    <a class="nav-link" href="{{ route('register') }}">
 		                        <i class="material-icons">person_add</i> Register
 		                    </a>
 		                </li>
 	            	@else
-		                <li>
-		                    <a href="{{ route('dashboard') }}">
+		                <li class="nav-item">
+		                    <a class="nav-link" href="{{ route('dashboard') }}">
 		                        <i class="material-icons">home</i> Launch Logit
 		                    </a>
 		                </li>
-		                <li>
-	                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+		                <li class="nav-item">
+	                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 	                            <i class="material-icons">input</i> Logout
 	                        </a>
 	                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -37,7 +37,7 @@
 	                      	</form>
 	                    </li>
 	            	@endguest
-	            </ul>
-	        </div>
+				</ul>
+			</div>
 	    </div>
-	</nav>
+  	</nav>

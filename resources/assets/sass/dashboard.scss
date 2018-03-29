@@ -34,6 +34,21 @@
   line-height: 48px !important;
 }
 
+.lh-20 {
+  line-height: 20px !important;
+}
+
+.lh-0 {
+  line-height: 0 !important;
+}
+
+@media (min-width: 992px) {
+
+  .mb-lg-6 {
+      margin-bottom: 7rem !important;
+  }
+}
+
 .hidden {
   display: none;
 }
@@ -66,9 +81,8 @@
   background: rgba(255, 255, 255, 0.8);
 }
 
-.card-content {
+.card-body {
   .handle {
-    width: 95px;
     margin-bottom: 20px;
   }
 
@@ -111,7 +125,7 @@
     }
   }
 
-  .card-content {
+  .card-body {
     margin-top: 0 !important;
   }
 }
@@ -525,6 +539,10 @@ div.alert b.alert-header {
   border-radius: 20px;
 }
 
+.pricing-page .title {
+  margin-top: 100px;
+}
+
 /* Settings */
 .settings-toggles {
   .form-group {
@@ -611,8 +629,8 @@ img.muscle-icon {
 
 /* Recap stuff */
 .up-or-down {
-  position: relative;
-  top: -20px;
+  position: absolute;
+  top: -15px;
   font-size: 20px;
 }
 

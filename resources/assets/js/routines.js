@@ -182,18 +182,19 @@ $(document).on('click', '#addMore', function() {
                 '<label class="control-label" for="media">Media</label>' +
                 '<input type="text" class="form-control" id="media" name="exercises[' + exerciseNr + '][media]">' +
                 '<i class="material-icons material-icons-sm pointer is-tooltip" ' +
-                    'rel="tooltip" ' +
-                    'data-placement="top" ' +
-                    'title="Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?">' +
+                    'onclick="logit.initModal(\'\', \'Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?\', false)">' +
                     'help' +
                 '</i>' +
               '</div>' +
             '</div>' +
             '<div class="col-md-4 col-xs-6">' +
-              '<div class="checkbox">' +
-                '<label>' +
-                  '<input type="checkbox" name="exercises[' + exerciseNr + '][is_warmup]">' +
-                 ' Warmup set' +
+              '<div class="form-check mt-4">' +
+                '<label class="form-check-label">' +
+                  '<input class="form-check-input" type="checkbox" name="exercises[' + exerciseNr + '][is_warmup]">' +
+                  'Warmup set' +
+                  '<span class="form-check-sign">' +
+                    '<span class="check"></span>' +
+                  '</span>' +
                 '</label>' +
               '</div>' +
             '</div>' +
@@ -219,8 +220,8 @@ $(document).on('click', '#addSuperset', function() {
             '<div class="sortable-content">' +
               '<div class="clearfix">' +
                 '<div class="btn-sm btn-primary sort-icon handle float-left">' +
-                    'Drag to sort ' +
                   '<span class="fal fa-arrows-v"></span>' +
+                  ' Drag to sort' +
                 '</div>' +
                 '<button type="button" class="deleteExercise btn btn-sm btn-danger float-right m-x-0"><span class="fal fa-trash"></span></button>' +
               '</div>' +
@@ -256,8 +257,8 @@ $(document).on('click', '#addMore-superset', function() {
         '<div class="sortable-content">' +
           '<div class="clearfix">' +
             '<div class="btn-sm btn-primary sort-icon handle float-left">' +
-                'Drag to sort ' +
               '<span class="fal fa-arrows-v"></span>' +
+              ' Drag to sort' +
             '</div>' +
             '<button type="button" class="deleteExercise btn btn-sm btn-danger float-right m-x-0"><span class="fal fa-trash"></span></button>' +
           '</div>' +
@@ -310,18 +311,19 @@ $(document).on('click', '#addMore-superset', function() {
                 '<label class="control-label" for="media">Media</label>' +
                 '<input type="text" class="form-control" id="media" name="supersets[' + supersetNr + '][' + exerciseNr + '][media]">' +
                 '<i class="material-icons material-icons-sm pointer is-tooltip" ' +
-                    'rel="tooltip" ' +
-                    'data-placement="top" ' +
-                    'title="Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?">' +
+                    'onclick="logit.initModal(\'\', \'Here you can add any URL that you like. Maybe to a YouTube video showing how the exercise is done?\', false)">' +
                     'help' +
                 '</i>' +
               '</div>' +
             '</div>' +
             '<div class="col-md-4 col-xs-6">' +
-              '<div class="checkbox">' +
-                '<label>' +
-                  '<input type="checkbox" name="supersets[' + supersetNr + '][' + exerciseNr + '][is_warmup]">' +
-                 ' Warmup set' +
+              '<div class="form-check mt-4">' +
+                '<label class="form-check-label">' +
+                  '<input class="form-check-input" type="checkbox" name="supersets[' + supersetNr + '][' + exerciseNr + '][is_warmup]">' +
+                  'Warmup set' +
+                  '<span class="form-check-sign">' +
+                    '<span class="check"></span>' +
+                  '</span>' +
                 '</label>' +
               '</div>' +
             '</div>' +
