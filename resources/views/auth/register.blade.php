@@ -3,17 +3,16 @@
 @include('layouts.head')
 <body>
     @include('layouts.guest.nav')
-
     <div class="wrapper wrapper-full-page">
         <div class="full-page full-page-fixed register-page bg-full">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
+                    <div class="col-md-10 ml-auto mr-auto">
                         <div class="card card-signup">
                             <h2 class="card-title text-center">Register</h2>
                             <div class="row">
-                                <div class="col-md-5 col-md-offset-1">
-                                    <div class="card-content">
+                                <div class="col-md-5 ml-auto">
+                                    <div class="card-body">
                                         <div class="info info-horizontal">
                                             <div class="icon icon-rose">
                                                 <i class="material-icons">timeline</i>
@@ -49,77 +48,92 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-5 mr-auto">
                                     <div class="social text-center">
                                         <a href="{{ url('/auth/google') }}" class="btn btn-just-icon btn-round btn-google">
                                             <i class="fab fa-google"></i>
                                         </a>
                                         
-                                        <a class="btn btn-just-icon btn-round btn-twitter disabled">
+                                        <button class="btn btn-just-icon btn-round btn-twitter disabled">
                                             <i class="fab fa-twitter"></i>
-                                        </a>
+                                        </button>
                                         
-                                        <a class="btn btn-just-icon btn-round btn-facebook disabled">
+                                        <button class="btn btn-just-icon btn-round btn-facebook disabled">
                                             <i class="fab fa-facebook-f"> </i>
-                                        </a>
+                                        </button>
                                         
-                                        <h4> or be classical </h4>
+                                        <h4 class="mt-4"> or be classical </h4>
                                     </div>
 
                                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                                         {{ csrf_field() }}
-                                        <div class="card-content">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">face</i>
-                                                </span>
-                                                <input id="name" type="text" class="form-control" name="name" placeholder="First Name..." value="{{ old('name') }}" required autofocus>
-                                                @if ($errors->has('name'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('name') }}</strong>
-                                                    </span>
-                                                @endif
-
-                                            </div>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">email</i>
-                                                </span>
-                                                <input id="email" type="email" class="form-control" placeholder="Email..." name="email" value="{{ old('email') }}" required>
-
-                                                @if ($errors->has('email'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">lock_outline</i>
-                                                </span>
-
-                                                <input id="password" type="password" class="form-control" placeholder="Password..." name="password" required>
-                                                @if ($errors->has('password'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('password') }}</strong>
-                                                    </span>
-                                                @endif
+                                        <div class="card-body">
+                                            <div class="form-group has-default bmd-form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">face</i>
+                                                        </span>
+                                                    </div>
+                                                    <input id="name" type="text" class="form-control" name="name" placeholder="First Name..." value="{{ old('name') }}" required autofocus>
+                                                    @if ($errors->has('name'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('name') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
                                             </div>
 
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">lock_outline</i>
-                                                </span>
+                                            <div class="form-group has-default bmd-form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">email</i>
+                                                        </span>
+                                                    </div>
+                                                    <input id="email" type="email" class="form-control" placeholder="Email..." name="email" value="{{ old('email') }}" required>
+                                                    @if ($errors->has('email'))
+                                                        <div class="invalid-feedback">
+                                                            {{ $errors->first('email') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
 
-                                                <input id="password-confirm" type="password" class="form-control" placeholder="And again..."name="password_confirmation" required>
-                                                @if ($errors->has('password'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('password') }}</strong>
-                                                    </span>
-                                                @endif
+                                            <div class="form-group has-default bmd-form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">lock_outline</i>
+                                                        </span>
+                                                    </div>
+                                                    <input id="password" type="password" class="form-control" placeholder="Password..." name="password" required>
+                                                    @if ($errors->has('password'))
+                                                        <div class="invalid-feedback">
+                                                            {{ $errors->first('password') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-default bmd-form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="material-icons">lock_outline</i>
+                                                        </span>
+                                                    </div>
+                                                    <input id="password-confirm" type="password" class="form-control" placeholder="And again..."name="password_confirmation" required>
+                                                    @if ($errors->has('password'))
+                                                        <div class="invalid-feedback">
+                                                            {{ $errors->first('password') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="footer text-center">
+
+                                        <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Get fit</a>
                                         </div>
                                     </form>
@@ -134,7 +148,6 @@
     </div>
     <!--             Core JS             -->
     <script src="{{ mix('/js/logit.min.js') }}"></script>
-
     <script type="text/javascript">
         $().ready(function() {
             setTimeout(function() {

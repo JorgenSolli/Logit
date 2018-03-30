@@ -246,10 +246,13 @@
             <h4 class="card-title">Exercise progress</h4>
         </div>
         <div class="card-body">
-            <div class="checkbox">
-                <label>
-                    <input id="show_active_exercises" type="checkbox" name="optionsCheckboxes" checked="">
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" checked="checked" name="optionsCheckboxes" id="show_active_exercises">
                     Only show active exercises
+                    <span class="form-check-sign">
+                        <span class="check"></span>
+                    </span>
                 </label>
             </div>
             <select id="exercise_name" data-style="btn btn-primary" title="Select exercise" data-live-search="true">
