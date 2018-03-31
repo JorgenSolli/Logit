@@ -49,6 +49,20 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
     font-weight: 300;
 }
 
+
+.bootstrap-select.btn-group {
+	margin-top: 5px;
+	button {	
+	    padding: 12px 30px;
+	    line-height: 14px;
+	}
+
+	.dropdown-toggle .filter-option {
+		position: relative;	
+	    top: 3px;
+    }
+}
+
 /* This only works with a pre-defined timeline height. As for the current content this will work fine. */
 .timeline:before {
     height: calc(100% - 100px);

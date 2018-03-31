@@ -20,8 +20,8 @@
 
 <div id="dashboard" class="{{ $hasWorkouts ? "" : "dashboard-no-data"}}">
     <div class="row">
-        <div class="col-xs-12">
-            <h4 class="p-l-md">Show statistics for</h4>
+        <div class="col-12">
+            <h4 class="h4">Show statistics for</h4>
         </div>
     </div>
 
