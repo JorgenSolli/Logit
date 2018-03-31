@@ -129,7 +129,7 @@ class FriendsController extends Controller
 					$notify->user_id = $id;
 					$notify->content = $requester->name . " has sent you a friend request!";
 					$notify->icon = 'insert_emoticon';
-					$notify->url = '/dashboard/friends';
+					$notify->url = '/friends';
 
 					if ($newFriend->save() && $notify->save()) {
 						return response()->json(array('success' => 'A request has been sent to ' . $name->name));
@@ -202,7 +202,7 @@ class FriendsController extends Controller
 				$notify->user_id = $id;
 				$notify->content = ucfirst($accepter->name) . " has accepted you as a friend. How nice!";
 				$notify->icon = 'insert_emoticon';
-				$notify->url = '/dashboard/friends';
+				$notify->url = '/friends';
 
 				if ($friendship->save() && $notify->save()) {
 					return response()->json(array('success' => 'You are now friends with ' . ucfirst($name->name)));

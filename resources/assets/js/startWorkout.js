@@ -1,9 +1,11 @@
 var setIconStatus = function() {
 	$('.exercise[data-status="incomplete"').each(function(index) {
+		$(this).removeClass('btn-success disabled').addClass('btn-primary');
 		$(this).find('i[data-icon="status"]').attr('class', '').addClass('fal fa-clock mr-2');
 	});
 
 	$('.exercise[data-status="completed"').each(function(index) {
+		$(this).removeClass('btn-primary').addClass('btn-success disabled');
 		$(this).find('i[data-icon="status"]').attr('class', '').addClass('fal fa-check mr-2');
 	});
 
@@ -122,26 +124,29 @@ $(document).ready(function() {
 		var exerciseId = obj.attr('id');
 
 		var exercise = obj.html();
-		$(this).addClass('disabled');
-        $(this).html('<span class="fal fa-spin fa-circle-notch"></span> Getting exercise ...');
 
-		$.ajax({
-			url: '/exercise/' + exerciseId,
-			headers: {
-	        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        },
-			method: 'GET',
-			success: function(data) {
-				$("#data").html(data['data'])
-				$("#exercises").hide();
-				$('.selectpicker').selectpicker({});
-				obj.html(exercise).removeClass('disabled');
-			},
-			complete: function(){
-				goToAnchor("#data");
-				setMediaLink();
-			}
-		})
+		if (!$(this).hasClass('disabled')) {
+			$(this).addClass('disabled');
+	        $(this).html('<span class="fal fa-spin fa-circle-notch"></span> Getting exercise ...');
+
+			$.ajax({
+				url: '/exercise/' + exerciseId,
+				headers: {
+		        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        },
+				method: 'GET',
+				success: function(data) {
+					$("#data").html(data['data'])
+					$("#exercises").hide();
+					$('.selectpicker').selectpicker({});
+					obj.html(exercise).removeClass('disabled');
+				},
+				complete: function(){
+					goToAnchor("#data");
+					setMediaLink();
+				}
+			});
+		}
 	});
 
 	$(document).on('click', '#finishWorkout', function(e) {

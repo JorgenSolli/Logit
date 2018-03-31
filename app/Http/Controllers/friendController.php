@@ -247,7 +247,7 @@ class FriendController extends Controller
         $notify->user_id = $friend;
         $notify->content = Auth::user()->name . " has shared a routine with you!";
         $notify->icon = 'accessibility';
-        $notify->url = '/dashboard/my_routines';
+        $notify->url = '/routines';
 
         Mail::to(User::where('id', $friend)->firstOrFail())
             ->send(new ShareRoutine(

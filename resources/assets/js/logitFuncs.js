@@ -147,34 +147,30 @@ $(document).ready(function() {
             if (data.notifications.length) {
                 /* We have some data to append, so clear this first */
                 $("#user-notifications").empty();
-                $("#user-notifications-amount").html('<span class="notification">' + data.notifications.length + '</span>')
+                $("#user-notifications-amount").html('<div class="notification">' + data.notifications.length + '</div>')
             }
 
             for (var i = 0; i < data.notifications.length; i++) {
                 var nf = data.notifications[i]
                 if (nf.icon) {
                     $("#user-notifications").append(
-                        '<li>' +
-                            '<a id="' + nf.id + '" href="' + nf.url + '"><i class="material-icons"> ' + nf.icon + '</i>' + nf.content + '</a>' +
-                        '</li>'
+                        '<a class="dropdown-item" id="' + nf.id + '" href="' + nf.url + '"><i class="material-icons"> ' + nf.icon + '</i>' + nf.content + '</a>'
                     )
                 }
                 else {
                     $("#user-notifications").append(
-                        '<li>' +
-                            '<a id="' + nf.id + '" href="' + nf.url + '">' + nf.content + '</a>' +
-                        '</li>'
+                        '<a class="dropdown-item" id="' + nf.id + '" href="' + nf.url + '">' + nf.content + '</a>'
                     )
                 }
             }
         }
     })
 
-    $(document).on('click', '#user-notifications li a', function(e) {
+    $(document).on('click', '#user-notifications a', function(e) {
         e.preventDefault();
         var id = $(this).attr('id')
 
-        /* making sure there is somethine to be clicked first... */
+        /* making sure there is something to be clicked first... */
         if (id) {
             var href = $(this).attr('href')
             $.ajax({

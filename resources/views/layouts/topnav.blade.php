@@ -24,13 +24,13 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
-                        <div class="notification" id="user-notifications-amount">0</div>
+                        <span id="user-notifications-amount"></span>
                         <p class="hidden-lg hidden-md">
                             Notifications
                             <b class="caret"></b>
                         </p>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <div id="user-notifications" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">No new notifications</a>
                     </div>
                 </li>
