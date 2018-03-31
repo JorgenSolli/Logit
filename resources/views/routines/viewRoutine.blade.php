@@ -1,8 +1,8 @@
 <form id="routines" method="POST" action="/routines/{{ $routine->id }}/edit">
-  <div class="card">
+  <div class="card m-t-10 m-b-10">
     <div class="card-body clearfix">
       <h4>Update your routine</h4>
-      <div class="pull-right">
+      <div class="float-right">
         <input type="hidden" value="{{ $routine->active }}" name="status" id="status">
         <input type="hidden" value="{{ $routine->id }}" name="routineId" id="routineId"> 
         @if ($routine->active == 1)
@@ -43,10 +43,10 @@
             <div class="card-body">
               <div class="sortable-content">
                 <div class="clearfix">
-                  <div class="btn-sm btn-primary sort-icon handle pull-left">             
+                  <div class="btn-sm btn-primary sort-icon handle float-left">             
                     <span class="fal fa-arrows-v"></span> Drag to sort
                   </div>
-                  <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
+                  <button class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
                 </div>
                 <div class="form-group label-floating">
                   <label class="control-label bmd-label-floating">Superset Name</label>
@@ -63,10 +63,10 @@
                         <div class="card-body">
                           <div class="sortable-content">
                             <div class="clearfix">
-                              <div class="btn-sm btn-primary sort-icon handle pull-left">             
+                              <div class="btn-sm btn-primary sort-icon handle float-left">             
                                 <span class="fal fa-arrows-v"></span> Drag to sort
                               </div>
-                              <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
+                              <button class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
                             </div>
 
                             <div class="row">
@@ -102,7 +102,7 @@
                               {{-- Weight Goal --}}
                               <div class="col-xs-12 col-sm-4">
                                 <div class="form-group label-floating">
-                                  <label class="control-labelbmd-label-floating " for="goal_weight">Weight goal</label>
+                                  <label class="control-label bmd-label-floating " for="goal_weight">Weight goal</label>
                                   <input type="number" step="any" class="required form-control" id="goal_weight" 
                                          name="supersets[{{ $ssNr }}][{{ $i }}][goal_weight]" value="{{ $superset->goal_weight }}">
                                 </div>
@@ -172,14 +172,14 @@
       @elseif (!in_array($junction->superset_name, $printed_supersets))
         <div class="thisExercise">
           <input class="exerciseOrder" type="hidden" name="exercises[{{ $i }}][order_nr]" value="">
-          <div class="card m-b-10">
+          <div class="card m-t-10 m-b-10">
             <div class="card-body">
             {{-- Excersice Name --}}
               <div class="clearfix">
-                <div class="btn-sm btn-primary sort-icon handle pull-left">             
+                <div class="btn-sm btn-primary sort-icon handle float-left">             
                   <span class="fal fa-arrows-v"></span> Drag to sort
                 </div>
-                <a class="deleteExercise btn btn-sm btn-danger pull-right"><span class="fal fa-trash"></span></a>
+                <button class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
               </div>
               <div class="row">
                 <div class="col-xs-12 col-sm-6">
