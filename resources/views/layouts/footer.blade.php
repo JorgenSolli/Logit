@@ -3,7 +3,7 @@
         <nav>
             <ul>
                 <li>
-                    <a href="{{ url("/") }}">Logit v0.6.0</a>
+                    <a href="{{ url("/") }}">Logit v0.7.0</a>
                 </li>
                 <li>
                     <a href="https://jorgensolli.no/?lang=en">By Jørgen Solli</a>

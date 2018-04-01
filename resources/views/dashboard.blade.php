@@ -7,7 +7,7 @@
             <div class="card-header">
                 <h4 class="card-title">This dashboard is awesome!</h4>
             </div>
-            <div class="card-content">
+            <div class="card-body">
                 <p>But not without any data. Once you complete one workout, this page will be populated with data in all its glory.</p>
 
                 {{-- Enable this when hints are actually added (merged from feature/intro-guide)  

@@ -125,7 +125,6 @@ class ExerciseController extends Controller
      */
     public function addExercise ($routine_id, $exerciseId, Request $request)
     {
-        #return response()->json($routine_id);
 
         LogitFunctions::getNote($exerciseId, true);
 
@@ -170,7 +169,6 @@ class ExerciseController extends Controller
             }
         }
 
-        // return back()->with('script_success', 'Exercise saved. Good job!');
         $response = [
             'success' => true,
             'message' => 'Exercise saved. Good job!',

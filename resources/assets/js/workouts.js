@@ -36,25 +36,6 @@ $(document).ready(function() {
 	    }
 	});
 
-	$(document).on('changed.bs.select', '#weight_type', function() {
-		var val = $(this).val();
-		var target = $(this).closest(".row").find('.type');
-
-		if (val === "band") {
-			target.html('<select name="band_type" class="selectpicker selectpicker_reinit band_type" data-style="select-with-transition" title="Choose weight type" data-size="8">' +
-					'<option value="black">Black</option>' +
-					'<option value="blue">Blue</option>' +
-					'<option value="purple">Purple</option>' +
-					'<option value="green">Green</option>' +
-					'<option value="red">Red</option>' +
-					'<option value="yellow">Yellow</option>' +
-				'</select>');
-			$('.selectpicker_reinit').selectpicker({});
-		} else {
-
-		}
-	});
-
 	$(document).on('click', '.deleteWorkout', function() {
 		var workoutId = $(this).attr('id');
 		var name = $("#workout-" + workoutId).find(".name").html().trim();

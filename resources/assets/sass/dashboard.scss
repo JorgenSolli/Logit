@@ -77,6 +77,24 @@
    background-color: #00bcd4 !important;
 }
 
+.alert {
+  min-height: 70px;
+
+  .close {
+    top: 10px !important;
+    right: 10px !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    border-radius: 20px;
+    padding: 5px;
+    background: rgba(0, 0, 0, .2);
+
+    i {
+      font-size: 1.2rem !important;
+    }
+  }
+}
+
 .card-transparent {
   background: rgba(255, 255, 255, 0.8);
 }

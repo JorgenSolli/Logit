@@ -484,10 +484,11 @@ class LogitFunctions {
 
         $routine = RoutineJunction::where('id', $exerciseId)
             ->where('user_id', $userId)
-            ->select('type', 'exercise_name')
+            ->select('type', 'exercise_name', 'superset_name')
             ->first();
 
         $note = false;
+        $identifier = ($routine->superset_name) ? $routine->superset_name : $routine->exercise_name;
 
         if ($settings->strict_notes) {
             $note = Note::where('routine_junction_id', $exerciseId)
@@ -497,7 +498,7 @@ class LogitFunctions {
         } else {
             $note = Note::where([
                     ['user_id', $userId],
-                    ['exercise_name', $routine->exercise_name],
+                    ['exercise_name', $identifier],
                 ])
                 ->orderBy('created_at', 'DESC')
                 ->first();

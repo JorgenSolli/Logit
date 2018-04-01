@@ -30,13 +30,13 @@
                                         <span class="sidebar-normal"> My Profile </span>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('settings') }}">
                                         <span class="sidebar-mini"> S </span>
                                         <span class="sidebar-normal"> Settings </span>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <span class="sidebar-mini"> L </span>
                                         <span class="sidebar-normal"> Logout </span>

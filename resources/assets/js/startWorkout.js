@@ -157,7 +157,7 @@ $(document).ready(function() {
 		var numIncomplete = 0;
 		var href = $(this).attr('href')
 		/* Checks if some exercies aren't completed or if at least one is completed */
-		$(".list-group-item").each(function(index) {
+		$(".exercise").each(function(index) {
 			if ($(this).attr('data-status') == 'incomplete') {
 				incompleteItems = true
 				numIncomplete++
@@ -295,7 +295,6 @@ $(document).ready(function() {
 		} else {
 			window.location=target;
 		}
-
 	});
 
 	$(document).on('click', '#clearSession', function(e) {
@@ -318,6 +317,28 @@ $(document).ready(function() {
 				return false;
 			}
 		}).done();
+	});
+
+	$(document).on('changed.bs.select', '#weight_type', function() {
+		var val = $(this).val();
+		var target = $(this).closest(".card-body").find('.weight_type');
+		var tag = $(this).closest(".card-body").find('input[name="exercise-tag"]').val();
+		var goal = $(this).closest(".card-body").find('input[name="exercise-goal"]').val();
+		var pre = $(this).closest(".card-body").find('input[name="exercise-pre"]').val();
+		
+		if (val === "band") {
+			target.html('<select name="' + tag + '[band_type]" class="selectpicker selectpicker_reinit band_type" data-style="select-with-transition" title="Choose weight type" data-size="8">' +
+					'<option value="black">Black</option>' +
+					'<option value="blue">Blue</option>' +
+					'<option value="purple">Purple</option>' +
+					'<option value="green">Green</option>' +
+					'<option value="red">Red</option>' +
+					'<option value="yellow">Yellow</option>' +
+				'</select>');
+			$('.selectpicker_reinit').selectpicker({});
+		} else {
+			target.html('<label class="bmd-label-floating" for="weight">Weight - Weight - Your goal is ' + goal + '. ' + pre + '</label><input type="number" step="any" class="required form-control" name="' + tag + '[weight]">');
+		}
 	});
 
 	// Only call this function if we're actually in /start/routine

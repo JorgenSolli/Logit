@@ -55,7 +55,9 @@
     @if ($nrInactive > 0)
         <div class="alert alert-info alert-with-icon">
             <i class="material-icons" data-notify="icon" >info_outline</i>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="material-icons">close</i>
+            </button>
             <span data-notify="message">
                 You have {{ $nrInactive }} inactive 
                 @if ($nrInactive == 1)
@@ -68,7 +70,9 @@
     @else
         <div class="alert alert-info alert-with-icon">
             <i class="material-icons" data-notify="icon" >info_outline</i>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="material-icons">close</i>
+            </button>
             <span data-notify="message"> <strong>Quick tip!</strong> Any routines no longer in use? You can set them to inactive. Head over to <a href="/dashboard/my_routines">My Routines</a> and view/edit the ones you'd like to hide from this list. </span>
         </div>
     @endif

@@ -157,10 +157,10 @@ class StartWorkoutController extends Controller
             $currTime = Carbon::now();
             $duration = $currTime->diffInMinutes($session_started);
 
-            session()->forget('exercises');
-            session()->forget('supersets');
-            session()->forget('gymming');
-            session()->forget('started_gymming');
+            #session()->forget('exercises');
+            #session()->forget('supersets');
+            #session()->forget('gymming');
+            #session()->forget('started_gymming');
 
             $user_id = Auth::id();
 
@@ -186,24 +186,27 @@ class StartWorkoutController extends Controller
                         $exercise->reps             = $exercise_specific['reps'];
                         $exercise->set_nr           = $exercise_specific['set'];
 
-                        // If the current exercise if of type band, se the weight to 0.
-                        if ($exercise_specific['weight'] === null && $exercise_specific['weight_type'] === 'band') {
+                        // If the current exercise if of type band, set the weight to 0.
+                        if (!array_key_exists("weight", $exercise_specific) && $exercise_specific['weight_type'] === 'band') {
                             $exercise->weight       = 0;
+                            $exercise->band_type    = $exercise_specific['band_type'];
                         }
                         else {
                             $exercise->weight       = $exercise_specific['weight'];
                         }
-                        $exercise->band_type        = $exercise_specific['band_type'];
 
                         $exercise->save();
                     }
 
-                    $note = new Note;
-                    $note->user_id              = $user_id;
-                    $note->routine_junction_id  = $session_exercise['routine_junction_id'];
-                    $note->note                 = $session_exercise['note']['text'];
-                    $note->label                = $session_exercise['note']['labelType'];
-                    $note->save();
+                    if ($session_exercise['note']['text'] && strlen($session_exercise['note']['text']) > 0) {
+                        $note = new Note;
+                        $note->user_id              = $user_id;
+                        $note->routine_junction_id  = $session_exercise['routine_junction_id'];
+                        $note->exercise_name        = $session_exercise['exercise_name'];
+                        $note->note                 = $session_exercise['note']['text'];
+                        $note->label                = $session_exercise['note']['labelType'];
+                        $note->save();
+                    }
                 }
             }
 
@@ -219,17 +222,28 @@ class StartWorkoutController extends Controller
                         $exercise->exercise_name    = $exercise_specific['exercise_name'];
                         $exercise->reps             = $exercise_specific['reps'];
                         $exercise->set_nr           = $exercise_specific['set'];
-                        $exercise->weight           = $exercise_specific['weight'];
+                        
+                        // If the current exercise if of type band, set the weight to 0.
+                        if (!array_key_exists("weight", $exercise_specific) && $exercise_specific['weight_type'] === 'band') {
+                            $exercise->weight       = 0;
+                            $exercise->band_type    = $exercise_specific['band_type'];
+                        }
+                        else {
+                            $exercise->weight       = $exercise_specific['weight'];
+                        }
 
                         $exercise->save();
                     }
+                    if ($session_exercise['note']['text'] && strlen($session_exercise['note']['text']) > 0) {
+                        $note = new Note;
+                        $note->user_id              = $user_id;
+                        $note->routine_junction_id  = $session_exercise['routine_junction_id'];
+                        $note->exercise_name        = $superset_name;
+                        $note->note                 = $session_exercise['note']['text'];
+                        $note->label                = $session_exercise['note']['labelType'];
+                        $note->save();
+                    }
 
-                    $note = new Note;
-                    $note->user_id              = $user_id;
-                    $note->routine_junction_id  = $session_exercise['routine_junction_id'];
-                    $note->note                 = $session_exercise['note']['text'];
-                    $note->label                = $session_exercise['note']['labelType'];
-                    $note->save();
                 }
             }
 

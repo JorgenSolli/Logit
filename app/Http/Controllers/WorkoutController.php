@@ -219,7 +219,6 @@ class WorkoutController extends Controller
                     $lastTotalLifted += $e->weight * $e->reps;
                 }
             }
-
             // Session rest-time previous session
             $lastAvgRestTime = LogitFunctions::parseRestTime($previousWorkout->duration_minutes / $previousTotalSets);
             

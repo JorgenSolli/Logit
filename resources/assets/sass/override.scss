@@ -30,6 +30,10 @@
     }
 }
 
+.alert.alert-warning {
+    background-color: #ff9e0f;
+}
+
 .btn-group-lg .btn, .btn-group-lg .navbar .navbar-nav>li>a.btn, .btn-group-lg>.btn, .btn.btn-lg, .navbar .navbar-nav>li.btn-group-lg>a.btn, .navbar .navbar-nav>li>a.btn.btn-lg {
     font-size: 14px;
     padding: 18px 36px;
@@ -49,6 +53,9 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
     font-weight: 300;
 }
 
+.bootstrap-select .dropdown-menu.open.show {
+	z-index: 9999999;
+}
 
 .bootstrap-select.btn-group {
 	margin-top: 5px;
