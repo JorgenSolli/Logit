@@ -124,7 +124,7 @@ class StartWorkoutController extends Controller
 
         $topNav = [
             0 => [
-                'url'  => '/dashboard/start',
+                'url'  => '/start-workout',
                 'name' => 'Start Workout'
             ]
         ];
@@ -298,11 +298,11 @@ class StartWorkoutController extends Controller
 
         $topNav = [
             0 => [
-                'url'  => '/dashboard/start',
+                'url'  => '/start-workout',
                 'name' => 'Start Workout'
             ],
             1 => [
-                'url'  => '/dashboard/start/' . $routine->id,
+                'url'  => '/start-workout/' . $routine->id,
                 'name' => $routine->routine_name
             ]
         ];

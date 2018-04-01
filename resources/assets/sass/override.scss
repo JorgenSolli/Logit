@@ -70,6 +70,33 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
     }
 }
 
+
+.navbar {
+	.navbar-toggler {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+	}
+
+	.navbar-wrapper {
+		max-width: 83vw;
+		display: inline-block;
+	}
+
+	.navbar-brand {
+		margin-left: 0;
+		padding-left: 0.5rem;
+		padding-right: 0.5rem !important;
+		margin-right: 0;
+		font-size: 1rem;
+	}
+}
+
+.main-panel > .content {
+	padding-bottom: 0; /* All containers are padded with margin anyways */
+}
+
+
 /* This only works with a pre-defined timeline height. As for the current content this will work fine. */
 .timeline:before {
     height: calc(100% - 100px);

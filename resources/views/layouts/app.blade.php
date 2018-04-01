@@ -102,7 +102,7 @@
                     <p class="loader-text">Loading your precious data...</p>
                   </div>
                 </div>
-                <div class="container-fluid" style="display: none">
+                <div id="app-content" style="display: none">
                     @yield('content')
                 </div>
             </div>
@@ -122,7 +122,7 @@
   <script>
     $(document).ready(function() {
       $("#pageload").fadeOut();
-      $("#app .container-fluid").fadeIn();
+      $("#app-content").fadeIn();
     })
   </script>
 </body>
