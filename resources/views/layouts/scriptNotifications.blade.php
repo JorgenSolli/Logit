@@ -8,7 +8,7 @@
 
 		    },{
 		        type: 'success',
-		        timer: 2000,
+		        timer: 200000,
 		        placement: {
 		            from: 'top',
 		            align: 'right'

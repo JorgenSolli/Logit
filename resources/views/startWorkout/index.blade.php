@@ -10,10 +10,6 @@
     <div class="row">
         @php $index = 0 @endphp
         @foreach($routines as $routine)
-            @if ($index == 4)
-                </div><div class="row">
-                @php $index = 0 @endphp
-            @endif
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card card-pricing card-raised">
                     @if (session('gymming') == $routine['id'])
@@ -49,7 +45,6 @@
                     </div>
                 </div>
             </div>
-            @php $index++ @endphp
         @endforeach
     </div>
     @if ($nrInactive > 0)

@@ -32,13 +32,8 @@
                         <div class="row">
                             @php $count = 0; @endphp
                             @foreach ($friends as $friend)
-                                @if ($count == 3)
-                                    </div>
-                                    <div class="row">
-                                    @php $count = 0; @endphp
-                                @endif
                                 <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <div class="card card-pricing card-raised">
+                                    <div class="card card-pricing card-raised mb-0">
                                         <div class="card-body">
                                             <h6 class="card-category">{{ $friend->email }}</h6>
                                             <div class="card-icon icon-primary">
@@ -54,7 +49,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                @php $count++; @endphp
                             @endforeach
                         </div>
                     @else

@@ -30,6 +30,13 @@
     }
 }
 
+
+@media (max-width: 992px) {
+	.alert.col-xs-11 {
+		max-width: 91.66666667%;
+	}
+}
+
 .alert.alert-warning {
     background-color: #ff9e0f;
 }
