@@ -30,7 +30,6 @@
     }
 }
 
-
 @media (max-width: 992px) {
 	.alert.col-xs-11 {
 		max-width: 91.66666667%;
@@ -44,6 +43,10 @@
 .btn-group-lg .btn, .btn-group-lg .navbar .navbar-nav>li>a.btn, .btn-group-lg>.btn, .btn.btn-lg, .navbar .navbar-nav>li.btn-group-lg>a.btn, .navbar .navbar-nav>li>a.btn.btn-lg {
     font-size: 14px;
     padding: 18px 36px;
+}
+
+.navbar .container .navbar-toggler {
+	position: relative;
 }
 
 .is-focused .bmd-label-floating, .is-filled .bmd-label-floating {

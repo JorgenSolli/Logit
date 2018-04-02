@@ -44,7 +44,7 @@ $(document).ready(function() {
 			                        '<td>' + users.users[i].name + '</td>' +
 			                        '<td>' + users.users[i].email +'</td>' +
 			                        '<td id="' + users.users[i].id + '">' +
-			                        	'<a class="addfriend pointer btn btn-sm btn-success">send request</a>' +
+			                        	'<button class="addfriend pointer btn btn-sm btn-success">send request</button>' +
 		                        	'</td>' +
 	                      		'</tr>';
 					}

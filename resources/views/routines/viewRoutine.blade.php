@@ -46,7 +46,7 @@
                   <div class="btn-sm btn-primary sort-icon handle float-left">             
                     <span class="fal fa-arrows-v"></span> Drag to sort
                   </div>
-                  <button class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
+                  <button type="button" class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
                 </div>
                 <div class="form-group label-floating">
                   <label class="control-label bmd-label-floating">Superset Name</label>
@@ -66,7 +66,7 @@
                               <div class="btn-sm btn-primary sort-icon handle float-left">             
                                 <span class="fal fa-arrows-v"></span> Drag to sort
                               </div>
-                              <button class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
+                              <button type="button" class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
                             </div>
 
                             <div class="row">
@@ -179,7 +179,7 @@
                 <div class="btn-sm btn-primary sort-icon handle float-left">             
                   <span class="fal fa-arrows-v"></span> Drag to sort
                 </div>
-                <button class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
+                <button type="button" class="deleteExercise btn btn-sm btn-danger float-right"><span class="fal fa-trash"></span></button>
               </div>
               <div class="row">
                 <div class="col-xs-12 col-sm-6">

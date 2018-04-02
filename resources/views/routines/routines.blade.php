@@ -12,8 +12,8 @@
                 <i class="material-icons">accessibility</i>
             </div>
             <h4 class="card-title">My Routines</h4>
-        </div>
-        <div class="card-body">
+          </div>
+          <div class="card-body">
             <div class="toolbar"></div>
             <div class="material-datatables">
               <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -84,11 +84,13 @@
 
     @if (!$pending->isEmpty())
       <div class="card">
-        <div class="card-header card-header-icon" data-background-color="green">
-          <i class="material-icons">accessibility</i>
-        </div>
-        <div class="card-content">
+        <div class="card-header card-header-success card-header-icon">
+          <div class="card-icon">
+              <i class="material-icons">accessibility</i>
+          </div>
           <h4 class="card-title">Routines shared with you</h4>
+        </div>
+        <div class="card-body">
           <div class="toolbar"></div>
           <div class="material-datatables">
             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -121,12 +123,12 @@
                       </a>
                     </td>
                     <td class="text-center">
-                      <a href="{{ url("/dashboard/my_routines/accept_routine/{$routine['id']}") }}" class="pointer">
+                      <a href="{{ url("/routines/accept_routine/{$routine['id']}") }}" class="pointer">
                         <span class="fal fa-check fa-lg success-color"></span>
                       </a>
                     </td>
                     <td class="text-center">
-                      <a class="pointer deleteRoutine" id="{{ $routine['id'] }}">
+                      <a class="pointer deleteSharedRoutine" id="{{ $routine['id'] }}">
                         <span class="fal fa-trash fa-lg danger-color"></span>
                       </a>
                     </td>

@@ -389,6 +389,25 @@ $(document).ready(function() {
 		}).done();
 	});
 
+    $(document).on('click', '#shareRoutine', function() {
+        var selected = $("#myRoutine").val();
+
+        if (!selected || selected == "") {
+            $.notify({
+                icon: "add_alert",
+                message: "You must select a routine first."
+            },{
+                type: 'danger',
+                timer: 3000,
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                }
+            });
+            return false;
+        }
+    });
+
     $(document).on('change', '#routine', function() {
         var routineId = $(this).val();
 

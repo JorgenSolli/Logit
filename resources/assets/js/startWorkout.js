@@ -76,6 +76,84 @@ var saveWorkout = function(form, data, id, submitButton) {
 	});
 }
 
+var updateGoal = function(data, formData) {
+	var submit = false;
+	var hasOver = false;
+	var steps = [];
+	var doneLooping = false;
+	var length = Object.keys(data).length - 1;
+
+	$.each(data, function(key, val) {
+		if (val.overGoal) {
+			hasOver = true;
+
+			steps.push({
+				type: 'success',
+				title: 'Update your goal',
+				text: "Awesome! You surpassed your previous goal for " + val.exercise + ". Let's set at new one.",
+				input: 'number',
+				inputValue: val.currentGoal,
+				confirmButtonText: 'Update',
+				confirmButtonClass: 'btn btn-success',
+				buttonsStyling: false,
+				allowOutsideClick: false,
+				preConfirm: (number) => {
+					return new Promise((resolve) => {
+						if (!number) {
+							swal.showValidationError(
+								'Goal cannot be empty'
+							)
+						} else {
+							$.ajax({
+								headers: {
+									'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+								},
+								url: '/routines/edit/goal',
+								method: 'POST',
+								data: {
+									junction: val.routineJunctionId,
+									goal: number
+								},
+								success: function(data) {
+									resolve();
+								}
+							});
+						}
+					});
+				},
+			});
+		}
+		if (key == length) {
+			doneLooping = true;
+		}
+	});
+
+	if (hasOver) {
+		swal.queue(steps).then((result) => {
+			swal.resetDefaults()
+			swal({
+				type: 'success',
+				title: 'Goal(s) updated!',
+				confirmButtonText: 'Continue',
+				confirmButtonClass: 'btn btn-success',
+				buttonsStyling: false
+			}).then(function () {
+				if (doneLooping) {
+					saveWorkout(formData.form, formData.data, formData.id, formData.that);
+				}
+			}).done();
+		})
+	} else {
+		if (doneLooping) {
+			submit = true;
+		}
+	}
+	
+	if (submit) {
+		saveWorkout(formData.form, formData.data, formData.id, formData.that);
+	}
+}
+
 var setMediaLink = function() {
 	if ($('input[name*="media"]').val() !== "") {
 		// If we're dealing with a superset
@@ -233,10 +311,58 @@ $(document).ready(function() {
 			});
 
 			if (ok) {
-	            var form = $(this).closest('form').attr('action');
-	            var data = $(this).closest('form').serialize();
-	            var id = $(this).closest('input[name="routine_junction_id"]').val();
-	            saveWorkout(form, data, id, $(this));
+	            var formData = {
+	            	form: $(this).closest('form').attr('action'),
+	            	data: $(this).closest('form').serialize(),
+	            	id: $('input[name="routine_junction_id"]').val(),
+	            	that: $(this)
+	            }
+	            var type = $('input[name="type"]').val();
+            	var routineJunctionId = formData.id;
+	            var goal, overGoal, exercise;
+	            var data = {};
+
+	            if (type == "regular") {
+	            	goal = parseInt($('input[name="exercise-goal"]').val());
+	            	exercise = $('input[name="exercise_name"]').val()
+	            	$("input[name^='exercise'][name$='[weight]']").each(function() {
+	            		if ($(this).val() > goal) {
+	            			overGoal = true;
+	            		}
+	            	});
+	            	
+	            	data[0] = {
+	            		routineJunctionId: routineJunctionId,
+	            		currentGoal: goal,
+	            		overGoal: overGoal,
+	            		exercise: exercise
+	            	}
+
+	            } else {
+	            	var supersetsCount = parseInt($('input[name="superset_count"]').val());
+
+	            	for (var i = 0; i < supersetsCount; i++) {
+		            	goal = $('input[name="superset[' + i + '][goal]"]').val();
+		            	routineJunctionId = $('input[name="superset[' + i + '][junction]"]').val();
+		            	exercise = $('input[name^="superset[' + i + '][1]"][name$="[exercise_name]"]').val()
+		            	overGoal = false
+		            	$("input[name^='superset[" + i + "]'][name$='[weight]']").each(function() {
+		            		if (parseInt($(this).val()) > goal) {
+		            			overGoal = true;
+		            		}
+		            	});
+		            	
+		            	data[i] = {
+		            		routineJunctionId: routineJunctionId,
+		            		currentGoal: goal,
+		            		overGoal: overGoal,
+		            		exercise: exercise
+		            	}
+	            	}
+	            }
+            	
+            	/* This function also calls the saveWorkout */
+            	updateGoal(data, formData);
 			} else {
 				$.notify({
 					icon: "error_outline",

@@ -83,6 +83,7 @@ Route::group(['middleware' => ['isVerified']], function () {
 		Route::get('new_routine', 'RoutineController@newRoutine');
 		Route::get('accept_routine/{routine}', 'RoutineController@acceptRoutine');
 		Route::get('preview', 'RoutineController@previewRoutine');
+		Route::post('edit/goal', 'RoutineController@changeGoal');
 
 		/* Routine */
 		Route::prefix('{routine}')->group(function() {

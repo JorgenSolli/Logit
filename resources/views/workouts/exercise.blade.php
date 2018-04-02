@@ -127,6 +127,7 @@
 			<input type="hidden" name="type" value="superset">
 			<input type="hidden" name="routine_junction_id" value="{{ $exercise[0]->id }}">
 			<input type="hidden" name="superset_name" value="{{ $exercise[0]->superset_name }}">
+			<input type="hidden" name="superset_count" value="{{ $supersetsCount }}">
 
 			@foreach ($exercise as $media)
 				@if ($media->media)
@@ -158,6 +159,10 @@
 							<h4 class="m-b-0">Set nr {{ $i }}</h4>
 							@for ($j = 0; $j <= $supersetsCount - 1; $j++)
 								<input type="hidden" name="superset[{{ $j }}][{{ $i }}][exercise_name]" value="{{ $exercise[$j]->exercise_name }}">
+								@if ($i == 1)
+									<input type="hidden" name="superset[{{ $j }}][goal]" value="{{ $exercise[$j]->goal_weight }}">
+									<input type="hidden" name="superset[{{ $j }}][junction]" value="{{ $exercise[$j]->id }}">
+								@endif
 								<div class="card m-b-10 m-t-10">
 									<div class="card-header">
 										<h4 class="card-title">{{ $exercise[$j]->exercise_name }}</h4>

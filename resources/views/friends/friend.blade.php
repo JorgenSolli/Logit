@@ -50,7 +50,7 @@
                                 <input type="hidden" name="friend" value="{{ $friend->id }}" />
                             </div>
                             <div class="col-md-6 col-xs-6">
-                                <button type="submit" id="share-routine" class="btn btn-success btn-fullwidth">
+                                <button type="submit" id="shareRoutine" class="btn btn-success btn-fullwidth">
                                     <i class="material-icons">share</i> Share
                                 </button>
                             </div>

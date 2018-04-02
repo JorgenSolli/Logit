@@ -325,7 +325,7 @@ class StartWorkoutController extends Controller
 
             foreach ($supersets as $superset) {
                 session()->put([
-                      $superset->superset_name => $exercise->id
+                      $superset->superset_name => $superset->id
                 ]);
             }
             session(['gymming' => $routine->id]);

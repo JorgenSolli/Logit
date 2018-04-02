@@ -200,11 +200,14 @@ class RoutineController extends Controller
     public function deleteRoutine (Routine $routine)
     {
     	if ($routine->user_id == Auth::id()) {
-	    	
-            #RoutineJunction::where('routine_id', $routine->id)->first();
-
-			$routine->deleted = 1;
-            $routine->save();
+            /* If the user is deleting a shared, and not accepted, routine; delte it entierly */
+            if ($routine->pending == 1) {
+                RoutineJunction::where('routine_id', $routine->id)->delete();
+                $routine->delete();
+            } else {
+    			$routine->deleted = 1;
+                $routine->save();
+            }
 
 			return back()->with('success', 'Routine deleted.');
 		}
@@ -333,6 +336,24 @@ class RoutineController extends Controller
                 return response()->json(array('success' => true, 'status' => 'Now inactive'));
             }
         }
+        return response()->json(array('success' => false));
+    }
+
+    public function changeGoal (Request $request)
+    {
+        $junctionId = $request->junction;
+
+        $junction = RoutineJunction::where([
+            ['id', $junctionId],
+            ['user_id', Auth::id()]
+        ])->first();
+
+        if ($junction) {
+            $junction->goal_weight = $request->goal;
+            $junction->save();
+            return response()->json(array('success' => true));
+        }
+
         return response()->json(array('success' => false));
     }
 

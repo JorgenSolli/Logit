@@ -75,6 +75,31 @@ $(document).on('click', '.routine-back', function() {
     $(".ps-container").perfectScrollbar('update');
 });
 
+$(document).on('click', '.deleteSharedRoutine', function() {
+    var routineId = $(this).attr('id');
+    var name = $("#routine-" + routineId).find('.routine-name').html().trim();
+
+    swal({
+        title: 'Are you sure?',
+        text: name + " will be removed from this list.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonClass: 'btn btn-danger',
+        cancelButtonClass: 'btn btn-primary',
+        confirmButtonText: 'Yes, delete it!',
+        buttonsStyling: false
+    }).then(function () {
+        swal({
+            title: 'Deleted!',
+            text: 'The routine has been deleted.',
+            type: 'success',
+            confirmButtonClass: 'btn btn-primary',
+            buttonsStyling: false
+        }).done();
+        deleteRoutine(routineId);
+    }).done();
+});
+
 /* Functions for deleting a routing */
 $(document).on('click', '.deleteRoutine', function() {
     var routineId = $(this).attr('id');
