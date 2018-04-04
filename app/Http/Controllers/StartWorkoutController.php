@@ -157,10 +157,10 @@ class StartWorkoutController extends Controller
             $currTime = Carbon::now();
             $duration = $currTime->diffInMinutes($session_started);
 
-            #session()->forget('exercises');
-            #session()->forget('supersets');
-            #session()->forget('gymming');
-            #session()->forget('started_gymming');
+            session()->forget('exercises');
+            session()->forget('supersets');
+            session()->forget('gymming');
+            session()->forget('started_gymming');
 
             $user_id = Auth::id();
 
@@ -214,25 +214,28 @@ class StartWorkoutController extends Controller
             if ($supersets) {
                 foreach ($supersets as $session_exercise) {
                     $superset_name  = $session_exercise['superset_name'];
-                    foreach ($session_exercise['exercises'] as $exercise_specific) {
-                        $exercise = new WorkoutJunction;
-                        $exercise->workout_id       = $workout->id;
-                        $exercise->user_id          = $user_id;
-                        $exercise->routine_id       = $routine_id;
-                        $exercise->exercise_name    = $exercise_specific['exercise_name'];
-                        $exercise->reps             = $exercise_specific['reps'];
-                        $exercise->set_nr           = $exercise_specific['set'];
-                        
-                        // If the current exercise if of type band, set the weight to 0.
-                        if (!array_key_exists("weight", $exercise_specific) && $exercise_specific['weight_type'] === 'band') {
-                            $exercise->weight       = 0;
-                            $exercise->band_type    = $exercise_specific['band_type'];
-                        }
-                        else {
-                            $exercise->weight       = $exercise_specific['weight'];
-                        }
+                    foreach ($session_exercise['exercises'] as $key => $exercise_specific) {
+                        // Make sure were looping through an actual set
+                        if (is_numeric($key)) {
+                            $exercise = new WorkoutJunction;
+                            $exercise->workout_id       = $workout->id;
+                            $exercise->user_id          = $user_id;
+                            $exercise->routine_id       = $routine_id;
+                            $exercise->exercise_name    = $exercise_specific['exercise_name'];
+                            $exercise->reps             = $exercise_specific['reps'];
+                            $exercise->set_nr           = $exercise_specific['set'];
+                            
+                            // If the current exercise if of type band, set the weight to 0.
+                            if (!array_key_exists("weight", $exercise_specific) && $exercise_specific['weight_type'] === 'band') {
+                                $exercise->weight       = 0;
+                                $exercise->band_type    = $exercise_specific['band_type'];
+                            }
+                            else {
+                                $exercise->weight       = $exercise_specific['weight'];
+                            }
 
-                        $exercise->save();
+                            $exercise->save();
+                        }
                     }
                     if ($session_exercise['note']['text'] && strlen($session_exercise['note']['text']) > 0) {
                         $note = new Note;
