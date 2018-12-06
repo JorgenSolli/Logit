@@ -1,4 +1,11 @@
 # Loggit
+
+> This app is currently in a stale state.
+>
+> I thas not recieved an update in a while, and the app hosted on Heroku is dead. 
+>
+> Feel free to fork this and make fixes as needed. It should also recieve a Laravel update to 5.7
+
 A webapp for logging workout sessions with a sidedish of statistics
 
 This document is by no means completed. It is still under active 'development' and will constantly change untill it's marked as complete.
